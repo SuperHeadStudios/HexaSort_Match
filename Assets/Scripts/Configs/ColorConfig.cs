@@ -19,5 +19,5 @@ public class ColorItem
 
     public Material material;
 
-    public Sprite surfaceSpr;
+    //public Sprite surfaceSpr;
 }
