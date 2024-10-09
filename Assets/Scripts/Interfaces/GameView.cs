@@ -121,6 +121,7 @@ public class GameView : BaseView
         if (GameManager.instance.hammerBoosterValue > 0)
         {
             ShowHammerBoosterView();
+            
         }
         else
         {

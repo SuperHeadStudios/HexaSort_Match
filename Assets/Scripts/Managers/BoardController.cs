@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Lofelt.NiceVibrations;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class BoardController : MonoBehaviour
 {
+    public static BoardController Instance;
+
     public LayerMask columnMask;
 
     public LayerMask bottomMask;
@@ -21,6 +24,18 @@ public class BoardController : MonoBehaviour
 
     public CellHolder cellHolder;
 
+    public GameObject hmAttack;
+
+    public bool IsNowHit = false;
+
+    public ParticleSystem hammerEffect;
+
+    public bool dontMove = true;
+
+    public bool NowMakeIt = false;
+
+    
+
     public enum BOARD_STATE
     {
         IDLE, PROCESSING
@@ -35,11 +50,15 @@ public class BoardController : MonoBehaviour
     public ParticleSystem clearHexaColumVfx2;
 
     public FlyingStarRoot flyingStar;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     public void InitBoardController()
@@ -58,6 +77,8 @@ public class BoardController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                //ClearColumn();
+                
                 ClearColumn();
                 return;
             }
@@ -146,7 +167,6 @@ public class BoardController : MonoBehaviour
                     PutColumnInHolder();
                 else
                     ReleaseFocusCell();
-
             }
         }
 
@@ -172,7 +192,6 @@ public class BoardController : MonoBehaviour
                     isHitColumn = true;
                     currentHexaColumn.isSelected = true;
                     MoveToDragPos();
-
                 }
             }
 
@@ -225,10 +244,14 @@ public class BoardController : MonoBehaviour
                 {
                     BottomCell bottomCell = hit.transform.GetComponent<BottomCell>();
                     //bottomCell.GetNearCells();
-                    if (bottomCell.isLock)
+                    /*if (bottomCell.isLock)
                     {
                         bottomCell.UnLockCell();
                     }
+                    else if (bottomCell.isWood)
+                    {
+                        bottomCell.UnLockCell();
+                    }*/
                 }
             }
 
@@ -266,9 +289,7 @@ public class BoardController : MonoBehaviour
             currentHexaColumn.MoveBack();
             currentHexaColumn.isSelected = false;
             currentHexaColumn = null;
-
         }
-
         if (currentHitBottomCell != null)
         {
             currentHitBottomCell.UnSelectCell();
@@ -283,9 +304,7 @@ public class BoardController : MonoBehaviour
             currentHexaColumn.MoveToLastBottom();
             currentHexaColumn.isSelected = false;
             currentHexaColumn = null;
-
         }
-
         if (currentHitBottomCell != null)
         {
             currentHitBottomCell.UnSelectCell();
@@ -363,6 +382,9 @@ public class BoardController : MonoBehaviour
     }
 
 
+
+    #region AlllData
+
     public void RemoveEmptyElements()
     {
         List<HexaColumn> emptyElements = new List<HexaColumn>();
@@ -430,9 +452,6 @@ public class BoardController : MonoBehaviour
             Debug.Log("Game Over");
             GameManager.instance.ShowGameLose();
         }
-        
-
-      
     }
 
     public void DestroyThreeColums()
@@ -441,22 +460,25 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.boardGenerator.bottomCellList.Count; i++)
         {
+            //DestroyColumnByHammer(GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn);
             if (GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn.hexaCellList.Count > 0)
             {
                 totalColumnDestroy++;
-
-                DestroyColumnByHammer(GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn);
 
                 if (totalColumnDestroy >= 3)
                     break;
             }
         }
-    }
+    }    
 
-    private void DestroyColumnByHammer(HexaColumn column)
+    IEnumerator DestroyColumnByHammer(HexaColumn column)
     {
-        GameManager.instance.hammerExplosionVfx.transform.position = column.hexaCellList[0].transform.position + new Vector3(0.0f, 1.0f, 0.0f);
-        GameManager.instance.hammerExplosionVfx.Play();
+        hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -1.5f);
+        hammerEffect.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, 0f);
+        //GameManager.instance.hammerExplosionVfx.Play();
+        StartCoroutine(HammerBoosterAttack());
+
+        yield return new WaitForSeconds(1.5f);   
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
@@ -469,11 +491,16 @@ public class BoardController : MonoBehaviour
         GameManager.instance.uiManager.gameView.SubHammerValue();
         GameManager.instance.uiManager.gameView.CloseHammer();
         AudioManager.instance.hammerSound.Play();
-
         if (AudioManager.instance.hapticState == 1)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.HeavyImpact);
     }
 
+    IEnumerator HammerBoosterAttack()
+    {
+        hmAttack.SetActive(true) ;
+        yield return new WaitForSeconds(2);
+        hmAttack.SetActive(false);
+    }
 
     private void RefreshAllNearCells()
     {
@@ -482,7 +509,6 @@ public class BoardController : MonoBehaviour
             GameManager.instance.boardController.hexaColumnsInMap[i].currentBottomCell.GetNearCells();
         }
     }
-
 
     private void TransferDoubleCells(HexaColumn cell1, HexaColumn cell2)
     {
@@ -494,6 +520,7 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < sizeOfLastPart2; i++)
         {
+            //Debug.Log("Check Pcs" + name);
             cell2.hexaCellList[sizeOfColumn2 - 1 - i].transform.SetParent(cell1.transform);
             //cell2.hexaCellList[sizeOfColumn2 - sizeOfLastPart2 + i].transform.localPosition = new Vector3(0, 0.25f * (1 + i + sizeOfColumn1), 0);
             MoveCell(cell2.hexaCellList[sizeOfColumn2 - 1 - i].transform, new Vector3(0, 0.25f * (1 + i + sizeOfColumn1), 0), i, sizeOfLastPart2 - 1, cell1, cell2);
@@ -502,7 +529,7 @@ public class BoardController : MonoBehaviour
 
     private void MoveCell(Transform cell, Vector3 targetPos, int queue, int lastQueue, HexaColumn cell1, HexaColumn cell2)
     {
-
+        //Debug.Log("Check Pcs" + name);
         List<Vector3> arcPoint = new List<Vector3>();
 
         for (int i = 0; i < 10; i++)
@@ -525,11 +552,11 @@ public class BoardController : MonoBehaviour
                 }
                 else
                 {
+                    dontMove = false;
                     //Debug.Log("FULL STACK");
                     ClearTopLayer(cell1);
                 }
             }
-
         });
 
         if (cell1.currentBottomCell.column == cell2.currentBottomCell.column)
@@ -537,7 +564,6 @@ public class BoardController : MonoBehaviour
             if (cell1.currentBottomCell.row > cell2.currentBottomCell.row)
                 cell.DOLocalRotate(new Vector3(180, 0, 0), 0.5f).SetRelative().SetDelay((float)queue * 0.05f).SetEase(Ease.Linear).OnComplete(() =>
                 {
-
                     cell.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
                 });
@@ -562,29 +588,29 @@ public class BoardController : MonoBehaviour
             else
                 cell.DOLocalRotate(new Vector3(0, 0, 180), 0.5f).SetRelative().SetDelay((float)queue * 0.05f).SetEase(Ease.Linear).OnComplete(() =>
                 {
-
                     cell.transform.localRotation = Quaternion.Euler(0, 0, 0);
-
                 });
         }
-
     }
+#endregion
 
 
     private bool CheckTopLayer(HexaColumn cell)
     {
         bool isFull = false;
-
         int dataCount = cell.currentHexaColumnData.columnDataList.Count;
         int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
-
         if (topSize >= 10)
         {
             isFull = true;
+            cell.currentBottomCell.CheckNearByOnCompelteStake();
+            cell.currentBottomCell.CheckCurrentCellCompleteStake();
         }
 
         return isFull;
     }
+
+
 
     private void ClearTopLayer(HexaColumn cell)
     {
@@ -613,6 +639,7 @@ public class BoardController : MonoBehaviour
                 clearHexaColumVfx1.transform.position = element.position;
                 clearHexaColumVfx1.Play();
                 flyingStar.SpawnStar(element.position);
+                
                 GameManager.instance.boardGenerator.currentGoalNumber += topSize;
                 GameManager.instance.uiManager.gameView.UpdateGoalBar();
             }
@@ -620,8 +647,6 @@ public class BoardController : MonoBehaviour
 
             if (queue == lastQueue)
             {
-
-
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
                     if (!clearHexaColumVfx2.gameObject.activeSelf)
@@ -670,7 +695,7 @@ public class BoardController : MonoBehaviour
         });
     }
 
-    private void ClearColumn()
+    public void ClearColumn()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -687,13 +712,10 @@ public class BoardController : MonoBehaviour
                     //bottomCell.GetNearCells();
                     if (bottomCell.hexaColumn.hexaCellList.Count > 0)
                     {
-                        DestroyColumnByHammer(bottomCell.hexaColumn);
+                        StartCoroutine(DestroyColumnByHammer(bottomCell.hexaColumn));
                     }
-
-
                 }
             }
-
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,14 @@ public class GameManager : MonoBehaviour
     public ParticleSystem confetiVfx;
 
     public ParticleSystem hammerExplosionVfx;
+
+    [SerializeField] private int woodCount;
+    [SerializeField] private int honeyCount;
+    [SerializeField] private int grassCount;
+
+    [SerializeField] private TextMeshProUGUI woodCountText;
+    [SerializeField] private TextMeshProUGUI honeyCountText;
+    [SerializeField] private TextMeshProUGUI grassCountText;
 
     [HideInInspector]
     public int levelIndex;
@@ -67,12 +76,44 @@ public class GameManager : MonoBehaviour
         
     }
 
+    #region Blocker IncreaseDecrese
+    public void IncreaseWoodCount()
+    {
+        woodCount++;
+        woodCountText.text = woodCount.ToString();
+    }
+    public void IncreaseHoneyCount()
+    {
+        honeyCount++;
+        honeyCountText.text = honeyCount.ToString();
+    }
+    public void IncreaseGrassCount()
+    {
+        
+        grassCount++;
+        grassCountText.text = grassCount.ToString();
+    }
+
+    public int WoodCount()
+    {
+        return woodCount;
+    }
+    public int HoneyCount()
+    {
+        return honeyCount;
+    }
+    public int GrassCount()
+    {
+        return grassCount;
+    }
+
+    #endregion
+
     public void LoadGame()
     {
         LoadGameData();
         ShowHome();
     }
-
     private void LoadGameData()
     {
         if (PlayerPrefs.GetInt("FirstGame") == 0)

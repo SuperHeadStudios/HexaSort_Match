@@ -75,8 +75,8 @@ public class CellHolder : MonoBehaviour
             HexaColumnData firstPiece = new HexaColumnData();
             firstPiece.columnDataList = new List<ColumnData>();
 
-            ColumnData randomData1 = new ColumnData(Random.Range(1, 9), Random.Range(2, 4));
-            ColumnData randomData2 = new ColumnData(Random.Range(1, 9), Random.Range(2, 5));
+            ColumnData randomData1 = new ColumnData(Random.Range(1, 6), Random.Range(2, 4));
+            ColumnData randomData2 = new ColumnData(Random.Range(1, 6), Random.Range(2, 5));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
@@ -88,6 +88,7 @@ public class CellHolder : MonoBehaviour
             {
                 if(m == 0)
                 {
+                    Debug.Log("Cell Holder 91 first peice columnd data color id " + firstPiece.columnDataList[0].colorID);
                     mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[0].colorID, firstPiece.columnDataList[0].columnValue));
                 }
                 else
@@ -98,6 +99,7 @@ public class CellHolder : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Cell Holder 91 first peice columnd data color id 2_" + firstPiece.columnDataList[0].colorID);
                         mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[m].colorID, firstPiece.columnDataList[m].columnValue));
                     }
                 }
@@ -128,7 +130,6 @@ public class CellHolder : MonoBehaviour
 
     private void CreateNextPiece()
     {
-       
         for (int i = 0; i < currentSlots; i++)
         {
             HexaColumnData firstPiece = new HexaColumnData();
@@ -136,7 +137,8 @@ public class CellHolder : MonoBehaviour
 
             if (GameManager.instance.boardController.hexaColumnsInMap.Count > i)
             {
-                if(GameManager.instance.boardController.hexaColumnsInMap.Count <= 3)
+                
+                if (GameManager.instance.boardController.hexaColumnsInMap.Count <= 3)
                 {
                     for (int j = 0; j < GameManager.instance.boardController.hexaColumnsInMap[i].currentHexaColumnData.columnDataList.Count; j++)
                     {
@@ -162,15 +164,12 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            colorID = Random.Range(1, 9);
+                            colorID = Random.Range(1, 6);
                         }
 
                         ColumnData columnData = new ColumnData(colorID, clampValue);
                         firstPiece.columnDataList.Add(columnData);
-
-                       
                     }
-                       
                 }
                 else
                 {
@@ -199,20 +198,18 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            colorID = Random.Range(1, 9);
+                            colorID = Random.Range(1, 5);
                         }
 
                         ColumnData columnData = new ColumnData(colorID, clampValue);
                         firstPiece.columnDataList.Add(columnData);
-
                     }
                 }
-                       
             }
             else
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(1, 9), Random.Range(2, 4));
-                ColumnData randomData2 = new ColumnData(Random.Range(1, 9), Random.Range(2, 5));
+                ColumnData randomData1 = new ColumnData(Random.Range(1, 6), Random.Range(2, 4));
+                ColumnData randomData2 = new ColumnData(Random.Range(1, 6), Random.Range(2, 5));
 
                 if (randomData1.colorID == randomData2.colorID)
                 {
@@ -251,7 +248,7 @@ public class CellHolder : MonoBehaviour
             HexaColumn column = GameManager.instance.poolManager.GetHexaColumn();
             column.InitColumn();
             column.transform.SetParent(transform);
-            column.transform.localPosition = new Vector3((i - 1) * 3.0f, 0, 0);
+            column.transform.localPosition = new Vector3((i - 1) * 2.0f, 0, 0);
             column.cellHoder = this;
             column.positionInHoler = column.transform.localPosition;
             column.CreateColumn(mergePiece);
@@ -274,6 +271,7 @@ public class CellHolder : MonoBehaviour
 
     public void ClearCellHolder()
     {
+        
         for (int i = 0; i < hexaColumnList.Count; i++)
         {
             hexaColumnList[i].ClearAllElements();
@@ -281,7 +279,6 @@ public class CellHolder : MonoBehaviour
             hexaColumnList[i].currentBottomCell = null;
             GameManager.instance.poolManager.RemoveHexaColumn(hexaColumnList[i]);
         }
-           
     }
 
     public void ShuffleHolder()

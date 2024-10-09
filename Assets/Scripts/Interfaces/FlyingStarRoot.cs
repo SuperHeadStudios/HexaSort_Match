@@ -15,15 +15,19 @@ public class FlyingStarRoot : MonoBehaviour
     private RectTransform starObj1, starObj2, starObj3;
 
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
 
+    }
+
+    void Start()
+    {
         GameObject obj1 = Instantiate(starPrefab) as GameObject;
         obj1.SetActive(true);
         starObj1 = obj1.GetComponent<RectTransform>();
         starObj1.SetParent(transform);
         starObj1.localScale = Vector3.one;
-
 
         GameObject obj2 = Instantiate(starPrefab) as GameObject;
         obj2.SetActive(true);
@@ -37,11 +41,9 @@ public class FlyingStarRoot : MonoBehaviour
         starObj3.SetParent(transform);
         starObj3.localScale = Vector3.one;
 
-
         starObj1.gameObject.SetActive(false);
         starObj2.gameObject.SetActive(false);
         starObj3.gameObject.SetActive(false);
-
     }
 
     // Update is called once per frame

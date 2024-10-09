@@ -77,11 +77,35 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.transform.localPosition = new Vector3(levelConfig.LevelData.Cells[i].Col * XtileDistance, 0.0f,
                         levelConfig.LevelData.Cells[i].Row * ZtileDistance + ZtileDistance * 0.5f);
             }
-            
+
             if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RV)
+            {
                 bottomCell.InitBottomCell(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Wood)
+            {
+                bottomCell.InitWoodCell(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Grass)
+            {
+                bottomCell.InitGrassCell(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Honey)
+            {
+                bottomCell.InitHoneyCell(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Ice)
+            {
+                bottomCell.InitIceCell(true);
+            }
             else
+            {
                 bottomCell.InitBottomCell(false);
+                bottomCell.InitWoodCell(false);
+                bottomCell.InitGrassCell(false);
+                bottomCell.InitHoneyCell(false);
+                bottomCell.InitIceCell(false);
+            }
 
             bottomCell.CreateColumn();
             bottomCellList.Add(bottomCell);

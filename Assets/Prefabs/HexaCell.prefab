@@ -147,8 +147,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 8748892135801146194, guid: dcf79ba17d0d2b744983d006e5befb8e, type: 3}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,8 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 23839068192906929}
-  icon1: {fileID: 212143454037783850}
-  icon2: {fileID: 212716282512969940}
 --- !u!1 &1805618067780109
 GameObject:
   m_ObjectHideFlags: 0

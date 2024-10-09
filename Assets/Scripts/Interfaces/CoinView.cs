@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +35,6 @@ public class CoinView : BaseView
         coinObj1.SetParent(transform);
         coinObj1.localScale = Vector3.one;
 
-
         GameObject obj2 = Instantiate(coinPrefab) as GameObject;
         obj2.SetActive(true);
         coinObj2 = obj2.GetComponent<RectTransform>();
@@ -49,7 +46,6 @@ public class CoinView : BaseView
         coinObj3 = obj3.GetComponent<RectTransform>();
         coinObj3.SetParent(transform);
         coinObj3.localScale = Vector3.one;
-
 
         coinObj1.gameObject.SetActive(false);
         coinObj2.gameObject.SetActive(false);
@@ -86,7 +82,7 @@ public class CoinView : BaseView
 
     public void OnLivesChanged()
     {
-///        Debug.Log("Update Lives : " + GameManager.instance.livesManager.LivesText);
+        //Debug.Log("Update Lives : " + GameManager.instance.livesManager.LivesText);
         heartTxt.text = GameManager.instance.livesManager.LivesText;
     }
 
@@ -150,7 +146,6 @@ public class CoinView : BaseView
                 coinImage.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce);
             });
         }
-       
     }
 
     private Vector2 WorldToCanvasPosition(Canvas canvas, RectTransform canvasRect, Camera camera, Vector3 position)

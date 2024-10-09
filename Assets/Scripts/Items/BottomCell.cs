@@ -1,12 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
+using static UnityEditor.Rendering.FilterWindow;
 
 public class BottomCell : MonoBehaviour
 {
+    public static BottomCell instance;
+
     [HideInInspector]
     public int row;
 
@@ -28,14 +30,44 @@ public class BottomCell : MonoBehaviour
 
     public bool isLock;
 
+    public GameObject woodObj;
+
+    public GameObject grassObj;
+
+    public GameObject honeyObj;
+
+    public GameObject iceObj;
+
+    public bool isWood;
+
+    public bool isGrass;
+
+    public bool isHoney;
+
+    public bool isIce;
+
+    public HoneyBlocker honeyBlocker;
+
+    public GrassBlocker grassBlocker;
+
+    public WoodBlocker woodBlocker;
+
+    public IceBlocker iceBlocker;
+
+    public bool isBreakNow = false;
+
+    public bool isUseNow;
+
     // Start is called before the first frame update
+
     void Start()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
@@ -54,11 +86,51 @@ public class BottomCell : MonoBehaviour
         nearCellList = new List<BottomCell>();
         UnSelectCell();
         isLock = isLockCell;
-
         if (isLock)
             LockCell();
         else
             OpenCell();
+    }
+    public void InitWoodCell(bool isWoodCell)
+    {   
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isWood = isWoodCell;
+        if (isWood)
+            WoodCell();
+        else
+            WoodCellOpen();
+    }
+
+    public void InitGrassCell(bool isGrassCell)
+    {
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isGrass = isGrassCell;
+        if (isGrass)
+            GrassCell();
+        else
+            GrassCellOpen();
+    }
+    public void InitHoneyCell(bool isHoneyCell)
+    {
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isHoney = isHoneyCell;
+        if (isHoney)
+            HoneyCell();
+        else
+            HoneyCellOpen();
+    }
+    public void InitIceCell(bool isIceCell)
+    {
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isIce = isIceCell;
+        if (isIce)
+            IceCell();
+        else
+            IceCellOpen();
     }
 
     public void ClearBottomCell()
@@ -83,6 +155,26 @@ public class BottomCell : MonoBehaviour
         meshRenderer.material = lockMaterial;
         lockObj.SetActive(true);
     }
+    private void WoodCell()
+    {
+        //meshRenderer.material = lockMaterial;
+        woodObj.SetActive(true);
+    }
+
+    private void GrassCell()
+    {
+        grassObj.SetActive(true);   
+    }
+
+    private void HoneyCell()
+    {
+        honeyObj.SetActive(true);
+    }
+
+    private void IceCell()
+    {
+        iceObj.SetActive(true);
+    }
 
     private void OpenCell()
     {
@@ -91,11 +183,35 @@ public class BottomCell : MonoBehaviour
         lockObj.SetActive(false);
     }
 
+    private void WoodCellOpen()
+    {
+        isWood = false;
+        meshRenderer.material = cellMaterial;
+        woodObj.SetActive(false);
+    }
+    private void GrassCellOpen()
+    {
+        isGrass = false;
+        meshRenderer.material = cellMaterial;
+        grassObj.SetActive(false);
+    }
+    private void HoneyCellOpen()
+    {
+        isHoney = false;
+        meshRenderer.material = cellMaterial;
+        honeyObj.SetActive(false);
+    }
+    private void IceCellOpen()
+    {
+        isIce = false;
+        meshRenderer.material = cellMaterial;
+        iceObj.SetActive(false);
+    }
+
     public void UnLockCell()
     {
         if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
             return;
-
         WatchAds();
     }
 
@@ -106,7 +222,6 @@ public class BottomCell : MonoBehaviour
     public void GetNearCells()
     {
         nearCellList.Clear();
-
         for(int i = 0; i < 6; i++)
         {
             Ray ray = new Ray(transform.position, Quaternion.Euler(0, 60.0f * i, 0) * transform.forward);
@@ -116,16 +231,66 @@ public class BottomCell : MonoBehaviour
             {
                 //Debug.Log("HIT " + hitData.transform.name);
                 BottomCell nearCell = hitData.transform.GetComponent<BottomCell>();
-                if(nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
+                if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
                 {
                     nearCellList.Add(hitData.transform.GetComponent<BottomCell>());
                     //hitData.transform.GetComponent<BottomCell>().SelectCell();
                 }
                 
+                else if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID != hexaColumn.topColorID &nearCell.hexaColumn.topColorID != -1)
+                {
+                    Debug.Log("there is Nothing");
+                }
             }
         }
-
     }
+
+    public void CheckNearByOnCompelteStake()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            Ray ray = new Ray(transform.position, Quaternion.Euler(0, 60.0f * i, 0) * transform.forward);
+            RaycastHit hitData;
+
+            if (Physics.Raycast(ray, out hitData, 1.5f, bottomMask))
+            {
+                BottomCell nearCell = hitData.transform.GetComponentInChildren<BottomCell>();
+                if (nearCell.isWood == true)
+                {
+                    StartCoroutine(nearCell.woodBlocker.MakeWoodBreak());
+                }
+                else if (nearCell.isIce == true)
+                {
+                    StartCoroutine(nearCell.iceBlocker.MakeIceBreak());
+                }
+                else if (nearCell.isHoney == true)
+                {
+                    StartCoroutine(nearCell.honeyBlocker.MakeHoneyBreak());
+                }
+            }
+        }
+    }
+
+    public void CheckCurrentCellCompleteStake()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            Ray ray = new Ray(transform.position, Quaternion.Euler(0, 60.0f * i, 0) * transform.forward);
+            if (Physics.Raycast(ray, 1.5f, bottomMask))
+            {
+                BottomCell currentCell = transform.GetComponent<BottomCell>();
+                if(currentCell.isGrass == true)
+                {
+                    StartCoroutine(currentCell.grassBlocker.MakeGrassBreak());
+                    
+                }
+                
+            }
+        }
+    }
+
+
+
 
     public void WatchAds()
     {
@@ -162,6 +327,12 @@ public class BottomCell : MonoBehaviour
         meshRenderer.material = cellMaterial;
         lockObj.SetActive(false);
     }
+    /*public void RewardEarn()
+    {
+        isWood = false;
+        meshRenderer.material = cellMaterial;
+        woodObj.SetActive(false);
+    }*/
 
     public void ShowRWUnityAds()
     {

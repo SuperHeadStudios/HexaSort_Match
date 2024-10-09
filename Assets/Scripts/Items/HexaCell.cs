@@ -6,12 +6,10 @@ public class HexaCell : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
 
-    //public SpriteRenderer icon1, icon2;
-  
     public void InitCell(int colorID)
     {
+        Debug.Log(colorID + "ColorId" );
         meshRenderer.material = GameManager.instance.colorConfig.colorList[colorID].material;
-        //icon1.sprite = GameManager.instance.colorConfig.colorList[colorID].surfaceSpr;
-        //icon2.sprite = GameManager.instance.colorConfig.colorList[colorID].surfaceSpr;
+        
     }
 }

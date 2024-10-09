@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    
     public GameView gameView;
 
     public PopupWin popupWin;
@@ -35,11 +36,12 @@ public class UIManager : MonoBehaviour
     public PopupDaily dailyPopup;
 
     public LuckyWheelView luckyWheelView;
+      
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

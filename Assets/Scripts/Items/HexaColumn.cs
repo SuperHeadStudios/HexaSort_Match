@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -137,16 +136,13 @@ public class HexaColumn : MonoBehaviour
 
     public void AddCellColumn(HexaColumn addCellColumn)
     {
+        
         //currentHexaColumnData = addCellColumn.currentHexaColumnData;
-
-
         currentHexaColumnData.columnDataList = new List<ColumnData>();
         for (int i = 0; i < addCellColumn.currentHexaColumnData.columnDataList.Count; i++)
         {
             currentHexaColumnData.columnDataList.Add(addCellColumn.currentHexaColumnData.columnDataList[i]);
-
         }
-
 
         for (int i = 0; i < addCellColumn.hexaCellList.Count; i++)
         {
@@ -208,11 +204,13 @@ public class HexaColumn : MonoBehaviour
         }
     }
 
+
     public void ExtendColliderHeight()
     {
         if (boxCollider != null)
         {
-            boxCollider.size = new Vector3(1, colliderHeight * hexaCellList.Count + 2.0f, 1);
+            boxCollider.size = new Vector3(1, colliderHeight * hexaCellList.Count + 3.0f, 1);
+
         }
     }
 
@@ -312,6 +310,10 @@ public class HexaColumn : MonoBehaviour
                     hitBottomCell = hit.transform.GetComponent<BottomCell>();
                     if (hitBottomCell.isLock)
                         return;
+                    else if(hitBottomCell.isWood)
+                        return;
+                    else if (hitBottomCell.isHoney)
+                        return;
                     if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                         return;
                     GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
@@ -325,12 +327,17 @@ public class HexaColumn : MonoBehaviour
                         hitBottomCell = hit.transform.GetComponent<BottomCell>();
                         if (hitBottomCell.isLock)
                             return;
+                        else if(hitBottomCell.isWood)
+                            return;
+                        else if( hitBottomCell.isHoney)
+                            return;
                         if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                             return;
 
                         GameManager.instance.boardController.currentHitBottomCell.UnSelectCell();
                         GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
                         hitBottomCell.SelectCell();
+                        
                     }
                 }
             }
