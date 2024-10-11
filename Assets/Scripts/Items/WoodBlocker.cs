@@ -87,7 +87,7 @@ public class WoodBlocker : MonoBehaviour
             rb.isKinematic = false;
             rb.AddExplosionForce(forceToBreak, transform.position, thirdradius, upwardModifier, ForceMode.Impulse);
             StartCoroutine(DisableThirdCol());
-            GameManager.instance.IncreaseWoodCount();
+            
         }
     }
 

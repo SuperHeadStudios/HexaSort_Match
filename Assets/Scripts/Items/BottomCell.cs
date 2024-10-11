@@ -3,7 +3,6 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
-using static UnityEditor.Rendering.FilterWindow;
 
 public class BottomCell : MonoBehaviour
 {
@@ -25,6 +24,10 @@ public class BottomCell : MonoBehaviour
     public Material cellSelectedMaterial;
 
     public Material lockMaterial;
+
+    public GameObject AdObj;
+
+    public bool isAd;
 
     public GameObject lockObj;
 
@@ -54,6 +57,8 @@ public class BottomCell : MonoBehaviour
 
     public IceBlocker iceBlocker;
 
+    public LockBlocker lockBlocker;
+
     public bool isBreakNow = false;
 
     public bool isUseNow;
@@ -81,7 +86,17 @@ public class BottomCell : MonoBehaviour
         hexaColumn.currentBottomCell = this;
     }
 
-    public void InitBottomCell(bool isLockCell)
+    public void InitAdCell(bool isAdCell)
+    {
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isAd = isAdCell;
+        if (isAd)
+            AdCell();
+        else
+            OpenCell();
+    }
+    public void InitLockCell(bool isLockCell)
     {
         nearCellList = new List<BottomCell>();
         UnSelectCell();
@@ -89,8 +104,10 @@ public class BottomCell : MonoBehaviour
         if (isLock)
             LockCell();
         else
-            OpenCell();
+            OpenLockCell();
     }
+
+
     public void InitWoodCell(bool isWoodCell)
     {   
         nearCellList = new List<BottomCell>();
@@ -150,10 +167,10 @@ public class BottomCell : MonoBehaviour
         meshRenderer.transform.localPosition = new Vector3(0, 0.0f, 0);
     }
 
-    private void LockCell()
+    private void AdCell()
     {
         meshRenderer.material = lockMaterial;
-        lockObj.SetActive(true);
+        AdObj.SetActive(true);
     }
     private void WoodCell()
     {
@@ -175,36 +192,45 @@ public class BottomCell : MonoBehaviour
     {
         iceObj.SetActive(true);
     }
+    private void LockCell()
+    {
+        lockObj.SetActive(true);
+    }
+    private void OpenLockCell()
+    {
+        isLock = false;
+        lockObj.SetActive(false);
+    }
 
     private void OpenCell()
     {
-        isLock = false;
+        isAd = false;
         meshRenderer.material = cellMaterial;
-        lockObj.SetActive(false);
+        AdObj.SetActive(false);
     }
 
     private void WoodCellOpen()
     {
         isWood = false;
-        meshRenderer.material = cellMaterial;
+        //meshRenderer.material = cellMaterial;
         woodObj.SetActive(false);
     }
     private void GrassCellOpen()
     {
         isGrass = false;
-        meshRenderer.material = cellMaterial;
+        //meshRenderer.material = cellMaterial;
         grassObj.SetActive(false);
     }
     private void HoneyCellOpen()
     {
         isHoney = false;
-        meshRenderer.material = cellMaterial;
+        //meshRenderer.material = cellMaterial;
         honeyObj.SetActive(false);
     }
     private void IceCellOpen()
     {
         isIce = false;
-        meshRenderer.material = cellMaterial;
+        //meshRenderer.material = cellMaterial;
         iceObj.SetActive(false);
     }
 
@@ -267,6 +293,10 @@ public class BottomCell : MonoBehaviour
                 {
                     StartCoroutine(nearCell.honeyBlocker.MakeHoneyBreak());
                 }
+                else if (nearCell.isLock == true)
+                {
+                    StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
+                }
             }
         }
     }
@@ -288,9 +318,6 @@ public class BottomCell : MonoBehaviour
             }
         }
     }
-
-
-
 
     public void WatchAds()
     {
@@ -323,9 +350,9 @@ public class BottomCell : MonoBehaviour
     public void EarnReward(Reward reward)
     {
         AudioManager.instance.rewardDone.Play();
-        isLock = false;
+        isAd = false;
         meshRenderer.material = cellMaterial;
-        lockObj.SetActive(false);
+        AdObj.SetActive(false);
     }
     /*public void RewardEarn()
     {
@@ -341,16 +368,15 @@ public class BottomCell : MonoBehaviour
 
             if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
             {
-                isLock = false;
+                isAd = false;
                 meshRenderer.material = cellMaterial;
-                lockObj.SetActive(false);
+                AdObj.SetActive(false);
             }
 
             if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
             {
                 AdsControl.Instance.LoadUnityAd();
             }
-
         });
     }
 

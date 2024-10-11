@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class GameView : BaseView
 {
     public Text levelTxt;
 
     public Text goalTxt;
+
+    public TextMeshProUGUI woodGoalText;
+
+    public TextMeshProUGUI honeyGoalText;
+
+    public TextMeshProUGUI grassGoalText;
 
     public Image goalValueBar;
 
@@ -42,9 +49,14 @@ public class GameView : BaseView
     }
 
     public override void InitView()
-    {
+    {        
         currentGoalValue = 0.0f;
         goalTxt.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
+        woodGoalText.text = GameManager.instance.boardGenerator.currentWoodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
+        honeyGoalText.text = GameManager.instance.boardGenerator.currentHoneyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
+        grassGoalText.text = GameManager.instance.boardGenerator.currentGrassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
+
+
         currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
         goalValueBar.fillAmount = currentGoalValue;
 
@@ -102,9 +114,25 @@ public class GameView : BaseView
             currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.fillAmount = currentGoalValue;
         }
+        else if(GameManager.instance.boardGenerator.currentWoodGoalNumber <= GameManager.instance.boardGenerator.woodGoalNumber)
+        {
+            woodGoalText.text = GameManager.instance.boardGenerator.currentWoodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
+        }
+        else if(GameManager.instance.boardGenerator.currentHoneyGoalNumber <= GameManager.instance.boardGenerator.honeyGoalNumber)
+        {
+            honeyGoalText.text = GameManager.instance.boardGenerator.currentHoneyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
+        }
+        else if(GameManager.instance.boardGenerator.currentGrassGoalNumber <= GameManager.instance.boardGenerator.grassGoalNumber)
+        {
+            grassGoalText.text = GameManager.instance.boardGenerator.currentGrassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
+        }
+        
         else
         {
             goalTxt.text = GameManager.instance.boardGenerator.goalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
+            woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
+            honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
+            grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
             goalValueBar.fillAmount = 1.0f;
         }
     }

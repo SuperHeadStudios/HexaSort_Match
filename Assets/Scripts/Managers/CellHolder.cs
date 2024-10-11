@@ -11,6 +11,8 @@ public class CellHolder : MonoBehaviour
 
     public HexaColumn hexaColumn;
 
+    public HexaColumn hexaColum;
+
     public int currentSlots;
 
     public enum DIFFICULT_LEVEL

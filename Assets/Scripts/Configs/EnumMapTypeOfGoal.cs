@@ -12,5 +12,7 @@ public enum EnumMapTypeOfGoal
 	Aqua = 9,
 	White = 10,
 	Black = 11,
-	Hole = 12
+	Hole = 12,
+	Grass = 13,
+	Honey = 14
 }

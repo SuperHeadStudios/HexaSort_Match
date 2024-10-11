@@ -66,12 +66,14 @@ public class FlyingGrass : MonoBehaviour
             grassObj.DOLocalPath(arcPoint.ToArray(), 1.0f, PathType.Linear).SetLoops(1).SetEase(Ease.Linear).OnComplete(() =>
             {
                 grassObj.gameObject.SetActive(false);
+                GameManager.instance.IncreaseGrassCount();
             });
         }
         else
         {
             // GameManager.Instance.uiManager.gameView.GetStarCombo(combo);
         }
+        
     }
 
     private Vector2 WorldToCanvasPosition(Canvas canvas, RectTransform canvasRect, Camera camera, Vector3 position)

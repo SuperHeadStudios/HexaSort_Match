@@ -27,13 +27,20 @@ public class GameManager : MonoBehaviour
 
     public ParticleSystem hammerExplosionVfx;
 
-    [SerializeField] private int woodCount;
-    [SerializeField] private int honeyCount;
-    [SerializeField] private int grassCount;
+    [SerializeField] public int woodCount = 1;
+    [SerializeField] public int honeyCount = 1;
+    [SerializeField] public int grassCount = 1;
 
     [SerializeField] private TextMeshProUGUI woodCountText;
     [SerializeField] private TextMeshProUGUI honeyCountText;
     [SerializeField] private TextMeshProUGUI grassCountText;
+
+    [SerializeField] private GameObject woodTick;
+    [SerializeField] private GameObject woodGoal;
+    [SerializeField] private GameObject honeyTick;
+    [SerializeField] private GameObject honeyGoal;
+    [SerializeField] private GameObject grassTick;
+    [SerializeField] private GameObject grassGoal;
 
     [HideInInspector]
     public int levelIndex;
@@ -79,32 +86,44 @@ public class GameManager : MonoBehaviour
     #region Blocker IncreaseDecrese
     public void IncreaseWoodCount()
     {
-        woodCount++;
-        woodCountText.text = woodCount.ToString();
+        boardGenerator.currentWoodGoalNumber++;
+        if(boardGenerator.currentWoodGoalNumber >= boardGenerator.woodGoalNumber)
+        {
+            woodTick.SetActive(true);
+            woodGoal.SetActive(false);
+        }
     }
     public void IncreaseHoneyCount()
     {
-        honeyCount++;
-        honeyCountText.text = honeyCount.ToString();
+        boardGenerator.currentHoneyGoalNumber++;
+        if(boardGenerator.currentHoneyGoalNumber >= boardGenerator.honeyGoalNumber)
+        {
+            honeyTick.SetActive(true);
+            honeyGoal.SetActive(false);
+        }
     }
     public void IncreaseGrassCount()
     {
-        
-        grassCount++;
-        grassCountText.text = grassCount.ToString();
+        boardGenerator.currentGrassGoalNumber++;
+        if(boardGenerator.currentGrassGoalNumber >= boardGenerator.grassGoalNumber)
+        {
+            grassTick.SetActive(true);
+            grassGoal.SetActive(false);
+        }
     }
+    
+    public void ResetBlockerValue()
+    {
+        boardGenerator.currentWoodGoalNumber = 0;
+        boardGenerator.currentHoneyGoalNumber = 0;
+        boardGenerator.grassGoalNumber = 0;
 
-    public int WoodCount()
-    {
-        return woodCount;
-    }
-    public int HoneyCount()
-    {
-        return honeyCount;
-    }
-    public int GrassCount()
-    {
-        return grassCount;
+        woodTick.SetActive(false);
+        woodGoal.SetActive(true);
+        honeyTick.SetActive(false);
+        honeyGoal.SetActive(true);
+        grassTick.SetActive(false);
+        grassGoal.SetActive(true);
     }
 
     #endregion

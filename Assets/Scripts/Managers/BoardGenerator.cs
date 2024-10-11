@@ -24,6 +24,20 @@ public class BoardGenerator : MonoBehaviour
 
     public int currentGoalNumber;
 
+    //blockers
+
+    public int woodGoalNumber;
+
+    public int honeyGoalNumber;
+
+    public int grassGoalNumber;
+
+    public int currentWoodGoalNumber;
+
+    public int currentHoneyGoalNumber;
+
+    public int currentGrassGoalNumber;
+
     public int widthOfMap;
 
     public int heighOfMap;
@@ -47,7 +61,13 @@ public class BoardGenerator : MonoBehaviour
     public void InitBoardGenerator()
     {
         currentGoalNumber = 0;
+        currentWoodGoalNumber = 0;
+        currentHoneyGoalNumber = 0;
+        currentGrassGoalNumber = 0;
         goalNumber = 0;
+        woodGoalNumber = 0;
+        honeyGoalNumber = 0;
+        grassGoalNumber = 0;
         widthOfMap = 0;
         maxRow = 0;
         GenMap();
@@ -80,7 +100,7 @@ public class BoardGenerator : MonoBehaviour
 
             if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RV)
             {
-                bottomCell.InitBottomCell(true);
+                bottomCell.InitAdCell(true);
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Wood)
             {
@@ -98,9 +118,10 @@ public class BoardGenerator : MonoBehaviour
             {
                 bottomCell.InitIceCell(true);
             }
+            
             else
             {
-                bottomCell.InitBottomCell(false);
+                bottomCell.InitAdCell(false);
                 bottomCell.InitWoodCell(false);
                 bottomCell.InitGrassCell(false);
                 bottomCell.InitHoneyCell(false);
@@ -124,6 +145,10 @@ public class BoardGenerator : MonoBehaviour
         //Debug.Log("HEIGH OF MAP " + heighOfMap);
         SetCam();
         goalNumber = levelConfig.Goals[0].Target;
+        woodGoalNumber = levelConfig.Goals[1].Target;
+        honeyGoalNumber = levelConfig.Goals[2].Target;
+        grassGoalNumber = levelConfig.Goals[3].Target;
+
         currentMapSlots = levelConfig.LevelData.Cells.Count;
     }
 

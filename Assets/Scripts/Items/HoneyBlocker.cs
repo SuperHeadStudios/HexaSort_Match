@@ -42,7 +42,7 @@ public class HoneyBlocker : MonoBehaviour
 
     public IEnumerator MakeHoneyBreak()
     {
-        GameManager.instance.IncreaseHoneyCount();
+        
         BottomCell.instance.isUseNow = true;
         yield return new WaitForSeconds(2.4f);
         foreach (Rigidbody rb in rbs)

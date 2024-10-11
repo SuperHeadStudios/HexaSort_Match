@@ -66,6 +66,7 @@ public class FlyingHoney : MonoBehaviour
             honeyObj.DOLocalPath(arcPoint.ToArray(), 1.0f, PathType.Linear).SetLoops(1).SetEase(Ease.Linear).OnComplete(() =>
             {
                 honeyObj.gameObject.SetActive(false);
+                GameManager.instance.IncreaseHoneyCount();
             });
         }
         else

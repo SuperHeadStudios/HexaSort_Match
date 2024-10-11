@@ -14,8 +14,8 @@ public class HomeView : BaseView
     public override void InitView()
     {
         currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
-        spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
-        spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
+        //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
+        //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
     }
 
     public override void Start()

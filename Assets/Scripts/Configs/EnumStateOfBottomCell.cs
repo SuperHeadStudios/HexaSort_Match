@@ -12,5 +12,5 @@ public enum EnumStateOfBottomCell
 	LockHighRise = 8,
 	FridgeCan = 9,
 	BirdHouse = 10,
-		Honey = 11
+	Honey = 11
 }

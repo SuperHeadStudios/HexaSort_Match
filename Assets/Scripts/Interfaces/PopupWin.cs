@@ -5,6 +5,7 @@ using System.Collections;
 using GoogleMobileAds.Api;
 using static AdsControl;
 using UnityEngine.Advertisements;
+using TMPro;
 
 public class PopupWin : BasePopup
 {
@@ -17,6 +18,9 @@ public class PopupWin : BasePopup
     public Text rewardWithAdsTxt;
 
     public Button nextBtn, x2ClaimBtn;
+
+    [SerializeField] private TextMeshProUGUI honeyTxt;
+
 
     private int rwValue;
 
@@ -78,6 +82,7 @@ public class PopupWin : BasePopup
 
     public void NextLevel()
     {
+        GameManager.instance.ResetBlockerValue();
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
         GameManager.instance.AddCoin(rwValue);

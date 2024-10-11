@@ -8,10 +8,19 @@ public class StartGoalPanel : BasePopup
 
     public Text goalTxt;
 
+    public Text woodTargetText;
+
+    public Text honeyTargetText;
+    
+    public Text grassTargetText;
+
     public override void InitView()
     {
         levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
+        woodTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[1].Target.ToString();
+        honeyTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[2].Target.ToString();
+        grassTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[3].Target.ToString();
     }
 
     public override void Start()

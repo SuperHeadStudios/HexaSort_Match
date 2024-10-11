@@ -9,6 +9,7 @@ public class GrassBlocker : MonoBehaviour
     [SerializeField] private float radiusToBreak = .5f;
     public float upwardModifier = 1.8f;
     [SerializeField] private BottomCell currentCell;
+    [SerializeField] private ParticleSystem grassBreak;
 
     [SerializeField] public Transform centerLeaf;
 
@@ -41,11 +42,12 @@ public class GrassBlocker : MonoBehaviour
         foreach (Rigidbody rb in rbs)
         {
             rb.isKinematic = false;
-            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+            grassBreak.Play();
+            //rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
         }
         currentCell.isGrass = false;
-        GameManager.instance.IncreaseGrassCount();
         FlyingGrass.instance.SpawnGrass(transform.position);
+        //GameManager.instance.IncreaseGrassCount();
     }
 }
    

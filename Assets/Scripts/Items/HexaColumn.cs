@@ -166,7 +166,6 @@ public class HexaColumn : MonoBehaviour
         for (int i = 0; i < addCellColumn.currentHexaColumnData.columnDataList.Count; i++)
         {
             currentHexaColumnData.columnDataList.Add(addCellColumn.currentHexaColumnData.columnDataList[i]);
-
         }
 
         for (int i = 0; i < addCellColumn.hexaCellList.Count; i++)
@@ -308,7 +307,7 @@ public class HexaColumn : MonoBehaviour
                     //Debug.Log("FIND BOTTOM");
 
                     hitBottomCell = hit.transform.GetComponent<BottomCell>();
-                    if (hitBottomCell.isLock)
+                    if (hitBottomCell.isAd)
                         return;
                     else if(hitBottomCell.isWood)
                         return;
@@ -325,7 +324,7 @@ public class HexaColumn : MonoBehaviour
                     {
                         // Debug.Log("FIND BOTTOM");
                         hitBottomCell = hit.transform.GetComponent<BottomCell>();
-                        if (hitBottomCell.isLock)
+                        if (hitBottomCell.isAd)
                             return;
                         else if(hitBottomCell.isWood)
                             return;
