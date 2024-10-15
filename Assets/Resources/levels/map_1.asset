@@ -84,7 +84,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 4
     - Row: -2
       Col: 1
       Types: 

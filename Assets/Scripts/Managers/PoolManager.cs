@@ -6,6 +6,8 @@ public class PoolManager : MonoBehaviour
 {
     public Transform poolParent = null;
 
+    public HexaColumn ihexacolumprefab;
+
     //for bottom
     [Range(1, 30)]
     public int initBottomCellAmount;
@@ -178,7 +180,6 @@ public class PoolManager : MonoBehaviour
             hexaColumn.transform.localRotation = Quaternion.Euler(0, 0, 0);
             hexaColumn.transform.localScale = Vector3.one;
         }
-
         return hexaColumn;
     }
 

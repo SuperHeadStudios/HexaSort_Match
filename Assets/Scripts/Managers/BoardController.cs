@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BoardController : MonoBehaviour
 {
-    public static BoardController Instance;
+    public static BoardController instance;
 
     public LayerMask columnMask;
 
@@ -54,9 +54,9 @@ public class BoardController : MonoBehaviour
     void Start()
     {
         
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
     }
 
@@ -340,6 +340,7 @@ public class BoardController : MonoBehaviour
         {
             currentState = BOARD_STATE.PROCESSING;
             currentHitBottomCell.GetNearCells();
+
             currentHitBottomCell = null;
             CleanHexaMap();
         }

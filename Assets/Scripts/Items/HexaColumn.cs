@@ -53,11 +53,11 @@ public class HexaColumn : MonoBehaviour
 
     public void InitColumn()
     {
-        hexaCellList = new List<HexaCell>();
-        cellColorList = new List<int>();
+        //hexaCellList = new List<HexaCell>();
+        //cellColorList = new List<int>();
         boxCollider = GetComponent<BoxCollider>();
         isSelected = false;
-        currentHexaColumnData = new HexaColumnData();
+        //currentHexaColumnData = new HexaColumnData();
         topColorID = -1;
         currentColumnState = COLUMN_STATE.IDLE;
         currentBottomCell = null;

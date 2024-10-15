@@ -41,6 +41,8 @@ public class BottomCell : MonoBehaviour
 
     public GameObject iceObj;
 
+    public GameObject iceHexa;
+
     public bool isWood;
 
     public bool isGrass;
@@ -63,6 +65,10 @@ public class BottomCell : MonoBehaviour
 
     public bool isUseNow;
 
+    public bool isIceBroken;
+
+    public BoardController boardController;
+
     // Start is called before the first frame update
 
     void Start()
@@ -71,6 +77,7 @@ public class BottomCell : MonoBehaviour
         {
             instance = this;
         }
+        boardController = transform.GetComponentInParent<BoardController>();
     }
     private void Update()
     {
@@ -79,11 +86,24 @@ public class BottomCell : MonoBehaviour
 
     public void CreateColumn()
     {
-        hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
-        hexaColumn.InitColumn();
-        hexaColumn.transform.SetParent(transform);
-        hexaColumn.transform.localPosition = Vector3.zero;
-        hexaColumn.currentBottomCell = this;
+        if (isIce)
+        {
+            hexaColumn = iceHexa.GetComponent<HexaColumn>();
+            hexaColumn.InitColumn();
+            hexaColumn.transform.SetParent(transform);
+            hexaColumn.transform.localPosition = Vector3.zero;
+            hexaColumn.currentBottomCell = this;
+
+        }
+        else
+        {
+            hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
+            hexaColumn.InitColumn();
+            hexaColumn.transform.SetParent(transform);
+            hexaColumn.transform.localPosition = Vector3.zero;
+            hexaColumn.currentBottomCell = this;
+        }
+        
     }
 
     public void InitAdCell(bool isAdCell)
@@ -190,6 +210,8 @@ public class BottomCell : MonoBehaviour
 
     private void IceCell()
     {
+        
+        iceHexa.SetActive(true);
         iceObj.SetActive(true);
     }
     private void LockCell()
@@ -229,6 +251,7 @@ public class BottomCell : MonoBehaviour
     }
     private void IceCellOpen()
     {
+        BoardController.instance.hexaColumnsInMap.Add(hexaColumn);
         isIce = false;
         //meshRenderer.material = cellMaterial;
         iceObj.SetActive(false);
