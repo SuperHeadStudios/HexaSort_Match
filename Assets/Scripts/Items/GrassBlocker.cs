@@ -35,6 +35,22 @@ public class GrassBlocker : MonoBehaviour
             StartCoroutine(MakeGrassBreak());
         }
     }
+    private void LeafPositionUpdate()
+    {
+        if (currentCell.isGrass == true)
+        {
+            Vector3 leafPosition = centerLeaf.position;
+            if (currentCell.hexaColumn.hexaCellList.Count == 0)
+            {
+                leafPosition.y = 0.028F;
+            }
+            else
+            {
+                leafPosition.y = currentCell.hexaColumn.hexaCellList.Count * 0.014f + 0.028F;
+            }
+            centerLeaf.position = leafPosition;
+        }
+    }
 
     public IEnumerator MakeGrassBreak()
     {

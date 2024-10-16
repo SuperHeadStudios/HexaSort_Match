@@ -4,6 +4,7 @@ using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
 using Unity.VisualScripting;
+using DG.Tweening;
 
 public class BottomCell : MonoBehaviour
 {
@@ -74,8 +75,11 @@ public class BottomCell : MonoBehaviour
 
     public int index;
 
-    [SerializeField] private float leafPos = 0.3f;
+    public float currentLeafPos;
+    private float velocity;
+    [SerializeField] private float smoothTime = 0.1f;
 
+    public Transform centerLeaf;
     // Start is called before the first frame update
 
     void Start()
@@ -88,16 +92,30 @@ public class BottomCell : MonoBehaviour
     }
     private void Update()
     {
-
+        UpdateLeafPosition();
     }
 
     public void UpdateLeafPosition()
     {
-        Vector3 leafposition = grassBlocker.centerLeaf.position;
-        leafposition.y = hexaColumn.hexaCellList.Count - 1 * leafPos;
+        if (isGrass == true)
+        {
+            Vector3 leafPosition = centerLeaf.position;
+            if (hexaColumn.hexaCellList.Count == 0)
+            {
+                centerLeaf.DOLocalMoveY(0.04F, smoothTime);
+                /*float Smooth = Mathf.SmoothDamp(leafPosition.y, 0.04f, ref velocity, smoothTime * 3);
+                leafPosition.y = Smooth;*/
+            }
+            else
+            {
+                float moveOnY = (hexaColumn.hexaCellList.Count - 1) * currentLeafPos+0.04F;
+                centerLeaf.DOLocalMoveY(moveOnY, smoothTime);
+                //float Smooth = Mathf.SmoothDamp(leafPosition.y, hexaColumn.hexaCellList.Count * currentLeafPos, ref velocity, smoothTime);
+                //leafPosition.y = Smooth;
+            }
+            centerLeaf.position = leafPosition;
+        }
     }
-
-
     public void CreateColumn()
     {
         if (isIce)

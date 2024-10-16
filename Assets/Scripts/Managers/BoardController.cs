@@ -577,6 +577,7 @@ public class BoardController : MonoBehaviour
 
     private void MoveCell(Transform cell, Vector3 targetPos, int queue, int lastQueue, HexaColumn cell1, HexaColumn cell2)
     {
+      
         //Debug.Log("Check Pcs" + name);
         List<Vector3> arcPoint = new List<Vector3>();
 
@@ -645,6 +646,7 @@ public class BoardController : MonoBehaviour
 
     private bool CheckTopLayer(HexaColumn cell)
     {
+        
         bool isFull = false;
         int dataCount = cell.currentHexaColumnData.columnDataList.Count;
         int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
@@ -653,7 +655,6 @@ public class BoardController : MonoBehaviour
             isFull = true;
             cell.currentBottomCell.CheckNearByOnCompelteStake();
             cell.currentBottomCell.CheckCurrentCellCompleteStake();
-            currentHitBottomCell.UpdateLeafPosition();
         }
 
         return isFull;
@@ -670,7 +671,7 @@ public class BoardController : MonoBehaviour
         {
             //Debug.Log("CLEAR ELEMENT " + (dataCount - topSize + i) + " TOP SIZE " + topSize);
             RemoveElementInTop(cell.hexaCellList[cell.hexaCellList.Count - 1 - i].transform, i, topSize - 1, cell);
-            //cell.hexaCellList[cell.hexaCellList.Count - topSize + i].gameObject.SetActive(false);
+            //cell.hexaCellList[cell.hexaCellList.Count - topSize + i].gameObject.SetActive(false);s
         }
     }
 

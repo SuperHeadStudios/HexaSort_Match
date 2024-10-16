@@ -137,6 +137,10 @@ MonoBehaviour:
   isUseNow: 0
   isIceBroken: 0
   boardController: {fileID: 0}
+  index: 0
+  currentLeafPos: 0.026
+  smoothTime: 0.025
+  centerLeaf: {fileID: 864157066807103668}
   bottomMask:
     serializedVersion: 2
     m_Bits: 128
@@ -1799,6 +1803,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
+--- !u!4 &864157066807103668 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 840085100383406542, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
+  m_PrefabInstance: {fileID: 24363754701314426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1782094638422551587 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1796315117563950425, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
