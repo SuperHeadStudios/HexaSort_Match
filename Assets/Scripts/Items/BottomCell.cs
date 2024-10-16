@@ -70,6 +70,8 @@ public class BottomCell : MonoBehaviour
 
     public BoardController boardController;
 
+    public int index;
+
     // Start is called before the first frame update
 
     void Start()
@@ -211,7 +213,6 @@ public class BottomCell : MonoBehaviour
 
     private void IceCell()
     {
-        
         iceHexa.SetActive(true);
         iceObj.SetActive(true);
     }
@@ -296,6 +297,7 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearByOnCompelteStake()
     {
+        
         for (int i = 0; i < 6; i++)
         {
             Ray ray = new Ray(transform.position, Quaternion.Euler(0, 60.0f * i, 0) * transform.forward);
@@ -310,13 +312,14 @@ public class BottomCell : MonoBehaviour
                 }
                 else if (nearCell.isIce == true)
                 {
-                    StartCoroutine(nearCell.iceBlocker.MakeIceBreak());
-                    nearCell.OpenCell();
-                    BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
-                    BoardController.instance.currentHitBottomCell = nearCell;
-                    BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);
-                    
-                    nearCell.isIce = false;
+                    if (nearCell.iceBlocker.MakeIceBreak())
+                    {
+                        nearCell.IceCellOpen();
+                        BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
+                        BoardController.instance.currentHitBottomCell = nearCell;
+                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);
+                        nearCell.isIce = false;
+                    }
                 }
                 else if (nearCell.isHoney == true)
                 {

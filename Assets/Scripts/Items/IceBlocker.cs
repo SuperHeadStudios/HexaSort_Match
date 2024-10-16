@@ -23,6 +23,8 @@ public class IceBlocker : MonoBehaviour
     public int index = 0;
     public bool isUsable;
 
+    public bool nowCall = false;
+
     private void Awake()
     {
         
@@ -41,10 +43,10 @@ public class IceBlocker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(MakeIceBreak());
-        }
+        }*/
     }
 
     private void MakeFirstBreak()
@@ -65,7 +67,8 @@ public class IceBlocker : MonoBehaviour
         StartCoroutine(DisableSecCol());
     }
     private void MakeThirdBreak()
-    {   thirdPartRb.isKinematic = false;
+    {
+        thirdPartRb.isKinematic = false;
         thirdPartRb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
         StartCoroutine(DisableThirdCol());
     }
@@ -82,7 +85,7 @@ public class IceBlocker : MonoBehaviour
             rbs.mass = 0.01f;
             rbs.isKinematic = false;
         }
-        Destroy(firstObj, 4f);
+        firstObj.SetActive(false);  
     }
     private IEnumerator DisableSecCol()
     {
@@ -90,7 +93,7 @@ public class IceBlocker : MonoBehaviour
         secPartCol.enabled = false;
         secPartRb.mass = 0.01f;
         secPartRb.isKinematic = false;
-        Destroy(secObj, 4f);
+        secObj.SetActive(false);
     }
 
     private IEnumerator DisableThirdCol()
@@ -98,14 +101,15 @@ public class IceBlocker : MonoBehaviour
         yield return new WaitForSeconds(1.5F);
         thirdPartCol.enabled = false;
         thirdPartRb.mass = 0.01f;
-        thirdPartRb.isKinematic = false;
-        Destroy(thirdObj, 4f);
+        thirdPartRb.isKinematic = false; 
+        thirdObj.SetActive(false);
         //currentCell.isIce = false;
+
     }
 
-    public IEnumerator MakeIceBreak()
+    /*public IEnumerator MakeIceBreak()
     {
-        yield return new WaitForSeconds(2.4f);
+        yield return new WaitForSeconds(0f);
         switch (index)
         {
             case 0:
@@ -116,8 +120,30 @@ public class IceBlocker : MonoBehaviour
                 break;
             case 2:
                 MakeThirdBreak();
+                nowCall = true;
                 break;
         }
         index++;
+    }*/
+
+    public bool MakeIceBreak()
+    {
+        index++;
+        if (index == 1)
+        {
+            MakeFirstBreak();
+            return false;
+        }
+        else if(index == 2)
+        {
+            MakeSecondBreak();
+            return false;
+        }
+        else if(index == 3)
+        {
+            MakeThirdBreak();
+            return true;
+        }
+        return false;
     }
 }
