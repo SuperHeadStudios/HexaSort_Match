@@ -653,6 +653,7 @@ public class BoardController : MonoBehaviour
             isFull = true;
             cell.currentBottomCell.CheckNearByOnCompelteStake();
             cell.currentBottomCell.CheckCurrentCellCompleteStake();
+            currentHitBottomCell.UpdateLeafPosition();
         }
 
         return isFull;
@@ -695,6 +696,7 @@ public class BoardController : MonoBehaviour
 
             if (queue == lastQueue)
             {
+                
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
                     if (!clearHexaColumVfx2.gameObject.activeSelf)
@@ -709,7 +711,7 @@ public class BoardController : MonoBehaviour
                     GameManager.instance.poolManager.RemoveHexaCell(cell.hexaCellList[cell.hexaCellList.Count - 1]);
                     cell.hexaCellList.RemoveAt(cell.hexaCellList.Count - 1);
                     cell.cellColorList.RemoveAt(cell.cellColorList.Count - 1);
-
+                    
                 }
 
                 cell.currentHexaColumnData.columnDataList.RemoveAt(cell.currentHexaColumnData.columnDataList.Count - 1);

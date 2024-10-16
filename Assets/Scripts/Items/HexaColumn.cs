@@ -136,7 +136,6 @@ public class HexaColumn : MonoBehaviour
 
     public void AddCellColumn(HexaColumn addCellColumn)
     {
-        
         //currentHexaColumnData = addCellColumn.currentHexaColumnData;
         currentHexaColumnData.columnDataList = new List<ColumnData>();
         for (int i = 0; i < addCellColumn.currentHexaColumnData.columnDataList.Count; i++)
@@ -228,7 +227,6 @@ public class HexaColumn : MonoBehaviour
 
     public void MoveBack()
     {
-
         currentColumnState = COLUMN_STATE.MOVING;
         transform.SetParent(cellHoder.transform);
         transform.DOLocalMove(positionInHoler, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
@@ -241,7 +239,6 @@ public class HexaColumn : MonoBehaviour
 
     public void MoveToLastBottom()
     {
-
         currentColumnState = COLUMN_STATE.MOVING;
         transform.SetParent(currentBottomCell.transform);
         transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
@@ -261,9 +258,7 @@ public class HexaColumn : MonoBehaviour
             //highlightEffect.highlighted = false;
             Debug.Log("FINISH MOVE");
             currentColumnState = COLUMN_STATE.IDLE;
-
         });
-
     }
 
     public void ClearAllElements()

@@ -3,6 +3,7 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
+using Unity.VisualScripting;
 
 public class BottomCell : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class BottomCell : MonoBehaviour
 
     //[HideInInspector]
     public HexaColumn hexaColumn;
+
     public HexaColumn hexaColumn_ice;    
 
     public MeshRenderer meshRenderer;
@@ -72,6 +74,8 @@ public class BottomCell : MonoBehaviour
 
     public int index;
 
+    [SerializeField] private float leafPos = 0.3f;
+
     // Start is called before the first frame update
 
     void Start()
@@ -84,8 +88,15 @@ public class BottomCell : MonoBehaviour
     }
     private void Update()
     {
-        
+
     }
+
+    public void UpdateLeafPosition()
+    {
+        Vector3 leafposition = grassBlocker.centerLeaf.position;
+        leafposition.y = hexaColumn.hexaCellList.Count - 1 * leafPos;
+    }
+
 
     public void CreateColumn()
     {
@@ -286,18 +297,12 @@ public class BottomCell : MonoBehaviour
                     nearCellList.Add(hitData.transform.GetComponent<BottomCell>());
                     //hitData.transform.GetComponent<BottomCell>().SelectCell();
                 }
-                
-                else if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID != hexaColumn.topColorID &nearCell.hexaColumn.topColorID != -1)
-                {
-                    Debug.Log("there is Nothing");
-                }
             }
         }
     }
 
     public void CheckNearByOnCompelteStake()
     {
-        
         for (int i = 0; i < 6; i++)
         {
             Ray ray = new Ray(transform.position, Quaternion.Euler(0, 60.0f * i, 0) * transform.forward);
@@ -344,7 +349,6 @@ public class BottomCell : MonoBehaviour
                 if(currentCell.isGrass == true)
                 {
                     StartCoroutine(currentCell.grassBlocker.MakeGrassBreak());
-                    
                 }
                 
             }
