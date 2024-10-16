@@ -110,6 +110,7 @@ MonoBehaviour:
   row: 0
   column: 0
   hexaColumn: {fileID: 0}
+  hexaColumn_ice: {fileID: 6725148754151478724}
   meshRenderer: {fileID: 23646168630736339}
   cellMaterial: {fileID: 2100000, guid: 6810eb82d9a0ca14a82886bab1ec6dc3, type: 2}
   cellSelectedMaterial: {fileID: 2100000, guid: e765cba89ff6714458d016b6ff36d279, type: 2}
@@ -134,6 +135,8 @@ MonoBehaviour:
   lockBlocker: {fileID: 0}
   isBreakNow: 0
   isUseNow: 0
+  isIceBroken: 0
+  boardController: {fileID: 0}
   bottomMask:
     serializedVersion: 2
     m_Bits: 128
