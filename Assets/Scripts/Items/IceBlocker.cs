@@ -100,7 +100,7 @@ public class IceBlocker : MonoBehaviour
         thirdPartRb.mass = 0.01f;
         thirdPartRb.isKinematic = false;
         Destroy(thirdObj, 4f);
-        currentCell.isIce = false;
+        //currentCell.isIce = false;
     }
 
     public IEnumerator MakeIceBreak()

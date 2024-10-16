@@ -16,6 +16,7 @@ public class BottomCell : MonoBehaviour
 
     //[HideInInspector]
     public HexaColumn hexaColumn;
+    public HexaColumn hexaColumn_ice;    
 
     public MeshRenderer meshRenderer;
 
@@ -88,7 +89,7 @@ public class BottomCell : MonoBehaviour
     {
         if (isIce)
         {
-            hexaColumn = iceHexa.GetComponent<HexaColumn>();
+            hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
             hexaColumn.InitColumn();
             hexaColumn.transform.SetParent(transform);
             hexaColumn.transform.localPosition = Vector3.zero;
@@ -249,9 +250,8 @@ public class BottomCell : MonoBehaviour
         //meshRenderer.material = cellMaterial;
         honeyObj.SetActive(false);
     }
-    private void IceCellOpen()
+    public void IceCellOpen()
     {
-        BoardController.instance.hexaColumnsInMap.Add(hexaColumn);
         isIce = false;
         //meshRenderer.material = cellMaterial;
         iceObj.SetActive(false);
@@ -311,6 +311,12 @@ public class BottomCell : MonoBehaviour
                 else if (nearCell.isIce == true)
                 {
                     StartCoroutine(nearCell.iceBlocker.MakeIceBreak());
+                    nearCell.OpenCell();
+                    BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
+                    BoardController.instance.currentHitBottomCell = nearCell;
+                    BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);
+                    
+                    nearCell.isIce = false;
                 }
                 else if (nearCell.isHoney == true)
                 {

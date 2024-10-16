@@ -311,6 +311,54 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    public void PutColumnInHolder_2(HexaColumn hexaColumn, BottomCell bottomCell)
+    {
+        if (GameManager.instance.boardController.currentHitBottomCell.hexaColumn.hexaCellList.Count == 0)
+            PutColumnInHolder(hexaColumn, bottomCell);
+        else
+            ReleaseFocusCell();
+    }
+
+    public void PutColumnInHolder(HexaColumn hexaColumn, BottomCell bottomCell )
+    {
+        AudioManager.instance.columnPlaceSfx.Play();
+
+        if (GameManager.instance.levelIndex == 1)
+            GameManager.instance.uiManager.gameView.DisableArrow();
+
+
+        if (AudioManager.instance.hapticState == 1)
+            HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
+
+        bottomCell.hexaColumn.AddCellColumn(hexaColumn);
+        bottomCell.UnSelectCell();
+        hexaColumnsInMap.Add(GameManager.instance.boardController.currentHitBottomCell.hexaColumn);
+        bottomCell.hexaColumn.cellHoder = null;
+        cellHolder.CheckPiecesInHolder();
+
+        hexaColumn.isSelected = false;
+        cellHolder.hexaColumnList.Remove(hexaColumn);
+
+        hexaColumn.cellHoder = null;
+        hexaColumn.currentBottomCell = null;
+        hexaColumn.EmptyColumnData();
+        GameManager.instance.poolManager.RemoveHexaColumn(hexaColumn);
+        hexaColumn = null;
+        if (currentState == BOARD_STATE.IDLE)
+        {
+            currentState = BOARD_STATE.PROCESSING;
+            currentHitBottomCell.GetNearCells();
+
+            currentHitBottomCell = null;
+            CleanHexaMap();
+        }
+        else
+        {
+            currentHitBottomCell = null;
+        }
+
+    }
+
     public void PutColumnInHolder()
     {
         AudioManager.instance.columnPlaceSfx.Play();
