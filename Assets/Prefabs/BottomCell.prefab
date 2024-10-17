@@ -506,6 +506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2412207593611132178}
+  meshFilter: {fileID: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3020677185463200494
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 5682448181568879031}
+  meshFilter: {fileID: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3696458668588987098
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +876,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 132074991299176628}
+  meshFilter: {fileID: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4046104461984837148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1581107108494366776}
+  meshFilter: {fileID: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6210196492453527436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 8319412535790568348}
+  meshFilter: {fileID: 0}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7167202744733613565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,6 +2140,14 @@ PrefabInstance:
     - target: {fileID: 7819050780378368011, guid: a7b4ec24ec330a74ba74c832b59376b8, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589399010021685404, guid: a7b4ec24ec330a74ba74c832b59376b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12511846
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589399010021685404, guid: a7b4ec24ec330a74ba74c832b59376b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.03512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

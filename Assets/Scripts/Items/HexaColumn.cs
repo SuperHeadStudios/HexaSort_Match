@@ -308,6 +308,7 @@ public class HexaColumn : MonoBehaviour
                         return;
                     else if (hitBottomCell.isHoney)
                         return;
+                    else if(hitBottomCell.isIce) return;
                     if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                         return;
                     GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
@@ -325,6 +326,7 @@ public class HexaColumn : MonoBehaviour
                             return;
                         else if( hitBottomCell.isHoney)
                             return;
+                        else if (hitBottomCell.isIce) return;
                         if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                             return;
 

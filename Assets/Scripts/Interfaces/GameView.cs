@@ -9,7 +9,11 @@ public class GameView : BaseView
 {
     public Text levelTxt;
 
-    public Text goalTxt;
+    //public TextMeshProUGUI levelText;
+
+    //public Text goalTxt;
+
+    public TextMeshProUGUI goalText;
 
     public TextMeshProUGUI woodGoalText;
 
@@ -51,10 +55,10 @@ public class GameView : BaseView
     public override void InitView()
     {        
         currentGoalValue = 0.0f;
-        goalTxt.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
-        woodGoalText.text = GameManager.instance.boardGenerator.currentWoodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
-        honeyGoalText.text = GameManager.instance.boardGenerator.currentHoneyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
-        grassGoalText.text = GameManager.instance.boardGenerator.currentGrassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
+        goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
+        woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
+        honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
+        grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
         currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
         goalValueBar.fillAmount = currentGoalValue;
 
@@ -108,7 +112,7 @@ public class GameView : BaseView
 
         if (GameManager.instance.boardGenerator.currentGoalNumber <= GameManager.instance.boardGenerator.goalNumber)
         {
-            goalTxt.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
+            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
             currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.fillAmount = currentGoalValue;
         }
@@ -127,7 +131,7 @@ public class GameView : BaseView
 
         else
         {
-            goalTxt.text = GameManager.instance.boardGenerator.goalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
+            goalText.text = GameManager.instance.boardGenerator.goalNumber.ToString();
             /*woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
             honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
             grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;*/
