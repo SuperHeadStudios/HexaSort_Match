@@ -112,25 +112,25 @@ public class GameView : BaseView
             currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.fillAmount = currentGoalValue;
         }
-        else if(GameManager.instance.boardGenerator.currentWoodGoalNumber <= GameManager.instance.boardGenerator.woodGoalNumber)
+        else if (GameManager.instance.boardGenerator.currentWoodGoalNumber <= GameManager.instance.boardGenerator.woodGoalNumber)
         {
             woodGoalText.text = GameManager.instance.boardGenerator.currentWoodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
         }
-        else if(GameManager.instance.boardGenerator.currentHoneyGoalNumber <= GameManager.instance.boardGenerator.honeyGoalNumber)
+        else if (GameManager.instance.boardGenerator.currentHoneyGoalNumber <= GameManager.instance.boardGenerator.honeyGoalNumber)
         {
             honeyGoalText.text = GameManager.instance.boardGenerator.currentHoneyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
         }
-        else if(GameManager.instance.boardGenerator.currentGrassGoalNumber <= GameManager.instance.boardGenerator.grassGoalNumber)
+        else if (GameManager.instance.boardGenerator.currentGrassGoalNumber <= GameManager.instance.boardGenerator.grassGoalNumber)
         {
             grassGoalText.text = GameManager.instance.boardGenerator.currentGrassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
         }
-        
+
         else
         {
             goalTxt.text = GameManager.instance.boardGenerator.goalNumber + "/" + GameManager.instance.boardGenerator.goalNumber;
-            woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
+            /*woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
             honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
-            grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
+            grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;*/
             goalValueBar.fillAmount = 1.0f;
         }
     }

@@ -52,7 +52,7 @@ public class FlyingGrass : MonoBehaviour
         grassObj.DOMove(targetRoot.position, 0.5f).OnComplete(() =>
         {
             grassObj.gameObject.SetActive(false);
-            GameManager.instance.IncreaseWoodCount();
+            GameManager.instance.IncreaseGrassCount();
         });
     }
 

@@ -48,7 +48,7 @@ public class FlyingHoney : MonoBehaviour
         honeyObj.DOMove(targetRoot.position, 0.5f).OnComplete(() =>
         {
             honeyObj.gameObject.SetActive(false);
-            GameManager.instance.IncreaseWoodCount();
+            GameManager.instance.IncreaseHoneyCount();
         });
     }
 
