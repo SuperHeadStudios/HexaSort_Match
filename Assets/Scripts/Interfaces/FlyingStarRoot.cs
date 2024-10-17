@@ -3,9 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class FlyingStarRoot : MonoBehaviour
 {
+    public GameObject starPrefab;
+
+    public RectTransform targetRoot;
+
+    public Canvas uiCanvas;
+
+    private RectTransform starObj1;
+    private void Awake()
+    {
+
+    }
+    void Start()
+    {
+        GameObject obj1 = Instantiate(starPrefab) as GameObject;
+        obj1.SetActive(true);
+        starObj1 = obj1.GetComponent<RectTransform>();
+        starObj1.SetParent(transform);
+        starObj1.localScale = Vector3.one;
+        starObj1.gameObject.SetActive(false);
+    }
+    public void SpawnStar(Vector3 spawnPos, Color currentColor)
+    {
+        starObj1.GetComponent<Image>().color = currentColor;
+        starObj1.gameObject.SetActive(true);
+        spawnPos = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z) - Camera.main.transform.forward;
+        starObj1.position = WorldToCanvasPosition(uiCanvas, starObj1, Camera.main, spawnPos);
+
+        starObj1.DOMove(targetRoot.position, .5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            starObj1.gameObject.SetActive(false);
+        });
+    }/*
+
+
+
+
+
+
+
+
+
     public GameObject starPrefab;
 
     public RectTransform targetRoot;
@@ -41,7 +83,7 @@ public class FlyingStarRoot : MonoBehaviour
             {
                 starObj1.gameObject.SetActive(false);
             });
-    }
+    }*/
 
     private Vector2 WorldToCanvasPosition(Canvas canvas, RectTransform canvasRect, Camera camera, Vector3 position)
     {

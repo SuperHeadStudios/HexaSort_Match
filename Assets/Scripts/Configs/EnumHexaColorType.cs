@@ -10,4 +10,5 @@ public enum EnumHexaColorType
 	Yellow = 8,
 	Purple = 0x10,
 	Aqua = 0x20,
+	Orange = 0x40,
 }

@@ -53,7 +53,6 @@ public class BoardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         if (instance == null)
         {
             instance = this;
@@ -67,6 +66,7 @@ public class BoardController : MonoBehaviour
         hexaColumnsInMap = new List<HexaColumn>();
         cellHolder.InitHolder();
         currentState = BOARD_STATE.IDLE;
+        
     }
 
     // Update is called once per frame
@@ -219,7 +219,6 @@ public class BoardController : MonoBehaviour
                     isHitColumn = true;
                     currentHexaColumn.isSelected = true;
                     MoveToDragPos();
-
                 }
             }
 
@@ -682,19 +681,20 @@ public class BoardController : MonoBehaviour
             AudioManager.instance.columnSellSfx.Play();
             int dataCount = cell.currentHexaColumnData.columnDataList.Count;
             int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
+            Color currentColor = cell.hexaCellList[dataCount-1].currentColor;
             if (queue == 0)
             {
                 if (!clearHexaColumVfx1.gameObject.activeSelf)
                     clearHexaColumVfx1.gameObject.SetActive(true);
                 clearHexaColumVfx1.transform.position = element.position;
                 clearHexaColumVfx1.Play();
-                
+
+                flyingStar.SpawnStar(element.position,currentColor);
                 GameManager.instance.boardGenerator.currentGoalNumber += topSize;
                 GameManager.instance.uiManager.gameView.UpdateGoalBar();
             }
             if (queue == lastQueue)
             {
-                flyingStar.SpawnStar(element.position);
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
                     if (!clearHexaColumVfx2.gameObject.activeSelf)

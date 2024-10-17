@@ -77,8 +77,8 @@ public class CellHolder : MonoBehaviour
             HexaColumnData firstPiece = new HexaColumnData();
             firstPiece.columnDataList = new List<ColumnData>();
 
-            ColumnData randomData1 = new ColumnData(Random.Range(1, 6), Random.Range(2, 4));
-            ColumnData randomData2 = new ColumnData(Random.Range(1, 6), Random.Range(2, 5));
+            ColumnData randomData1 = new ColumnData(Random.Range(1, 7), Random.Range(2, 5));
+            ColumnData randomData2 = new ColumnData(Random.Range(1, 7), Random.Range(2, 6));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
@@ -153,7 +153,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            clampValue = Random.Range(1, 7);
+                            clampValue = Random.Range(1, 6);
                         }
 
                         clampValue = Mathf.Clamp(clampValue, 2, 4);
@@ -200,7 +200,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            colorID = Random.Range(1, 5);
+                            colorID = Random.Range(1, 6);
                         }
 
                         ColumnData columnData = new ColumnData(colorID, clampValue);
@@ -210,8 +210,8 @@ public class CellHolder : MonoBehaviour
             }
             else
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(1, 6), Random.Range(2, 4));
-                ColumnData randomData2 = new ColumnData(Random.Range(1, 6), Random.Range(2, 5));
+                ColumnData randomData1 = new ColumnData(Random.Range(1, 7), Random.Range(2, 5));
+                ColumnData randomData2 = new ColumnData(Random.Range(1, 7), Random.Range(2, 6));
 
                 if (randomData1.colorID == randomData2.colorID)
                 {

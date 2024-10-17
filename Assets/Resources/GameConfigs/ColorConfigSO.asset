@@ -16,7 +16,7 @@ MonoBehaviour:
   - colorID: 0
     colorType: 64
     colorValue: {r: 1, g: 0.16470587, b: 0.825968, a: 1}
-    material: {fileID: 2100000, guid: 2f4be948128c85f4fa36afb5eb206e23, type: 2}
+    material: {fileID: 2100000, guid: da1c4e2d8aecdb94397f0a8dc0e260ee, type: 2}
     mesh: {fileID: -947668113905058017, guid: 08191a5fa7965de4084b69a70be2fb72, type: 3}
   - colorID: 1
     colorType: 1
@@ -43,3 +43,8 @@ MonoBehaviour:
     colorValue: {r: 0.12482201, g: 0.7550684, b: 0.8018868, a: 1}
     material: {fileID: 2100000, guid: dc443af4bec6e1949bebd3dd49b78412, type: 2}
     mesh: {fileID: 2122640928746347898, guid: 83e8930ae46b5f141a9d68bfc160ef58, type: 3}
+  - colorID: 6
+    colorType: 64
+    colorValue: {r: 1, g: 0.429995, b: 0, a: 1}
+    material: {fileID: 2100000, guid: 3faf1ba5cd3ffda488f455b773166336, type: 2}
+    mesh: {fileID: 7892629221475514017, guid: 2f1582f19b1534f49b36ce28bad78e77, type: 3}
