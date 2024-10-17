@@ -688,16 +688,13 @@ public class BoardController : MonoBehaviour
                     clearHexaColumVfx1.gameObject.SetActive(true);
                 clearHexaColumVfx1.transform.position = element.position;
                 clearHexaColumVfx1.Play();
-                flyingStar.SpawnStar(element.position);
                 
                 GameManager.instance.boardGenerator.currentGoalNumber += topSize;
                 GameManager.instance.uiManager.gameView.UpdateGoalBar();
             }
-
-
             if (queue == lastQueue)
             {
-                
+                flyingStar.SpawnStar(element.position);
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
                     if (!clearHexaColumVfx2.gameObject.activeSelf)
@@ -712,17 +709,14 @@ public class BoardController : MonoBehaviour
                     GameManager.instance.poolManager.RemoveHexaCell(cell.hexaCellList[cell.hexaCellList.Count - 1]);
                     cell.hexaCellList.RemoveAt(cell.hexaCellList.Count - 1);
                     cell.cellColorList.RemoveAt(cell.cellColorList.Count - 1);
-                    
                 }
-
                 cell.currentHexaColumnData.columnDataList.RemoveAt(cell.currentHexaColumnData.columnDataList.Count - 1);
-
-
                 if (cell.hexaCellList.Count == 0)
                 {
                     //Debug.Log("CLEAR ALL ELEMENT");
                     cell.topColorID = -1;
                     RemoveEmptyElements();
+                    
                 }
                 else
                 {
@@ -738,11 +732,7 @@ public class BoardController : MonoBehaviour
                     RefreshAllNearCells();
                     CleanHexaMap();
                 }
-
             }
-
-
-
         });
     }
 

@@ -19,5 +19,6 @@ public class ColorItem
 
     public Material material;
 
+    public Mesh mesh;
     //public Sprite surfaceSpr;
 }
