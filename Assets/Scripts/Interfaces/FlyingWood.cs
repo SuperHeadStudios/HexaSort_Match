@@ -45,7 +45,7 @@ public class FlyingWood : MonoBehaviour
         starObj1.position = WorldToCanvasPosition(uiCanvas, starObj1, Camera.main, spawnPos);
 
 
-        starObj1.DOMove(targetRoot.position,0.5f).OnComplete(() =>
+        starObj1.DOMove(targetRoot.position,0.35f).OnComplete(() =>
         {
             starObj1.gameObject.SetActive(false);
             GameManager.instance.IncreaseWoodCount();

@@ -32,24 +32,12 @@ public class FlyingGrass : MonoBehaviour
         grassObj.localScale = Vector3.one;
         grassObj.gameObject.SetActive(false);
     }
-
-    void Update()
-    {
-
-    }
-
-    List<Vector3> arcPoint = new List<Vector3>();
-
-    Vector3 midlePoint;
-
     public void SpawnGrass(Vector3 spawnPos)
     {
         grassObj.gameObject.SetActive(true);
         spawnPos = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z) - Camera.main.transform.forward;
         grassObj.position = WorldToCanvasPosition(uiCanvas, grassObj, Camera.main, spawnPos);
-
-
-        grassObj.DOMove(targetRoot.position, 0.5f).OnComplete(() =>
+        grassObj.DOMove(targetRoot.position, 0.3f).OnComplete(() =>
         {
             grassObj.gameObject.SetActive(false);
             GameManager.instance.IncreaseGrassCount();

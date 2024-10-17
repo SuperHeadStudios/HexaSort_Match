@@ -45,7 +45,7 @@ public class FlyingHoney : MonoBehaviour
         honeyObj.position = WorldToCanvasPosition(uiCanvas, honeyObj, Camera.main, spawnPos);
 
 
-        honeyObj.DOMove(targetRoot.position, 0.5f).OnComplete(() =>
+        honeyObj.DOMove(targetRoot.position, 0.35f).OnComplete(() =>
         {
             honeyObj.gameObject.SetActive(false);
             GameManager.instance.IncreaseHoneyCount();
