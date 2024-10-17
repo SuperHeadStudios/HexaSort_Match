@@ -368,6 +368,7 @@ MonoBehaviour:
   upwardModifier: 1.8
   index: 0
   isUsable: 0
+  nowCall: 0
 --- !u!1 &8228306112699902101
 GameObject:
   m_ObjectHideFlags: 0

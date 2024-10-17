@@ -55,8 +55,6 @@ public class GameView : BaseView
         woodGoalText.text = GameManager.instance.boardGenerator.currentWoodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
         honeyGoalText.text = GameManager.instance.boardGenerator.currentHoneyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
         grassGoalText.text = GameManager.instance.boardGenerator.currentGrassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;
-
-
         currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
         goalValueBar.fillAmount = currentGoalValue;
 
