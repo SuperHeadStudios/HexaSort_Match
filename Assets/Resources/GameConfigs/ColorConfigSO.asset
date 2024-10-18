@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorList:
   - colorID: 0
-    colorType: 64
+    colorType: 0
     colorValue: {r: 1, g: 0.16470587, b: 0.825968, a: 1}
     material: {fileID: 2100000, guid: da1c4e2d8aecdb94397f0a8dc0e260ee, type: 2}
     mesh: {fileID: -947668113905058017, guid: 08191a5fa7965de4084b69a70be2fb72, type: 3}

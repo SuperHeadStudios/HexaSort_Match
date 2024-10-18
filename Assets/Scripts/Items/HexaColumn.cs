@@ -146,6 +146,10 @@ public class HexaColumn : MonoBehaviour
         for (int i = 0; i < addCellColumn.hexaCellList.Count; i++)
         {
             HexaCell cell = addCellColumn.hexaCellList[i];
+            if(cell == null)
+            {
+                Debug.Log("NullReference");
+            }
             cell.transform.SetParent(transform);
             cell.transform.localPosition = new Vector3(0, localSpacingY * (1 + hexaCellList.Count), 0);
             hexaCellList.Add(cell);

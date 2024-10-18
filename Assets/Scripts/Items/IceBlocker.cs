@@ -5,13 +5,12 @@ using UnityEngine.Rendering;
 
 public class IceBlocker : MonoBehaviour
 {
-    
     [SerializeField] private Rigidbody[] firstPartRbs;
-    [SerializeField] private Rigidbody secPartRb;
-    [SerializeField] private Rigidbody thirdPartRb;
+    [SerializeField] private Rigidbody[] secPartRbs;
+    [SerializeField] private Rigidbody[] thirdPartRbs;
     [SerializeField] private Collider[] firstPartCol;
-    [SerializeField] private Collider secPartCol;
-    [SerializeField] private Collider thirdPartCol;
+    [SerializeField] private Collider[] secPartCol;
+    [SerializeField] private Collider[] thirdPartCol;
     [SerializeField] private GameObject firstObj;
     [SerializeField] private GameObject secObj;
     [SerializeField] private GameObject thirdObj;
@@ -37,8 +36,16 @@ public class IceBlocker : MonoBehaviour
         {
             rb.isKinematic = true;
         }
-        secPartRb.isKinematic = true;
-        thirdPartRb.isKinematic = true;
+        
+        foreach(Rigidbody rb in secPartRbs)
+        {
+            rb.isKinematic = true;
+        }
+        
+        foreach(Rigidbody rb in thirdPartRbs)
+        {
+            rb.isKinematic = true;
+        }
     }
 
     private void Update()
@@ -62,14 +69,28 @@ public class IceBlocker : MonoBehaviour
         StartCoroutine(DisableFirstCol());
     }
     private void MakeSecondBreak()
-    {   secPartRb.isKinematic = false;
-        secPartRb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+    {
+        foreach (Rigidbody rb in secPartRbs)
+        {
+            rb.isKinematic = false;
+        }
+        foreach (Rigidbody rb in secPartRbs)
+        {
+            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+        }
         StartCoroutine(DisableSecCol());
+
     }
     private void MakeThirdBreak()
     {
-        thirdPartRb.isKinematic = false;
-        thirdPartRb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+        foreach (Rigidbody rb in thirdPartRbs)
+        {
+            rb.isKinematic = false;
+        }
+        foreach (Rigidbody rb in thirdPartRbs)
+        {
+            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+        }
         StartCoroutine(DisableThirdCol());
     }
 
@@ -89,42 +110,33 @@ public class IceBlocker : MonoBehaviour
     }
     private IEnumerator DisableSecCol()
     {
-        yield return new WaitForSeconds(2F);
-        secPartCol.enabled = false;
-        secPartRb.mass = 0.01f;
-        secPartRb.isKinematic = false;
+        yield return new WaitForSeconds(2F); 
+        foreach (Collider col in secPartCol)
+        {
+            col.enabled = false;
+        }
+        foreach (Rigidbody rbs in secPartRbs)
+        {
+            rbs.mass = 0.01f;
+            rbs.isKinematic = false;
+        }
         secObj.SetActive(false);
     }
 
     private IEnumerator DisableThirdCol()
     {
         yield return new WaitForSeconds(1.5F);
-        thirdPartCol.enabled = false;
-        thirdPartRb.mass = 0.01f;
-        thirdPartRb.isKinematic = false; 
-        thirdObj.SetActive(false);
-        //currentCell.isIce = false;
-
-    }
-
-    /*public IEnumerator MakeIceBreak()
-    {
-        yield return new WaitForSeconds(0f);
-        switch (index)
+        foreach (Collider col in thirdPartCol)
         {
-            case 0:
-                MakeFirstBreak();
-                break;
-            case 1:
-                MakeSecondBreak();
-                break;
-            case 2:
-                MakeThirdBreak();
-                nowCall = true;
-                break;
+            col.enabled = false;
         }
-        index++;
-    }*/
+        foreach (Rigidbody rbs in thirdPartRbs)
+        {
+            rbs.mass = 0.01f;
+            rbs.isKinematic = false;
+        }
+        thirdObj.SetActive(false);
+    }
 
     public bool MakeIceBreak()
     {
