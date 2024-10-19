@@ -1,18 +1,19 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StartGoalPanel : BasePopup
 {
-    public Text levelTxt;
+    public TextMeshProUGUI levelTxt;
 
-    public Text goalTxt;
+    public TextMeshProUGUI goalTxt;
 
-    public Text woodTargetText;
+    public TextMeshProUGUI woodTargetText;
 
-    public Text honeyTargetText;
+    public TextMeshProUGUI honeyTargetText;
     
-    public Text grassTargetText;
+    public TextMeshProUGUI grassTargetText;
 
     public override void InitView()
     {

@@ -5,6 +5,7 @@ using static AdsControl;
 using UnityEngine.Advertisements;
 using Unity.VisualScripting;
 using DG.Tweening;
+using TMPro;
 
 public class BottomCell : MonoBehaviour
 {
@@ -17,9 +18,18 @@ public class BottomCell : MonoBehaviour
     public int column;
 
     //[HideInInspector]
+    public TextMeshPro currentLockText;
+
+
+    public int lockCount = 150;
+
+    public int currentLockCount;
+
     public HexaColumn hexaColumn;
 
-    public HexaColumn hexaColumn_ice;    
+    public HexaColumn hexaColumn_ice;
+
+    public HexaColumn hexaColumn_Vines;
 
     public MeshRenderer meshRenderer;
 
@@ -45,7 +55,11 @@ public class BottomCell : MonoBehaviour
 
     public GameObject iceObj;
 
+    public GameObject vinesObj;
+
     public GameObject iceHexa;
+
+    public GameObject vinesHexa;
 
     public bool isWood;
 
@@ -55,6 +69,8 @@ public class BottomCell : MonoBehaviour
 
     public bool isIce;
 
+    public bool isVines;
+
     public HoneyBlocker honeyBlocker;
 
     public GrassBlocker grassBlocker;
@@ -63,13 +79,13 @@ public class BottomCell : MonoBehaviour
 
     public IceBlocker iceBlocker;
 
+    public VinesBlocker vinesBlocker;
+
     public LockBlocker lockBlocker;
 
     public bool isBreakNow = false;
 
     public bool isUseNow;
-
-    public bool isIceBroken;
 
     public BoardController boardController;
 
@@ -93,6 +109,7 @@ public class BottomCell : MonoBehaviour
     private void Update()
     {
         UpdateLeafPosition();
+        currentLockText.text = lockCount.ToString();
     }
 
     public void UpdateLeafPosition()
@@ -135,7 +152,6 @@ public class BottomCell : MonoBehaviour
             hexaColumn.transform.localPosition = Vector3.zero;
             hexaColumn.currentBottomCell = this;
         }
-        
     }
 
     public void InitAdCell(bool isAdCell)
@@ -146,6 +162,7 @@ public class BottomCell : MonoBehaviour
         if (isAd)
             AdCell();
         else
+            UnLockCell();
             OpenCell();
     }
     public void InitLockCell(bool isLockCell)
@@ -158,8 +175,6 @@ public class BottomCell : MonoBehaviour
         else
             OpenLockCell();
     }
-
-
     public void InitWoodCell(bool isWoodCell)
     {   
         nearCellList = new List<BottomCell>();
@@ -201,6 +216,16 @@ public class BottomCell : MonoBehaviour
         else
             IceCellOpen();
     }
+    public void InitVinesCell(bool isVinesCell)
+    {
+        nearCellList = new List<BottomCell>();
+        UnSelectCell();
+        isVines = isVinesCell;
+        if (isVines)
+            VinesCell();
+        else
+            VinesCellOpen();
+    }
 
     public void ClearBottomCell()
     {
@@ -226,7 +251,6 @@ public class BottomCell : MonoBehaviour
     }
     private void WoodCell()
     {
-        //meshRenderer.material = lockMaterial;
         woodObj.SetActive(true);
     }
 
@@ -244,6 +268,11 @@ public class BottomCell : MonoBehaviour
     {
         iceHexa.SetActive(true);
         iceObj.SetActive(true);
+    }
+    private void VinesCell()
+    {
+        vinesHexa.SetActive(true);
+        vinesObj.SetActive(true);
     }
     private void LockCell()
     {
@@ -265,27 +294,30 @@ public class BottomCell : MonoBehaviour
     private void WoodCellOpen()
     {
         isWood = false;
-        //meshRenderer.material = cellMaterial;
         woodObj.SetActive(false);
     }
     private void GrassCellOpen()
     {
         isGrass = false;
-        //meshRenderer.material = cellMaterial;
         grassObj.SetActive(false);
     }
     private void HoneyCellOpen()
     {
         isHoney = false;
-        //meshRenderer.material = cellMaterial;
         honeyObj.SetActive(false);
     }
     public void IceCellOpen()
     {
         isIce = false;
-        //meshRenderer.material = cellMaterial;
         iceObj.SetActive(false);
     }
+    public void VinesCellOpen()
+    {
+        isVines = false;
+        vinesObj.SetActive(false);
+    }
+
+
 
     public void UnLockCell()
     {
@@ -310,6 +342,8 @@ public class BottomCell : MonoBehaviour
             {
                 //Debug.Log("HIT " + hitData.transform.name);
                 BottomCell nearCell = hitData.transform.GetComponent<BottomCell>();
+                if (nearCell == null)
+                    Debug.Log("hexacellListNul");
                 if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
                 {
                     nearCellList.Add(hitData.transform.GetComponent<BottomCell>());
@@ -319,7 +353,7 @@ public class BottomCell : MonoBehaviour
         }
     }
 
-    public void CheckNearByOnCompelteStake()
+    public void CheckNearByOnCompelteStake(int currentCount)
     {
         for (int i = 0; i < 6; i++)
         {
@@ -344,13 +378,29 @@ public class BottomCell : MonoBehaviour
                         nearCell.isIce = false;
                     }
                 }
+                else if (nearCell.isVines == true)
+                {
+                    if (nearCell.vinesBlocker.MakeVinesBreak())
+                    {
+                        nearCell.VinesCellOpen();
+                        BoardController.instance.currentHexaColumn = nearCell.hexaColumn_Vines;
+                        BoardController.instance.currentHitBottomCell = nearCell;
+                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_Vines, nearCell);
+                        nearCell.isVines = false;
+                    }
+                }
                 else if (nearCell.isHoney == true)
                 {
                     StartCoroutine(nearCell.honeyBlocker.MakeHoneyBreak());
                 }
-                else if (nearCell.isLock == true)
+                if (nearCell.isLock == true)
                 {
-                    StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
+                    nearCell.currentLockCount += currentCount;
+                    nearCell.lockCount-= nearCell.currentLockCount;
+                    if(nearCell.currentLockCount >= nearCell.lockCount)
+                    {
+                        nearCell.lockBlocker.MakeLockOpen();
+                    }
                 }
             }
         }
@@ -368,7 +418,14 @@ public class BottomCell : MonoBehaviour
                 {
                     StartCoroutine(currentCell.grassBlocker.MakeGrassBreak());
                 }
-                
+                /*if(currentCell.isLock == true)
+                {
+                    currentCell.currentLockCount++;
+                    if (currentCell.isLock == true && currentCell.currentLockCount >= currentCell.lockCount)
+                    {
+                        currentCell.lockBlocker.MakeLockOpen();
+                    }
+                }*/
             }
         }
     }

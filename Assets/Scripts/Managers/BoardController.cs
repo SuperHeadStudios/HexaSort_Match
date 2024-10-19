@@ -576,7 +576,6 @@ public class BoardController : MonoBehaviour
 
     private void MoveCell(Transform cell, Vector3 targetPos, int queue, int lastQueue, HexaColumn cell1, HexaColumn cell2)
     {
-      
         //Debug.Log("Check Pcs" + name);
         List<Vector3> arcPoint = new List<Vector3>();
 
@@ -645,14 +644,14 @@ public class BoardController : MonoBehaviour
 
     private bool CheckTopLayer(HexaColumn cell)
     {
-        
         bool isFull = false;
         int dataCount = cell.currentHexaColumnData.columnDataList.Count;
         int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
         if (topSize >= 10)
         {
+
             isFull = true;
-            cell.currentBottomCell.CheckNearByOnCompelteStake();
+            cell.currentBottomCell.CheckNearByOnCompelteStake(topSize);
             cell.currentBottomCell.CheckCurrentCellCompleteStake();
         }
 
@@ -681,7 +680,7 @@ public class BoardController : MonoBehaviour
             AudioManager.instance.columnSellSfx.Play();
             int dataCount = cell.currentHexaColumnData.columnDataList.Count;
             int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
-            Color currentColor = cell.hexaCellList[dataCount-1].currentColor;
+            Color currentColor = cell.hexaCellList[dataCount+5].currentColor;
             if (queue == 0)
             {
                 if (!clearHexaColumVfx1.gameObject.activeSelf)

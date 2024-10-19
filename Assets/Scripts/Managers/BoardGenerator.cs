@@ -118,6 +118,14 @@ public class BoardGenerator : MonoBehaviour
             {
                 bottomCell.InitIceCell(true);
             }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Vines)
+            {
+                bottomCell.InitVinesCell(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Lock)
+            {
+                bottomCell.InitLockCell(true);
+            }
             
             else
             {
@@ -126,6 +134,8 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitGrassCell(false);
                 bottomCell.InitHoneyCell(false);
                 bottomCell.InitIceCell(false);
+                bottomCell.InitVinesCell(false);
+                bottomCell.InitLockCell(false);
             }
 
             bottomCell.CreateColumn();

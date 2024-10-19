@@ -13,15 +13,12 @@ public class LockBlocker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(MakeLockOpen());
-        }
+        
     }
 
-    public IEnumerator MakeLockOpen()
+    public void MakeLockOpen()
     {
-        yield return new WaitForSeconds(2.4f);
+        currentCell.isLock = false;
         lockObj.SetActive(false);
         currentCell.isLock = false;
     }

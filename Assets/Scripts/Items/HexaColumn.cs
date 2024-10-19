@@ -142,14 +142,9 @@ public class HexaColumn : MonoBehaviour
         {
             currentHexaColumnData.columnDataList.Add(addCellColumn.currentHexaColumnData.columnDataList[i]);
         }
-
         for (int i = 0; i < addCellColumn.hexaCellList.Count; i++)
         {
             HexaCell cell = addCellColumn.hexaCellList[i];
-            if(cell == null)
-            {
-                Debug.Log("NullReference");
-            }
             cell.transform.SetParent(transform);
             cell.transform.localPosition = new Vector3(0, localSpacingY * (1 + hexaCellList.Count), 0);
             hexaCellList.Add(cell);
@@ -182,7 +177,7 @@ public class HexaColumn : MonoBehaviour
         UpdateColliderHeight();
         UpdateColorList();
     }
-
+/*
 
     public void AddNewHexaCell(int numberCell)
     {
@@ -195,7 +190,7 @@ public class HexaColumn : MonoBehaviour
         }
 
         UpdateColliderHeight();
-    }
+    }*/
 
     public void UpdateColliderHeight()
     {
@@ -225,7 +220,6 @@ public class HexaColumn : MonoBehaviour
                 cellColorList.Add(currentHexaColumnData.columnDataList[i].colorID);
             }
         }
-
         topColorID = currentHexaColumnData.columnDataList[currentHexaColumnData.columnDataList.Count - 1].colorID;
     }
 
@@ -238,7 +232,6 @@ public class HexaColumn : MonoBehaviour
             //highlightEffect.highlighted = false;
             currentColumnState = COLUMN_STATE.IDLE;
         });
-
     }
 
     public void MoveToLastBottom()
@@ -288,15 +281,12 @@ public class HexaColumn : MonoBehaviour
         topColorID = -1;
         UpdateColliderHeight();
     }
-
     public LayerMask bottomCellMaksk;
-
     private RaycastHit hit;
     private BottomCell hitBottomCell;
 
     public void GetBottomCell()
     {
-
         if (Physics.Raycast(transform.position + new Vector3(0.0f, 0.0f, offsetRaycast), -transform.up, out hit, 10.0f, bottomCellMaksk))
         {
             if (hit.transform.tag == "BottomCell")
@@ -312,7 +302,12 @@ public class HexaColumn : MonoBehaviour
                         return;
                     else if (hitBottomCell.isHoney)
                         return;
-                    else if(hitBottomCell.isIce) return;
+                    else if(hitBottomCell.isIce) 
+                        return;
+                    else if(hitBottomCell.isVines) 
+                        return;
+                    else if (hitBottomCell.isLock)
+                        return;
                     if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                         return;
                     GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
@@ -330,7 +325,12 @@ public class HexaColumn : MonoBehaviour
                             return;
                         else if( hitBottomCell.isHoney)
                             return;
-                        else if (hitBottomCell.isIce) return;
+                        else if (hitBottomCell.isIce) 
+                            return;
+                        else if (hitBottomCell.isVines)
+                            return;
+                        else if (hitBottomCell.isLock)
+                            return;
                         if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                             return;
 
