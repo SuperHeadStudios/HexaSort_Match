@@ -399,7 +399,7 @@ public class BottomCell : MonoBehaviour
                     nearCell.lockCount-= nearCell.currentLockCount;
                     if(nearCell.currentLockCount >= nearCell.lockCount)
                     {
-                        nearCell.lockBlocker.MakeLockOpen();
+                        StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
                     }
                 }
             }

@@ -641,7 +641,6 @@ public class BoardController : MonoBehaviour
     }
 #endregion
 
-
     private bool CheckTopLayer(HexaColumn cell)
     {
         bool isFull = false;
@@ -723,8 +722,13 @@ public class BoardController : MonoBehaviour
                 }
 
                 if (GameManager.instance.boardGenerator.currentGoalNumber >= GameManager.instance.boardGenerator.goalNumber)
-                {
-                    GameManager.instance.ShowGameWin();
+                {/*
+                    if(GameManager.instance.boardGenerator.currentWoodGoalNumber >= GameManager.instance.boardGenerator.woodGoalNumber
+                    && GameManager.instance.boardGenerator.currentGrassGoalNumber >= GameManager.instance.boardGenerator.grassGoalNumber
+                    && GameManager.instance.boardGenerator.currentHoneyGoalNumber >= GameManager.instance.boardGenerator.honeyGoalNumber)
+                    {*/
+                        GameManager.instance.ShowGameWin();
+                    //}
                 }
                 else
                 {

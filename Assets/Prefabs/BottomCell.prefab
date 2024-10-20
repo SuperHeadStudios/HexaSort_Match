@@ -112,7 +112,7 @@ MonoBehaviour:
   row: 0
   column: 0
   currentLockText: {fileID: 644434047162479717}
-  lockCount: 10
+  lockCount: 100
   currentLockCount: 0
   hexaColumn: {fileID: 0}
   hexaColumn_ice: {fileID: 6725148754151478724}

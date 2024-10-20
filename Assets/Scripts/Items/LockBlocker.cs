@@ -16,8 +16,9 @@ public class LockBlocker : MonoBehaviour
         
     }
 
-    public void MakeLockOpen()
+    public IEnumerator MakeLockOpen()
     {
+        yield return new WaitForSeconds(2f);
         currentCell.isLock = false;
         lockObj.SetActive(false);
         currentCell.isLock = false;

@@ -44,7 +44,6 @@ public class StartGoalPanel : BasePopup
         rootTrans.DOScale(Vector3.one, 1.0f).SetEase(Ease.OutBounce).OnComplete(() =>
         {
             HideView();
-
         });
     }
 

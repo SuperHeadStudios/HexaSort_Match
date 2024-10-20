@@ -20,7 +20,7 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 150
+    Target: 10
   - Type: 3
     Target: 1
   - Type: 14

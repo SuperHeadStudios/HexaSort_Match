@@ -21,6 +21,11 @@ public class PopupWin : BasePopup
 
     [SerializeField] private TextMeshProUGUI honeyTxt;
 
+    [SerializeField] private RectTransform size;
+    [SerializeField] private Transform targetPos;
+
+    [SerializeField] private RectTransform popUp;
+
 
     private int rwValue;
 
@@ -45,26 +50,37 @@ public class PopupWin : BasePopup
 
     public override void ShowView()
     {
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        isShow = true;
-        contentGroup.alpha = 0.0f;
-        rootTrans.localScale = Vector3.one * 0.35f;
-
-        rootTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+        size.DOScale(Vector3.one, .3f).OnComplete(() =>
         {
-
-            DOTween.To(() => contentGroup.alpha, x => contentGroup.alpha = x, 1.0f, 0.5f).SetDelay(0.35f).SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-
-
-            });
-
+            StartCoroutine(MoveCrown());
+            StartCoroutine(ResizeMenu());
         });
-
+            canvasGroup.alpha = 1.0f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            isShow = true;
+            contentGroup.alpha = 0.0f;
+            rootTrans.localScale = Vector3.one * 0.35f;
+            rootTrans.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                DOTween.To(() => contentGroup.alpha, x => contentGroup.alpha = x, 1.0f, 0.5f).SetDelay(0.35f).SetEase(Ease.Linear);
+            });
     }
+
+    private IEnumerator ResizeMenu()
+    {
+        yield return new WaitForSeconds(.5f);
+        {
+            popUp.DOScaleY(1f, .4f);
+        }
+    }
+
+    private IEnumerator MoveCrown()
+    {
+        yield return new WaitForSeconds(.5f);
+        size.DOMove(targetPos.position, .3f);
+    }
+
 
     public override void HideView()
     {
