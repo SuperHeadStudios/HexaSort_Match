@@ -20,7 +20,7 @@ MonoBehaviour:
   TutorialSteps: 0
   Goals:
   - Type: 1
-    Target: 250
+    Target: 300
   - Type: 0
     Target: 0
   - Type: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: -2
       Col: -1
       Types: 
@@ -83,7 +83,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: -2
       Col: 0
       Types: 010000000100000001000000020000000200000002000000
@@ -107,7 +107,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: -1
       Col: -2
       Types: 0100000001000000010000000100000001000000
@@ -123,7 +123,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 3
+      State: 0
     - Row: -1
       Col: 0
       Types: 
@@ -227,7 +227,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     Pieces:
     - Types: 
     - Types: 

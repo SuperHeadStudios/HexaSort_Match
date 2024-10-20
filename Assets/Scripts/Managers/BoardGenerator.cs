@@ -51,7 +51,7 @@ public class BoardGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //InitBoardGenerator();
     }
 
     // Update is called once per frame
@@ -77,7 +77,10 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenMap()
     {
+        
         levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
+
+        Debug.Log("CallingFunction");
 
         bottomCellList = new List<BottomCell>();
 
@@ -87,7 +90,7 @@ public class BoardGenerator : MonoBehaviour
             bottomCell.transform.SetParent(transform);
             bottomCell.row = levelConfig.LevelData.Cells[i].Row;
             bottomCell.column = levelConfig.LevelData.Cells[i].Col;
-
+           
             int oddColumn = levelConfig.LevelData.Cells[i].Col % 2;
             if (oddColumn == 0)
             {
@@ -184,6 +187,7 @@ public class BoardGenerator : MonoBehaviour
             {
                 heighOfMap = Mathf.Abs(bottomCell.row);
             }
+            bottomCell.CheckNearOnStart();
         }
 
         //Debug.Log("HEIGH OF MAP " + heighOfMap);

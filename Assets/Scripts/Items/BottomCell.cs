@@ -391,6 +391,7 @@ public class BottomCell : MonoBehaviour
     {
         if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
             return;
+        else
         WatchAds();
     }
 
@@ -573,12 +574,6 @@ public class BottomCell : MonoBehaviour
         meshRenderer.material = cellMaterial;
         AdObj.SetActive(false);
     }
-    /*public void RewardEarn()
-    {
-        isWood = false;
-        meshRenderer.material = cellMaterial;
-        woodObj.SetActive(false);
-    }*/
 
     public void ShowRWUnityAds()
     {
