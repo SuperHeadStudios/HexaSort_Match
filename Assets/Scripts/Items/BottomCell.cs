@@ -61,6 +61,14 @@ public class BottomCell : MonoBehaviour
 
     public GameObject vinesHexa;
 
+    public HexaColumn greenHexa;
+    public HexaColumn cyanHexa;
+    public HexaColumn yellowHexa;
+    public HexaColumn redHexa;
+    public HexaColumn purpleHexa;
+    public HexaColumn orangeHexa;
+
+
     public bool isWood;
 
     public bool isGrass;
@@ -70,6 +78,13 @@ public class BottomCell : MonoBehaviour
     public bool isIce;
 
     public bool isVines;
+
+    public bool isGreenHexa;
+    public bool isPurpleHexa;
+    public bool isRedHexa;
+    public bool isCyanHexa;
+    public bool isYellowHexa;
+    public bool isOrangeHexa;
 
     public HoneyBlocker honeyBlocker;
 
@@ -104,7 +119,8 @@ public class BottomCell : MonoBehaviour
         {
             instance = this;
         }
-        boardController = transform.GetComponentInParent<BoardController>();
+        boardController = transform.GetComponentInParent<BoardController>(); 
+        CheckNearOnStart();
     }
     private void Update()
     {
@@ -153,6 +169,59 @@ public class BottomCell : MonoBehaviour
             hexaColumn.currentBottomCell = this;
         }
     }
+
+
+    public void InitGreenHexa(bool isGreenCell)
+    {
+        isGreenHexa = isGreenCell;
+        if (isGreenHexa)
+            greenHexa.gameObject.SetActive(true);
+        else
+            greenHexa.gameObject.SetActive(false);
+    }
+    public void InitYellowHexa(bool isYellowCell)
+    {
+        isYellowHexa = isYellowCell;
+        if (isYellowHexa)
+        yellowHexa.gameObject.SetActive(true);
+        else
+            yellowHexa.gameObject.SetActive(false);
+    }
+    public void InitRedHexa(bool isRedCell)
+    {
+        isRedHexa = isRedCell;
+        if (isRedHexa)
+        redHexa.gameObject.SetActive(true);
+        else
+            redHexa.gameObject.SetActive(false);
+    }
+    public void InitPurpleHexa(bool isPurpleCell)
+    {
+        isPurpleHexa = isPurpleCell;
+        if (isPurpleHexa)
+            purpleHexa.gameObject.SetActive(true);
+        else
+            purpleHexa.gameObject.SetActive(false);
+    }
+    public void InitOrangeHexa(bool isOrangeCell)
+    {
+        isOrangeHexa = isOrangeCell;
+        if (isOrangeHexa)
+        orangeHexa.gameObject.SetActive(true);
+        else
+            orangeHexa.gameObject.SetActive(false);
+
+    }
+    public void InitCyanHexa(bool isCyanCell)
+    {
+        isCyanHexa = isCyanCell;
+        if (isCyanHexa)
+        cyanHexa.gameObject.SetActive(true);
+        else
+            cyanHexa.gameObject.SetActive(false);
+    }
+
+    #region Blockers Init
 
     public void InitAdCell(bool isAdCell)
     {
@@ -226,7 +295,6 @@ public class BottomCell : MonoBehaviour
         else
             VinesCellOpen();
     }
-
     public void ClearBottomCell()
     {
         hexaColumn = null;
@@ -316,7 +384,7 @@ public class BottomCell : MonoBehaviour
         isVines = false;
         vinesObj.SetActive(false);
     }
-
+    #endregion
 
 
     public void UnLockCell()
@@ -404,6 +472,46 @@ public class BottomCell : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CheckNearOnStart()
+    {
+        if (isGreenHexa)
+        {
+            PrefilledHexa(greenHexa);
+        }
+
+        if (isCyanHexa)
+        {
+            PrefilledHexa(cyanHexa);
+        }
+
+        if (isYellowHexa)
+        {
+            PrefilledHexa(yellowHexa);
+        }
+
+        if (isRedHexa)
+        {
+            PrefilledHexa(redHexa);
+        }
+
+        if (isPurpleHexa)
+        {
+            PrefilledHexa(purpleHexa);
+        }
+
+        if (isOrangeHexa)
+        {
+            PrefilledHexa(orangeHexa);
+        }
+    }
+
+    private void PrefilledHexa(HexaColumn hexaColumn)
+    {
+        BoardController.instance.currentHitBottomCell = this;
+        BoardController.instance.currentHexaColumn = hexaColumn;
+        BoardController.instance.PutColumnInHolder_2(hexaColumn, this);
     }
 
     public void CheckCurrentCellCompleteStake()

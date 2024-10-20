@@ -17,11 +17,18 @@ public class StartGoalPanel : BasePopup
 
     public override void InitView()
     {
-        levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
-        goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
-        woodTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[1].Target.ToString();
-        honeyTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[2].Target.ToString();
-        grassTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[3].Target.ToString();
+        
+        if (GameManager.instance.boardGenerator.isBlockers == true)
+        {
+            woodTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[1].Target.ToString();
+            honeyTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[2].Target.ToString();
+            grassTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[3].Target.ToString();
+        }
+        else
+        {
+            levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
+            goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
+        }
     }
 
     public override void Start()

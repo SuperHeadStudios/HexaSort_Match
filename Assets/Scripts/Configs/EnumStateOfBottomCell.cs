@@ -14,5 +14,11 @@ public enum EnumStateOfBottomCell
 	BirdHouse = 10,
 	Honey = 11,
 	Vines = 12,
-	Lock = 13
+	Lock = 13,
+	GreenHexa = 14,
+	CyanHexa = 15,
+	YellowHexa= 16,
+	RedHexa = 17,
+	OrangeHexa = 18,
+	PurpleHexa = 19,
 }

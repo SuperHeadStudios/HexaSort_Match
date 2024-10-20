@@ -46,6 +46,8 @@ public class BoardGenerator : MonoBehaviour
 
     public List<BottomCell> bottomCellList;
 
+    public bool isBlockers = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -126,7 +128,31 @@ public class BoardGenerator : MonoBehaviour
             {
                 bottomCell.InitLockCell(true);
             }
-            
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.GreenHexa)
+            {
+                bottomCell.InitGreenHexa(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RedHexa)
+            {
+                bottomCell.InitRedHexa(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.YellowHexa)
+            {
+                bottomCell.InitYellowHexa(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.CyanHexa)
+            {
+                bottomCell.InitCyanHexa(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.OrangeHexa)
+            {
+                bottomCell.InitOrangeHexa(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.PurpleHexa)
+            {
+                bottomCell.InitPurpleHexa(true);
+            }
+
             else
             {
                 bottomCell.InitAdCell(false);
@@ -136,6 +162,14 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitIceCell(false);
                 bottomCell.InitVinesCell(false);
                 bottomCell.InitLockCell(false);
+
+                bottomCell.InitGreenHexa(false);
+                bottomCell.InitRedHexa(false);
+                bottomCell.InitYellowHexa(false);
+                bottomCell.InitCyanHexa(false);
+                bottomCell.InitOrangeHexa(false);
+                bottomCell.InitPurpleHexa(false);
+
             }
 
             bottomCell.CreateColumn();
@@ -155,9 +189,13 @@ public class BoardGenerator : MonoBehaviour
         //Debug.Log("HEIGH OF MAP " + heighOfMap);
         SetCam();
         goalNumber = levelConfig.Goals[0].Target;
-        woodGoalNumber = levelConfig.Goals[1].Target;
-        honeyGoalNumber = levelConfig.Goals[2].Target;
-        grassGoalNumber = levelConfig.Goals[3].Target;
+        if (isBlockers == true)
+        {
+            woodGoalNumber = levelConfig.Goals[1].Target;
+            honeyGoalNumber = levelConfig.Goals[2].Target;
+            grassGoalNumber = levelConfig.Goals[3].Target;
+        }
+        
 
         currentMapSlots = levelConfig.LevelData.Cells.Count;
     }

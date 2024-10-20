@@ -55,7 +55,7 @@ public class GameView : BaseView
     public override void InitView()
     {        
         currentGoalValue = 0.0f;
-        goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
+        goalText.text = GameManager.instance.boardGenerator.currentGoalNumber +"/" + GameManager.instance.boardGenerator.goalNumber.ToString();
         woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
         honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
         grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
@@ -112,7 +112,7 @@ public class GameView : BaseView
 
         if (GameManager.instance.boardGenerator.currentGoalNumber <= GameManager.instance.boardGenerator.goalNumber)
         {
-            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
+            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber.ToString();
             currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.fillAmount = currentGoalValue;
         }
@@ -131,7 +131,7 @@ public class GameView : BaseView
 
         else
         {
-            goalText.text = GameManager.instance.boardGenerator.goalNumber.ToString();
+            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber.ToString();
             /*woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber + "/" + GameManager.instance.boardGenerator.woodGoalNumber;
             honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber + "/" + GameManager.instance.boardGenerator.honeyGoalNumber;
             grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber + "/" + GameManager.instance.boardGenerator.grassGoalNumber;*/
