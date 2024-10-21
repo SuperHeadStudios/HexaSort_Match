@@ -48,6 +48,11 @@ public class BoardGenerator : MonoBehaviour
 
     public bool isBlockers = false;
 
+
+    [SerializeField] private bool isDebug = false;
+    [SerializeField] private int levelNum = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,9 +82,14 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenMap()
     {
-        
-        levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
-
+        if (isDebug)
+        {
+            levelConfig = Resources.Load("levels/map_" + levelNum.ToString()) as MapDataLevelConfigSO;
+        }
+        else
+        {
+            levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
+        }
         Debug.Log("CallingFunction");
 
         bottomCellList = new List<BottomCell>();

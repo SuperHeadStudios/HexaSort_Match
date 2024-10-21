@@ -581,7 +581,7 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 4.0f, (float)i / 9.0f));
+            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 3.0f, (float)i / 9.0f));
         }
 
         cell.DOLocalPath(arcPoint.ToArray(), 0.5f, PathType.Linear).SetDelay((float)queue * 0.05f).SetLoops(1).SetEase(Ease.Linear).OnComplete(() =>
