@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     public ParticleSystem hammerExplosionVfx;
 
+    [Header("----- Collective Counts -----"), Space(5)]   
     [SerializeField] public int woodCount = 1;
     [SerializeField] public int honeyCount = 1;
     [SerializeField] public int grassCount = 1;

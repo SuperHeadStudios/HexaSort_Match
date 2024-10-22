@@ -226,15 +226,10 @@ public class HexaColumn : MonoBehaviour
     public void MoveBack()
     {
         currentColumnState = COLUMN_STATE.MOVING;
-       /* if (cellHoder == null)
-        {
-            return;
-        }*/
         transform.SetParent(cellHoder.transform);
         
         transform.DOLocalMove(positionInHoler, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
         {
-            //highlightEffect.highlighted = false;
             currentColumnState = COLUMN_STATE.IDLE;
         });
     }
@@ -245,7 +240,6 @@ public class HexaColumn : MonoBehaviour
         transform.SetParent(currentBottomCell.transform);
         transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
         {
-            //highlightEffect.highlighted = false;
             currentColumnState = COLUMN_STATE.IDLE;
         });
 

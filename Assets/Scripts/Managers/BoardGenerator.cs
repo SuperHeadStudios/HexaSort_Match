@@ -141,31 +141,10 @@ public class BoardGenerator : MonoBehaviour
             {
                 bottomCell.InitLockCell(true);
             }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.GreenHexa)
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.PreFilled)
             {
                 bottomCell.InitGreenHexa(true);
             }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RedHexa)
-            {
-                bottomCell.InitRedHexa(true);
-            }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.YellowHexa)
-            {
-                bottomCell.InitYellowHexa(true);
-            }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.CyanHexa)
-            {
-                bottomCell.InitCyanHexa(true);
-            }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.OrangeHexa)
-            {
-                bottomCell.InitOrangeHexa(true);
-            }
-            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.PurpleHexa)
-            {
-                bottomCell.InitPurpleHexa(true);
-            }
-
             else
             {
                 bottomCell.InitAdCell(false);
@@ -177,12 +156,6 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitLockCell(false);
 
                 bottomCell.InitGreenHexa(false);
-                bottomCell.InitRedHexa(false);
-                bottomCell.InitYellowHexa(false);
-                bottomCell.InitCyanHexa(false);
-                bottomCell.InitOrangeHexa(false);
-                bottomCell.InitPurpleHexa(false);
-
             }
 
             bottomCell.CreateColumn();
@@ -200,7 +173,6 @@ public class BoardGenerator : MonoBehaviour
             bottomCell.CheckNearOnStart();
         }
 
-        //Debug.Log("HEIGH OF MAP " + heighOfMap);
         SetCam();
         goalNumber = levelConfig.Goals[0].Target;
         if (isBlockers == true)

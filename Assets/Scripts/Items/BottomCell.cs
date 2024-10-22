@@ -11,99 +11,53 @@ public class BottomCell : MonoBehaviour
 {
     public static BottomCell instance;
 
-    [HideInInspector]
-    public int row;
+    [HideInInspector] public int row;
+    [HideInInspector] public int column;
 
-    [HideInInspector]
-    public int column;
-
-    //[HideInInspector]
-    public TextMeshPro currentLockText;
-
-
-    public int lockCount = 150;
-
+    [HideInInspector]public int lockCount = 150;
     public int currentLockCount;
 
     public HexaColumn hexaColumn;
-
     public HexaColumn hexaColumn_ice;
-
     public HexaColumn hexaColumn_Vines;
 
+    public TextMeshPro currentLockText;
     public MeshRenderer meshRenderer;
-
     public Material cellMaterial;
-
     public Material cellSelectedMaterial;
-
     public Material lockMaterial;
 
     public GameObject AdObj;
+    public GameObject lockObj;
+    public GameObject woodObj;
+    public GameObject grassObj;
+    public GameObject honeyObj;
+    public GameObject iceObj;
+    public GameObject vinesObj;
+    public GameObject iceHexa;
+    public GameObject vinesHexa;
+    public HexaColumn greenHexa;
 
     public bool isAd;
-
-    public GameObject lockObj;
-
     public bool isLock;
-
-    public GameObject woodObj;
-
-    public GameObject grassObj;
-
-    public GameObject honeyObj;
-
-    public GameObject iceObj;
-
-    public GameObject vinesObj;
-
-    public GameObject iceHexa;
-
-    public GameObject vinesHexa;
-
-    public HexaColumn greenHexa;
-    public HexaColumn cyanHexa;
-    public HexaColumn yellowHexa;
-    public HexaColumn redHexa;
-    public HexaColumn purpleHexa;
-    public HexaColumn orangeHexa;
-
-
     public bool isWood;
-
     public bool isGrass;
-
     public bool isHoney;
-
     public bool isIce;
-
     public bool isVines;
-
-    public bool isGreenHexa;
-    public bool isPurpleHexa;
-    public bool isRedHexa;
-    public bool isCyanHexa;
-    public bool isYellowHexa;
-    public bool isOrangeHexa;
+    public bool isPrefilled;
 
     public HoneyBlocker honeyBlocker;
-
     public GrassBlocker grassBlocker;
-
     public WoodBlocker woodBlocker;
-
     public IceBlocker iceBlocker;
-
     public VinesBlocker vinesBlocker;
-
     public LockBlocker lockBlocker;
 
     public bool isBreakNow = false;
-
     public bool isUseNow;
 
     public BoardController boardController;
-
     public int index;
 
     public float currentLeafPos;
@@ -111,7 +65,6 @@ public class BottomCell : MonoBehaviour
     [SerializeField] private float smoothTime = 0.1f;
 
     public Transform centerLeaf;
-    // Start is called before the first frame update
 
     void Start()
     {
@@ -136,89 +89,38 @@ public class BottomCell : MonoBehaviour
             if (hexaColumn.hexaCellList.Count == 0)
             {
                 centerLeaf.DOLocalMoveY(0.04F, smoothTime);
-                /*float Smooth = Mathf.SmoothDamp(leafPosition.y, 0.04f, ref velocity, smoothTime * 3);
-                leafPosition.y = Smooth;*/
             }
             else
             {
                 float moveOnY = (hexaColumn.hexaCellList.Count - 1) * currentLeafPos+0.04F;
                 centerLeaf.DOLocalMoveY(moveOnY, smoothTime);
-                //float Smooth = Mathf.SmoothDamp(leafPosition.y, hexaColumn.hexaCellList.Count * currentLeafPos, ref velocity, smoothTime);
-                //leafPosition.y = Smooth;
             }
             centerLeaf.position = leafPosition;
         }
     }
+
     public void CreateColumn()
     {
-        if (isIce)
-        {
-            hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
-            hexaColumn.InitColumn();
-            hexaColumn.transform.SetParent(transform);
-            hexaColumn.transform.localPosition = Vector3.zero;
-            hexaColumn.currentBottomCell = this;
-
-        }
-        else
-        {
-            hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
-            hexaColumn.InitColumn();
-            hexaColumn.transform.SetParent(transform);
-            hexaColumn.transform.localPosition = Vector3.zero;
-            hexaColumn.currentBottomCell = this;
-        }
+        hexaColumn = GameManager.instance.poolManager.GetHexaColumn();
+        hexaColumn.InitColumn();
+        hexaColumn.transform.SetParent(transform);
+        hexaColumn.transform.localPosition = Vector3.zero;
+        hexaColumn.currentBottomCell = this;
     }
 
 
-    public void InitGreenHexa(bool isGreenCell)
+    public void InitGreenHexa(bool prefilled)
     {
-        isGreenHexa = isGreenCell;
-        if (isGreenHexa)
+        isPrefilled = prefilled;
+        
+        if (isPrefilled)
+        {
             greenHexa.gameObject.SetActive(true);
+        }
         else
+        {
             greenHexa.gameObject.SetActive(false);
-    }
-    public void InitYellowHexa(bool isYellowCell)
-    {
-        isYellowHexa = isYellowCell;
-        if (isYellowHexa)
-        yellowHexa.gameObject.SetActive(true);
-        else
-            yellowHexa.gameObject.SetActive(false);
-    }
-    public void InitRedHexa(bool isRedCell)
-    {
-        isRedHexa = isRedCell;
-        if (isRedHexa)
-        redHexa.gameObject.SetActive(true);
-        else
-            redHexa.gameObject.SetActive(false);
-    }
-    public void InitPurpleHexa(bool isPurpleCell)
-    {
-        isPurpleHexa = isPurpleCell;
-        if (isPurpleHexa)
-            purpleHexa.gameObject.SetActive(true);
-        else
-            purpleHexa.gameObject.SetActive(false);
-    }
-    public void InitOrangeHexa(bool isOrangeCell)
-    {
-        isOrangeHexa = isOrangeCell;
-        if (isOrangeHexa)
-        orangeHexa.gameObject.SetActive(true);
-        else
-            orangeHexa.gameObject.SetActive(false);
-
-    }
-    public void InitCyanHexa(bool isCyanCell)
-    {
-        isCyanHexa = isCyanCell;
-        if (isCyanHexa)
-        cyanHexa.gameObject.SetActive(true);
-        else
-            cyanHexa.gameObject.SetActive(false);
+        }
     }
 
     #region Blockers Init
@@ -409,14 +311,12 @@ public class BottomCell : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitData, 1.5f, bottomMask))
             {
-                //Debug.Log("HIT " + hitData.transform.name);
                 BottomCell nearCell = hitData.transform.GetComponent<BottomCell>();
                 if (nearCell == null)
                     Debug.Log("hexacellListNul");
                 if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
                 {
                     nearCellList.Add(hitData.transform.GetComponent<BottomCell>());
-                    //hitData.transform.GetComponent<BottomCell>().SelectCell();
                 }
             }
         }
@@ -477,34 +377,9 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearOnStart()
     {
-        if (isGreenHexa)
+        if (isPrefilled)
         {
             PrefilledHexa(greenHexa);
-        }
-
-        if (isCyanHexa)
-        {
-            PrefilledHexa(cyanHexa);
-        }
-
-        if (isYellowHexa)
-        {
-            PrefilledHexa(yellowHexa);
-        }
-
-        if (isRedHexa)
-        {
-            PrefilledHexa(redHexa);
-        }
-
-        if (isPurpleHexa)
-        {
-            PrefilledHexa(purpleHexa);
-        }
-
-        if (isOrangeHexa)
-        {
-            PrefilledHexa(orangeHexa);
         }
     }
 
