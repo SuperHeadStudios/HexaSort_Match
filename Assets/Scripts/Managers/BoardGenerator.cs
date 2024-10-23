@@ -89,8 +89,7 @@ public class BoardGenerator : MonoBehaviour
         else
         {
             levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
-        }
-        Debug.Log("CallingFunction");
+        }   
 
         bottomCellList = new List<BottomCell>();
 
@@ -142,8 +141,12 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitLockCell(true);
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.PreFilled)
+            { 
+                bottomCell.InitPrefilled(true);
+            }
+            else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RandomPrefiled)
             {
-                bottomCell.InitGreenHexa(true);
+                bottomCell.InitRandomrefilled(true);
             }
             else
             {
@@ -155,7 +158,7 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitVinesCell(false);
                 bottomCell.InitLockCell(false);
 
-                bottomCell.InitGreenHexa(false);
+                bottomCell.InitPrefilled(false);
             }
 
             bottomCell.CreateColumn();
@@ -170,7 +173,10 @@ public class BoardGenerator : MonoBehaviour
             {
                 heighOfMap = Mathf.Abs(bottomCell.row);
             }
-            bottomCell.CheckNearOnStart();
+            if (!bottomCell.isPrefilled && !bottomCell.isRandomPrefilled)
+            {
+                bottomCell.CheckNearOnStart();
+            }
         }
 
         SetCam();

@@ -45,6 +45,7 @@ public class BottomCell : MonoBehaviour
     public bool isHoney;
     public bool isIce;
     public bool isVines;
+    public bool isRandomPrefilled;
     public bool isPrefilled;
 
     public HoneyBlocker honeyBlocker;
@@ -73,7 +74,7 @@ public class BottomCell : MonoBehaviour
             instance = this;
         }
         boardController = transform.GetComponentInParent<BoardController>(); 
-        CheckNearOnStart();
+        Invoke(nameof(CheckNearOnStart),0.5f);
     }
     private void Update()
     {
@@ -109,10 +110,25 @@ public class BottomCell : MonoBehaviour
     }
 
 
-    public void InitGreenHexa(bool prefilled)
+    public void InitPrefilled(bool prefilled)
     {
         isPrefilled = prefilled;
         
+        if (isPrefilled)
+        {
+            greenHexa.gameObject.SetActive(true);
+        }
+        else
+        {
+            greenHexa.gameObject.SetActive(false);
+        }
+    }
+
+
+    public void InitRandomrefilled(bool prefilled)
+    {
+        isPrefilled = prefilled;
+
         if (isPrefilled)
         {
             greenHexa.gameObject.SetActive(true);
@@ -377,10 +393,10 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearOnStart()
     {
-        if (isPrefilled)
+        /*if (isPrefilled)
         {
             PrefilledHexa(greenHexa);
-        }
+        }*/
     }
 
     private void PrefilledHexa(HexaColumn hexaColumn)

@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HexaColumn : MonoBehaviour
@@ -30,6 +32,9 @@ public class HexaColumn : MonoBehaviour
 
     public float offsetRaycast;
 
+    [SerializeField] private ColorConfig colorConfig;
+    private int indexCount;
+
     public enum COLUMN_STATE
     {
         IDLE,
@@ -38,30 +43,119 @@ public class HexaColumn : MonoBehaviour
 
     public COLUMN_STATE currentColumnState;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        if (currentBottomCell == null) return;
+        colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
 
+        cellColorList.Clear();
+        currentHexaColumnData.columnDataList.Clear();
+
+        if (currentBottomCell.isRandomPrefilled)
+        {
+            StartCoroutine(SetRandomPrefilled());
+        }
+
+        if (currentBottomCell.isPrefilled)
+        {
+            StartCoroutine(SetPrefilled());
+        }
+    }    
+
+    private IEnumerator SetRandomPrefilled()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        int group1Count = Random.Range(2, 4); 
+        int firstColorIndex = Random.Range(0, colorConfig.colorList.Count);
+        int cellCount_1 = 0;
+
+        for (int i = 0; i < group1Count && i < hexaCellList.Count; i++)
+        {
+            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[firstColorIndex].material;
+            cellColorList.Add(colorConfig.colorList[firstColorIndex].colorID);
+            cellCount_1++;
+        }
+
+        Debug.Log("Groupd 1 Count " + firstColorIndex);
+        Debug.Log("cell 1 Count " + cellCount_1);
+
+        ColumnData columnData_1 = new ColumnData(colorConfig.colorList[firstColorIndex].colorID, cellCount_1);
+        currentHexaColumnData.columnDataList.Add(columnData_1);
+
+        int secondColorIndex;
+        do
+        {
+            secondColorIndex = Random.Range(0, colorConfig.colorList.Count);
+        } while (secondColorIndex == firstColorIndex);
+        int cellCount_2 = 0;
+        
+        for (int i = group1Count; i < hexaCellList.Count; i++)
+        {
+            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[secondColorIndex].material;
+            cellColorList.Add(colorConfig.colorList[secondColorIndex].colorID);
+            cellCount_2++;
+        }
+
+        Debug.Log("Groupd 1 Count " + secondColorIndex);
+        Debug.Log("cell 1 Count " + cellCount_2);
+
+        ColumnData columnData_2 = new ColumnData(colorConfig.colorList[secondColorIndex].colorID, cellCount_2);
+        currentHexaColumnData.columnDataList.Add(columnData_2);
+
+        topColorID = cellColorList[cellColorList.Count - 1];
+    }
+
+    private IEnumerator SetPrefilled()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        int prefilledNum = Random.Range(1, colorConfig.colorList.Count);
+        int cellCount_1 = 0;
+
+        for (int i = 0; i < hexaCellList.Count; i++)
+        {
+            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[prefilledNum].material;
+            cellColorList.Add(colorConfig.colorList[prefilledNum].colorID);
+            cellCount_1++;
+        }
+
+        ColumnData columnData_1 = new ColumnData(colorConfig.colorList[prefilledNum].colorID, cellCount_1);
+        currentHexaColumnData.columnDataList.Add(columnData_1);
+        topColorID = cellColorList[cellColorList.Count - 1];
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyUp(KeyCode.U))
+        {
+            cellColorList.Clear();
+            currentHexaColumnData.columnDataList.Clear();
+
+            if (currentBottomCell == null) return;
+            if (currentBottomCell.isPrefilled)
+            {
+                StartCoroutine(SetPrefilled());
+            }
+
+            if (currentBottomCell.isRandomPrefilled)
+            {
+                StartCoroutine(SetRandomPrefilled());
+            }
+        }
+
         if (isSelected)
             GetBottomCell();
     }
 
     public void InitColumn()
     {
-        //hexaCellList = new List<HexaCell>();
-        //cellColorList = new List<int>();
         boxCollider = GetComponent<BoxCollider>();
         isSelected = false;
-        //currentHexaColumnData = new HexaColumnData();
         topColorID = -1;
         currentColumnState = COLUMN_STATE.IDLE;
         currentBottomCell = null;
-        //AddNewHexaCell(10);
     }
 
     public void CreateColumn(HexaColumnData hexaColumnData)
@@ -226,8 +320,11 @@ public class HexaColumn : MonoBehaviour
     public void MoveBack()
     {
         currentColumnState = COLUMN_STATE.MOVING;
-        transform.SetParent(cellHoder.transform);
-        
+
+        if (cellHoder != null)
+        {
+            transform.SetParent(cellHoder.transform);
+        }
         transform.DOLocalMove(positionInHoler, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
         {
             currentColumnState = COLUMN_STATE.IDLE;

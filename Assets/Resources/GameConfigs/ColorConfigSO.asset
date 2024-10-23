@@ -16,35 +16,35 @@ MonoBehaviour:
   - colorID: 0
     colorType: 0
     colorValue: {r: 1, g: 0.16470587, b: 0.825968, a: 1}
-    material: {fileID: 2100000, guid: da1c4e2d8aecdb94397f0a8dc0e260ee, type: 2}
-    mesh: {fileID: -947668113905058017, guid: 08191a5fa7965de4084b69a70be2fb72, type: 3}
+    material: {fileID: 2100000, guid: ef5e83849bfcc85409e6740bbc30e6c5, type: 2}
+    mesh: {fileID: -947668113905058017, guid: 25cecb74d152b864e92c402c2586c97d, type: 3}
   - colorID: 1
     colorType: 1
     colorValue: {r: 0.7735849, g: 0.11311854, b: 0.11311854, a: 1}
-    material: {fileID: 2100000, guid: 88a309e2e301eac4d8404a96ec73dca1, type: 2}
-    mesh: {fileID: 1567327173894247655, guid: b3fc42f6e6ae3ef48a5d6012c147218c, type: 3}
+    material: {fileID: 2100000, guid: 03ffdf16f3703e5418cb10bc519fcf6d, type: 2}
+    mesh: {fileID: 1567327173894247655, guid: 22472c58af500f843b07436ed3005cea, type: 3}
   - colorID: 2
     colorType: 2
     colorValue: {r: 0.2251691, g: 0.8679245, b: 0.3419259, a: 1}
-    material: {fileID: 2100000, guid: 2851b81887d020048a6217ca5f4a9ac7, type: 2}
-    mesh: {fileID: 9178043152727046, guid: c8c2871e12bb9bb41b7211494e0b3288, type: 3}
+    material: {fileID: 2100000, guid: 95459ca396b32b2458c3e337aae2b2f5, type: 2}
+    mesh: {fileID: 9178043152727046, guid: dc67250fdca225b42b14b47ce4659ab6, type: 3}
   - colorID: 3
     colorType: 8
     colorValue: {r: 0.8113208, g: 0.7482431, b: 0.15690637, a: 1}
-    material: {fileID: 2100000, guid: 408b2f6d316a453468f1a30fd2f6e999, type: 2}
-    mesh: {fileID: 2200537523101187787, guid: 0e481f361ec1aec40a9f4e768ad34d56, type: 3}
+    material: {fileID: 2100000, guid: 3ecb56da9bd522c469322e9ae38a5f74, type: 2}
+    mesh: {fileID: 2200537523101187787, guid: 496080883ed6e82458518bc8d4f62197, type: 3}
   - colorID: 4
     colorType: 16
     colorValue: {r: 0.7362523, g: 0, b: 1, a: 1}
-    material: {fileID: 2100000, guid: 829a51b0a1a62f2469ed755d26a742df, type: 2}
-    mesh: {fileID: -5568946865247900742, guid: 268f2d0b5f974474ea47b1a7f93fc6ca, type: 3}
+    material: {fileID: 2100000, guid: 9f0b35d316419ce4d84c93f06be45f35, type: 2}
+    mesh: {fileID: -5568946865247900742, guid: d241b55a640f6b8498865276ad7534b7, type: 3}
   - colorID: 5
     colorType: 32
     colorValue: {r: 0.12482201, g: 0.7550684, b: 0.8018868, a: 1}
-    material: {fileID: 2100000, guid: dc443af4bec6e1949bebd3dd49b78412, type: 2}
-    mesh: {fileID: 2122640928746347898, guid: 83e8930ae46b5f141a9d68bfc160ef58, type: 3}
+    material: {fileID: 2100000, guid: 04e2867e2f5136149900c3995f61b773, type: 2}
+    mesh: {fileID: 2122640928746347898, guid: cee0b872d52a70641965c59eb255bf32, type: 3}
   - colorID: 6
-    colorType: 64
-    colorValue: {r: 1, g: 0.429995, b: 0, a: 1}
-    material: {fileID: 2100000, guid: 3faf1ba5cd3ffda488f455b773166336, type: 2}
-    mesh: {fileID: 7892629221475514017, guid: 2f1582f19b1534f49b36ce28bad78e77, type: 3}
+    colorType: 32
+    colorValue: {r: 1, g: 0.37814653, b: 0, a: 1}
+    material: {fileID: 2100000, guid: d70228f019fe25e46b1e898f40ff9fef, type: 2}
+    mesh: {fileID: -947668113905058017, guid: 25cecb74d152b864e92c402c2586c97d, type: 3}

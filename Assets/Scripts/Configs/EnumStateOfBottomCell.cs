@@ -11,12 +11,12 @@ public enum EnumStateOfBottomCell
 	Vines = 7,
 	Lock = 8,
 	PreFilled = 9,
-
-/*
-	GreenHexa = 9,
-	CyanHexa = 10,
-	YellowHexa= 11,
-	RedHexa = 12,
-	OrangeHexa = 13,
-	PurpleHexa = 14*/
+    RandomPrefiled = 10,
+    /*
+        GreenHexa = 9,
+        CyanHexa = 10,
+        YellowHexa= 11,
+        RedHexa = 12,
+        OrangeHexa = 13,
+        PurpleHexa = 14*/
 }

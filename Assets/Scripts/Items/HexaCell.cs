@@ -12,7 +12,6 @@ public class HexaCell : MonoBehaviour
     {
         Debug.Log(colorID + "ColorId" );
         meshRenderer.material = GameManager.instance.colorConfig.colorList[colorID].material;
-        meshFilter.sharedMesh = GameManager.instance.colorConfig.colorList[colorID].mesh;
         currentColor = GameManager.instance.colorConfig.colorList[colorID].colorValue;
     }
 }
