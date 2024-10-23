@@ -393,10 +393,10 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearOnStart()
     {
-        /*if (isPrefilled)
+        if (isPrefilled)
         {
             PrefilledHexa(greenHexa);
-        }*/
+        }
     }
 
     private void PrefilledHexa(HexaColumn hexaColumn)

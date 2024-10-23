@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GAME_STATE.READY;
         boardGenerator.InitBoardGenerator();
-       // boardController.InitBoardController();
+        boardController.InitBoardController();
         uiManager.homeView.HideView();
         uiManager.coinView.ShowView();
         uiManager.coinView.coinContent.gameObject.SetActive(true);

@@ -173,10 +173,8 @@ public class BoardGenerator : MonoBehaviour
             {
                 heighOfMap = Mathf.Abs(bottomCell.row);
             }
-            if (!bottomCell.isPrefilled && !bottomCell.isRandomPrefilled)
-            {
-                bottomCell.CheckNearOnStart();
-            }
+            
+            bottomCell.CheckNearOnStart();
         }
 
         SetCam();
