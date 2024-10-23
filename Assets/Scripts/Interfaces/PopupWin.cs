@@ -9,13 +9,13 @@ using TMPro;
 
 public class PopupWin : BasePopup
 {
-    public Text goalTxt;
+    public TextMeshProUGUI goalTxt;
+/*
+    public TextMeshProUGUI currentLevelTxt;
 
-    public Text currentLevelTxt;
+    public TextMeshProUGUI rewardNonAdsTxt;
 
-    public Text rewardNonAdsTxt;
-
-    public Text rewardWithAdsTxt;
+    public TextMeshProUGUI rewardWithAdsTxt;*/
 
     public Button nextBtn, x2ClaimBtn;
 
@@ -33,9 +33,9 @@ public class PopupWin : BasePopup
     {
         rwValue = 5 * GameManager.instance.levelIndex;
         goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
-        currentLevelTxt.text = "LEVEL " + GameManager.instance.levelIndex.ToString();
+        /*currentLevelTxt.text = "LEVEL " + GameManager.instance.levelIndex.ToString();
         rewardNonAdsTxt.text = rwValue.ToString();
-        rewardWithAdsTxt.text = (2 * rwValue).ToString();
+        rewardWithAdsTxt.text = (2 * rwValue).ToString();*/
     }
 
     public override void Start()

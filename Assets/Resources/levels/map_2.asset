@@ -77,7 +77,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 9
     - Row: -2
       Col: 1
       Types: 
@@ -133,7 +133,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 5
+      State: 9
     - Row: 0
       Col: -1
       Types: 
@@ -157,7 +157,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 9
     - Row: 0
       Col: 2
       Types: 
@@ -168,7 +168,7 @@ MonoBehaviour:
       State: 0
     - Row: 1
       Col: -2
-      Types: 1000000010000000100000001000000010000000
+      Types: 
       Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0

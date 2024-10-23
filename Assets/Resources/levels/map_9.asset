@@ -20,7 +20,7 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 500
+    Target: 250
   - Type: 0
     Target: 0
   - Type: 0
@@ -36,34 +36,9 @@ MonoBehaviour:
   - {x: 1, y: 1}
   Difficulty: 2
   Thresholds:
-  - HexCount: 20
+  - HexCount: 250
     MaxTypesInStack: 2
     MaxTypes: 3
-    HalfHexProbability: 0
-    Difficulty: 2
-  - HexCount: 100
-    MaxTypesInStack: 3
-    MaxTypes: 4
-    HalfHexProbability: 0
-    Difficulty: 2
-  - HexCount: 200
-    MaxTypesInStack: 3
-    MaxTypes: 5
-    HalfHexProbability: 0
-    Difficulty: 2
-  - HexCount: 350
-    MaxTypesInStack: 3
-    MaxTypes: 6
-    HalfHexProbability: 0
-    Difficulty: 2
-  - HexCount: 500
-    MaxTypesInStack: 3
-    MaxTypes: 7
-    HalfHexProbability: 0
-    Difficulty: 2
-  - HexCount: 1000000
-    MaxTypesInStack: 3
-    MaxTypes: 8
     HalfHexProbability: 0
     Difficulty: 2
   LevelData:
@@ -123,7 +98,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 3
+      State: 0
     - Row: -1
       Col: 2
       Types: 
@@ -203,7 +178,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 6
+      State: 0
     - Row: 1
       Col: 2
       Types: 
@@ -219,7 +194,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: 2
       Col: 0
       Types: 

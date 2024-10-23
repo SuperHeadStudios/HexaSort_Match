@@ -77,9 +77,6 @@ public class HexaColumn : MonoBehaviour
             cellCount_1++;
         }
 
-        Debug.Log("Groupd 1 Count " + firstColorIndex);
-        Debug.Log("cell 1 Count " + cellCount_1);
-
         ColumnData columnData_1 = new ColumnData(colorConfig.colorList[firstColorIndex].colorID, cellCount_1);
         currentHexaColumnData.columnDataList.Add(columnData_1);
 
@@ -96,9 +93,6 @@ public class HexaColumn : MonoBehaviour
             cellColorList.Add(colorConfig.colorList[secondColorIndex].colorID);
             cellCount_2++;
         }
-
-        Debug.Log("Groupd 1 Count " + secondColorIndex);
-        Debug.Log("cell 1 Count " + cellCount_2);
 
         ColumnData columnData_2 = new ColumnData(colorConfig.colorList[secondColorIndex].colorID, cellCount_2);
         currentHexaColumnData.columnDataList.Add(columnData_2);
@@ -230,7 +224,6 @@ public class HexaColumn : MonoBehaviour
 
     public void AddCellColumn(HexaColumn addCellColumn)
     {
-        //currentHexaColumnData = addCellColumn.currentHexaColumnData;
         currentHexaColumnData.columnDataList = new List<ColumnData>();
         for (int i = 0; i < addCellColumn.currentHexaColumnData.columnDataList.Count; i++)
         {
@@ -243,8 +236,6 @@ public class HexaColumn : MonoBehaviour
             cell.transform.localPosition = new Vector3(0, localSpacingY * (1 + hexaCellList.Count), 0);
             hexaCellList.Add(cell);
         }
-
-       // addCellColumn.EmptyColumnData();
 
         UpdateColliderHeight();
         UpdateColorList();
@@ -271,20 +262,6 @@ public class HexaColumn : MonoBehaviour
         UpdateColliderHeight();
         UpdateColorList();
     }
-/*
-
-    public void AddNewHexaCell(int numberCell)
-    {
-        for (int i = 0; i < numberCell; i++)
-        {
-            HexaCell cell = GameManager.instance.poolManager.GetHexaCell();
-            cell.transform.SetParent(transform);
-            cell.transform.localPosition = new Vector3(0, localSpacingY * (1 + hexaCellList.Count), 0);
-            hexaCellList.Add(cell);
-        }
-
-        UpdateColliderHeight();
-    }*/
 
     public void UpdateColliderHeight()
     {
@@ -339,7 +316,6 @@ public class HexaColumn : MonoBehaviour
         {
             currentColumnState = COLUMN_STATE.IDLE;
         });
-
     }
 
     public void MoveToTarget(Vector3 targetPos)
@@ -363,10 +339,7 @@ public class HexaColumn : MonoBehaviour
         {
             GameManager.instance.poolManager.RemoveHexaCell(hexaCellList[i]);
         }
-        //GameManager.instance.poolManager.RemoveHexaColumn(this);
         EmptyColumnData();
-        //currentBottomCell = null;
-       // cellHoder = null;
     }
 
     public void EmptyColumnData()
@@ -389,8 +362,6 @@ public class HexaColumn : MonoBehaviour
             {
                 if (GameManager.instance.boardController.currentHitBottomCell == null)
                 {
-                    //Debug.Log("FIND BOTTOM");
-
                     hitBottomCell = hit.transform.GetComponent<BottomCell>();
                     if (hitBottomCell.isAd)
                         return;
@@ -413,7 +384,6 @@ public class HexaColumn : MonoBehaviour
                 {
                     if (hit.transform.gameObject != GameManager.instance.boardController.currentHitBottomCell.gameObject)
                     {
-                        // Debug.Log("FIND BOTTOM");
                         hitBottomCell = hit.transform.GetComponent<BottomCell>();
                         if (hitBottomCell.isAd)
                             return;
