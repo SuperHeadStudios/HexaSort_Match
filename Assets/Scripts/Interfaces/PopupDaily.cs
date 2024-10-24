@@ -9,22 +9,6 @@ public class PopupDaily : BasePopup
 
     public DailyItemView[] dailyViewArr;
 
-    /*
-    public void Start()
-    {       
-        
-        if (mLastUnitTime == 0)
-        {
-            long timeStamp = (long)(DateTime.UtcNow.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
-            mLastUnitTime = timeStamp;
-
-            int currentSecondInDay = (int)(DateTime.Now - DateTime.Today).TotalSeconds;
-            mLastSecondInDay = currentSecondInDay;
-
-        }
-        
-    }
-    */
     private const int SECONDS_PER_DAY = 24 * 60 * 60;
 
     public void CheckNewDay()
@@ -36,39 +20,10 @@ public class PopupDaily : BasePopup
         {
             mLastUnitTime = timeStamp;
             mLastSecondInDay = currentSecondInDay;
-
-            //mClaimed.setValue(false);
-            //mClaimGoldCoundInDay.setValue(0);
         }
     }
-    /*
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
 
-            if (PlayerPrefs.GetInt("Daily" + dailyKey.ToString()) == 0)
-            {
-                PlayerPrefs.SetInt("Daily" + dailyKey.ToString(), 1);
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
-
-            if (PlayerPrefs.GetInt("Daily" + dailyKey.ToString()) == 0)
-            {
-                Debug.Log("Not get award today");
-            }
-            else
-            {
-                Debug.Log("Got award today");
-            }
-        }
-    }
-    */
     public override void Start()
     {
        
@@ -93,7 +48,7 @@ public class PopupDaily : BasePopup
             }
             else
             {
-                dailyViewArr[i].DisableItem();
+                dailyViewArr[i].CheckCurrentReward();
             }
         }
     }

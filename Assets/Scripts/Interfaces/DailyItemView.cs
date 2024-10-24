@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using GameSystem;
 using GoogleMobileAds.Api;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
@@ -9,8 +9,6 @@ using static AdsControl;
 
 public class DailyItemView : MonoBehaviour
 {
-    public GameObject collectBtn;
-
     public enum REWARD_TYPE
     {
         GOLD,
@@ -20,34 +18,35 @@ public class DailyItemView : MonoBehaviour
         SHUFFLE
     }
 
-    public REWARD_TYPE currentRewardType;
+    [Header("----- Reward Settings -----"), Space(5)]
+    [SerializeField] private REWARD_TYPE currentRewardType;
+    [SerializeField] private int rewardValue;
+    [HideInInspector] public int itemIndex;
 
-    public GameObject doneImage;
+    [Header("----- Btn BG Settings -----"), Space(5)]
 
-    public Text rewardvalueTxt;
+    [SerializeField] private Image btnBgImage;
+    [SerializeField] private Sprite activeReward;
+    [SerializeField] private Sprite doneReward;
+    [SerializeField] private Sprite upcomingReward;
 
-    public int rewardValue;
+    [Header("----- Elements -----"), Space(5)]
+    
+    [SerializeField] private Button collectBtn;
+    [SerializeField] private GameObject doneImage;
+    [SerializeField] private TextMeshProUGUI rewardvalueTxt;
+    [SerializeField] private TextMeshProUGUI tittleText;
 
-    public int itemIndex;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool isUpComing = false;
 
     public void Collect()
     {
         long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
         PlayerPrefs.SetInt("Daily" + dailyKey.ToString() + itemIndex.ToString(), 1);
+        PlayerPrefsManager.SetUpcomingReward(true);
         GetReward();
-        DisableItem();
+        RewardClaimed();
+        CheckCurrentReward();
     }
 
     public void CollectAds()
@@ -65,14 +64,37 @@ public class DailyItemView : MonoBehaviour
 
     public void EnableItem()
     {
-        collectBtn.SetActive(true);
+        tittleText.text = "CLAIM";
+        btnBgImage.sprite = activeReward;
         doneImage.SetActive(false);
     }
 
-    public void DisableItem()
+    public void CheckCurrentReward()
     {
-        collectBtn.SetActive(false);
+        isUpComing = PlayerPrefsManager.GetUpcomingReward();
+
+        if(isUpComing)
+        {
+            UpcomingReward();
+        }
+        else
+        {
+            RewardClaimed();
+        }
+    }
+
+    public void RewardClaimed()
+    {
+        btnBgImage.sprite = doneReward;
+        tittleText.text = "CLAIMED";
         doneImage.SetActive(true);
+    }
+
+    public void UpcomingReward()
+    {
+        btnBgImage.sprite = doneReward;
+        tittleText.text = "DAY " + itemIndex;
+        doneImage.SetActive(false);
     }
 
     private void GetReward()
@@ -137,7 +159,7 @@ public class DailyItemView : MonoBehaviour
         long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
         PlayerPrefs.SetInt("Daily" + dailyKey.ToString() + itemIndex.ToString(), 1);
         GetReward();
-        DisableItem();
+        RewardClaimed();
     }
 
     public void ShowRWUnityAds()
@@ -151,7 +173,7 @@ public class DailyItemView : MonoBehaviour
                 long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
                 PlayerPrefs.SetInt("Daily" + dailyKey.ToString() + itemIndex.ToString(), 1);
                 GetReward();
-                DisableItem();
+                RewardClaimed();
             }
 
             if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))

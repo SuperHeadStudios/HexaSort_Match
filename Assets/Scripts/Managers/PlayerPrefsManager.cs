@@ -193,12 +193,12 @@ namespace GameSystem
             
         #region DAILY REWARDS
 
-        public static bool GetGiftCollected()
+        public static bool GetUpcomingReward()
         {
             return PlayerPrefs.GetInt(ISGIFTCOLLECTED, 0) == 0;
         }
 
-        public static void SetGiftCollected(bool collected)
+        public static void SetUpcomingReward(bool collected)
         {
             PlayerPrefs.SetInt(ISGIFTCOLLECTED, collected ? 0 : 1);
             Debug.Log(PlayerPrefs.GetInt(ISGIFTCOLLECTED, 0));
