@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HomeView : BaseView
 {
-    public Text currentLevelTxt;
+    public TextMeshProUGUI currentLevelTxt;
 
-    public Text spinProgressTxt;
+    public TextMeshProUGUI spinProgressTxt;
 
     public Image spinProgressBar;
 
     public override void InitView()
     {
-        currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
+        //currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
     }
@@ -74,7 +75,6 @@ public class HomeView : BaseView
 
     public void ShowDaily()
     {
-
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
