@@ -14,5 +14,7 @@ public enum EnumMapTypeOfGoal
 	Black = 11,
 	Hole = 12,
 	Grass = 13,
-	Honey = 14
+	Honey = 14,
+	Lock = 15
+
 }

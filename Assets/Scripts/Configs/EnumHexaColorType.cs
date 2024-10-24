@@ -3,7 +3,6 @@ using System;
 [Flags]
 public enum EnumHexaColorType
 {
-    
     Pink = 0,
 	Red = 1,
 	Green = 2,

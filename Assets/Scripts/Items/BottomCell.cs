@@ -13,8 +13,7 @@ public class BottomCell : MonoBehaviour
 
     [HideInInspector] public int row;
     [HideInInspector] public int column;
-
-    [HideInInspector]public int lockCount = 150;
+    [HideInInspector] public int cost;
     public int currentLockCount;
 
     public HexaColumn hexaColumn;
@@ -22,6 +21,7 @@ public class BottomCell : MonoBehaviour
     public HexaColumn hexaColumn_Vines;
 
     public TextMeshPro currentLockText;
+
     public MeshRenderer meshRenderer;
     public Material cellMaterial;
     public Material cellSelectedMaterial;
@@ -59,6 +59,7 @@ public class BottomCell : MonoBehaviour
     public bool isUseNow;
 
     public BoardController boardController;
+    public BoardGenerator boardGenerator;
     public int index;
 
     public float currentLeafPos;
@@ -74,12 +75,13 @@ public class BottomCell : MonoBehaviour
             instance = this;
         }
         boardController = transform.GetComponentInParent<BoardController>(); 
+        boardGenerator = transform.GetComponentInParent<BoardGenerator>(); 
         Invoke(nameof(CheckNearOnStart),0.5f);
     }
     private void Update()
     {
         UpdateLeafPosition();
-        currentLockText.text = lockCount.ToString();
+        currentLockText.text = cost.ToString();
     }
 
     public void UpdateLeafPosition()
@@ -381,8 +383,8 @@ public class BottomCell : MonoBehaviour
                 if (nearCell.isLock == true)
                 {
                     nearCell.currentLockCount += currentCount;
-                    nearCell.lockCount-= nearCell.currentLockCount;
-                    if(nearCell.currentLockCount >= nearCell.lockCount)
+                    nearCell.cost-= nearCell.currentLockCount;
+                    if(nearCell.currentLockCount >= nearCell.cost)
                     {
                         StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
                     }

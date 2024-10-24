@@ -8,6 +8,8 @@ public class BoardController : MonoBehaviour
 {
     public static BoardController instance;
 
+    public BoardGenerator boardGenerator;
+
     public LayerMask columnMask;
 
     public LayerMask bottomMask;
@@ -57,6 +59,7 @@ public class BoardController : MonoBehaviour
         {
             instance = this;
         }
+        boardGenerator = transform.GetComponent<BoardGenerator>();
     }
 
     public void InitBoardController()
@@ -116,7 +119,6 @@ public class BoardController : MonoBehaviour
                         PutColumnInNewPlace();
                     else
                         ReleaseMovingCell();
-
                 }
             }
 
@@ -722,14 +724,12 @@ public class BoardController : MonoBehaviour
                     cell.topColorID = cell.currentHexaColumnData.columnDataList[cell.currentHexaColumnData.columnDataList.Count - 1].colorID;
                 }
 
-                if (GameManager.instance.boardGenerator.currentGoalNumber >= GameManager.instance.boardGenerator.goalNumber)
-                {/*
-                    if(GameManager.instance.boardGenerator.currentWoodGoalNumber >= GameManager.instance.boardGenerator.woodGoalNumber
-                    && GameManager.instance.boardGenerator.currentGrassGoalNumber >= GameManager.instance.boardGenerator.grassGoalNumber
-                    && GameManager.instance.boardGenerator.currentHoneyGoalNumber >= GameManager.instance.boardGenerator.honeyGoalNumber)
-                    {*/
-                        GameManager.instance.ShowGameWin();
-                    //}
+                if (boardGenerator.currentGoalNumber >= boardGenerator.goalNumber &&
+                    boardGenerator.currentWoodGoalNumber >= boardGenerator.woodGoalNumber &&
+                    boardGenerator.currentHoneyGoalNumber >= boardGenerator.honeyGoalNumber &&
+                    boardGenerator.currentGrassGoalNumber >= boardGenerator.grassGoalNumber)
+                {
+                    GameManager.instance.ShowGameWin();
                 }
                 else
                 {
