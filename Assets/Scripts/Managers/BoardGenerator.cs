@@ -99,6 +99,7 @@ public class BoardGenerator : MonoBehaviour
             bottomCell.transform.SetParent(transform);
             bottomCell.row = levelConfig.LevelData.Cells[i].Row;
             bottomCell.column = levelConfig.LevelData.Cells[i].Col;
+            bottomCell.cost = levelConfig.LevelData.Cells[i].Cost;
            
             int oddColumn = levelConfig.LevelData.Cells[i].Col % 2;
             if (oddColumn == 0)

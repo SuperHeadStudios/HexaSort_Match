@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   row: 0
   column: 0
-  lockCount: 100
+  lockCount: 0
   currentLockCount: 0
   hexaColumn: {fileID: 0}
   hexaColumn_ice: {fileID: 6725148754151478724}
@@ -139,6 +139,7 @@ MonoBehaviour:
   isHoney: 0
   isIce: 0
   isVines: 0
+  isRandomPrefilled: 0
   isPrefilled: 0
   honeyBlocker: {fileID: 4993975865536115127}
   grassBlocker: {fileID: 3185059235690633088}
@@ -3709,6 +3710,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4530917018380048}
     m_Modifications:
+    - target: {fileID: 3449668053409033975, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3947863988477896525, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
       propertyPath: currentCell
       value: 
