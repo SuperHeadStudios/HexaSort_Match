@@ -45,11 +45,11 @@ MonoBehaviour:
     - Row: -2
       Col: -2
       Types: 
-      Cost: 50
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: -2
       Col: -1
       Types: 
@@ -77,11 +77,11 @@ MonoBehaviour:
     - Row: -2
       Col: 2
       Types: 
-      Cost: 50
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: -1
       Col: -2
       Types: 

@@ -65,11 +65,11 @@ MonoBehaviour:
     - Row: -2
       Col: -2
       Types: 
-      Cost: 100
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: -2
       Col: -1
       Types: 
@@ -98,10 +98,10 @@ MonoBehaviour:
       Col: 2
       Types: 
       Cost: 0
-      CoinCost: 100
+      CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: -1
       Col: -2
       Types: 0100000001000000010000000100000001000000

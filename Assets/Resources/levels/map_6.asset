@@ -201,11 +201,11 @@ MonoBehaviour:
     - Row: 1
       Col: 0
       Types: 
-      Cost: 100
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: 1
       Col: 1
       Types: 
