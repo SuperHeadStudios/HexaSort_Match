@@ -523,12 +523,12 @@ public class BoardController : MonoBehaviour
 
     IEnumerator DestroyColumnByHammer(HexaColumn column)
     {
-        hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -1.5f);
+        hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -2f);
         hammerEffect.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, 0f);
         //GameManager.instance.hammerExplosionVfx.Play();
         StartCoroutine(HammerBoosterAttack());
 
-        yield return new WaitForSeconds(1.5f);   
+        yield return new WaitForSeconds(2f);   
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
