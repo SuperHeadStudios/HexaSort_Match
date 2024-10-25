@@ -89,9 +89,16 @@ public class BottomCell : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("BottomCell"))
+                if (hit.collider.CompareTag("CellColumn"))
                 {
-                    Debug.Log("Clicked on object: " + gameObject.name + transform.GetSiblingIndex());
+                    HexaColumn currentHexaColumn = hit.collider.GetComponent<HexaColumn>();
+                    if (hit.collider.gameObject.transform.parent == transform)
+                    {
+                        if (isAd)
+                        {
+                            UnLockCell();
+                        }
+                    }
                 }
             }
         }
