@@ -22,7 +22,7 @@ MonoBehaviour:
   - Type: 1
     Target: 300
   - Type: 2
-    Target: 1
+    Target: 2
   - Type: 0
     Target: 0
   - Type: 0
@@ -157,19 +157,19 @@ MonoBehaviour:
     - Row: 1
       Col: -1
       Types: 
-      Cost: 175
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 2
+      State: 4
     - Row: 1
       Col: 0
       Types: 
-      Cost: 75
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: 1
       Col: 1
       Types: 
@@ -197,11 +197,19 @@ MonoBehaviour:
     - Row: 2
       Col: 2
       Types: 
-      Cost: 150
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
+    - Row: 2
+      Col: -2
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 4
     Pieces:
     - Types: 
     - Types: 
