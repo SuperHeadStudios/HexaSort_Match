@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 
 public class GameView : BaseView
 {
@@ -70,17 +68,17 @@ public class GameView : BaseView
     {        
         currentGoalValue = 0.0f;
 
-        if (GameManager.instance.isBlockers)
+       /* if (GameManager.instance.isBlockers)
         {
             blockers.SetActive(true);
             targetFill.SetActive(false);
-            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString(); /*+"/" + GameManager.instance.boardGenerator.goalNumber.ToString();*/
         }
-        else
+        else*/
         {
-            targetFill.SetActive(true);
-            blockers.SetActive(false);
-            goal_Text.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber.ToString();
+            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString(); /*+"/" + GameManager.instance.boardGenerator.goalNumber.ToString();*/
+            //targetFill.SetActive(true);
+            //blockers.SetActive(false);
+            //goal_Text.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber.ToString();
             woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
             honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
             grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();

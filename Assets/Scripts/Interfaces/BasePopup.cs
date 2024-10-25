@@ -27,7 +27,6 @@ public abstract class BasePopup : MonoBehaviour
 
     public virtual void ShowView()
     {
-
         //GameManager.instance.uiManager.coinView.HideView();
         lastState = GameManager.instance.currentGameState;
         GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
@@ -36,7 +35,6 @@ public abstract class BasePopup : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         isShow = true;
         rootTrans.localScale = Vector3.one * 0.55f;
-
 
         rootTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
 

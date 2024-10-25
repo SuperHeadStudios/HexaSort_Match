@@ -10,6 +10,13 @@ public class PopupLose : BasePopup
 {
     public Transform offerTrans;
 
+    public Transform LosePopup;
+
+    private void FixedUpdate()
+    {
+        
+    }
+
     public override void InitView()
     {
        
@@ -27,7 +34,8 @@ public class PopupLose : BasePopup
 
     public override void ShowView()
     {
-        canvasGroup.alpha = 1.0f;
+        LosePopup.DOScale(Vector3.one, 0.2f);
+        //canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
@@ -43,7 +51,6 @@ public class PopupLose : BasePopup
                 offerTrans.localScale = Vector3.one * 0.35f;
                 offerTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
                   
-
                 });
 
             });
@@ -79,7 +86,6 @@ public class PopupLose : BasePopup
         {
             Retrive();
         }
-        
     }
 
     public void RetriveByAds()
@@ -135,7 +141,6 @@ public class PopupLose : BasePopup
             {
                 AdsControl.Instance.LoadUnityAd();
             }
-
         });
     }
 
