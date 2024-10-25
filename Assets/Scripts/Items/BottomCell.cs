@@ -82,6 +82,19 @@ public class BottomCell : MonoBehaviour
     {
         UpdateLeafPosition();
         currentLockText.text = cost.ToString();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("BottomCell"))
+                {
+                    Debug.Log("Clicked on object: " + gameObject.name + transform.GetSiblingIndex());
+                }
+            }
+        }
     }
 
     public void UpdateLeafPosition()
@@ -149,11 +162,17 @@ public class BottomCell : MonoBehaviour
         UnSelectCell();
         isAd = isAdCell;
         if (isAd)
+        {
+            Debug.Log("Add cell Working");
             AdCell();
+        }
         else
+        {
             UnLockCell();
             OpenCell();
+        }
     }
+
     public void InitLockCell(bool isLockCell)
     {
         nearCellList = new List<BottomCell>();
