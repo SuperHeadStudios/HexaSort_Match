@@ -66920,7 +66920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8fc6763aa98ea4a83d6ffc20c57311, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -39.587044
+      value: -88.85295
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ff8fc6763aa98ea4a83d6ffc20c57311, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -122662,7 +122662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5588621308879644554
 MonoBehaviour:
   m_ObjectHideFlags: 0
