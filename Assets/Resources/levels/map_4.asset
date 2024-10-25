@@ -65,7 +65,7 @@ MonoBehaviour:
     - Row: -2
       Col: -2
       Types: 
-      Cost: 0
+      Cost: 100
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
       Col: 2
       Types: 
       Cost: 0
-      CoinCost: 0
+      CoinCost: 100
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 8

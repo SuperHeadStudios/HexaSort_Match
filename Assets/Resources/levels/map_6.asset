@@ -69,7 +69,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 0
     - Row: -2
       Col: -1
       Types: 
@@ -85,7 +85,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 10
+      State: 0
     - Row: -2
       Col: 1
       Types: 
@@ -101,7 +101,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 0
     - Row: -1
       Col: -2
       Types: 
@@ -149,7 +149,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: 0
       Col: -1
       Types: 
@@ -165,7 +165,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 10
+      State: 0
     - Row: 0
       Col: 1
       Types: 
@@ -181,7 +181,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: 1
       Col: -2
       Types: 
@@ -201,11 +201,11 @@ MonoBehaviour:
     - Row: 1
       Col: 0
       Types: 
-      Cost: 0
+      Cost: 100
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: 1
       Col: 1
       Types: 
@@ -229,7 +229,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 10
     - Row: 2
       Col: 2
       Types: 1000000010000000100000001000000008000000080000000800000008000000
@@ -237,7 +237,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 10
     Pieces:
     - Types: 
     - Types: 

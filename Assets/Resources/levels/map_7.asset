@@ -45,7 +45,7 @@ MonoBehaviour:
     - Row: -2
       Col: -2
       Types: 
-      Cost: 0
+      Cost: 50
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     - Row: -2
       Col: 2
       Types: 
-      Cost: 0
+      Cost: 50
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0

@@ -69,6 +69,7 @@ Transform:
   - {fileID: 4833718914509073}
   - {fileID: 4217576484672029}
   - {fileID: 2045525075194910736}
+  - {fileID: 6777170584971020415}
   - {fileID: 6045055704934588289}
   - {fileID: 6381335927946535864}
   - {fileID: 1782094638422551587}
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   row: 0
   column: 0
-  lockCount: 0
+  cost: 0
   currentLockCount: 0
   hexaColumn: {fileID: 0}
   hexaColumn_ice: {fileID: 6725148754151478724}
@@ -150,6 +151,7 @@ MonoBehaviour:
   isBreakNow: 0
   isUseNow: 0
   boardController: {fileID: 0}
+  boardGenerator: {fileID: 0}
   index: 0
   currentLeafPos: 0.026
   smoothTime: 0.025
@@ -3710,10 +3712,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4530917018380048}
     m_Modifications:
-    - target: {fileID: 3449668053409033975, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3947863988477896525, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
       propertyPath: currentCell
       value: 
@@ -3761,10 +3759,6 @@ PrefabInstance:
     - target: {fileID: 5960077453873840619, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
       propertyPath: m_Name
       value: LockBlocker
-      objectReference: {fileID: 0}
-    - target: {fileID: 5960077453873840619, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4034,6 +4028,72 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6101001119456646201, guid: 789483499d13d6842b9c867f67cf5f45, type: 3}
   m_PrefabInstance: {fileID: 3979547753531283749}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4732197370322264540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4530917018380048}
+    m_Modifications:
+    - target: {fileID: 1307490904145497196, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: currentCell
+      value: 
+      objectReference: {fileID: 8938884348770471384}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528401181705939658, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+      propertyPath: m_Name
+      value: AdBlocker
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+--- !u!4 &6777170584971020415 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2279240131341986211, guid: a962fce087fecb644ad3d4fb0dd3f6e6, type: 3}
+  m_PrefabInstance: {fileID: 4732197370322264540}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5450375754119751037
 PrefabInstance:

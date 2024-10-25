@@ -23,8 +23,8 @@ MonoBehaviour:
     Target: 450
   - Type: 3
     Target: 3
-  - Type: 0
-    Target: 0
+  - Type: 2
+    Target: 1
   - Type: 0
     Target: 0
   CellsForTutorial: []
@@ -200,7 +200,7 @@ MonoBehaviour:
     - Row: 2
       Col: 2
       Types: 0200000002000000020000000200000004000000040000000400000004000000
-      Cost: 0
+      Cost: 200
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
     - Row: 3
       Col: 0
       Types: 
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0

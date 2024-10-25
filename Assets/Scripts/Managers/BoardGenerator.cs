@@ -158,7 +158,7 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitIceCell(false);
                 bottomCell.InitVinesCell(false);
                 bottomCell.InitLockCell(false);
-
+                bottomCell.InitRandomrefilled(false);
                 bottomCell.InitPrefilled(false);
             }
 

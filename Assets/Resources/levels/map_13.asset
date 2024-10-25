@@ -21,8 +21,8 @@ MonoBehaviour:
   Goals:
   - Type: 1
     Target: 400
-  - Type: 0
-    Target: 0
+  - Type: 2
+    Target: 1
   - Type: 0
     Target: 0
   - Type: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 2
+      State: 0
     - Row: -1
       Col: 0
       Types: 
@@ -100,11 +100,11 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 2
+      State: 0
     - Row: -1
       Col: 1
       Types: 
-      Cost: 75
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
     - Row: 0
       Col: -1
       Types: 
-      Cost: 150
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -136,15 +136,15 @@ MonoBehaviour:
     - Row: 0
       Col: 1
       Types: 
-      Cost: 100
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 2
+      State: 0
     - Row: 0
       Col: 2
       Types: 
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -168,11 +168,11 @@ MonoBehaviour:
     - Row: 1
       Col: 0
       Types: 
-      Cost: 125
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 2
+      State: 0
     - Row: 1
       Col: 1
       Types: 
@@ -200,7 +200,7 @@ MonoBehaviour:
     - Row: 2
       Col: -1
       Types: 
-      Cost: 0
+      Cost: 200
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0

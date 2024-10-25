@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4284950810235719687}
   - component: {fileID: 95117728437890460}
   m_Layer: 7
-  m_Name: Ads (2)
+  m_Name: Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4273346221857931906
 Transform:
   m_ObjectHideFlags: 0
