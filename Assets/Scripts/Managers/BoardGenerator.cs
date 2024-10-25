@@ -91,6 +91,8 @@ public class BoardGenerator : MonoBehaviour
             levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
         }   
 
+        GameManager.instance.isBlockers = levelConfig.isBlockers;
+
         bottomCellList = new List<BottomCell>();
 
         for (int i = 0; i < levelConfig.LevelData.Cells.Count; i++)
@@ -119,7 +121,9 @@ public class BoardGenerator : MonoBehaviour
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Wood)
             {
+                GameManager.instance.isBlockers = true;
                 bottomCell.InitWoodCell(true);
+
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Grass)
             {

@@ -23,8 +23,8 @@ MonoBehaviour:
     Target: 550
   - Type: 3
     Target: 5
-  - Type: 2
-    Target: 2
+  - Type: 0
+    Target: 0
   - Type: 0
     Target: 0
   CellsForTutorial: []
@@ -141,7 +141,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 1
     - Row: 0
       Col: 2
       Types: 

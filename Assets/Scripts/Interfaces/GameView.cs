@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 
 public class GameView : BaseView
 {
     public Text levelTxt;
 
     //public TextMeshProUGUI levelText;
-
-    //public Text goalTxt;
-
+    
     public TextMeshProUGUI goalText;
+    public TextMeshProUGUI goal_Text;
 
     public TextMeshProUGUI woodGoalText;
 
@@ -29,6 +30,10 @@ public class GameView : BaseView
 
     public Transform moveGuidePanel;
 
+    public Transform switchGuidePanel;
+
+    public Transform purchaseBooster;
+
     public Text hammerCountTxt, moveCountTxt, shuffleCountTxt;
 
     public GameObject hammerPriceTag, movePriceTag, shufflePriceTag;
@@ -36,6 +41,14 @@ public class GameView : BaseView
     public GameObject lv1Arrow;
 
     private bool finishTut;
+
+    public bool isBlockers;
+
+    public GameObject blockers;
+
+    public GameObject targetFill;
+
+    
 
     public enum BOOSTER_STATE
     {
@@ -50,26 +63,39 @@ public class GameView : BaseView
     private void Awake()
     {
         finishTut = false;
+        isBlockers = true;
     }
 
     public override void InitView()
     {        
         currentGoalValue = 0.0f;
-        goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString(); /*+"/" + GameManager.instance.boardGenerator.goalNumber.ToString();*/
-        woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
-        honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
-        grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
-        currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
-        goalValueBar.fillAmount = currentGoalValue;
 
-        levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
-        currentState = BOOSTER_STATE.NONE;
-        UpdateBoosterView();
-       
-        if (GameManager.instance.levelIndex == 1)
-            ShowArrow();
+        if (GameManager.instance.isBlockers)
+        {
+            blockers.SetActive(true);
+            targetFill.SetActive(false);
+            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString(); /*+"/" + GameManager.instance.boardGenerator.goalNumber.ToString();*/
+        }
         else
-            DisableArrow();
+        {
+            targetFill.SetActive(true);
+            blockers.SetActive(false);
+            goal_Text.text = GameManager.instance.boardGenerator.currentGoalNumber + "/" + GameManager.instance.boardGenerator.goalNumber.ToString();
+            woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
+            honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
+            grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
+            currentGoalValue = (float)(GameManager.instance.boardGenerator.currentGoalNumber) / (float)(GameManager.instance.boardGenerator.goalNumber);
+            goalValueBar.fillAmount = currentGoalValue;
+
+            levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
+            currentState = BOOSTER_STATE.NONE;
+            UpdateBoosterView();
+
+            if (GameManager.instance.levelIndex == 1)
+                ShowArrow();
+            else
+                DisableArrow();
+        }
     }
 
     public void DisableArrow()
@@ -151,7 +177,6 @@ public class GameView : BaseView
         if (GameManager.instance.hammerBoosterValue > 0)
         {
             ShowHammerBoosterView();
-            
         }
         else
         {
@@ -162,19 +187,22 @@ public class GameView : BaseView
                 UpdateBoosterView();
             }
             else
+            {
+                purchaseBooster.DOScale(Vector3.one, 0.1f);
+            }
                 GameManager.instance.uiManager.moreCoinPopup.ShowView();
         }
        
     }
+
+
 
     private void ShowHammerBoosterView()
     {
         currentState = BOOSTER_STATE.HAMMER;
         HideView();
         GameManager.instance.uiManager.coinView.HideView();
-        hammerGuidePanel.DOLocalMove(new Vector3(hammerGuidePanel.transform.localPosition.x,
-            hammerGuidePanel.transform.localPosition.y - 550.0f,
-            hammerGuidePanel.transform.localPosition.z), 0.5f).SetEase(Ease.Linear);
+        hammerGuidePanel.DOScaleY(1f, 0.1f);
     }
 
     public void UseMove()
@@ -193,10 +221,16 @@ public class GameView : BaseView
                 UpdateBoosterView();
             }
             else
-                GameManager.instance.uiManager.moreCoinPopup.ShowView();
+            {
+                purchaseBooster.DOScale(Vector3.one, 0.1f);
+            }
+                //GameManager.instance.uiManager.moreCoinPopup.ShowView();
         }
+    }
 
-       
+    public void AdCoins()
+    {
+        GameManager.instance.AddCoin(50);
     }
 
     private void ShowMoveBoosterView()
@@ -204,9 +238,7 @@ public class GameView : BaseView
         currentState = BOOSTER_STATE.MOVE;
         HideView();
         GameManager.instance.uiManager.coinView.HideView();
-        moveGuidePanel.DOLocalMove(new Vector3(moveGuidePanel.transform.localPosition.x,
-            moveGuidePanel.transform.localPosition.y - 550.0f,
-            moveGuidePanel.transform.localPosition.z), 0.5f).SetEase(Ease.Linear);
+        moveGuidePanel.DOScaleY(1f, 0.1f);
     }
 
     public void SubHammerValue()
@@ -232,9 +264,8 @@ public class GameView : BaseView
         currentState = BOOSTER_STATE.NONE;
         ShowView();
         GameManager.instance.uiManager.coinView.ShowView();
-        hammerGuidePanel.DOLocalMove(new Vector3(hammerGuidePanel.transform.localPosition.x,
-            hammerGuidePanel.transform.localPosition.y + 550.0f,
-            hammerGuidePanel.transform.localPosition.z), 0.5f).SetEase(Ease.Linear);
+
+        hammerGuidePanel.DOScaleY(0.0001f, 0.01f);
     }
 
     public void CloseMove()
@@ -242,9 +273,9 @@ public class GameView : BaseView
         currentState = BOOSTER_STATE.NONE;
         ShowView();
         GameManager.instance.uiManager.coinView.ShowView();
-        moveGuidePanel.DOLocalMove(new Vector3(moveGuidePanel.transform.localPosition.x,
-            moveGuidePanel.transform.localPosition.y + 550.0f,
-            moveGuidePanel.transform.localPosition.z), 0.5f).SetEase(Ease.Linear);
+
+        moveGuidePanel.DOScaleY(0.001f, 0.01f);
+
     }
 
 
@@ -252,9 +283,12 @@ public class GameView : BaseView
     {
         if (GameManager.instance.shuffleBoosterValue > 0)
         {
+            //StartCoroutine(shuffleBoosterTut());
             GameManager.instance.cellHolder.ShuffleHolder();
+
             SubShuffleValue();
             UpdateBoosterView();
+            
         }
         else
         {
@@ -265,10 +299,25 @@ public class GameView : BaseView
                 UpdateBoosterView();
             }
             else
-                GameManager.instance.uiManager.moreCoinPopup.ShowView();
+            {
+                purchaseBooster.DOScale(Vector3.one, 0.1f);
+            }
+                //GameManager.instance.uiManager.moreCoinPopup.ShowView();
 
         }
        
+    }
+
+    /*private IEnumerator shuffleBoosterTut()
+    {
+        switchGuidePanel.DOScaleY(1f, 0.01f);
+        yield return new WaitForSeconds(3);
+        switchGuidePanel.DOScaleY(0.0001f, 0.01f);
+    }*/
+
+    public void closePurchse()
+    {
+        purchaseBooster.DOScale(Vector3.zero, 0.1f);
     }
 
     public void UpdateBoosterView()
@@ -284,6 +333,7 @@ public class GameView : BaseView
             hammerCountTxt.transform.parent.gameObject.SetActive(false);
             hammerPriceTag.SetActive(true);
         }
+        
 
         if (GameManager.instance.moveBoosterValue > 0)
         {

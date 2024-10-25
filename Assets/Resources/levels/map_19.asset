@@ -65,11 +65,11 @@ MonoBehaviour:
     - Row: -2
       Col: -1
       Types: 
-      Cost: 50
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: -2
       Col: 1
       Types: 
@@ -238,6 +238,30 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 3
+    - Row: -2
+      Col: 2
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 9
+    - Row: -2
+      Col: -2
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 9
+    - Row: -2
+      Col: 0
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 1
     Pieces:
     - Types: 
     - Types: 

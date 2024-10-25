@@ -121,11 +121,11 @@ MonoBehaviour:
     - Row: -1
       Col: 2
       Types: 
-      Cost: 150
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: 0
       Col: -2
       Types: 020000000200000001000000010000000100000002000000020000000100000001000000010000000200000002000000
@@ -133,7 +133,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 5
     - Row: 0
       Col: -1
       Types: 
@@ -145,11 +145,11 @@ MonoBehaviour:
     - Row: 0
       Col: 0
       Types: 100000001000000020000000200000002000000010000000100000002000000020000000200000001000000010000000
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: 0
       Col: 1
       Types: 
@@ -181,7 +181,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 5
+      State: 0
     - Row: 1
       Col: 0
       Types: 
@@ -193,11 +193,11 @@ MonoBehaviour:
     - Row: 1
       Col: 1
       Types: 080000000800000004000000040000000400000008000000080000000200000002000000020000000800000008000000
-      Cost: 100
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: 1
       Col: 2
       Types: 

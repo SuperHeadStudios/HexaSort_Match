@@ -33,6 +33,7 @@ public class HexaColumn : MonoBehaviour
     public float offsetRaycast;
 
     [SerializeField] private ColorConfig colorConfig;
+
     private int indexCount;
 
     public enum COLUMN_STATE

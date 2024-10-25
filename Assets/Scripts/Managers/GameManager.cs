@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
 
     public int shuffleBoosterValue;
 
+    public bool isBlockers = false;
+
     [HideInInspector] public int prefilledColorIndex;
     public enum GAME_STATE
     {
@@ -85,6 +88,21 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    private void FixedUpdate()
+    {
+        if(boardGenerator.currentWoodGoalNumber >= boardGenerator.woodGoalNumber &&
+          boardGenerator.currentHoneyGoalNumber >= boardGenerator.honeyGoalNumber &&
+          boardGenerator.currentGrassGoalNumber >= boardGenerator.grassGoalNumber)
+        {
+            isBlockers = false;
+        }
+        else if (boardGenerator.woodGoalNumber > 0
+        || boardGenerator.honeyGoalNumber > 0 || boardGenerator.grassGoalNumber > 0 )
+        {
+            isBlockers = true;
+        }
+    }
+
 
     #region Blocker IncreaseDecrese
     public void IncreaseWoodCount()

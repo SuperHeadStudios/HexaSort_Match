@@ -16,6 +16,8 @@ public class BottomCell : MonoBehaviour
     [HideInInspector] public int cost;
     public int currentLockCount;
 
+    public ParticleSystem bottomParticle;
+
     public HexaColumn hexaColumn;
     public HexaColumn hexaColumn_ice;
     public HexaColumn hexaColumn_Vines;
@@ -249,11 +251,13 @@ public class BottomCell : MonoBehaviour
     public void SelectCell()
     {
         meshRenderer.material = cellSelectedMaterial;
-        meshRenderer.transform.localPosition = new Vector3(0, 0.25f, 0);
+        bottomParticle.Play();
+        //meshRenderer.transform.localPosition = new Vector3(0, 0.25f, 0);
     }
 
     public void UnSelectCell()
     {
+        bottomParticle.Stop();
         meshRenderer.material = cellMaterial;
         meshRenderer.transform.localPosition = new Vector3(0, 0.0f, 0);
     }

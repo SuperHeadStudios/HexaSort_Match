@@ -75,6 +75,7 @@ public class BoardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.instance.uiManager.gameView.currentState == GameView.BOOSTER_STATE.HAMMER)
         {
             if (Input.GetMouseButtonDown(0))
@@ -680,8 +681,6 @@ public class BoardController : MonoBehaviour
             Color currentColor = cell.hexaCellList[dataCount+5].currentColor;
             if (queue == 0)
             {
-                if (!clearHexaColumVfx1.gameObject.activeSelf)
-                    clearHexaColumVfx1.gameObject.SetActive(true);
                 clearHexaColumVfx1.transform.position = element.position;
                 clearHexaColumVfx1.Play();
 
@@ -693,8 +692,6 @@ public class BoardController : MonoBehaviour
             {
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
-                    if (!clearHexaColumVfx2.gameObject.activeSelf)
-                        clearHexaColumVfx2.gameObject.SetActive(true);
                     clearHexaColumVfx2.transform.position = element.position;
                     clearHexaColumVfx2.Play();
                 }

@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MapDataLevelConfigSO", menuName = "GameData/MapDataLevelConfigSO")]
 public class MapDataLevelConfigSO : ScriptableObject
 {
+	public bool isBlockers;
+	
 	public EnumModeGameplayOfMap LevelMode;
 
 	public int Time;
