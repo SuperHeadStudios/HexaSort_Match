@@ -84,7 +84,7 @@ public class PopupSetting : BasePopup
         AudioManager.instance.clickSound.Play();
         HideView();
         GameManager.instance.uiManager.quitGamePopup.ShowView();
-        //GameManager.instance.BackToHome();
+        GameManager.instance.BackToHome();
     }
 
     public void ToggleSound()
