@@ -10,7 +10,12 @@ public class PopupLose : BasePopup
 {
     public Transform offerTrans;
 
-    public Transform LosePopup;
+    public Transform losePopup;
+
+    public Transform areYouSurePopup;
+
+    [SerializeField] private HomeView homeView;
+
 
     private void FixedUpdate()
     {
@@ -34,32 +39,38 @@ public class PopupLose : BasePopup
 
     public override void ShowView()
     {
-        LosePopup.DOScale(Vector3.one, 0.2f);
-        //canvasGroup.alpha = 1.0f;
+        canvasGroup.alpha = 1;
+        losePopup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
-        contentGroup.alpha = 0.0f;
-        rootTrans.localScale = Vector3.one * 0.35f;
-        offerTrans.localScale = Vector3.zero;
+    }
+    public void HideSure()
+    {
+        areYouSurePopup.DOScale(Vector3.one, 1f).SetEase(Ease.InBack);
+    }
 
-        rootTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
-
-            DOTween.To(() => contentGroup.alpha, x => contentGroup.alpha = x, 1.0f, 0.5f).SetDelay(0.35f).SetEase(Ease.Linear)
-            .OnComplete(() => {
-
-                offerTrans.localScale = Vector3.one * 0.35f;
-                offerTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
-                  
-                });
-
-            });
-
+    public void AreYouSure()
+    {
+        losePopup.DOScale(Vector3.zero, 0.01f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            isShow = true;
+            areYouSurePopup.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
         });
+    }
+
+    public void LifeLoseButton()
+    {
+        GameManager.instance.livesManager.ConsumeLife();
+        GameManager.instance.BackToHome();
+        homeView.PlayGame();
     }
 
     public override void HideView()
     {
+        
         base.HideView();
     }
 

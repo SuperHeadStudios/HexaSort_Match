@@ -75,6 +75,10 @@ public class BoardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            GameManager.instance.ShowGameLose();
+        }
         
         if (GameManager.instance.uiManager.gameView.currentState == GameView.BOOSTER_STATE.HAMMER)
         {

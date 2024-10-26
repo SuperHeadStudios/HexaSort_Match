@@ -12,6 +12,7 @@ public class SettingBar : MonoBehaviour
     [SerializeField] private GameObject musicOffIcon;
     [SerializeField] private GameObject vibrateOnIcon;
     [SerializeField] private GameObject vibrateOffIcon;
+    [SerializeField] private HomeView homeView;
 
     public bool isTogle = false;
 
@@ -66,11 +67,12 @@ public class SettingBar : MonoBehaviour
     }
     public void ReplayBottonClick()
     {
-        Debug.Log("ReplayButtnCl");
+        GameManager.instance.BackToHome();
+        homeView.PlayGame();
     }
     public void HomeBottonClick()
     {
-        Debug.Log("HomeButtnCl");
+        GameManager.instance.BackToHome();
         AudioManager.instance.clickSound.Play();
     }
 }

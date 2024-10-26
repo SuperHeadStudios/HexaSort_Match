@@ -59,7 +59,7 @@ public abstract class BasePopup : MonoBehaviour
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
                 isShow = false;
-                //GameManager.instance.uiManager.coinView.ShowView();
+                GameManager.instance.uiManager.coinView.ShowView();
             });
 
         });
