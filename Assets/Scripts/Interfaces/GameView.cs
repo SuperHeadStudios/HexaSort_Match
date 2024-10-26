@@ -28,7 +28,7 @@ public class GameView : BaseView
 
     public Transform moveGuidePanel;
 
-    public Transform switchGuidePanel;
+    //public Transform switchGuidePanel;
 
     public Transform purchaseBooster;
 
@@ -46,7 +46,17 @@ public class GameView : BaseView
 
     public GameObject targetFill;
 
-    
+    public Transform settingPanel;
+
+    public Transform settingBar;
+    public Transform[] transforms;
+
+    //public Transform setting;
+
+    public bool isTogle = false;
+
+
+
 
     public enum BOOSTER_STATE
     {
@@ -63,6 +73,59 @@ public class GameView : BaseView
         finishTut = false;
         isBlockers = true;
     }
+
+
+    public void ShowSetting()
+    {
+        isTogle = !isTogle;
+        if (isTogle == true)
+        {
+            ShowSettingBar();
+            Debug.Log("Istogle");
+        }
+        else
+        {
+            Debug.Log("IstogleNot");
+            HideSetting();
+        }
+        AudioManager.instance.clickSound.Play();
+
+    }
+
+    private void ShowSettingBar()
+    {
+        settingBar.DOScale(Vector3.one, 0.1f).OnComplete(() => StartCoroutine(ShowSettingItems()));
+    }
+
+    private IEnumerator ShowSettingItems()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            transforms[i].DOLocalMoveX(-50, 0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+
+    public void HideSetting()
+    {
+        AudioManager.instance.clickSound.Play();
+        StartCoroutine(HideSettingItems());
+
+    }
+
+    private IEnumerator HideSettingItems()
+    {
+        for (int i = 4; i > 0; i--)
+        {
+            transforms[i].DOLocalMoveX(120, 0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        settingBar.DOScale(Vector3.zero, 0.1f);
+    }
+
+
+
 
     public override void InitView()
     {        
@@ -191,6 +254,11 @@ public class GameView : BaseView
                 GameManager.instance.uiManager.moreCoinPopup.ShowView();
         }
        
+    }
+
+    public void ShowSettingPanel()
+    {
+        settingPanel.DOScale(Vector3.one, 0.1f);
     }
 
 

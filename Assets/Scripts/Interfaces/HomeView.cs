@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,12 +7,33 @@ public class HomeView : BaseView
 {
     public TextMeshProUGUI currentLevelTxt;
 
+
     public TextMeshProUGUI spinProgressTxt;
 
     public Image spinProgressBar;
+    public GameObject openPopup;
+    public RectTransform settingPopup;
+    //public Ease EaseType;
+
+    public void ShowSettingPopup()
+    {
+        openPopup.SetActive(true);
+        settingPopup.DOScale(Vector3.one,1f).SetEase(Ease.OutBounce);
+    }
+    public void HideSettingPopup()
+    {
+        settingPopup.DOScale(Vector3.zero, .5f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            openPopup.SetActive(false);
+        });
+    }
+
+
+    
 
     public override void InitView()
     {
+        //
         //currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
@@ -44,13 +64,44 @@ public class HomeView : BaseView
         }
     }
 
-    public void ShowSetting()
-    {
-        AudioManager.instance.clickSound.Play();
-        GameManager.instance.uiManager.settingPopup.InitView();
-        GameManager.instance.uiManager.settingPopup.ShowView();
-    }
+    
 
+
+
+
+
+
+
+
+
+
+    //.OnComplete(() =>
+    /*{
+        music.DOLocalMoveX(-50f, 0.1f).OnComplete(() =>
+        {
+            vibrate.DOLocalMoveX(-50f, 0.1f).OnComplete(() =>
+            {
+                restart.DOLocalMoveX(-50f, 0.1f).OnComplete(() =>
+                {
+                    home.DOLocalMoveX(-50f, 0.1f);
+                });
+            });
+        });
+    });*/
+
+
+
+
+
+
+
+
+
+
+
+
+    /*GameManager.instance.uiManager.settingPopup.InitView();
+        GameManager.instance.uiManager.settingPopup.ShowView();*/
     public void ShowShop()
     {
         AudioManager.instance.clickSound.Play();
