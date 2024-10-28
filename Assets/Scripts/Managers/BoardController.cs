@@ -333,7 +333,7 @@ public class BoardController : MonoBehaviour
             GameManager.instance.uiManager.gameView.DisableArrow();
 
 
-        if (AudioManager.instance.hapticState == 1)
+        if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
         bottomCell.hexaColumn.AddCellColumn(hexaColumn);
@@ -374,7 +374,7 @@ public class BoardController : MonoBehaviour
             GameManager.instance.uiManager.gameView.DisableArrow();
        
 
-        if (AudioManager.instance.hapticState == 1)
+        if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
         currentHitBottomCell.hexaColumn.AddCellColumn(currentHexaColumn);
@@ -412,7 +412,7 @@ public class BoardController : MonoBehaviour
         GameManager.instance.uiManager.gameView.CloseMove();
         AudioManager.instance.columnPlaceSfx.Play();
 
-        if (AudioManager.instance.hapticState == 1)
+        if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
         currentHitBottomCell.hexaColumn.AddMovingCells(currentHexaColumn);
@@ -543,7 +543,7 @@ public class BoardController : MonoBehaviour
         GameManager.instance.uiManager.gameView.SubHammerValue();
         GameManager.instance.uiManager.gameView.CloseHammer();
         AudioManager.instance.hammerSound.Play();
-        if (AudioManager.instance.hapticState == 1)
+        if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.HeavyImpact);
     }
 

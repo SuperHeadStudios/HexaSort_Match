@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Dynamic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,21 +17,11 @@ public class HomeView : BaseView
 
     [SerializeField] private GameObject lifeBar;
 
+
     public void ShowSettingPopup()
     {
         openPopup.SetActive(true);
-        settingPopup.DOScale(Vector3.one,1f).SetEase(Ease.OutBounce);
-    }
-    public void HideSettingPopup()
-    {
-        settingPopup.DOScale(Vector3.zero, .5f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            openPopup.SetActive(false);
-        });
-    }
-
-
-    
+    }    
 
     public override void InitView()
     {
@@ -38,6 +29,8 @@ public class HomeView : BaseView
         //currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
+
+        lifeBar.SetActive(true);
     }
 
     public override void Start()
@@ -52,7 +45,6 @@ public class HomeView : BaseView
 
     public void PlayGame()
     {
-        lifeBar.SetActive(false);
         if (GameManager.instance.livesManager.lives > 0)
         {
             AudioManager.instance.clickSound.Play();
@@ -60,22 +52,12 @@ public class HomeView : BaseView
         }
         else
         {
+            Debug.Log("No life ");
             AudioManager.instance.clickSound.Play();
             GameManager.instance.uiManager.fillLivesPopup.InitView();
             GameManager.instance.uiManager.fillLivesPopup.ShowView();
         }
     }
-
-    
-
-
-
-
-
-
-
-
-
 
     //.OnComplete(() =>
     /*{

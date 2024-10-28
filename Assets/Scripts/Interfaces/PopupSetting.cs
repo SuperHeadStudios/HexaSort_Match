@@ -5,19 +5,13 @@ using UnityEngine.UI;
 public class PopupSetting : BasePopup
 {
     public GameObject musicOn, musicOff;
-
     public GameObject soundOn, soundOff;
-
     public GameObject vibrationOn, vibrationOff;
 
     public string androidGameUrl;
-
     public string iosGameUrl;
-
     public string termUrl;
-
     public string privacyUrl;
-
     public string contactUrl;
 
     public RectTransform homeBtn;
@@ -29,7 +23,7 @@ public class PopupSetting : BasePopup
         else if (GameManager.instance.currentGameState == GameManager.GAME_STATE.PLAYING)
             homeBtn.gameObject.SetActive(true);
 
-        if (AudioManager.instance.musicState == 0)
+        if (AudioManager.instance.musicState)
         {
             musicOn.SetActive(false);
             musicOff.SetActive(true);
@@ -39,8 +33,8 @@ public class PopupSetting : BasePopup
             musicOn.SetActive(true);
             musicOff.SetActive(false);
         }
-
-        if (AudioManager.instance.soundState == 0)
+            
+        if (AudioManager.instance.soundState)
         {
             soundOn.SetActive(false);
             soundOff.SetActive(true);
@@ -51,7 +45,7 @@ public class PopupSetting : BasePopup
             soundOff.SetActive(false);
         }
 
-        if (AudioManager.instance.hapticState == 0)
+        if (AudioManager.instance.hapticState)
         {
             vibrationOn.SetActive(false);
             vibrationOff.SetActive(true);
@@ -90,7 +84,7 @@ public class PopupSetting : BasePopup
     public void ToggleSound()
     {
 
-        if (AudioManager.instance.soundState == 0)
+        if (AudioManager.instance.soundState)
         {
             soundOn.SetActive(true);
             soundOff.SetActive(false);
@@ -107,7 +101,7 @@ public class PopupSetting : BasePopup
     public void ToggleMusic()
     {
 
-        if (AudioManager.instance.musicState == 0)
+        if (AudioManager.instance.musicState)
         {
             musicOn.SetActive(true);
             musicOff.SetActive(false);
@@ -124,7 +118,7 @@ public class PopupSetting : BasePopup
     public void ToggleHaptic()
     {
 
-        if (AudioManager.instance.hapticState == 0)
+        if (AudioManager.instance.hapticState)
         {
             vibrationOn.SetActive(true);
             vibrationOff.SetActive(false);

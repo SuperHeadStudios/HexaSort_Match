@@ -36,7 +36,7 @@ public abstract class BasePopup : MonoBehaviour
         isShow = true;
         rootTrans.localScale = Vector3.one * 0.55f;
 
-        rootTrans.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
+        rootTrans.DOScale(Vector3.one * 0.9f, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
 
         });
     }

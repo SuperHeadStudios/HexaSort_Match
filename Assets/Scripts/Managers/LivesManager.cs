@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class LivesManager : MonoBehaviour
 {
+    public static LivesManager instance;
+
     #region Constants
     /// <summary>
     /// Key to save the maximum number of lives for the player.
@@ -73,6 +75,11 @@ public class LivesManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         //ResetPlayerPrefs();
         RetrievePlayerPrefs();
     }
@@ -137,6 +144,11 @@ public class LivesManager : MonoBehaviour
         {
             FillLives();
         }
+    }
+
+    public int GetCurrentLive()
+    {
+        return PlayerPrefs.GetInt(LIVES_SAVEKEY);
     }
 
     private void SetSecondsToNextLifeToZero()
@@ -259,7 +271,7 @@ public class LivesManager : MonoBehaviour
     {
         maxLifeGroup.alpha = 1;
         maxLifeGroup.interactable = true;
-        maxLifePanel.DOScale(Vector3.one, .5f).SetEase(Ease.OutBounce);
+        maxLifePanel.DOScale(Vector3.one * 0.9f, .5f).SetEase(Ease.OutBounce);
     }
     public void HideMaxLifePanel()
     {

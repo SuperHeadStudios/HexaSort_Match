@@ -15,6 +15,7 @@ namespace GameSystem
         static string FILLKEY = "FILL";
 
         static string SOUNDKEY = "SOUNDS";
+        static string MUSICKEY = "SOUNDS";
         static string VIBEKEY = "VIBERTION";
         static string REVEIWKEY = "REVEIW";
 
@@ -105,25 +106,34 @@ namespace GameSystem
         // Game Sounds Area
         public static bool GetSoundState()
         {
-            return PlayerPrefs.GetInt(SOUNDKEY, 1) == 1;
+            return GetBool(SOUNDKEY, true);
         }
 
         public static void SetSoundState(bool isMuted)
         {
-            PlayerPrefs.SetInt(SOUNDKEY, isMuted ? 1 : 0);
-            PlayerPrefs.Save();
+            SaveBool(SOUNDKEY, isMuted);
+        }
+
+        // Game Sounds Area
+        public static bool GetMusicState()
+        {
+            return GetBool(MUSICKEY, true);
+        }
+
+        public static void SetMusicState(bool isMuted)
+        {
+            SaveBool(MUSICKEY, isMuted);
         }
 
         // Game Sounds Area
         public static bool GetVibrateState()
         {
-            return PlayerPrefs.GetInt(VIBEKEY, 1) == 1;
+            return GetBool(VIBEKEY, true);
         }
 
         public static void SetVibrateState(bool isMuted)
         {
-            PlayerPrefs.SetInt(VIBEKEY, isMuted ? 1 : 0);
-            PlayerPrefs.Save();
+            SaveBool(VIBEKEY,isMuted);
         }
 
 
@@ -136,11 +146,6 @@ namespace GameSystem
         public static void SaveReviewState(int amount)
         { PlayerPrefs.SetInt(REVEIWKEY, amount); }
 
-        public static void SaveNextlevelState(bool value)
-        {
-            PlayerPrefs.SetInt(NEXTLEVEL, value ? 1 : 0);
-            PlayerPrefs.Save();
-        }
         public static bool GetNextLevelState(bool defaultValue = false)
         {
             int defaultIntValue = defaultValue ? 1 : 0;
@@ -257,6 +262,19 @@ namespace GameSystem
 
         public static void SaveLevelIntrsCount(int count)
         { PlayerPrefs.SetInt(INTRSCOUNT, count); }
+
+
+        public static bool GetBool(string key, bool defaultValue = false)
+        {
+            return PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) == 1;
+        }
+
+
+        public static void SaveBool(string key, bool value)
+        {
+            PlayerPrefs.SetInt(key, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
 
     }
 }

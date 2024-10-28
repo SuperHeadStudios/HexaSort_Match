@@ -22,7 +22,7 @@ public class SettingView : BaseView
 
     public override void InitView()
     {
-        if (AudioManager.instance.musicState == 0)
+        if (AudioManager.instance.musicState)
         {
             musicOn.SetActive(false);
             musicOff.SetActive(true);
@@ -33,7 +33,7 @@ public class SettingView : BaseView
             musicOff.SetActive(false);
         }
 
-        if (AudioManager.instance.soundState == 0)
+        if (AudioManager.instance.soundState)
         {
             soundOn.SetActive(false);
             soundOff.SetActive(true);
@@ -44,7 +44,7 @@ public class SettingView : BaseView
             soundOff.SetActive(false);
         }
 
-        if (AudioManager.instance.hapticState == 0)
+        if (AudioManager.instance.hapticState)
         {
             vibrationOn.SetActive(false);
             vibrationOff.SetActive(true);
@@ -81,7 +81,7 @@ public class SettingView : BaseView
     public void ToggleSound()
     {
        
-        if (AudioManager.instance.soundState == 0)
+        if (AudioManager.instance.soundState)
         {
             soundOn.SetActive(true);
             soundOff.SetActive(false);
@@ -98,7 +98,7 @@ public class SettingView : BaseView
     public void ToggleMusic()
     {
        
-        if (AudioManager.instance.musicState == 0)
+        if (AudioManager.instance.musicState)
         {
             musicOn.SetActive(true);
             musicOff.SetActive(false);
@@ -115,7 +115,7 @@ public class SettingView : BaseView
     public void ToggleHaptic()
     {
 
-        if (AudioManager.instance.hapticState == 0)
+        if (AudioManager.instance.hapticState)
         {
             vibrationOn.SetActive(true);
             vibrationOff.SetActive(false);

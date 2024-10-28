@@ -28,6 +28,9 @@ public class CoinView : BaseView
 
     public Transform livesFullPanel;
 
+    [SerializeField] private Button addLiveBtn;
+    [SerializeField] private GameObject showFullText;
+
     public override void InitView()
     {
         GameObject obj1 = Instantiate(coinPrefab) as GameObject;
@@ -53,6 +56,18 @@ public class CoinView : BaseView
         coinObj3.gameObject.SetActive(false);
 
         UpdateCoinTxt();
+
+        if(LivesManager.instance.GetCurrentLive() >= 5)
+        {
+            addLiveBtn.interactable = false;
+            showFullText.SetActive(true);
+        }
+        else
+        {
+            addLiveBtn.interactable = true;
+            showFullText.SetActive(false);
+        }
+
     }
 
     public override void Start()

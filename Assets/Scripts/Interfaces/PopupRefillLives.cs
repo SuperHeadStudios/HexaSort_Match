@@ -8,11 +8,40 @@ using static AdsControl;
 public class PopupRefillLives : BasePopup
 {
     public TextMeshProUGUI textTime;
+    [SerializeField] private Button coinBtn;
+    [SerializeField] private GameObject[] hearts;
+
+    private const string LIVES_SAVEKEY = "Lives";
+    private int totalLives = 0;
 
     public override void InitView()
     {
         GameManager.instance.uiManager.coinView.InitView();
         GameManager.instance.uiManager.coinView.ShowView();
+        totalLives = PlayerPrefs.GetInt(LIVES_SAVEKEY);
+        FillHearts();
+
+        if (GameManager.instance.coinValue >= 150)
+        {
+            coinBtn.interactable = true;
+        }
+        else
+        {
+            coinBtn.interactable = false;
+        }
+    }
+
+    private void FillHearts()
+    {
+        foreach (GameObject heart in hearts)
+        {
+            heart.SetActive(false);
+        }
+
+        for (int i = 0; i < totalLives; i++)
+        {
+            hearts[i].SetActive(true);
+        }
     }
 
     public override void Start()
@@ -33,6 +62,7 @@ public class PopupRefillLives : BasePopup
         {
             GameManager.instance.SubCoin(150);
             GameManager.instance.livesManager.GiveOneLife();
+            FillHearts();
         }
         else
         {
@@ -85,6 +115,7 @@ public class PopupRefillLives : BasePopup
     public void EarnReward(Reward reward)
     {
         GameManager.instance.livesManager.GiveOneLife();
+        FillHearts();
     }
 
     public void ShowRWUnityAds()
@@ -95,6 +126,7 @@ public class PopupRefillLives : BasePopup
             if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
             {
                 GameManager.instance.livesManager.GiveOneLife();
+                FillHearts();
             }
 
             if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
