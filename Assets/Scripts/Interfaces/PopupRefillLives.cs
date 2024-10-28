@@ -1,4 +1,5 @@
 using GoogleMobileAds.Api;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
@@ -6,12 +7,12 @@ using static AdsControl;
 
 public class PopupRefillLives : BasePopup
 {
-	public Text textTime;
+    public TextMeshProUGUI textTime;
 
     public override void InitView()
     {
-        //GameManager.instance.uiManager.coinView.InitView();
-        //GameManager.instance.uiManager.coinView.ShowView();
+        GameManager.instance.uiManager.coinView.InitView();
+        GameManager.instance.uiManager.coinView.ShowView();
     }
 
     public override void Start()

@@ -278,6 +278,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowGameLoseIE()
     {
         yield return new WaitForSeconds(1.0f);
+
         uiManager.popupLose.InitView();
         uiManager.popupLose.ShowView();
     }

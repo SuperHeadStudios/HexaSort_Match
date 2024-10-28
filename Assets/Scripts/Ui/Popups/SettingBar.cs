@@ -13,6 +13,7 @@ public class SettingBar : MonoBehaviour
     [SerializeField] private GameObject vibrateOnIcon;
     [SerializeField] private GameObject vibrateOffIcon;
     [SerializeField] private HomeView homeView;
+    [SerializeField] private GameObject lifeBar;
 
     public bool isTogle = false;
 
@@ -74,5 +75,6 @@ public class SettingBar : MonoBehaviour
     {
         GameManager.instance.BackToHome();
         AudioManager.instance.clickSound.Play();
+        lifeBar.SetActive(true);
     }
 }

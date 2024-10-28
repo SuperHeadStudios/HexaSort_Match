@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,13 +20,13 @@ public class CoinView : BaseView
 
     private RectTransform coinObj1, coinObj2, coinObj3;
 
-    public Text coinTxt;
+    public TextMeshProUGUI coinCountTxt;
 
-    public Text heartTxt;
+    public TextMeshProUGUI lifeCountTxt;
 
-    public Text heartFullTxt;
+    public TextMeshProUGUI lifeFulltxt;
 
-    public GameObject addHeart;
+    public Transform livesFullPanel;
 
     public override void InitView()
     {
@@ -83,18 +84,19 @@ public class CoinView : BaseView
     public void OnLivesChanged()
     {
         //Debug.Log("Update Lives : " + GameManager.instance.livesManager.LivesText);
-        heartTxt.text = GameManager.instance.livesManager.LivesText;
+        lifeCountTxt.text = GameManager.instance.livesManager.LivesText;
     }
 
     public void OnTimeToNextLifeChanged()
     {
-        heartFullTxt.text = GameManager.instance.livesManager.RemainingTimeString;
+        
+        lifeFulltxt.text = GameManager.instance.livesManager.RemainingTimeString;
         GameManager.instance.uiManager.fillLivesPopup.textTime.text = GameManager.instance.livesManager.RemainingTimeString;
     }
-
+    
     public void UpdateCoinTxt()
     {
-        coinTxt.text = GameManager.instance.coinValue.ToString();
+        coinCountTxt.text = GameManager.instance.coinValue.ToString();
     }
 
     List<Vector3> arcPoint = new List<Vector3>();
@@ -197,7 +199,7 @@ public class CoinView : BaseView
             // Tell player to buy lives, then:
             // LivesManager.GiveOneLife();
             // or
-            // LivesManager.FillLives();
+            //LivesManager.FillLives();
             Debug.Log("Not enough lives to play!");
             // ResultDisplay.Show(false);
         }

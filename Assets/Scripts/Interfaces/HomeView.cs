@@ -7,13 +7,14 @@ public class HomeView : BaseView
 {
     public TextMeshProUGUI currentLevelTxt;
 
-
     public TextMeshProUGUI spinProgressTxt;
 
     public Image spinProgressBar;
     public GameObject openPopup;
     public RectTransform settingPopup;
     //public Ease EaseType;
+
+    [SerializeField] private GameObject lifeBar;
 
     public void ShowSettingPopup()
     {
@@ -51,6 +52,7 @@ public class HomeView : BaseView
 
     public void PlayGame()
     {
+        lifeBar.SetActive(false);
         if (GameManager.instance.livesManager.lives > 0)
         {
             AudioManager.instance.clickSound.Play();

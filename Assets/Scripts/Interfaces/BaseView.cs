@@ -22,7 +22,6 @@ public abstract class BaseView : MonoBehaviour
     public virtual void ShowView()
     {
         canvasGroup.alpha = 0.0f;
-        
 
         DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1.0f, 0.1f).SetEase(Ease.Linear)
             .OnComplete(() => {
@@ -32,7 +31,6 @@ public abstract class BaseView : MonoBehaviour
                 canvasGroup.blocksRaycasts = true;
                 isShow = true;
             });
-
     }
 
     public virtual void ShowView(string content)

@@ -14,8 +14,9 @@ public class PopupLose : BasePopup
 
     public Transform areYouSurePopup;
 
-    [SerializeField] private HomeView homeView;
+    public CanvasGroup areYouSure;
 
+    [SerializeField] private HomeView homeView;
 
     private void FixedUpdate()
     {
@@ -47,7 +48,10 @@ public class PopupLose : BasePopup
     }
     public void HideSure()
     {
-        areYouSurePopup.DOScale(Vector3.one, 1f).SetEase(Ease.InBack);
+        areYouSurePopup.DOScale(Vector3.zero, 1f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            areYouSure.alpha = 0;
+        });
     }
 
     public void AreYouSure()
@@ -57,6 +61,9 @@ public class PopupLose : BasePopup
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             isShow = true;
+            areYouSure.alpha = 1;
+            areYouSure.blocksRaycasts = true;
+            areYouSure.interactable = true;
             areYouSurePopup.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
         });
     }

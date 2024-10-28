@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,6 +33,10 @@ public class LivesManager : MonoBehaviour
     private double remainingSecondsWithInfiniteLives;
 
     public int MaxLives { get; private set; }
+
+    public Transform maxLifePanel;
+    public CanvasGroup maxLifeGroup;
+    
 
     public int DefaultMaxLives = 5;
 
@@ -249,6 +254,20 @@ public class LivesManager : MonoBehaviour
             SavePlayerPrefs();
             NotifyAll();
         }
+    }
+    public void ShowMaxLifePanel()
+    {
+        maxLifeGroup.alpha = 1;
+        maxLifeGroup.interactable = true;
+        maxLifePanel.DOScale(Vector3.one, .5f).SetEase(Ease.OutBounce);
+    }
+    public void HideMaxLifePanel()
+    {
+        maxLifePanel.DOScale(Vector3.zero, .2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            maxLifeGroup.alpha = 0;
+            maxLifeGroup.interactable = false;
+        });
     }
 
     public void FillLives()
