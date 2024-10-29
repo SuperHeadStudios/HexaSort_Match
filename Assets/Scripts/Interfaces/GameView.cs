@@ -180,7 +180,7 @@ public class GameView : BaseView
 
     public override void Start()
     {
-
+        purchaseBooster.parent.GetComponent<Image>().enabled = false;
     }
 
     public override void Update()
@@ -237,24 +237,14 @@ public class GameView : BaseView
     {
         if (GameManager.instance.hammerBoosterValue > 0 )
         {
-            
             ShowHammerBoosterView();
         }
         else
         {
-            if (GameManager.instance.coinValue >= 50)
-            {
-                GameManager.instance.SubCoin(50);
-                GameManager.instance.AddHammerBooster(1);
-                UpdateBoosterView();
-            }
-            else
-            {
-                purchaseBooster.DOScale(Vector3.one, 0.1f);
-            }
-                GameManager.instance.uiManager.moreCoinPopup.ShowView();
+            purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
+            purchaseBooster.parent.GetComponent<Image>().enabled = true;
         }
-       
+
     }
 
     public void ShowSettingPanel()
@@ -270,6 +260,13 @@ public class GameView : BaseView
         hammerGuidePanel.DOScaleY(1f, 0.1f);
     }
 
+    public void CloseHammer()
+    {
+        currentState = BOOSTER_STATE.NONE;
+        ShowView();
+        hammerGuidePanel.DOScaleY(0.0001f, 0.01f);
+        GameManager.instance.uiManager.coinView.ShowView();
+    }
 
     public void UseMove()
     {
@@ -280,17 +277,8 @@ public class GameView : BaseView
         }
         else
         {
-            if (GameManager.instance.coinValue >= 50)
-            {
-                GameManager.instance.SubCoin(50);
-                GameManager.instance.AddMoveBooster(1);
-                UpdateBoosterView();
-            }
-            else
-            {
-                purchaseBooster.DOScale(Vector3.one, 0.1f);
-            }
-                //GameManager.instance.uiManager.moreCoinPopup.ShowView();
+            purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
+            purchaseBooster.parent.GetComponent<Image>().enabled = true;
         }
     }
 
@@ -301,7 +289,6 @@ public class GameView : BaseView
 
     private void ShowMoveBoosterView()
     {
-        
         currentState = BOOSTER_STATE.MOVE;
         HideView();
         GameManager.instance.uiManager.coinView.HideView();
@@ -326,20 +313,15 @@ public class GameView : BaseView
         UpdateBoosterView();
     }
 
-    public void CloseHammer()
-    {
-        //currentState = BOOSTER_STATE.NONE;
-        ShowView();
-        GameManager.instance.uiManager.coinView.ShowView();
-        hammerGuidePanel.DOScaleY(0.0001f, 0.01f);
-    }
+  
 
     public void CloseMove()
     {
         currentState = BOOSTER_STATE.NONE;
         ShowView();
-        GameManager.instance.uiManager.coinView.ShowView();
+        GameManager.instance.uiManager.gameView.ShowView();
         moveGuidePanel.DOScaleY(0.001f, 0.01f);
+        GameManager.instance.uiManager.coinView.ShowView();
     }
 
 
@@ -352,24 +334,12 @@ public class GameView : BaseView
 
             SubShuffleValue();
             UpdateBoosterView();
-            
         }
         else
         {
-            if (GameManager.instance.coinValue >= 50)
-            {
-                GameManager.instance.SubCoin(50);
-                GameManager.instance.AddShuffleBooster(1);
-                UpdateBoosterView();
-            }
-            else
-            {
-                purchaseBooster.DOScale(Vector3.one, 0.1f);
-            }
-                //GameManager.instance.uiManager.moreCoinPopup.ShowView();
-
+            purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
+            purchaseBooster.parent.GetComponent<Image>().enabled = true;
         }
-       
     }
 
     /*private IEnumerator shuffleBoosterTut()
@@ -382,6 +352,8 @@ public class GameView : BaseView
     public void closePurchse()
     {
         purchaseBooster.DOScale(Vector3.zero, 0.1f);
+        purchaseBooster.parent.GetComponent<Image>().enabled = false;
+        GameManager.instance.uiManager.gameView.ShowView(); 
     }
 
     public void UpdateBoosterView()
