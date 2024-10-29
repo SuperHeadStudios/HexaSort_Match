@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject grassTick;
     [SerializeField] private GameObject grassGoal;
 
+    public int currentLevel;
+
     [HideInInspector]
     public int levelIndex;
 
