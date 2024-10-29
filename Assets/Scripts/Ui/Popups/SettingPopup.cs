@@ -2,6 +2,7 @@ using DG.Tweening;
 using GameSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +12,14 @@ public class SettingPopup : MonoBehaviour
     [SerializeField] private Image soundImg;
     [SerializeField] private Image musicImg;
     [SerializeField] private Image vibrationImg;
-
+    [Space(5)]
     [SerializeField] private Sprite onSprite;
     [SerializeField] private Sprite offSprite;
-
+  
+    [Header("----- Btn Animation -----"), Space(5)]
     [SerializeField] private RectTransform soundOnIcon;
-    
-    [SerializeField] private RectTransform musicOnIcon;
-    
+    [SerializeField] private RectTransform musicOnIcon;    
     [SerializeField] private RectTransform vibrateOnIcon;
-
     [SerializeField] private Transform popup;
 
     [Header("----- Buttons -----"), Space(5)]
@@ -28,11 +27,12 @@ public class SettingPopup : MonoBehaviour
     [SerializeField] private Button moreAppsBtn;
     [SerializeField] private Button supportBtn;
 
-    [SerializeField] private bool isMusicToggle = false;
-    [SerializeField] private bool isSoundToggle = false;
-    [SerializeField] private bool isVibrationToggle = false;
+    [SerializeField] private bool isMusicToggle;
+    [SerializeField] private bool isSoundToggle;
+    [SerializeField] private bool isVibrationToggle;
 
-    private void Start()
+
+    private void OnEnable()
     {
         isMusicToggle = PlayerPrefsManager.GetMusicState();
         isSoundToggle = PlayerPrefsManager.GetSoundState();
@@ -42,68 +42,45 @@ public class SettingPopup : MonoBehaviour
         moreAppsBtn.onClick.AddListener(MoreAppsBtnPressed);
         supportBtn.onClick.AddListener(SupportBtnPressed);
 
+
+        popup.localScale = Vector3.zero;
+        popup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
         UpdateUiOnStart();
     }
-
     private void UpdateUiOnStart()
     {
         if (isSoundToggle == true)
         {
-            AudioManager.instance.ToogleSound(true);
             soundOnIcon.DOLocalMoveX(85f, 0.1f);
             soundImg.sprite = onSprite;
         }
         else
         {
-            AudioManager.instance.ToogleSound(false);
             soundOnIcon.DOLocalMoveX(-85f, 0.1f);
             soundImg.sprite = offSprite;
         }
 
         if (isMusicToggle == true)
         {
-            AudioManager.instance.ToogleMusic(true);
             musicOnIcon.DOLocalMoveX(85f, 0.1f);
             musicImg.sprite = onSprite;
         }
         else
         {
-            AudioManager.instance.ToogleMusic(false);
             musicOnIcon.DOLocalMoveX(-85f, 0.1f);
-            musicImg.sprite = offSprite;
-        }
-
-        if (isMusicToggle == true)
-        {
-            AudioManager.instance.ToogleMusic(true);
-            musicOnIcon.DOLocalMoveX(85f, 0.1f);
-            musicImg.sprite = onSprite;
-        }
-        else
-        {
-            AudioManager.instance.ToogleMusic(false);
-            musicOnIcon.DOLocalMoveX(-85f, 0.1f);
-            musicImg.sprite = offSprite;
+            musicImg.sprite = offSprite;   
         }
 
         if (isVibrationToggle == true)
-        {
-            AudioManager.instance.ToogleHaptic(true);
+        {  
             vibrateOnIcon.DOLocalMoveX(85f, 0.1f);
             vibrationImg.sprite = onSprite;
         }
         else
         {
-            AudioManager.instance.ToogleHaptic(false);
             vibrateOnIcon.DOLocalMoveX(-85f, 0.1f);
             vibrationImg.sprite = offSprite;
         }
-    }
-
-    private void OnEnable()
-    {
-        popup.localScale = Vector3.zero;
-        popup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
     }
 
     private void CloseSettingsPopup()
@@ -134,9 +111,9 @@ public class SettingPopup : MonoBehaviour
     public void MusicBottonClick()
     {
         isMusicToggle = !isMusicToggle;
-        if (isMusicToggle == true)
+        if (isMusicToggle)
         {
-            AudioManager.instance.ToogleMusic(true);
+            AudioManager.instance.ToogleMusic(isMusicToggle);
             musicOnIcon.DOLocalMoveX(85f, 0.1f);
             musicImg.sprite = onSprite;
         }
@@ -155,6 +132,7 @@ public class SettingPopup : MonoBehaviour
             AudioManager.instance.ToogleHaptic(true);
             vibrateOnIcon.DOLocalMoveX(85f, 0.1f);
             vibrationImg.sprite = onSprite;
+
         }
         else
         {

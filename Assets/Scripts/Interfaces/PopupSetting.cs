@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -96,6 +97,8 @@ public class PopupSetting : BasePopup
             soundOff.SetActive(true);
             AudioManager.instance.ToogleSound(false);
         }
+
+       
     }
 
     public void ToggleMusic()
@@ -113,6 +116,7 @@ public class PopupSetting : BasePopup
             musicOff.SetActive(true);
             AudioManager.instance.ToogleMusic(false);
         }
+        Debug.Log(PlayerPrefsManager.GetMusicState() + " music");
     }
 
     public void ToggleHaptic()

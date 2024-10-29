@@ -15,7 +15,7 @@ namespace GameSystem
         static string FILLKEY = "FILL";
 
         static string SOUNDKEY = "SOUNDS";
-        static string MUSICKEY = "SOUNDS";
+        static string MUSICKEY = "MUSIC";
         static string VIBEKEY = "VIBERTION";
         static string REVEIWKEY = "REVEIW";
 

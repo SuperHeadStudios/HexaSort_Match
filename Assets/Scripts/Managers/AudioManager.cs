@@ -65,14 +65,12 @@ public class AudioManager : MonoBehaviour
         if(toogle)
         {
             backgroundMusic.volume = 1.0f;
-            PlayerPrefsManager.SetMusicState(toogle);
         }         
         else
         {
             backgroundMusic.volume = 0.0f;
-            PlayerPrefsManager.SetMusicState(toogle);
         }
-           
+        PlayerPrefsManager.SetMusicState(toogle);
     }
 
     public void ToogleSound(bool toogle)
@@ -82,15 +80,13 @@ public class AudioManager : MonoBehaviour
 
             for (int i = 0; i < soundList.Length; i++)
                 soundList[i].volume = 1.0f;
-            PlayerPrefsManager.SetSoundState(toogle);
         }
-
         else
         {
             for (int i = 0; i < soundList.Length; i++)
                 soundList[i].volume = 0.0f;
-            PlayerPrefsManager.SetSoundState(toogle);
         }
+        PlayerPrefsManager.SetSoundState(toogle);
     }
     public void ToogleHaptic(bool toogle)
     {
