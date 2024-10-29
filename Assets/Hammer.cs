@@ -11,6 +11,8 @@ public class Hammer : MonoBehaviour
 
     public void attack()
     {
+        boardController.ClearColumn();
         boardController.hammerEffect.Play();
     }
+
 }

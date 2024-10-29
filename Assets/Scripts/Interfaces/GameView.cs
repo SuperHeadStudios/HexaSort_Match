@@ -235,8 +235,9 @@ public class GameView : BaseView
 
     public void UseHammer()
     {
-        if (GameManager.instance.hammerBoosterValue > 0)
+        if (GameManager.instance.hammerBoosterValue > 0 )
         {
+            
             ShowHammerBoosterView();
         }
         else
@@ -261,8 +262,6 @@ public class GameView : BaseView
         settingPanel.DOScale(Vector3.one, 0.1f);
     }
 
-
-
     private void ShowHammerBoosterView()
     {
         currentState = BOOSTER_STATE.HAMMER;
@@ -270,6 +269,7 @@ public class GameView : BaseView
         GameManager.instance.uiManager.coinView.HideView();
         hammerGuidePanel.DOScaleY(1f, 0.1f);
     }
+
 
     public void UseMove()
     {
@@ -301,6 +301,7 @@ public class GameView : BaseView
 
     private void ShowMoveBoosterView()
     {
+        
         currentState = BOOSTER_STATE.MOVE;
         HideView();
         GameManager.instance.uiManager.coinView.HideView();
@@ -327,10 +328,9 @@ public class GameView : BaseView
 
     public void CloseHammer()
     {
-        currentState = BOOSTER_STATE.NONE;
+        //currentState = BOOSTER_STATE.NONE;
         ShowView();
         GameManager.instance.uiManager.coinView.ShowView();
-
         hammerGuidePanel.DOScaleY(0.0001f, 0.01f);
     }
 
@@ -339,9 +339,7 @@ public class GameView : BaseView
         currentState = BOOSTER_STATE.NONE;
         ShowView();
         GameManager.instance.uiManager.coinView.ShowView();
-
         moveGuidePanel.DOScaleY(0.001f, 0.01f);
-
     }
 
 

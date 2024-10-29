@@ -85,7 +85,6 @@ public class BoardController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 //ClearColumn();
-                
                 ClearColumn();
                 return;
             }
@@ -525,12 +524,12 @@ public class BoardController : MonoBehaviour
 
     IEnumerator DestroyColumnByHammer(HexaColumn column)
     {
-        hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -1.5f);
+        hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -2.5f);
         hammerEffect.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, 0f);
         //GameManager.instance.hammerExplosionVfx.Play();
         StartCoroutine(HammerBoosterAttack());
 
-        yield return new WaitForSeconds(1.5f);   
+        yield return new WaitForSeconds(1.8f);   
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
@@ -550,7 +549,7 @@ public class BoardController : MonoBehaviour
     IEnumerator HammerBoosterAttack()
     {
         hmAttack.SetActive(true) ;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.5f);
         hmAttack.SetActive(false);
     }
 
