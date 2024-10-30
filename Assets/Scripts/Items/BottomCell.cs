@@ -370,9 +370,6 @@ public class BottomCell : MonoBehaviour
             }
         }
     }
-
-    
-
     public void CheckNearByOnCompelteStake(int currentCount)
     {
         for (int i = 0; i < 6; i++)
@@ -449,9 +446,10 @@ public class BottomCell : MonoBehaviour
             if (Physics.Raycast(ray, 1.5f, bottomMask))
             {
                 BottomCell currentCell = transform.GetComponent<BottomCell>();
-                if(currentCell.isGrass == true)
+                if(isGrass == true)
                 {
-                    StartCoroutine(currentCell.grassBlocker.MakeGrassBreak());
+                    isGrass = false;
+                    StartCoroutine(grassBlocker.MakeGrassBreak());
                 }
                 /*if(currentCell.isLock == true)
                 {

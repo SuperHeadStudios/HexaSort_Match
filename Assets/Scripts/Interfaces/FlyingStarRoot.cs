@@ -17,12 +17,14 @@ public class FlyingStarRoot : MonoBehaviour
 
     public ParticleSystem flowerEffect;
 
-    //public GameObject trail;
+    public RectTransform trail;
 
-    private void Awake()
+    private void Update()
     {
-
+        
     }
+
+
     void Start()
     {
         GameObject obj1 = Instantiate(starPrefab) as GameObject;
@@ -38,10 +40,11 @@ public class FlyingStarRoot : MonoBehaviour
         starObj1.gameObject.SetActive(true);
         spawnPos = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z) - Camera.main.transform.forward;
         starObj1.position = WorldToCanvasPosition(uiCanvas, starObj1, Camera.main, spawnPos);
-        starObj1.DOMove(targetRoot.position, .3f).SetEase(Ease.Linear).OnComplete(() =>
+        starObj1.DOMove(targetRoot.position, .5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             starObj1.gameObject.SetActive(false);
             flowerEffect.Play();
+            trail.position = starObj1.position;
         });
     }
 

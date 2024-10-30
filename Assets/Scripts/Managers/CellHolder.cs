@@ -90,7 +90,7 @@ public class CellHolder : MonoBehaviour
             {
                 if(m == 0)
                 {
-                    Debug.Log("Cell Holder 91 first peice columnd data color id " + firstPiece.columnDataList[0].colorID);
+                    //Debug.Log("Cell Holder 91 first peice columnd data color id " + firstPiece.columnDataList[0].colorID);
                     mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[0].colorID, firstPiece.columnDataList[0].columnValue));
                 }
                 else
@@ -101,7 +101,7 @@ public class CellHolder : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Cell Holder 91 first peice columnd data color id 2_" + firstPiece.columnDataList[0].colorID);
+                        //Debug.Log("Cell Holder 91 first peice columnd data color id 2_" + firstPiece.columnDataList[0].colorID);
                         mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[m].colorID, firstPiece.columnDataList[m].columnValue));
                     }
                 }

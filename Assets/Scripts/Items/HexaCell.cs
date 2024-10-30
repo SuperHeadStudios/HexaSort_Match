@@ -10,7 +10,7 @@ public class HexaCell : MonoBehaviour
 
     public void InitCell(int colorID)
     {
-        Debug.Log(colorID + "ColorId" );
+        //Debug.Log(colorID + "ColorId" );
         meshRenderer.material = GameManager.instance.colorConfig.colorList[colorID].material;
         currentColor = GameManager.instance.colorConfig.colorList[colorID].colorValue;
     }

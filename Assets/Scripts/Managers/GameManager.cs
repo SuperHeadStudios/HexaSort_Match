@@ -106,12 +106,12 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseHoneyCount()
     {
+        boardGenerator.currentHoneyGoalNumber--;
         if (boardGenerator.currentHoneyGoalNumber > 0)
         {
             uiManager.gameView.honeyGoalText.text = boardGenerator.currentHoneyGoalNumber.ToString();
         }
 
-        boardGenerator.currentHoneyGoalNumber--;
         if(boardGenerator.currentHoneyGoalNumber <= 0)
         {
             honeyTick.SetActive(true);
@@ -120,12 +120,12 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseGrassCount()
     {
-        boardGenerator.currentGrassGoalNumber--;
+        Debug.Log("callingGrass");
+        boardGenerator.currentGrassGoalNumber --;
         if (boardGenerator.currentGrassGoalNumber > 0)
         {
             uiManager.gameView.grassGoalText.text = boardGenerator.currentGrassGoalNumber.ToString();
         }
-
         if (boardGenerator.currentGrassGoalNumber <= 0)
         {
             grassTick.SetActive(true);

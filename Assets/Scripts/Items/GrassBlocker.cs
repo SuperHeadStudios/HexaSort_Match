@@ -30,10 +30,7 @@ public class GrassBlocker : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(MakeGrassBreak());
-        }
+       
     }
     private void LeafPositionUpdate()
     {
@@ -55,15 +52,13 @@ public class GrassBlocker : MonoBehaviour
     public IEnumerator MakeGrassBreak()
     {
         yield return new WaitForSeconds(2.4f);
+        FlyingGrass.instance.SpawnGrass(transform.position);
         foreach (Rigidbody rb in rbs)
         {
             rb.isKinematic = false;
             grassBreak.Play();
-            //rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
         }
         currentCell.isGrass = false;
-        FlyingGrass.instance.SpawnGrass(transform.position);
-        //GameManager.instance.IncreaseGrassCount();
     }
 }
    

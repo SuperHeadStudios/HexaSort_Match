@@ -722,10 +722,10 @@ public class BoardController : MonoBehaviour
                     cell.topColorID = cell.currentHexaColumnData.columnDataList[cell.currentHexaColumnData.columnDataList.Count - 1].colorID;
                 }
 
-                if (boardGenerator.currentGoalNumber >= boardGenerator.goalNumber &&
-                    boardGenerator.currentWoodGoalNumber >= boardGenerator.woodGoalNumber &&
-                    boardGenerator.currentHoneyGoalNumber >= boardGenerator.honeyGoalNumber &&
-                    boardGenerator.currentGrassGoalNumber >= boardGenerator.grassGoalNumber)
+                if (boardGenerator.currentGoalNumber <= 0 &&
+                    boardGenerator.currentWoodGoalNumber <= 0 &&
+                    boardGenerator.currentHoneyGoalNumber <= 0 &&
+                    boardGenerator.currentGrassGoalNumber <= 0)
                 {
                     GameManager.instance.ShowGameWin();
                 }
