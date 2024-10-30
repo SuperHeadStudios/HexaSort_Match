@@ -265,7 +265,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         uiManager.popupWin.InitView();
         uiManager.popupWin.ShowView();
-        boosterPannel.UnlockBooster();
 
         if (!isTestMode)
         {
