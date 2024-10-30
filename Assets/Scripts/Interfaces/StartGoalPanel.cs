@@ -18,7 +18,6 @@ public class StartGoalPanel : BasePopup
     public BoosterUnlock boosterPannel;
     public override void InitView()
     {
-        
         if (GameManager.instance.boardGenerator.isBlockers == true)
         {
             woodTargetText.text = GameManager.instance.boardGenerator.levelConfig.Goals[1].Target.ToString();

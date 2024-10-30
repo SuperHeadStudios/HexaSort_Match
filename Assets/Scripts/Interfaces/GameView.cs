@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameView : BaseView
 {
@@ -51,12 +52,14 @@ public class GameView : BaseView
     public Transform settingBar;
     public Transform[] transforms;
 
+    [SerializeField] private GameObject goalbar;
+    [SerializeField] private GameObject blockergoalbar;
+
     //public Transform setting;
 
     public bool isTogle = false;
 
-
-
+    
 
     public enum BOOSTER_STATE
     {
@@ -73,6 +76,31 @@ public class GameView : BaseView
         finishTut = false;
         isBlockers = true;
     }
+
+    public bool IsBlocker()
+    {
+        Debug.Log(GameManager.instance.woodCount + "WoodCount");
+        Debug.Log(GameManager.instance.honeyCount + "honey");
+        Debug.Log(GameManager.instance.grassCount + "");
+        return GameManager.instance.woodCount > 0 ||
+            GameManager.instance.honeyCount > 0 ||
+            GameManager.instance.grassCount > 0;
+    }
+
+    public void GoallbarShow()
+    {
+        if(IsBlocker())
+        {
+            blockergoalbar.SetActive(true);
+            goalbar.SetActive(false);
+        }
+        else
+        {
+            blockergoalbar.SetActive(false);
+            goalbar.SetActive(true);
+        }
+    }
+
 
 
     public void ShowSetting()

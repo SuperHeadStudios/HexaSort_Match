@@ -46,7 +46,7 @@ public class BoardGenerator : MonoBehaviour
 
     public List<BottomCell> bottomCellList;
 
-    public bool isBlockers = false;
+    public bool isBlockers;
 
 
     [SerializeField] private bool isDebug = false;
@@ -91,8 +91,6 @@ public class BoardGenerator : MonoBehaviour
             levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
         }   
 
-        GameManager.instance.isBlockers = levelConfig.isBlockers;
-
         bottomCellList = new List<BottomCell>();
 
         for (int i = 0; i < levelConfig.LevelData.Cells.Count; i++)
@@ -121,7 +119,6 @@ public class BoardGenerator : MonoBehaviour
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Wood)
             {
-                GameManager.instance.isBlockers = true;
                 bottomCell.InitWoodCell(true);
 
             }
@@ -190,9 +187,8 @@ public class BoardGenerator : MonoBehaviour
             honeyGoalNumber = levelConfig.Goals[2].Target;
             grassGoalNumber = levelConfig.Goals[3].Target;
         }
-        
-
         currentMapSlots = levelConfig.LevelData.Cells.Count;
+        GameManager.instance.uiManager.gameView.GoallbarShow();
     }
 
     public void ClearMap()
