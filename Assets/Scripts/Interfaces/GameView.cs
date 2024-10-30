@@ -360,39 +360,33 @@ public class GameView : BaseView
     {
         if(GameManager.instance.hammerBoosterValue > 0)
         {
-            hammerCountTxt.transform.parent.gameObject.SetActive(true);
             hammerCountTxt.text = GameManager.instance.hammerBoosterValue.ToString();
             hammerPriceTag.SetActive(false);
         }
         else
         {
-            hammerCountTxt.transform.parent.gameObject.SetActive(false);
             hammerPriceTag.SetActive(true);
         }
         
 
         if (GameManager.instance.moveBoosterValue > 0)
         {
-            moveCountTxt.transform.parent.gameObject.SetActive(true);
             moveCountTxt.text = GameManager.instance.moveBoosterValue.ToString();
             movePriceTag.SetActive(false);
         }
         else
         {
-            moveCountTxt.transform.parent.gameObject.SetActive(false);
             movePriceTag.SetActive(true);
         }
 
 
         if (GameManager.instance.shuffleBoosterValue > 0)
         {
-            shuffleCountTxt.transform.parent.gameObject.SetActive(true);
             shuffleCountTxt.text = GameManager.instance.shuffleBoosterValue.ToString();
             shufflePriceTag.SetActive(false);
         }
         else
         {
-            shuffleCountTxt.transform.parent.gameObject.SetActive(false);
             shufflePriceTag.SetActive(true);
         }
     }

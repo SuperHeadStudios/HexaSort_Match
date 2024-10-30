@@ -25,16 +25,19 @@ public class BoosterUnlock : MonoBehaviour
     [SerializeField] private GameObject hammerCountIcon;
     [SerializeField] private GameObject swapCountIcon;
     [SerializeField] private GameObject shuffleCountIcon;
+    [SerializeField] private GameObject hammerLockIcon;
 
     [Header("----- Swap Lock -----"), Space(5)]
     [SerializeField] private Button swapBtn;
     [SerializeField] private Sprite lockedSwapSprit;
     [SerializeField] private Sprite unlockSwapSprit;
+    [SerializeField] private GameObject swapLockIcon;
 
     [Header("----- Shuffle Lock -----"), Space(5)]
     [SerializeField] private Button shuffleBtn;
     [SerializeField] private Sprite lockedshuffleSprit;
     [SerializeField] private Sprite unlockshuffleSprit;
+    [SerializeField] private GameObject shuffleLockIcon;
 
     private int levelIndex;
 
@@ -70,12 +73,14 @@ public class BoosterUnlock : MonoBehaviour
             {
                 hammerCountIcon.SetActive(false);
             }
+            hammerLockIcon.SetActive(false);
         }
         else
         {
             hammerCountIcon.SetActive(false);
             hammerBtn.enabled = false;
             hammerBtn.image.sprite = lockedHammerSprit;
+            hammerLockIcon.SetActive(true);
         }
     }
 
@@ -94,12 +99,15 @@ public class BoosterUnlock : MonoBehaviour
             {
                 swapCountIcon.SetActive(false);
             }
+
+            swapLockIcon.SetActive(false);
         }
         else
         {
             swapCountIcon.SetActive(false);
             swapBtn.enabled = false;
             swapBtn.image.sprite = lockedSwapSprit;
+            swapLockIcon.SetActive(true);
         }
     }
 
@@ -118,12 +126,14 @@ public class BoosterUnlock : MonoBehaviour
             {
                 shuffleCountIcon.SetActive(false);
             }
+            shuffleLockIcon.SetActive(false);
         }
         else
         {
             shuffleCountIcon.SetActive(false);
             shuffleBtn.enabled = false;
             shuffleBtn.image.sprite = lockedshuffleSprit;
+            shuffleLockIcon.SetActive(true);
         }
     }
 
