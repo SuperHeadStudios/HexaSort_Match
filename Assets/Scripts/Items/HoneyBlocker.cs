@@ -53,6 +53,7 @@ public class HoneyBlocker : MonoBehaviour
             StartCoroutine(Delay());
             beeFly.FlyNow = true;
         }
+        FlyingHoney.instance.SpawnHoney(transform.position);
     }
 
     public IEnumerator DisableCol()
@@ -69,7 +70,7 @@ public class HoneyBlocker : MonoBehaviour
             rb.mass = 0.01F;
             rb.isKinematic = false;
         }
-        FlyingHoney.instance.SpawnHoney(transform.position);
+        
         
     }
 

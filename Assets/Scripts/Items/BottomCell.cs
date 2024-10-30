@@ -6,6 +6,7 @@ using UnityEngine.Advertisements;
 using Unity.VisualScripting;
 using DG.Tweening;
 using TMPro;
+using System.Data;
 
 public class BottomCell : MonoBehaviour
 {
@@ -369,6 +370,8 @@ public class BottomCell : MonoBehaviour
             }
         }
     }
+
+    
 
     public void CheckNearByOnCompelteStake(int currentCount)
     {

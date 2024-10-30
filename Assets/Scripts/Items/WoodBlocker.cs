@@ -87,8 +87,8 @@ public class WoodBlocker : MonoBehaviour
             rb.isKinematic = false;
             rb.AddExplosionForce(forceToBreak, transform.position, thirdradius, upwardModifier, ForceMode.Impulse);
             StartCoroutine(DisableThirdCol());
-            
         }
+        FlyingWood.instance.SpawnWood(transform.position);
     }
 
     public IEnumerator DisableFirstCol()
@@ -133,7 +133,6 @@ public class WoodBlocker : MonoBehaviour
             rbs.isKinematic = false;
         }
         Destroy(thirdObj, 4f);
-        FlyingWood.instance.SpawnWood(transform.position);
         currentCell.isWood = false;
     }
 

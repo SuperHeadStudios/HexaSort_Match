@@ -44,7 +44,6 @@ public class FlyingWood : MonoBehaviour
         spawnPos = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z) - Camera.main.transform.forward;
         starObj1.position = WorldToCanvasPosition(uiCanvas, starObj1, Camera.main, spawnPos);
 
-
         starObj1.DOMove(targetRoot.position,0.35f).OnComplete(() =>
         {
             starObj1.gameObject.SetActive(false);

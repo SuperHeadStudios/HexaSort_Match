@@ -91,8 +91,14 @@ public class GameManager : MonoBehaviour
     #region Blocker IncreaseDecrese
     public void IncreaseWoodCount()
     {
-        boardGenerator.currentWoodGoalNumber++;
-        if(boardGenerator.currentWoodGoalNumber >= boardGenerator.woodGoalNumber)
+        boardGenerator.currentWoodGoalNumber--;
+
+        if (boardGenerator.currentWoodGoalNumber > 0)
+        {
+            uiManager.gameView.woodGoalText.text = boardGenerator.currentWoodGoalNumber.ToString();
+        }
+
+        if (boardGenerator.currentWoodGoalNumber <= 0)
         {
             woodTick.SetActive(true);
             woodGoal.SetActive(false);
@@ -100,8 +106,13 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseHoneyCount()
     {
-        boardGenerator.currentHoneyGoalNumber++;
-        if(boardGenerator.currentHoneyGoalNumber >= boardGenerator.honeyGoalNumber)
+        if (boardGenerator.currentHoneyGoalNumber > 0)
+        {
+            uiManager.gameView.honeyGoalText.text = boardGenerator.currentHoneyGoalNumber.ToString();
+        }
+
+        boardGenerator.currentHoneyGoalNumber--;
+        if(boardGenerator.currentHoneyGoalNumber <= 0)
         {
             honeyTick.SetActive(true);
             honeyGoal.SetActive(false);
@@ -109,8 +120,13 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseGrassCount()
     {
-        boardGenerator.currentGrassGoalNumber++;
-        if(boardGenerator.currentGrassGoalNumber >= boardGenerator.grassGoalNumber)
+        boardGenerator.currentGrassGoalNumber--;
+        if (boardGenerator.currentGrassGoalNumber > 0)
+        {
+            uiManager.gameView.grassGoalText.text = boardGenerator.currentGrassGoalNumber.ToString();
+        }
+
+        if (boardGenerator.currentGrassGoalNumber <= 0)
         {
             grassTick.SetActive(true);
             grassGoal.SetActive(false);

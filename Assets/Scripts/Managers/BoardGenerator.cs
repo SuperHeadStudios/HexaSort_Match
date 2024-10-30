@@ -46,12 +46,10 @@ public class BoardGenerator : MonoBehaviour
 
     public List<BottomCell> bottomCellList;
 
-    public bool isBlockers;
-
-
     [SerializeField] private bool isDebug = false;
     [SerializeField] private int levelNum = 0;
 
+    [SerializeField] private GameObject anyColor, woodGoal, honeyGoal, grassGoal;
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +87,7 @@ public class BoardGenerator : MonoBehaviour
         else
         {
             levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
-        }   
+        }
 
         bottomCellList = new List<BottomCell>();
 
@@ -100,7 +98,7 @@ public class BoardGenerator : MonoBehaviour
             bottomCell.row = levelConfig.LevelData.Cells[i].Row;
             bottomCell.column = levelConfig.LevelData.Cells[i].Col;
             bottomCell.cost = levelConfig.LevelData.Cells[i].Cost;
-           
+
             int oddColumn = levelConfig.LevelData.Cells[i].Col % 2;
             if (oddColumn == 0)
             {
@@ -143,7 +141,7 @@ public class BoardGenerator : MonoBehaviour
                 bottomCell.InitLockCell(true);
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.PreFilled)
-            { 
+            {
                 bottomCell.InitPrefilled(true);
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.RandomPrefiled)
@@ -175,18 +173,53 @@ public class BoardGenerator : MonoBehaviour
             {
                 heighOfMap = Mathf.Abs(bottomCell.row);
             }
-            
+
             bottomCell.CheckNearOnStart();
         }
 
         SetCam();
-        goalNumber = levelConfig.Goals[0].Target;
-        if (isBlockers == true)
+
+
+        for (int i = 0; i < levelConfig.Goals.Count; i++)
         {
-            woodGoalNumber = levelConfig.Goals[1].Target;
-            honeyGoalNumber = levelConfig.Goals[2].Target;
-            grassGoalNumber = levelConfig.Goals[3].Target;
+            if (levelConfig.Goals[i].Type == EnumMapTypeOfGoal.AnyColor)
+            {
+                goalNumber = levelConfig.Goals[i].Target;
+                currentGoalNumber = goalNumber;
+                anyColor.SetActive(true);
+            }
+            else if (levelConfig.Goals[i].Type == EnumMapTypeOfGoal.Wood)
+            {
+                woodGoalNumber = levelConfig.Goals[i].Target;
+                currentWoodGoalNumber = woodGoalNumber;
+                woodGoal.SetActive(true);
+            }
+            else if (levelConfig.Goals[i].Type == EnumMapTypeOfGoal.Honey)
+            {
+                honeyGoalNumber = levelConfig.Goals[i].Target;
+                currentHoneyGoalNumber = honeyGoalNumber;
+                honeyGoal.SetActive(true);
+            }
+            else if (levelConfig.Goals[i].Type == EnumMapTypeOfGoal.Grass)
+            {
+                grassGoalNumber = levelConfig.Goals[i].Target;
+                currentGrassGoalNumber = grassGoalNumber;
+                grassGoal.SetActive(true);
+            }
+            else
+            {
+                goalNumber = 0;
+                woodGoalNumber = 0;
+                honeyGoalNumber = 0;
+                grassGoalNumber = 0;
+
+                anyColor.SetActive(false);
+                woodGoal.SetActive(false);
+                honeyGoal.SetActive(false);
+                grassGoal.SetActive(false);
+            }
         }
+
         currentMapSlots = levelConfig.LevelData.Cells.Count;
         GameManager.instance.uiManager.gameView.GoallbarShow();
     }
