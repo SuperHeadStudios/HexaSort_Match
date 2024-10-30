@@ -15,6 +15,7 @@ public class StartGoalPanel : BasePopup
     
     public TextMeshProUGUI grassTargetText;
 
+    public BoosterUnlock boosterPannel;
     public override void InitView()
     {
         
@@ -63,6 +64,10 @@ public class StartGoalPanel : BasePopup
             canvasGroup.blocksRaycasts = false;
             isShow = false;
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
+            boosterPannel.UnlockBooster();
         });
+        
+            
+       
     }
 }

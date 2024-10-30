@@ -79,6 +79,10 @@ public class BoardController : MonoBehaviour
         {
             GameManager.instance.ShowGameLose();
         }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            GameManager.instance.ShowGameWin();
+        }
         
         if (GameManager.instance.uiManager.gameView.currentState == GameView.BOOSTER_STATE.HAMMER)
         {

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public ParticleSystem hammerExplosionVfx;
 
+    public BoosterUnlock boosterPannel;
+
     [Header("----- Collective Counts -----"), Space(5)]   
     [SerializeField] public int woodCount = 1;
     [SerializeField] public int honeyCount = 1;
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
     public bool isBlockers = false;
 
     [HideInInspector] public int prefilledColorIndex;
+
     public enum GAME_STATE
     {
         HOME,
@@ -186,6 +189,8 @@ public class GameManager : MonoBehaviour
 
         if (isTestMode)
             levelIndex = levelTest;
+
+
     }
 
     private void ShowHome()
@@ -260,6 +265,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         uiManager.popupWin.InitView();
         uiManager.popupWin.ShowView();
+        boosterPannel.UnlockBooster();
 
         if (!isTestMode)
         {
