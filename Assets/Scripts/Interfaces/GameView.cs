@@ -220,9 +220,10 @@ public class GameView : BaseView
             goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
 
             int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-            fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
+            //fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
+            IncrementText(fillGoalTarget, 0.2f);
             currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
-            goalValueBar.fillAmount = currentGoalValue;
+            goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
         }
         else
         {
@@ -232,6 +233,21 @@ public class GameView : BaseView
             grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
             goalValueBar.fillAmount = 1.0f;
         }
+    }
+
+    int displayValue = 0;
+    public void IncrementText(int increment, float duration)
+    {
+        int startValue = displayValue;
+        int targetValue = increment;
+
+        DOTween.To(() => startValue, x => startValue = x, targetValue, duration)
+            .OnUpdate(() => {
+                displayValue++;
+                fillCounText.text = displayValue + "/" + BoardController.instance.boardGenerator.goalNumber;
+            })
+            .SetEase(Ease.Linear)
+            .OnComplete(() => displayValue = targetValue); // Ensure it ends at the exact target value
     }
 
     public void PauseGame()

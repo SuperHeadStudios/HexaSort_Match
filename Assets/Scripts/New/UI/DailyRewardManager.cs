@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System;
 using static RewardButton;
 
@@ -27,52 +26,67 @@ public class DailyRewardManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        else
+            Destroy(gameObject); // Ensure only one instance exists
     }
 
     private void Start()
     {
         LoadProgress();
+        Debug.Log($"Loaded progress - Current Day: {currentDay}, Last Claim Date: {lastClaimDate}");
         UpdateUI();
         globalClaimButton.onClick.AddListener(ClaimCurrentDayRewards);
+        UpdateClaimButtonState();
     }
 
     private void LoadProgress()
     {
+        Debug.Log(PlayerPrefs.GetString(LastClaimDateKey, DateTime.MinValue.Ticks.ToString()));
+
         currentDay = PlayerPrefs.GetInt(CurrentDayKey, 1);
-        string lastClaimDateStr = PlayerPrefs.GetString(LastClaimDateKey, DateTime.MinValue.ToString());
-        lastClaimDate = DateTime.Parse(lastClaimDateStr);
-        CheckDay(); // Ensure we check if a new day has started
+
+        // Parse last claim date, default to DateTime.MinValue if parsing fails
+        if (long.TryParse(PlayerPrefs.GetString(LastClaimDateKey, DateTime.MinValue.Ticks.ToString()), out long lastClaimTicks))
+        {
+            lastClaimDate = new DateTime(lastClaimTicks);
+        }
+        else
+        {
+            lastClaimDate = DateTime.MinValue;
+            Debug.LogWarning("Failed to parse last claim date. Defaulting to DateTime.MinValue.");
+        }
+
+        CheckDay();
     }
 
     private void SaveProgress()
     {
         PlayerPrefs.SetInt(CurrentDayKey, currentDay);
-        PlayerPrefs.SetString(LastClaimDateKey, DateTime.Now.ToString());
+        PlayerPrefs.SetString(LastClaimDateKey, DateTime.Now.Ticks.ToString());
         PlayerPrefs.Save();
     }
 
     private void CheckDay()
     {
-        // Check if the day has changed
         if (DateTime.Now.Date > lastClaimDate.Date)
         {
-            // A new day has started, increment the current day
             currentDay = (currentDay % totalDays) + 1;
-            // Update the last claim date
             lastClaimDate = DateTime.Now;
             SaveProgress();
+            Debug.Log($"New day detected. Current day updated to {currentDay}");
         }
     }
 
     public void ClaimCurrentDayRewards()
     {
-        // Only claim if the current day matches the day's reward
+        Debug.Log($"Attempting to claim reward for day {currentDay}");
         if (currentDay <= totalDays)
         {
-            // Check if the reward for today has already been claimed
             if (!IsRewardClaimed(currentDay))
             {
                 ClaimReward(currentDay);
+                Debug.Log($"Reward successfully claimed for day {currentDay}");
+                UpdateClaimButtonState();
             }
             else
             {
@@ -83,24 +97,20 @@ public class DailyRewardManager : MonoBehaviour
 
     public void ClaimReward(int day)
     {
-        rewardButtons[day - 1].MarkAsCollected(); // Mark as done
+        rewardButtons[day - 1].MarkAsCollected();
 
-        // Grant rewards based on the current day
         if (day == totalDays)
         {
-            // Grant all rewards on the last day
-            GrantReward(day, REWARD_TYPE.GOLD, 100); // Example
+            GrantReward(day, REWARD_TYPE.GOLD, 100);
             GrantReward(day, REWARD_TYPE.HAMMER, 1);
             GrantReward(day, REWARD_TYPE.MOVE, 1);
             GrantReward(day, REWARD_TYPE.SHUFFLE, 1);
         }
         else
         {
-            // Grant single reward based on the current reward type
             GrantReward(day, rewardButtons[day - 1].currentRewardType, rewardButtons[day - 1].rewardValue);
         }
 
-        // Update UI after claiming
         UpdateUI();
     }
 
@@ -127,18 +137,18 @@ public class DailyRewardManager : MonoBehaviour
                 GameManager.instance.AddShuffleBooster(1);
                 break;
         }
-        // Mark the reward as claimed
         MarkRewardAsClaimed(day);
+        Debug.Log($"Granted {rewardType} reward of {value} for day {day}");
     }
 
     private bool IsRewardClaimed(int day)
     {
-        return PlayerPrefs.GetInt($"Day{day}Claimed", 0) == 1; // 1 means claimed
+        return PlayerPrefs.GetInt($"Day{day}Claimed", 0) == 1;
     }
 
     private void MarkRewardAsClaimed(int day)
     {
-        PlayerPrefs.SetInt($"Day{day}Claimed", 1); // Mark as claimed
+        PlayerPrefs.SetInt($"Day{day}Claimed", 1);
         PlayerPrefs.Save();
     }
 
@@ -154,5 +164,10 @@ public class DailyRewardManager : MonoBehaviour
             else
                 rewardButtons[i].SetUpcomingState();
         }
+    }
+
+    private void UpdateClaimButtonState()
+    {
+        globalClaimButton.interactable = !IsRewardClaimed(currentDay);
     }
 }

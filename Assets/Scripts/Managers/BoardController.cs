@@ -267,6 +267,8 @@ public class BoardController : MonoBehaviour
 
     }
 
+    Vector3 velocity = Vector3.zero;
+
     private void DragCurrentColumn()
     {
         mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
@@ -679,7 +681,7 @@ public class BoardController : MonoBehaviour
 
     private void RemoveElementInTop(Transform element, int queue, int lastQueue, HexaColumn cell)
     {
-        element.DOScale(Vector3.zero, 0.15f).SetDelay((float)queue * 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+        element.DOScale(Vector3.zero, 0.15f).SetDelay((float)queue * 0.1f).SetEase(Ease.Linear).OnComplete(() =>
         {
             AudioManager.instance.columnSellSfx.Play();
             int dataCount = cell.currentHexaColumnData.columnDataList.Count;
