@@ -51,7 +51,7 @@ public class HexaColumn : MonoBehaviour
 
         cellColorList.Clear();
         currentHexaColumnData.columnDataList.Clear();
-
+/*
         if (currentBottomCell.isRandomPrefilled)
         {
             StartCoroutine(SetRandomPrefilled());
@@ -60,8 +60,36 @@ public class HexaColumn : MonoBehaviour
         if (currentBottomCell.isPrefilled)
         {
             StartCoroutine(SetPrefilled());
+        }*/
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(SetPRefilledData());
+    }
+
+    private IEnumerator SetPRefilledData()
+    {
+        colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
+        yield return new WaitUntil(() => currentBottomCell != null);
+
+      
+
+        if (currentBottomCell.isRandomPrefilled)
+        {
+            cellColorList.Clear();
+            currentHexaColumnData.columnDataList.Clear();
+            StartCoroutine(SetRandomPrefilled());
         }
-    }    
+
+        if (currentBottomCell.isPrefilled)
+        {
+            cellColorList.Clear();
+            currentHexaColumnData.columnDataList.Clear();
+            StartCoroutine(SetPrefilled());
+        }
+
+        yield break;
+    }
 
     private IEnumerator SetRandomPrefilled()
     {
@@ -103,7 +131,7 @@ public class HexaColumn : MonoBehaviour
 
     private IEnumerator SetPrefilled()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         int prefilledNum = Random.Range(1, colorConfig.colorList.Count);
         int cellCount_1 = 0;
