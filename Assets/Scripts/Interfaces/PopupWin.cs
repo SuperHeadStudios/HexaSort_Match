@@ -104,7 +104,7 @@ public class PopupWin : BasePopup
         GameManager.instance.AddCoin(rwValue);
         StartCoroutine(NextGameIE());
         AdsControl.Instance.directPlay = true;
-        SceneManager.LoadScene(0);
+       
     }
 
     public void ClaimX2()
@@ -118,7 +118,6 @@ public class PopupWin : BasePopup
 
         if (GameManager.instance.levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();
-
         nextBtn.interactable = true;
         x2ClaimBtn.interactable = true;
         GameManager.instance.NextLevel();

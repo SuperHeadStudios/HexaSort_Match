@@ -10,6 +10,8 @@ public class BoardController : MonoBehaviour
 
     public BoardGenerator boardGenerator;
 
+    private const float localSpacingY = 0.18f;
+
     public LayerMask columnMask;
 
     public LayerMask bottomMask;
@@ -600,7 +602,7 @@ public class BoardController : MonoBehaviour
             //Debug.Log("Check Pcs" + name);
             cell2.hexaCellList[sizeOfColumn2 - 1 - i].transform.SetParent(cell1.transform);
             //cell2.hexaCellList[sizeOfColumn2 - sizeOfLastPart2 + i].transform.localPosition = new Vector3(0, 0.25f * (1 + i + sizeOfColumn1), 0);
-            MoveCell(cell2.hexaCellList[sizeOfColumn2 - 1 - i].transform, new Vector3(0, 0.25f * (1 + i + sizeOfColumn1), 0), i, sizeOfLastPart2 - 1, cell1, cell2);
+            MoveCell(cell2.hexaCellList[sizeOfColumn2 - 1 - i].transform, new Vector3(0, localSpacingY * (1 + i + sizeOfColumn1), 0), i, sizeOfLastPart2 - 1, cell1, cell2);
         }
     }
 
@@ -611,7 +613,7 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 3.0f, (float)i / 9.0f));
+            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 2.0f, (float)i / 9.0f));
         }
 
         cell.DOLocalPath(arcPoint.ToArray(), 0.5f, PathType.Linear).SetDelay((float)queue * 0.05f).SetLoops(1).SetEase(Ease.Linear).OnComplete(() =>

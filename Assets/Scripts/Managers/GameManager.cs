@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -346,6 +347,7 @@ public class GameManager : MonoBehaviour
         uiManager.questPopup.IncreaseProgressQuest(1, moreCoin);
         uiManager.questPopup.IncreaseProgressQuest(3, moreCoin);
         uiManager.coinView.UpdateCoinTxt();
+        SceneManager.LoadScene(0);
     }
 
     public void AddHammerBooster(int moreValue)
