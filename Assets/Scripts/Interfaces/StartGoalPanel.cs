@@ -52,7 +52,7 @@ public class StartGoalPanel : BasePopup
     {
         rootTrans.DOScale(Vector3.one * 0.5f, 0.25f).SetDelay(1.0f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            boosterPannel.ShopBoosterUnlockPopup();
+            boosterPannel.ShowBoosterUnlockPopup();
             canvasGroup.alpha = 0.0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;

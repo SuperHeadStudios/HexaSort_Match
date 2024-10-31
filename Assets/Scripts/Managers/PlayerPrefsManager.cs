@@ -42,6 +42,10 @@ namespace GameSystem
 
         static string INTRSCOUNT = "INTERSCOUNTKEY";
 
+        static string HAMMERUNLOCK = "HAMMERUNLOCKKEY";
+        static string SWAPUNLOCK = "UNLOCKKEY";
+        static string SHUFFLEUNLOCK = "SHUFFLEUNLOCKKEY";
+
         #region Level Value
 
         // Game Levels Area
@@ -133,7 +137,7 @@ namespace GameSystem
 
         public static void SetVibrateState(bool isMuted)
         {
-            SaveBool(VIBEKEY,isMuted);
+            SaveBool(VIBEKEY, isMuted);
         }
 
 
@@ -195,7 +199,7 @@ namespace GameSystem
         { PlayerPrefs.SetInt(NOADS, 1); }
 
         #endregion
-            
+
         #region DAILY REWARDS
 
         public static bool GetUpcomingReward()
@@ -252,6 +256,40 @@ namespace GameSystem
         public static void SavePlayerPlane(int value)
         { PlayerPrefs.SetInt(PLAYERPLANE, value); }
 
+
+        #endregion
+
+        #region Boost Unlock
+
+        public static bool GetHammerUnlocked()
+        {
+            return GetBool(HAMMERUNLOCK, false);
+        }
+
+        public static void SetHammerUnlocked(bool state)
+        {
+            SaveBool(HAMMERUNLOCK, state);
+        }
+
+        public static bool GetSwapUnlocked()
+        {
+            return GetBool(SWAPUNLOCK, false);
+        }
+
+        public static void SetSwapUnlocked(bool state)
+        {
+            SaveBool(SWAPUNLOCK, state);
+        }
+
+        public static bool GetShuffleUnlocked()
+        {
+            return GetBool(SHUFFLEUNLOCK, false);
+        }
+
+        public static void SetShuffleUnlocked(bool state)
+        {
+            SaveBool(SHUFFLEUNLOCK, state);
+        }
 
         #endregion
 

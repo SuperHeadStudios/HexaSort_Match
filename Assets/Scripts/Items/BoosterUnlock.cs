@@ -1,8 +1,10 @@
 using DG.Tweening;
+using GameSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Build.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -144,10 +146,8 @@ public class BoosterUnlock : MonoBehaviour
     }
 
 
-    public void ShopBoosterUnlockPopup()
+    public void ShowBoosterUnlockPopup()
     {
-        transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-
         hammeerPopup.SetActive(false);
         swapPopup.SetActive(false);
         shufflePopup.SetActive(false);
@@ -155,13 +155,30 @@ public class BoosterUnlock : MonoBehaviour
         switch (levelIndex)
         {
             case 3:
-                hammeerPopup.SetActive(true);
+
+                if (!PlayerPrefsManager.GetHammerUnlocked())
+                {
+                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    hammeerPopup.SetActive(true);
+                    PlayerPrefsManager.SetHammerUnlocked(true);
+                }
                 break; 
             case 5:
-                swapPopup.SetActive(true);
+
+                if (!PlayerPrefsManager.GetSwapUnlocked())
+                {
+                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    swapPopup.SetActive(true);
+                    PlayerPrefsManager.SetSwapUnlocked(true);
+                }
                 break; 
             case 8:
-                shufflePopup.SetActive(true);
+                if (!PlayerPrefsManager.GetShuffleUnlocked())
+                {
+                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    shufflePopup.SetActive(true);
+                    PlayerPrefsManager.SetSwapUnlocked(true);
+                }
                 break;
         }
     }
