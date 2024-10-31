@@ -2334,7 +2334,7 @@ MonoBehaviour:
   - {fileID: 5863268748659420632}
   - {fileID: 43032137792991743}
   cellColorList: 
-  topColorID: 2
+  topColorID: 0
   currentHexaColumnData:
     columnDataList:
     - colorID: 2

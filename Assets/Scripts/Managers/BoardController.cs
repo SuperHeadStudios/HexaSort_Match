@@ -517,19 +517,37 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.boardGenerator.bottomCellList.Count; i++)
         {
-            //DestroyColumnByHammer(GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn);
             if (GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn.hexaCellList.Count > 0)
             {
                 totalColumnDestroy++;
-
+                DestroyColumnByAd(GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn);
                 if (totalColumnDestroy >= 3)
                     break;
             }
         }
-    }    
+    }
+
+    private void DestroyColumnByAd(HexaColumn column)
+    {
+        for (int j = 0; j < column.hexaCellList.Count; j++)
+        {
+            GameManager.instance.poolManager.RemoveHexaCell(column.hexaCellList[j]);
+        }
+        column.hexaCellList.Clear();
+        column.currentHexaColumnData.columnDataList.Clear();
+        column.cellColorList.Clear();
+        column.topColorID = -1;
+        AudioManager.instance.hammerSound.Play();
+        if (AudioManager.instance.hapticState)
+            HapticPatterns.PlayPreset(HapticPatterns.PresetType.HeavyImpact);
+    }
+
+
+
 
     IEnumerator DestroyColumnByHammer(HexaColumn column)
     {
+        Debug.Log("Hammer-1");
         hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -2.5f);
         hammerEffect.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, 0f);
         //GameManager.instance.hammerExplosionVfx.Play();
@@ -539,8 +557,10 @@ public class BoardController : MonoBehaviour
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
+            Debug.Log("Hammer-2");
             GameManager.instance.poolManager.RemoveHexaCell(column.hexaCellList[j]);
         }
+        Debug.Log("Hammer-3");
         column.hexaCellList.Clear();
         column.currentHexaColumnData.columnDataList.Clear();
         column.cellColorList.Clear();

@@ -100,7 +100,7 @@ public class PopupLose : BasePopup
     public void RetriveByCoin()
     {
         AudioManager.instance.clickSound.Play();
-        if (GameManager.instance.coinValue >= 100)
+        if (GameManager.instance.coinValue >=0)
         {
             Retrive();
         }
