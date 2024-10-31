@@ -120,7 +120,7 @@ public class CoinView : BaseView
 
     public void SpawnCoin(Vector3 spawnPos)
     {
-        if (!coinObj3.gameObject.activeInHierarchy)
+        /*if (!coinObj3.gameObject.activeInHierarchy)
         {
             coinObj1.gameObject.SetActive(true);
             coinObj2.gameObject.SetActive(true);
@@ -162,7 +162,7 @@ public class CoinView : BaseView
             {
                 coinImage.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBounce);
             });
-        }
+        }*/
     }
 
     private Vector2 WorldToCanvasPosition(Canvas canvas, RectTransform canvasRect, Camera camera, Vector3 position)

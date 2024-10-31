@@ -169,11 +169,13 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("FirstGame") == 0)
         {
             levelIndex = 1;
-            coinValue = 50;
+           // coinValue = 50;
             hammerBoosterValue = 1;
             moveBoosterValue = 1;
             shuffleBoosterValue = 1;
             currentLuckyWheel = 1;
+
+            coinValue = PlayerPrefs.GetInt("Coin", 50);
             PlayerPrefs.SetInt("FirstGame", 1);
             PlayerPrefs.SetInt("Coin", coinValue);
             PlayerPrefs.SetInt("Hammer", hammerBoosterValue);
@@ -184,7 +186,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            coinValue = PlayerPrefs.GetInt("Coin");
+            coinValue = PlayerPrefs.GetInt("Coin" , 50);
             levelIndex = PlayerPrefs.GetInt("CurrentLevel");
             hammerBoosterValue = PlayerPrefs.GetInt("Hammer");
             moveBoosterValue = PlayerPrefs.GetInt("Move");
@@ -347,6 +349,9 @@ public class GameManager : MonoBehaviour
         uiManager.questPopup.IncreaseProgressQuest(1, moreCoin);
         uiManager.questPopup.IncreaseProgressQuest(3, moreCoin);
         uiManager.coinView.UpdateCoinTxt();
+
+        yield return new WaitForSeconds(1f);
+
         SceneManager.LoadScene(0);
     }
 
