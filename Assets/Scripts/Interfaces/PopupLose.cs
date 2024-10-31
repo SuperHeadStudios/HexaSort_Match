@@ -5,6 +5,7 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 
 public class PopupLose : BasePopup
 {
@@ -71,8 +72,10 @@ public class PopupLose : BasePopup
     public void LifeLoseButton()
     {
         GameManager.instance.livesManager.ConsumeLife();
-        GameManager.instance.BackToHome();
-        homeView.PlayGame();
+      /*  GameManager.instance.BackToHome();
+        homeView.PlayGame();*/
+        AdsControl.Instance.directPlay = true;
+        SceneManager.LoadScene(0);
     }
 
     public override void HideView()

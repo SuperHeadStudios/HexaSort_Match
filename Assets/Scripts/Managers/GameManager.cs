@@ -152,7 +152,16 @@ public class GameManager : MonoBehaviour
     public void LoadGame()
     {
         LoadGameData();
-        ShowHome();
+
+        if (AdsControl.Instance.directPlay)
+        {
+            uiManager.homeView.PlayGame();
+            return;
+        }
+        else
+        {
+            ShowHome();
+        }
     }
     private void LoadGameData()
     {

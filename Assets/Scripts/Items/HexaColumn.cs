@@ -51,7 +51,7 @@ public class HexaColumn : MonoBehaviour
 
         cellColorList.Clear();
         currentHexaColumnData.columnDataList.Clear();
-/*
+
         if (currentBottomCell.isRandomPrefilled)
         {
             StartCoroutine(SetRandomPrefilled());
@@ -60,35 +60,7 @@ public class HexaColumn : MonoBehaviour
         if (currentBottomCell.isPrefilled)
         {
             StartCoroutine(SetPrefilled());
-        }*/
-    }
-    private void OnEnable()
-    {
-        StartCoroutine(SetPRefilledData());
-    }
-
-    private IEnumerator SetPRefilledData()
-    {
-        colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
-        yield return new WaitUntil(() => currentBottomCell != null);
-
-      
-
-        if (currentBottomCell.isRandomPrefilled)
-        {
-            cellColorList.Clear();
-            currentHexaColumnData.columnDataList.Clear();
-            StartCoroutine(SetRandomPrefilled());
         }
-
-        if (currentBottomCell.isPrefilled)
-        {
-            cellColorList.Clear();
-            currentHexaColumnData.columnDataList.Clear();
-            StartCoroutine(SetPrefilled());
-        }
-
-        yield break;
     }
 
     private IEnumerator SetRandomPrefilled()
@@ -131,8 +103,9 @@ public class HexaColumn : MonoBehaviour
 
     private IEnumerator SetPrefilled()
     {
-        yield return new WaitForSeconds(0.1f);
-
+        yield return new WaitForSeconds(1f);
+     /*   cellColorList.Clear();
+        currentHexaColumnData.columnDataList.Clear();*/
         int prefilledNum = Random.Range(1, colorConfig.colorList.Count);
         int cellCount_1 = 0;
 
@@ -146,6 +119,10 @@ public class HexaColumn : MonoBehaviour
         ColumnData columnData_1 = new ColumnData(colorConfig.colorList[prefilledNum].colorID, cellCount_1);
         currentHexaColumnData.columnDataList.Add(columnData_1);
         topColorID = cellColorList[cellColorList.Count - 1];
+
+        yield return new WaitForSeconds(2f);
+        currentBottomCell.isPrefilled = false;
+
     }
 
     // Update is called once per frame
@@ -258,6 +235,7 @@ public class HexaColumn : MonoBehaviour
         {
             currentHexaColumnData.columnDataList.Add(addCellColumn.currentHexaColumnData.columnDataList[i]);
         }
+
         for (int i = 0; i < addCellColumn.hexaCellList.Count; i++)
         {
             HexaCell cell = addCellColumn.hexaCellList[i];
@@ -268,6 +246,18 @@ public class HexaColumn : MonoBehaviour
 
         UpdateColliderHeight();
         UpdateColorList();
+
+       /* colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
+
+        if (currentBottomCell.isRandomPrefilled)
+        {
+            StartCoroutine(SetRandomPrefilled());
+        }
+
+        if (currentBottomCell.isPrefilled)
+        {
+            StartCoroutine(SetPrefilled());
+        }*/
     }
 
 

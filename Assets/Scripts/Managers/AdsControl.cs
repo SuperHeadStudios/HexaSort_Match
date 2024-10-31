@@ -86,6 +86,7 @@ public class AdsControl : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         DontDestroyOnLoad(gameObject);
     }
 
+    public bool directPlay = false;
 
     private void Start()
     {
@@ -106,6 +107,7 @@ public class AdsControl : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         InitializeUnityAds();
     }
 
+    
     private void Update()
     {
 

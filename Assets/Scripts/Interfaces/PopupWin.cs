@@ -6,6 +6,7 @@ using GoogleMobileAds.Api;
 using static AdsControl;
 using UnityEngine.Advertisements;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PopupWin : BasePopup
 {
@@ -102,6 +103,8 @@ public class PopupWin : BasePopup
         x2ClaimBtn.interactable = false;
         GameManager.instance.AddCoin(rwValue);
         StartCoroutine(NextGameIE());
+        AdsControl.Instance.directPlay = true;
+        SceneManager.LoadScene(0);
     }
 
     public void ClaimX2()

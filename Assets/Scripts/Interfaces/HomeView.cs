@@ -20,7 +20,10 @@ public class HomeView : BaseView
 
     public void ShowSettingPopup()
     {
-        openPopup.SetActive(true);
+        if (AdsControl.Instance.directPlay)
+        {
+            openPopup.SetActive(true);
+        }
     }    
 
     public override void InitView()
