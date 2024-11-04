@@ -13,10 +13,9 @@ public class HomeView : BaseView
     public Image spinProgressBar;
     public GameObject openPopup;
     public RectTransform settingPopup;
-    //public Ease EaseType;
 
     [SerializeField] private GameObject lifeBar;
-
+    [SerializeField] private CoinView coinView;
 
     public void ShowSettingPopup()
     {
@@ -28,11 +27,10 @@ public class HomeView : BaseView
 
     public override void InitView()
     {
-        //
         //currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
-
+        coinView.UpdateCoinTxt();
         lifeBar.SetActive(true);
     }
 
@@ -59,7 +57,9 @@ public class HomeView : BaseView
             AudioManager.instance.clickSound.Play();
             GameManager.instance.uiManager.fillLivesPopup.InitView();
             GameManager.instance.uiManager.fillLivesPopup.ShowView();
+
         }
+        coinView.UpdateCoinTxt();
     }
 
     //.OnComplete(() =>

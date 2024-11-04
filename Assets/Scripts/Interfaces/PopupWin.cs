@@ -11,8 +11,8 @@ using UnityEngine.SceneManagement;
 public class PopupWin : BasePopup
 {
     public TextMeshProUGUI goalTxt;
-/*
-    public TextMeshProUGUI currentLevelTxt;
+
+    /*public TextMeshProUGUI currentLevelTxt;
 
     public TextMeshProUGUI rewardNonAdsTxt;
 
@@ -104,7 +104,6 @@ public class PopupWin : BasePopup
         GameManager.instance.AddCoin(rwValue);
         StartCoroutine(NextGameIE());
         AdsControl.Instance.directPlay = true;
-       
     }
 
     public void ClaimX2()
@@ -115,6 +114,7 @@ public class PopupWin : BasePopup
     IEnumerator NextGameIE()
     {
         yield return new WaitForSeconds(1.5f);
+
 
         if (GameManager.instance.levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();

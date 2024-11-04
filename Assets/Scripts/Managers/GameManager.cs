@@ -283,7 +283,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("CurrentLuckyWheel", currentLuckyWheel);
             PlayerPrefs.SetInt("CurrentLevel", levelIndex);
         }
-
         uiManager.questPopup.IncreaseProgressQuest(0, 1);
         uiManager.questPopup.IncreaseProgressQuest(4, 1);
     }
@@ -313,7 +312,7 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GAME_STATE.HOME;
         cellHolder.ClearCellHolder();
-        //boardController.ClearBoard();
+        boardController.ClearBoard();
         boardGenerator.ClearMap();
         uiManager.gameView.DisableArrow();
         uiManager.gameView.HideView();
@@ -340,7 +339,7 @@ public class GameManager : MonoBehaviour
     IEnumerator AddCoinIE(int moreCoin)
     {
         AudioManager.instance.coinFlySound.Play();
-        uiManager.coinView.SpawnCoin(Vector3.zero - new Vector3(0.0f, 10.0f, 0.0f));
+        //uiManager.coinView.SpawnCoin(Vector3.zero - new Vector3(0.0f, 10.0f, 0.0f));
         yield return new WaitForSeconds(0.75f);
         AudioManager.instance.coinFlySound.Stop();
         AudioManager.instance.coinCollectSound.Play();

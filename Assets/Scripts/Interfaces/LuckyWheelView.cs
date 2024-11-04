@@ -134,19 +134,13 @@ public class LuckyWheelView : BaseView
             case 3:
                 rewardIcon.sprite = coinSpr;
                 rewardValueTxt.text = "+10";
-                GameManager.instance.AddCoin(10);
+                GameManager.instance.AddCoin(50);
                 break;
 
             case 4:
                 rewardIcon.sprite = shuffleSpr;
                 rewardValueTxt.text = "+1";
                 GameManager.instance.AddShuffleBooster(1);
-                break;
-
-            case 5:
-                rewardIcon.sprite = coinSpr;
-                rewardValueTxt.text = "+5";
-                GameManager.instance.AddCoin(5);
                 break;
         }
 

@@ -33,7 +33,7 @@ public class CoinView : BaseView
 
     public override void InitView()
     {
-        GameObject obj1 = Instantiate(coinPrefab) as GameObject;
+        /*GameObject obj1 = Instantiate(coinPrefab) as GameObject;
         obj1.SetActive(true);
         coinObj1 = obj1.GetComponent<RectTransform>();
         coinObj1.SetParent(transform);
@@ -53,7 +53,7 @@ public class CoinView : BaseView
 
         coinObj1.gameObject.SetActive(false);
         coinObj2.gameObject.SetActive(false);
-        coinObj3.gameObject.SetActive(false);
+        coinObj3.gameObject.SetActive(false);*/
 
         UpdateCoinTxt();
 
@@ -104,19 +104,19 @@ public class CoinView : BaseView
 
     public void OnTimeToNextLifeChanged()
     {
-        
         lifeFulltxt.text = GameManager.instance.livesManager.RemainingTimeString;
         GameManager.instance.uiManager.fillLivesPopup.textTime.text = GameManager.instance.livesManager.RemainingTimeString;
     }
     
     public void UpdateCoinTxt()
     {
+        Debug.Log("InitCalling");
         coinCountTxt.text = GameManager.instance.coinValue.ToString();
     }
 
-    List<Vector3> arcPoint = new List<Vector3>();
+    //List<Vector3> arcPoint = new List<Vector3>();
 
-    Vector3 midlePoint;
+    //Vector3 midlePoint;
 
     public void SpawnCoin(Vector3 spawnPos)
     {
