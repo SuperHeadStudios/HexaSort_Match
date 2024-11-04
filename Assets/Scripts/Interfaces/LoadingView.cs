@@ -15,24 +15,20 @@ public class LoadingView : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI loadingText;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0.0f;
+        loadingBar.fillAmount = 0;
+        loadingBar.DOFillAmount(1, 3).OnComplete(() =>
+        {
+            OpenGame();
+        });
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer + Time.deltaTime < timeLoading)
-        {
-            timer += Time.deltaTime;
-            loadingBar.fillAmount = (float)timer / (float)timeLoading;
-            loadingText.text = "LADING... " + loadingBar.fillAmount * 100 + "%";
-        }
-        else
-            OpenGame();
+        loadingText.text = "LADING... " + Mathf.RoundToInt(loadingBar.fillAmount * 100) + "%";
     }
 
     void OpenGame()

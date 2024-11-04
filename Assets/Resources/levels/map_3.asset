@@ -21,7 +21,7 @@ MonoBehaviour:
   TutorialSteps: 0
   Goals:
   - Type: 1
-    Target: 250
+    Target: 10
   CellsForTutorial:
   - {x: 0, y: 0}
   Difficulty: 0

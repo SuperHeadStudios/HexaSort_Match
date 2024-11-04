@@ -19,10 +19,7 @@ public class HomeView : BaseView
 
     public void ShowSettingPopup()
     {
-        if (AdsControl.Instance.directPlay)
-        {
-            openPopup.SetActive(true);
-        }
+        openPopup.SetActive(true);
     }    
 
     public override void InitView()
@@ -32,6 +29,7 @@ public class HomeView : BaseView
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
         coinView.UpdateCoinTxt();
         lifeBar.SetActive(true);
+        coinView.isGameSettings = false;
     }
 
     public override void Start()

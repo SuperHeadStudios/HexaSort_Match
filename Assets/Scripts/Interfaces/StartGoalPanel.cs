@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,13 @@ public class StartGoalPanel : BasePopup
     public TextMeshProUGUI grassTargetText;
 
     public BoosterUnlock boosterPannel;
+
+    [SerializeField] private Transform[] allGoals;
+
+    [SerializeField] private GameObject honeyGoal;
+    [SerializeField] private GameObject woodGoal;
+    [SerializeField] private GameObject grassGoal;
+
     public override void InitView()
     {
         woodTargetText.text = BoardController.instance.boardGenerator.woodGoalNumber.ToString();
@@ -41,23 +49,67 @@ public class StartGoalPanel : BasePopup
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
-        rootTrans.localScale = Vector3.one * 0.15f;
-        rootTrans.DOScale(Vector3.one, 1.0f).SetEase(Ease.OutBounce).OnComplete(() =>
+        StartCoroutine(StarGoalPanlePopup());
+    }
+
+    private IEnumerator StarGoalPanlePopup()
+    {
+        if (BoardController.instance.boardGenerator.woodGoalNumber > 0)
         {
-            HideView();
+            woodGoal.SetActive(true);
+        }
+        if (BoardController.instance.boardGenerator.grassGoalNumber > 0)
+        {
+            grassGoal.SetActive(true);
+        }
+        if (BoardController.instance.boardGenerator.honeyGoalNumber > 0)
+        {
+            honeyGoal.SetActive(true);
+        }
+
+        rootTrans.localScale = Vector3.zero;
+        goalTxt.transform.localScale = Vector3.zero;
+        for (int i = 0; i < allGoals.Length; i++)
+        {
+            allGoals[i].transform.localScale = Vector3.zero;
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        rootTrans.DOScale(Vector3.one, .8f).SetEase(Ease.OutExpo).OnComplete(() =>
+        {
+            goalTxt.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+            StartCoroutine(GoalsAnimation());
         });
+
+    }
+
+    private IEnumerator GoalsAnimation()
+    {
+        for (int i = 0; i < allGoals.Length; i++)
+        {
+            allGoals[i].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+            {
+                if (i == 4)
+                {
+                    HideView();
+                }
+            });
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public override void HideView()
     {
-        rootTrans.DOScale(Vector3.one * 0.5f, 0.25f).SetDelay(1.0f).SetEase(Ease.Linear).OnComplete(() =>
+        rootTrans.DOScale(Vector3.zero * 0.5f, 0.8f).SetDelay(1f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
-            boosterPannel.ShowBoosterUnlockPopup();
             canvasGroup.alpha = 0.0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             isShow = false;
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
+            boosterPannel.ShowBoosterUnlockPopup();
         });
         
             

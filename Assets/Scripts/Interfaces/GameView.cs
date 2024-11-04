@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
 
 public class GameView : BaseView
 {
@@ -56,6 +55,12 @@ public class GameView : BaseView
     [SerializeField] private GameObject blockergoalbar;
 
     //public Transform setting;
+    [Space(10)]
+
+    [SerializeField] private GameObject honeyGoal;
+    [SerializeField] private GameObject woodGoal;
+    [SerializeField] private GameObject grassGoal;
+
 
     public bool isTogle = false;
 
@@ -90,6 +95,19 @@ public class GameView : BaseView
         {
             blockergoalbar.SetActive(true);
             goalbar.SetActive(false);
+
+            if(BoardController.instance.boardGenerator.woodGoalNumber > 0)
+            {
+                woodGoal.SetActive(true);
+            }
+            if (BoardController.instance.boardGenerator.grassGoalNumber > 0)
+            {
+                grassGoal.SetActive(true);
+            }
+            if (BoardController.instance.boardGenerator.honeyGoalNumber > 0)
+            {
+                honeyGoal.SetActive(true);
+            }
         }
         else
         {
@@ -175,6 +193,8 @@ public class GameView : BaseView
             ShowArrow();
         else
             DisableArrow();
+
+        GameManager.instance.uiManager.coinView.isGameSettings = true;
     }
 
     public void DisableArrow()

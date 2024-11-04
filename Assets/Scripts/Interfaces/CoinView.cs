@@ -31,6 +31,7 @@ public class CoinView : BaseView
     [SerializeField] private Button addLiveBtn;
     [SerializeField] private GameObject showFullText;
 
+    public bool isGameSettings = false;
     public override void InitView()
     {
         /*GameObject obj1 = Instantiate(coinPrefab) as GameObject;
@@ -196,6 +197,18 @@ public class CoinView : BaseView
             Vector3 result = start + t * travelDirection;
             result += (Mathf.Sin(t * Mathf.PI) * height) * up.normalized;
             return result;
+        }
+    }
+
+    public void OnSettingBtnPRessed()
+    {
+        if(isGameSettings)
+        {
+            GameManager.instance.uiManager.gameView.ShowSetting();
+        }
+        else
+        {
+            GameManager.instance.uiManager.homeView.ShowSettingPopup();
         }
     }
 

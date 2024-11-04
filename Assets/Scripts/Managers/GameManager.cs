@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         uiManager.popupWin.HideView();
-        InitGame();
+        //InitGame();
     }
 
     public void BackToHome()
