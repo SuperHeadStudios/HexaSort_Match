@@ -237,7 +237,9 @@ public class GameView : BaseView
 
         if (GameManager.instance.boardGenerator.currentGoalNumber > 0)
         {
-            goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
+            //goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
+            
+            UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
 
             int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
             //fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
@@ -269,6 +271,22 @@ public class GameView : BaseView
             .SetEase(Ease.Linear)
             .OnComplete(() => displayValue = targetValue); // Ensure it ends at the exact target value
     }
+
+
+    int displayValue_1 = 0;
+    public void UpdateText(int endValue, float duration)
+    {
+        // Use the current goal number as the target value for decreasing
+        DOTween.To(() => displayValue_1, x => displayValue_1 = x, endValue, duration)
+            .OnUpdate(() => {
+                goalText.text = displayValue_1.ToString();
+            })
+            .SetEase(Ease.Linear)
+            .OnComplete(() => {
+                displayValue_1 = endValue; // Ensure it ends exactly at the target value
+            });
+    }
+
 
     public void PauseGame()
     {
