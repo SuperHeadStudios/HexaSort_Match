@@ -233,7 +233,7 @@ public class GameView : BaseView
 
     IEnumerator UpdateGoalBarIE()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.01f);
 
         if (GameManager.instance.boardGenerator.currentGoalNumber > 0)
         {
