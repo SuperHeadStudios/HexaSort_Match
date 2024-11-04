@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_23
   m_EditorClassIdentifier: 
+  isBlockers: 0
   LevelMode: 0
   Time: 0
   Moves: 0
@@ -23,10 +24,6 @@ MonoBehaviour:
     Target: 500
   - Type: 13
     Target: 4
-  - Type: 0
-    Target: 0
-  - Type: 0
-    Target: 0
   CellsForTutorial: []
   Difficulty: 2
   Thresholds:

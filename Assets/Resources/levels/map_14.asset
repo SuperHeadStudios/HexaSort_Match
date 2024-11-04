@@ -24,10 +24,6 @@ MonoBehaviour:
     Target: 450
   - Type: 3
     Target: 3
-  - Type: 0
-    Target: 0
-  - Type: 0
-    Target: 0
   CellsForTutorial: []
   Difficulty: 2
   Thresholds:

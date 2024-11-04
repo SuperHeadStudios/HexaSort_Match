@@ -110,7 +110,6 @@ public class CoinView : BaseView
     
     public void UpdateCoinTxt()
     {
-        Debug.Log("InitCalling");
         coinCountTxt.text = GameManager.instance.coinValue.ToString();
     }
 
