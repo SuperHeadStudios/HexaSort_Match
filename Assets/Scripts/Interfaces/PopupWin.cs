@@ -27,6 +27,8 @@ public class PopupWin : BasePopup
 
     [SerializeField] private RectTransform popUp;
 
+    [SerializeField] private TextMeshProUGUI levelCoinText;
+    [SerializeField] private TextMeshProUGUI goalCollectedText;
 
     private int rwValue;
 
@@ -34,6 +36,8 @@ public class PopupWin : BasePopup
     {
         rwValue = 5 * GameManager.instance.levelIndex;
         goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
+        levelCoinText.text = rwValue.ToString();
+
         /*currentLevelTxt.text = "LEVEL " + GameManager.instance.levelIndex.ToString();
         rewardNonAdsTxt.text = rwValue.ToString();
         rewardWithAdsTxt.text = (2 * rwValue).ToString();*/
@@ -114,8 +118,6 @@ public class PopupWin : BasePopup
     IEnumerator NextGameIE()
     {
         yield return new WaitForSeconds(1.5f);
-
-
         if (GameManager.instance.levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();
         nextBtn.interactable = true;
