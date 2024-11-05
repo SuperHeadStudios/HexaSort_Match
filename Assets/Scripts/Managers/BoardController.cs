@@ -52,7 +52,7 @@ public class BoardController : MonoBehaviour
     public ParticleSystem clearHexaColumVfx2;
 
     public FlyingStarRoot flyingStar;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +71,7 @@ public class BoardController : MonoBehaviour
         hexaColumnsInMap = new List<HexaColumn>();
         cellHolder.InitHolder();
         currentState = BOARD_STATE.IDLE;
-        
+
     }
 
     // Update is called once per frame
@@ -85,7 +85,7 @@ public class BoardController : MonoBehaviour
         {
             GameManager.instance.ShowGameWin();
         }
-        
+
         if (GameManager.instance.uiManager.gameView.currentState == GameView.BOOSTER_STATE.HAMMER)
         {
             if (Input.GetMouseButtonDown(0))
@@ -332,7 +332,7 @@ public class BoardController : MonoBehaviour
             ReleaseFocusCell();
     }
 
-    public void PutColumnInHolder(HexaColumn hexaColumn, BottomCell bottomCell )
+    public void PutColumnInHolder(HexaColumn hexaColumn, BottomCell bottomCell)
     {
         AudioManager.instance.columnPlaceSfx.Play();
 
@@ -379,7 +379,7 @@ public class BoardController : MonoBehaviour
 
         if (GameManager.instance.levelIndex == 1)
             GameManager.instance.uiManager.gameView.DisableArrow();
-       
+
 
         if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
@@ -505,8 +505,8 @@ public class BoardController : MonoBehaviour
                 slotsInMap++;
             }
         }
-        
-        if(GameManager.instance.boardGenerator.currentMapSlots == slotsInMap)
+
+        if (GameManager.instance.boardGenerator.currentMapSlots == slotsInMap)
         {
             Debug.Log("Game Over");
             GameManager.instance.ShowGameLose();
@@ -555,7 +555,7 @@ public class BoardController : MonoBehaviour
         //GameManager.instance.hammerExplosionVfx.Play();
         StartCoroutine(HammerBoosterAttack());
 
-        yield return new WaitForSeconds(1.8f);   
+        yield return new WaitForSeconds(1.8f);
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
@@ -576,7 +576,7 @@ public class BoardController : MonoBehaviour
 
     IEnumerator HammerBoosterAttack()
     {
-        hmAttack.SetActive(true) ;
+        hmAttack.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         hmAttack.SetActive(false);
     }
@@ -671,7 +671,7 @@ public class BoardController : MonoBehaviour
                 });
         }
     }
-#endregion
+    #endregion
 
     private bool CheckTopLayer(HexaColumn cell)
     {
@@ -708,7 +708,7 @@ public class BoardController : MonoBehaviour
             AudioManager.instance.columnSellSfx.Play();
             int dataCount = cell.currentHexaColumnData.columnDataList.Count;
             int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
-            Color currentColor = cell.hexaCellList[dataCount+5].currentColor;
+            Color currentColor = cell.hexaCellList[dataCount + 5].currentColor;
             if (queue == 0)
             {
                 clearHexaColumVfx1.transform.position = element.position;
@@ -719,7 +719,7 @@ public class BoardController : MonoBehaviour
             }
             if (queue == lastQueue)
             {
-                SpawnFlowerTile.instance.SpawnAndAnimate(element , topSize);
+                SpawnFlowerTile.instance.SpawnAndAnimate(element, topSize, cell.SetColor(), cell.SetMat());
                 if (cell.currentHexaColumnData.columnDataList.Count == 1)
                 {
                     clearHexaColumVfx2.transform.position = element.position;
@@ -739,7 +739,7 @@ public class BoardController : MonoBehaviour
                     //Debug.Log("CLEAR ALL ELEMENT");
                     cell.topColorID = -1;
                     RemoveEmptyElements();
-                    
+
                 }
                 else
                 {

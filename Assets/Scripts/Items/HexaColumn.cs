@@ -63,11 +63,37 @@ public class HexaColumn : MonoBehaviour
         }
     }
 
+    public Color SetColor()
+    {
+        for (int i = 0; i < colorConfig.colorList.Count; i++)
+        {
+            if (topColorID == colorConfig.colorList[i].colorID)
+            {
+                return colorConfig.colorList[i].colorValue;
+            }
+        }
+
+        return Color.white;
+    }
+
+    public Material SetMat()
+    {
+        for (int i = 0; i < colorConfig.colorList.Count; i++)
+        {
+            if (topColorID == colorConfig.colorList[i].colorID)
+            {
+                return colorConfig.colorList[i].material;
+            }
+        }
+
+        return null;
+    }
+
     private IEnumerator SetRandomPrefilled()
     {
         yield return new WaitForSeconds(0.3f);
 
-        int group1Count = Random.Range(2, 4); 
+        int group1Count = Random.Range(2, 4);
         int firstColorIndex = Random.Range(0, colorConfig.colorList.Count);
         int cellCount_1 = 0;
 
@@ -87,7 +113,7 @@ public class HexaColumn : MonoBehaviour
             secondColorIndex = Random.Range(0, colorConfig.colorList.Count);
         } while (secondColorIndex == firstColorIndex);
         int cellCount_2 = 0;
-        
+
         for (int i = group1Count; i < hexaCellList.Count; i++)
         {
             hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[secondColorIndex].material;
@@ -104,8 +130,8 @@ public class HexaColumn : MonoBehaviour
     private IEnumerator SetPrefilled()
     {
         yield return new WaitForSeconds(1f);
-     /*   cellColorList.Clear();
-        currentHexaColumnData.columnDataList.Clear();*/
+        /*   cellColorList.Clear();
+           currentHexaColumnData.columnDataList.Clear();*/
         int prefilledNum = Random.Range(1, colorConfig.colorList.Count);
         int cellCount_1 = 0;
 
@@ -128,7 +154,7 @@ public class HexaColumn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.U))
+        if (Input.GetKeyUp(KeyCode.U))
         {
             cellColorList.Clear();
             currentHexaColumnData.columnDataList.Clear();
@@ -247,17 +273,17 @@ public class HexaColumn : MonoBehaviour
         UpdateColliderHeight();
         UpdateColorList();
 
-       /* colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
+        /* colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
 
-        if (currentBottomCell.isRandomPrefilled)
-        {
-            StartCoroutine(SetRandomPrefilled());
-        }
+         if (currentBottomCell.isRandomPrefilled)
+         {
+             StartCoroutine(SetRandomPrefilled());
+         }
 
-        if (currentBottomCell.isPrefilled)
-        {
-            StartCoroutine(SetPrefilled());
-        }*/
+         if (currentBottomCell.isPrefilled)
+         {
+             StartCoroutine(SetPrefilled());
+         }*/
     }
 
 
@@ -384,13 +410,13 @@ public class HexaColumn : MonoBehaviour
                     hitBottomCell = hit.transform.GetComponent<BottomCell>();
                     if (hitBottomCell.isAd)
                         return;
-                    else if(hitBottomCell.isWood)
+                    else if (hitBottomCell.isWood)
                         return;
                     else if (hitBottomCell.isHoney)
                         return;
-                    else if(hitBottomCell.isIce) 
+                    else if (hitBottomCell.isIce)
                         return;
-                    else if(hitBottomCell.isVines) 
+                    else if (hitBottomCell.isVines)
                         return;
                     else if (hitBottomCell.isLock)
                         return;
@@ -406,11 +432,11 @@ public class HexaColumn : MonoBehaviour
                         hitBottomCell = hit.transform.GetComponent<BottomCell>();
                         if (hitBottomCell.isAd)
                             return;
-                        else if(hitBottomCell.isWood)
+                        else if (hitBottomCell.isWood)
                             return;
-                        else if( hitBottomCell.isHoney)
+                        else if (hitBottomCell.isHoney)
                             return;
-                        else if (hitBottomCell.isIce) 
+                        else if (hitBottomCell.isIce)
                             return;
                         else if (hitBottomCell.isVines)
                             return;
@@ -422,7 +448,7 @@ public class HexaColumn : MonoBehaviour
                         GameManager.instance.boardController.currentHitBottomCell.UnSelectCell();
                         GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
                         hitBottomCell.SelectCell();
-                        
+
                     }
                 }
             }

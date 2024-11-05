@@ -16,7 +16,7 @@ public class SpawnFlowerTile : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -30,20 +30,21 @@ public class SpawnFlowerTile : MonoBehaviour
         }
     }
 
-    public void SpawnAndAnimate(Transform player , int topSize)
+    public void SpawnAndAnimate(Transform player, int topSize, Color color, Material mat)
     {
         // Instantiate the object at the player's position
         GameObject spawnedObject = Instantiate(objectToSpawn, player.position, Quaternion.identity);
+        spawnedObject.GetComponent<SetTileTrailColor>().SetColor(color, mat);
 
-        spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            // Scale animation to half its original size
-            spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
-                .OnComplete(() =>
-                {
-                    StartCoroutine(MoveObjectToUICurve(spawnedObject, player , topSize));
-                });
-        });
+        spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear);
+
+
+        // Scale animation to half its original size
+        spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                StartCoroutine(MoveObjectToUICurve(spawnedObject, player, topSize));
+            });
     }
 
     private IEnumerator MoveObjectToUICurve(GameObject spawnedObject, Transform player, int topSize)
@@ -58,6 +59,7 @@ public class SpawnFlowerTile : MonoBehaviour
         {
             GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
+            Destroy(spawnedObject, 0.5f);
         });
 
     }
