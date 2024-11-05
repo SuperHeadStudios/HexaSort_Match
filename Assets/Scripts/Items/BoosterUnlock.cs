@@ -57,7 +57,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockHammer()
     {
-        if(levelIndex >= 3)
+        if(levelIndex >= 4)
         {
             hammerBtn.enabled = true;
             hammerBtn.image.sprite = unlockHammerSprit;
@@ -110,7 +110,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockShuffle()
     {
-        if (levelIndex >= 8)
+        if (levelIndex >= 6)
         {
             shuffleBtn.enabled = true;
             shuffleBtn.image.sprite = unlockshuffleSprit;

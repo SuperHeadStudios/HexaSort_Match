@@ -21,7 +21,7 @@ MonoBehaviour:
   TutorialSteps: 0
   Goals:
   - Type: 1
-    Target: 10
+    Target: 300
   CellsForTutorial:
   - {x: 0, y: 0}
   Difficulty: 0
@@ -77,11 +77,11 @@ MonoBehaviour:
     - Row: -2
       Col: 1
       Types: 
-      Cost: 0
+      Cost: 200
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: -1
       Col: -2
       Types: 
@@ -101,11 +101,11 @@ MonoBehaviour:
     - Row: -1
       Col: 0
       Types: 0400000004000000040000000400000001000000010000000100000001000000
-      Cost: 0
+      Cost: 125
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 8
     - Row: -1
       Col: 1
       Types: 
@@ -133,11 +133,11 @@ MonoBehaviour:
     - Row: 0
       Col: -1
       Types: 0100000001000000010000000100000002000000020000000200000002000000
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 8
     - Row: 0
       Col: 0
       Types: 
@@ -149,11 +149,11 @@ MonoBehaviour:
     - Row: 0
       Col: 1
       Types: 0200000002000000020000000200000004000000040000000400000004000000
-      Cost: 0
+      Cost: 175
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 8
     - Row: 0
       Col: 2
       Types: 

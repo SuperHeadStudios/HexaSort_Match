@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HexaColumn : MonoBehaviour
@@ -16,9 +15,9 @@ public class HexaColumn : MonoBehaviour
 
     public HexaColumnData currentHexaColumnData;
 
-    private const float localSpacingY = 0.18f;
+    private const float localSpacingY = 0.15f;
 
-    private const float colliderHeight = 0.19f;
+    private const float colliderHeight = 0.16f;
 
     public BoxCollider boxCollider;
 

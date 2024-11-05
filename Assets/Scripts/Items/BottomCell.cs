@@ -173,7 +173,6 @@ public class BottomCell : MonoBehaviour
         isAd = isAdCell;
         if (isAd)
         {
-            Debug.Log("Add cell Working");
             AdCell();
         }
         else

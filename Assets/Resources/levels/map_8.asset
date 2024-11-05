@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_8
   m_EditorClassIdentifier: 
+  isBlockers: 0
   LevelMode: 0
   Time: 0
   Moves: 0
@@ -21,6 +22,8 @@ MonoBehaviour:
   Goals:
   - Type: 1
     Target: 450
+  - Type: 3
+    Target: 6
   CellsForTutorial:
   - {x: 0, y: 0}
   Difficulty: 1
@@ -63,7 +66,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: -1
       Col: -2
       Types: 0200000002000000020000000200000002000000
@@ -71,7 +74,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 10
+      State: 3
     - Row: -1
       Col: -1
       Types: 
@@ -91,11 +94,11 @@ MonoBehaviour:
     - Row: -1
       Col: 1
       Types: 
-      Cost: 200
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: -1
       Col: 2
       Types: 
@@ -119,7 +122,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 10
+      State: 3
     - Row: 0
       Col: 0
       Types: 
@@ -143,7 +146,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 1
     - Row: 1
       Col: -2
       Types: 
@@ -175,7 +178,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 3
     - Row: 1
       Col: 2
       Types: 
@@ -195,11 +198,11 @@ MonoBehaviour:
     - Row: 2
       Col: -1
       Types: 
-      Cost: 50
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 3
     - Row: 2
       Col: 0
       Types: 
@@ -208,6 +211,22 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 0
+    - Row: -2
+      Col: -2
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 2
+      Col: 2
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 3
     Pieces:
     - Types: 
     - Types: 

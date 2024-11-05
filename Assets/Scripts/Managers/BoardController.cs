@@ -10,7 +10,7 @@ public class BoardController : MonoBehaviour
 
     public BoardGenerator boardGenerator;
 
-    private const float localSpacingY = 0.18f;
+    private const float localSpacingY = 0.15f;
 
     public LayerMask columnMask;
 

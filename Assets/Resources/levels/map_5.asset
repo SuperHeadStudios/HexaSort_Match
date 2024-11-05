@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_5
   m_EditorClassIdentifier: 
+  isBlockers: 0
   LevelMode: 0
   Time: 0
   Moves: 0
@@ -20,7 +21,7 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 350
+    Target: 400
   CellsForTutorial:
   - {x: -1, y: 0}
   - {x: -1, y: 1}
@@ -66,19 +67,19 @@ MonoBehaviour:
     - Row: -2
       Col: -1
       Types: 20000000200000002000000020000000
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 8
     - Row: -2
       Col: 1
       Types: 20000000200000002000000020000000
-      Cost: 0
+      Cost: 200
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 8
     - Row: -1
       Col: -2
       Types: 
@@ -202,11 +203,11 @@ MonoBehaviour:
     - Row: 2
       Col: -2
       Types: 08000000080000000800000008000000
-      Cost: 0
+      Cost: 250
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 10
+      State: 8
     - Row: 2
       Col: -1
       Types: 
@@ -222,7 +223,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 0
     - Row: 2
       Col: 1
       Types: 
@@ -238,7 +239,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 0
     Pieces:
     - Types: 
     - Types: 
