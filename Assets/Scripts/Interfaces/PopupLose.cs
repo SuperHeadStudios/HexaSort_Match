@@ -19,6 +19,7 @@ public class PopupLose : BasePopup
 
     [SerializeField] private HomeView homeView;
 
+
     private void FixedUpdate()
     {
         
@@ -91,6 +92,8 @@ public class PopupLose : BasePopup
         GameManager.instance.livesManager.ConsumeLife();
         GameManager.instance.BackToHome();
     }
+
+
 
     private void Retrive()
     {

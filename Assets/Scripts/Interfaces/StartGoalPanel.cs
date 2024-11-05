@@ -102,7 +102,7 @@ public class StartGoalPanel : BasePopup
 
     public override void HideView()
     {
-        rootTrans.DOScale(Vector3.zero * 0.5f, 0.8f).SetDelay(1f).SetEase(Ease.OutExpo).OnComplete(() =>
+        rootTrans.DOScale(Vector3.zero * 0.5f, 0.6f).SetDelay(0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
             canvasGroup.alpha = 0.0f;
             canvasGroup.interactable = false;
@@ -111,8 +111,5 @@ public class StartGoalPanel : BasePopup
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
             boosterPannel.ShowBoosterUnlockPopup();
         });
-        
-            
-       
     }
 }

@@ -7,6 +7,7 @@ using static AdsControl;
 using UnityEngine.Advertisements;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class PopupWin : BasePopup
 {
@@ -30,6 +31,13 @@ public class PopupWin : BasePopup
     [SerializeField] private TextMeshProUGUI levelCoinText;
     [SerializeField] private TextMeshProUGUI goalCollectedText;
 
+    [SerializeField] private float randPosi;
+    [SerializeField] private GameObject cointPrefab;
+    [SerializeField] private Transform cointTarget;
+    [SerializeField] private Transform coinParent;
+
+    [SerializeField] private List<GameObject> cointList;
+
     private int rwValue;
 
     public override void InitView()
@@ -52,6 +60,44 @@ public class PopupWin : BasePopup
     {
 
     }
+
+
+
+    public IEnumerator SpawnCoins()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Quaternion.identity, coinParent);
+            cointList.Add(spwaCoin);
+            spwaCoin.transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
+            {
+                if(i == 9)
+                {
+                    GameManager.instance.AddCoin(rwValue);
+                    StartCoroutine(NextGameIE());
+                    AdsControl.Instance.directPlay = true;
+                }
+                Destroy(spwaCoin, 0.01f);
+            });
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+    }
+
+
+    public IEnumerator MoveCoinAnimation()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        for(int i = 0; i < cointList.Count; i++)
+        {
+            cointList[i].transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo);
+
+            GameManager.instance.AddCoin(rwValue);
+        }
+    }
+
 
     public override void ShowView()
     {
@@ -105,9 +151,7 @@ public class PopupWin : BasePopup
         GameManager.instance.ResetBlockerValue();
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
-        GameManager.instance.AddCoin(rwValue);
-        StartCoroutine(NextGameIE());
-        AdsControl.Instance.directPlay = true;
+        StartCoroutine(SpawnCoins());
     }
 
     public void ClaimX2()
@@ -117,7 +161,7 @@ public class PopupWin : BasePopup
 
     IEnumerator NextGameIE()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         if (GameManager.instance.levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();
         nextBtn.interactable = true;
