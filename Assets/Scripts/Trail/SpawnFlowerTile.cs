@@ -51,16 +51,22 @@ public class SpawnFlowerTile : MonoBehaviour
     {
         yield return new WaitForSeconds(0.02f);
 
-        // Convert the UI position to world space
-        Vector3 targetScreenPosition = targetUIPosition.position;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(uiCanvas.GetComponent<RectTransform>(), targetScreenPosition, Camera.main, out Vector3 targetWorldPosition);
+        // Calculate target UI position relative to the Camera Space Canvas
+        Vector3 targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition.position);
+        Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(
+            targetViewportPosition.x,
+            targetViewportPosition.y,
+            Camera.main.nearClipPlane + uiCanvas.planeDistance
+        ));
 
+        // Animate the object to move to the target position with a smooth curve
         spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
             GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
             Destroy(spawnedObject, 0.5f);
         });
-
     }
+
+
 }
