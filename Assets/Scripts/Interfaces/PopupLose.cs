@@ -42,6 +42,7 @@ public class PopupLose : BasePopup
 
     public override void ShowView()
     {
+        losePopup.localScale = Vector3.zero;
         canvasGroup.alpha = 1;
         losePopup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
         canvasGroup.interactable = true;

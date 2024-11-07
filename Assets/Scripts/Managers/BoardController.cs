@@ -714,7 +714,7 @@ public class BoardController : MonoBehaviour
                 clearHexaColumVfx1.transform.position = element.position;
                 clearHexaColumVfx1.Play();
                 //flyingStar.SpawnStar(element.position,currentColor);
-                //GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
+                GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
                 //GameManager.instance.uiManager.gameView.UpdateGoalBar();
             }
             if (queue == lastQueue)

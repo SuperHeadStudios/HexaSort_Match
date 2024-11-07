@@ -30,6 +30,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource backgroundMusic;
 
+    public AudioSource confettiBlast;
+
     public AudioSource[] soundList;
 
     public static AudioManager instance;

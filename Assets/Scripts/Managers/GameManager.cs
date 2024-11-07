@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         
     }
 
+
     #region Blocker IncreaseDecrese
     public void IncreaseWoodCount()
     {
@@ -240,6 +241,15 @@ public class GameManager : MonoBehaviour
             AddCoin(1000);
         }
 
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ShowGameWin();
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            uiManager.popupWin.HideView();
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             uiManager.questGiftReward.SetModel(rewardConfig.rewardQuest3);
@@ -349,7 +359,7 @@ public class GameManager : MonoBehaviour
         uiManager.questPopup.IncreaseProgressQuest(3, moreCoin);
         uiManager.coinView.UpdateCoinTxt();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(0);
     }

@@ -235,26 +235,17 @@ public class GameView : BaseView
     {
         yield return new WaitForSeconds(0.01f);
 
-        if (GameManager.instance.boardGenerator.currentGoalNumber > 0)
-        {
-            //goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
-            
-            UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
+        UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
 
-            int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-            //fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
-            IncrementText(fillGoalTarget, 0.2f);
-            currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
-            goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
-        }
-        else
-        {
-            goalText.text = GameManager.instance.boardGenerator.goalNumber.ToString();
-            woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
-            honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
-            grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
-            goalValueBar.fillAmount = 1.0f;
-        }
+        int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
+        IncrementText(fillGoalTarget, 0.2f);
+
+        currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
+        goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
+
+        woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
+        honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
+        grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
     }
 
     int displayValue = 0;
@@ -267,6 +258,12 @@ public class GameView : BaseView
             .OnUpdate(() => {
                 displayValue++;
                 fillCounText.text = displayValue + "/" + BoardController.instance.boardGenerator.goalNumber;
+
+                if(displayValue > BoardController.instance.boardGenerator.goalNumber)
+                {
+                    fillCounText.text = BoardController.instance.boardGenerator.goalNumber + "/" + BoardController.instance.boardGenerator.goalNumber;
+                }
+
             })
             .SetEase(Ease.Linear)
             .OnComplete(() => displayValue = targetValue); // Ensure it ends at the exact target value

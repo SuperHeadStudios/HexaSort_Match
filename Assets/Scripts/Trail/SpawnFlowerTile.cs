@@ -39,7 +39,7 @@ public class SpawnFlowerTile : MonoBehaviour
         spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear);
 
 
-        // Scale animation to half its original size
+        // Scale animation to half its original crown
         spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
@@ -62,7 +62,7 @@ public class SpawnFlowerTile : MonoBehaviour
         // Animate the object to move to the target position with a smooth curve
         spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
-            GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
+            //GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
             Destroy(spawnedObject, 0.5f);
         });

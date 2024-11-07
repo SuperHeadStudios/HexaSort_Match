@@ -6,8 +6,10 @@ using GoogleMobileAds.Api;
 using static AdsControl;
 using UnityEngine.Advertisements;
 using TMPro;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using GameSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class PopupWin : BasePopup
 {
@@ -23,14 +25,12 @@ public class PopupWin : BasePopup
 
     [SerializeField] private TextMeshProUGUI honeyTxt;
 
-    [SerializeField] private RectTransform size;
-    [SerializeField] private Transform targetPos;
 
-    [SerializeField] private RectTransform popUp;
 
     [SerializeField] private TextMeshProUGUI levelCoinText;
     [SerializeField] private TextMeshProUGUI goalCollectedText;
 
+    [Header("------ Coins Move Settings ------"), Space(5)]
     [SerializeField] private float randPosi;
     [SerializeField] private GameObject cointPrefab;
     [SerializeField] private Transform cointTarget;
@@ -38,18 +38,34 @@ public class PopupWin : BasePopup
 
     [SerializeField] private List<GameObject> cointList;
 
-    private int rwValue;
 
-    public override void InitView()
-    {
-        rwValue = 5 * GameManager.instance.levelIndex;
-        goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[0].Target.ToString();
-        levelCoinText.text = rwValue.ToString();
+    [Header("------ Popup Animation Settings ------"), Space(5)]
+    [SerializeField] private RectTransform crown;
+    [SerializeField] private Transform crownTarget;
+    [SerializeField] private RectTransform popUp;
 
-        /*currentLevelTxt.text = "LEVEL " + GameManager.instance.levelIndex.ToString();
-        rewardNonAdsTxt.text = rwValue.ToString();
-        rewardWithAdsTxt.text = (2 * rwValue).ToString();*/
-    }
+    [Space(5)]
+    [SerializeField] private Transform rightLeaf;
+    [SerializeField] private Transform leftLeaf;
+
+    [Space(5)]
+    [SerializeField] private Transform rightHorn;
+    [SerializeField] private Transform leftHorn;
+
+    [Space(5)]
+    [SerializeField] private ParticleSystem rightConfeti;
+    [SerializeField] private ParticleSystem rightConfetiFall;
+    [SerializeField] private ParticleSystem leftConfeti;
+    [SerializeField] private ParticleSystem leftConfetiFall;
+
+    [Space(5)]
+    [SerializeField] private Transform[] inPopupContent;
+
+    private int currentLevel = 0;
+
+    public int rwValue;
+
+    #region Start Functions
 
     public override void Start()
     {
@@ -58,79 +74,52 @@ public class PopupWin : BasePopup
 
     public override void Update()
     {
-
-    }
-
-
-
-    public IEnumerator SpawnCoins()
-    {
-        for(int i = 0; i < 10; i++)
-        {
-            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Quaternion.identity, coinParent);
-            cointList.Add(spwaCoin);
-            spwaCoin.transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
-            {
-                if(i == 9)
-                {
-                    GameManager.instance.AddCoin(rwValue);
-                    StartCoroutine(NextGameIE());
-                    AdsControl.Instance.directPlay = true;
-                }
-                Destroy(spwaCoin, 0.01f);
-            });
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-    }
-
-
-    public IEnumerator MoveCoinAnimation()
-    {
-        yield return new WaitForSeconds(1f);
         
-        for(int i = 0; i < cointList.Count; i++)
-        {
-            cointList[i].transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo);
-
-            GameManager.instance.AddCoin(rwValue);
-        }
     }
 
+    private void OnEnable()
+    {
+
+    }
+
+    #endregion
+
+
+    public override void InitView()
+    {
+        rwValue = 0;
+        currentLevel = GameManager.instance.levelIndex;
+
+        if(currentLevel <= 10)
+        {
+            rwValue = 10;
+        }
+        else if(currentLevel > 10  && currentLevel < 20)
+        {
+            rwValue = 15;
+        }
+        else
+        {
+            rwValue = 20;
+        }
+
+        //goalTxt.text = GameManager.instance.boardGenerator.levelConfig.Goals[currentLevel].Target.ToString();
+        //levelCoinText.text = rwValue.ToString();
+
+        /*currentLevelTxt.text = "LEVEL " + GameManager.instance.levelIndex.ToString();
+        rewardNonAdsTxt.text = rwValue.ToString();
+        rewardWithAdsTxt.text = (2 * rwValue).ToString();*/
+    }
 
     public override void ShowView()
     {
-        size.DOScale(Vector3.one, .3f).OnComplete(() =>
-        {
-            StartCoroutine(MoveCrown());
-            StartCoroutine(ResizeMenu());
-        });
-            canvasGroup.alpha = 1.0f;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-            isShow = true;
-            contentGroup.alpha = 0.0f;
-            rootTrans.localScale = Vector3.one * 0.35f;
-            rootTrans.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-            {
-                DOTween.To(() => contentGroup.alpha, x => contentGroup.alpha = x, 1.0f, 0.5f).SetDelay(0.35f).SetEase(Ease.Linear);
-            });
-    }
-
-    private IEnumerator ResizeMenu()
-    {
-        yield return new WaitForSeconds(.5f);
-        {
-            popUp.DOScaleY(1f, .4f);
-        }
-    }
-
-    private IEnumerator MoveCrown()
-    {
-        yield return new WaitForSeconds(.5f);
-        size.DOMove(targetPos.position, .3f);
-    }
+        canvasGroup.alpha = 1.0f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+        isShow = true;
+        ResetAnimation();      
+        PopUpAnimation();
+    }   
 
 
     public override void HideView()
@@ -145,6 +134,128 @@ public class PopupWin : BasePopup
                isShow = false;
            });
     }
+        
+    public void PopUpAnimation()
+    {
+        crown.DOScale(Vector3.one, .3f).OnComplete(() =>
+        {
+            crown.DOMove(crownTarget.position, .8f).SetEase(Ease.OutBounce);
+
+            popUp.DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
+            {
+                rightHorn.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+                {
+                    AudioManager.instance.confettiBlast.Play();
+                    rightConfeti.Play();
+                    rightConfetiFall.Play();
+                });
+                leftHorn.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+                {
+                    AudioManager.instance.confettiBlast.Play();
+                    leftConfeti.Play();
+                    leftConfetiFall.Play();
+                });
+
+                rightLeaf.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+                leftLeaf.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+                
+                StartCoroutine(UpdateTextInPopupElements());
+            });
+        });
+    }
+
+    private IEnumerator UpdateTextInPopupElements()
+    {
+        for (int i = 0; i < inPopupContent.Length; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            inPopupContent[i].DOScale(Vector3.one, 0.6f).SetEase(Ease.OutBounce).OnComplete(() =>
+            {
+                if (i == 0)
+                {
+                    UpdateTextToTarget(GameManager.instance.boardGenerator.goalNumber, goalTxt);
+                }
+                else if (i == 2)
+                {
+                    UpdateTextToTarget(rwValue, levelCoinText);
+                }
+
+            });
+
+        }
+    }
+
+    private void ResetAnimation()
+    {
+        popUp.localScale = Vector3.zero;
+
+        rightLeaf.localScale = Vector3.zero;
+        leftLeaf.localScale = Vector3.zero;
+
+        rightConfeti.Stop();
+        leftConfeti.Stop();
+
+        rightConfetiFall.Stop();
+        leftConfetiFall.Stop();
+
+        rightHorn.localScale = Vector3.zero;
+        leftHorn.localScale = Vector3.zero;
+
+
+        for (int i = 0; i < inPopupContent.Length; i++)
+        {
+            inPopupContent[i].localScale = Vector3.zero;
+        }
+    }
+
+
+    public void UpdateTextToTarget(int targetValue, TextMeshProUGUI targetText)
+    {
+        int startValue = 0;
+
+        // Use DOTween to animate the value from 0 to targetValue over the specified duration
+        DOTween.To(() => startValue, x => startValue = x, targetValue, 0.5f)
+            .OnUpdate(() =>
+            {
+                // Update the text with the current value
+                targetText.text = startValue.ToString();
+            })
+            .SetEase(Ease.OutQuad) // Use easing for a smooth effect
+            .OnComplete(() =>
+            {
+                targetText.text = targetValue.ToString(); // Ensure it ends at the exact target value
+            });
+    }
+
+
+
+    #region Coins Spawn & Move
+
+    public IEnumerator SpawnCoins()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Quaternion.identity, coinParent);
+            cointList.Add(spwaCoin);
+            spwaCoin.transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
+            {
+                if (i == 9)
+                {
+                    GameManager.instance.AddCoin(rwValue);
+                    StartCoroutine(NextGameIE());
+                    AdsControl.Instance.directPlay = true;
+                }
+                Destroy(spwaCoin, 0.01f);
+            });
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+    }
+
+    #endregion
+
+    #region Button Setup
 
     public void NextLevel()
     {
@@ -154,20 +265,26 @@ public class PopupWin : BasePopup
         StartCoroutine(SpawnCoins());
     }
 
-    public void ClaimX2()
-    {
-        WatchAds();
-    }
 
     IEnumerator NextGameIE()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
         if (GameManager.instance.levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();
         nextBtn.interactable = true;
         x2ClaimBtn.interactable = true;
         GameManager.instance.NextLevel();
     }
+
+    public void ClaimX2()
+    {
+        WatchAds();
+    }
+
+    #endregion
+
+    #region Show Ads
+
 
     public void WatchAds()
     {
@@ -225,4 +342,6 @@ public class PopupWin : BasePopup
 
         });
     }
+
+    #endregion
 }

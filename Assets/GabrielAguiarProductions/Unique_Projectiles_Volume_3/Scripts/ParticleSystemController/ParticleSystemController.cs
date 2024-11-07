@@ -192,7 +192,7 @@ namespace GAP_ParticleSystemController{
 							main.startSize = startSize;
 						}
 
-						//START_SPEED (affected by size)
+						//START_SPEED (affected by crown)
 						if (startSpeed.mode == ParticleSystemCurveMode.TwoConstants) {
 							startSpeed.constantMax *= size;
 							startSpeed.constantMin *= size;
@@ -486,7 +486,7 @@ namespace GAP_ParticleSystemController{
 							main.startSize = startSize;
 						}
 
-						//START_SPEED (affected by size)
+						//START_SPEED (affected by crown)
 						if (startSpeed.mode == ParticleSystemCurveMode.TwoConstants) {
 							startSpeed.constantMax *= size;
 							startSpeed.constantMin *= size;
