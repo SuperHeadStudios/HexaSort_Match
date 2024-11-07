@@ -344,7 +344,7 @@ public class BoardController : MonoBehaviour
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
         bottomCell.hexaColumn.AddCellColumn(hexaColumn);
-        if (bottomCell.isPrefilled || bottomCell.isRandomPrefilled) return;
+        if (bottomCell.isPrefilled || bottomCell.isRandomPrefilled || bottomCell.isIce) return;
         bottomCell.UnSelectCell();
         hexaColumnsInMap.Add(GameManager.instance.boardController.currentHitBottomCell.hexaColumn);
         bottomCell.hexaColumn.cellHoder = null;

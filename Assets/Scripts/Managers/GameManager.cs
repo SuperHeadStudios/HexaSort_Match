@@ -281,6 +281,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         uiManager.popupWin.InitView();
+        yield return new WaitForSeconds(0.1f);
+        if (levelIndex >= 3)
+            AdsControl.Instance.ShowInterstital();
+
         uiManager.popupWin.ShowView();
 
         if (!isTestMode)

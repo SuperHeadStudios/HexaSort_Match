@@ -60,6 +60,11 @@ public class HexaColumn : MonoBehaviour
         {
             StartCoroutine(SetPrefilled());
         }
+
+        if (currentBottomCell.isIce)
+        {
+            StartCoroutine(SetPrefilled());
+        }
     }
 
     public Color SetColor()
@@ -90,7 +95,7 @@ public class HexaColumn : MonoBehaviour
 
     private IEnumerator SetRandomPrefilled()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         int group1Count = Random.Range(2, 4);
         int firstColorIndex = Random.Range(0, colorConfig.colorList.Count);
@@ -128,7 +133,7 @@ public class HexaColumn : MonoBehaviour
 
     private IEnumerator SetPrefilled()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         /*   cellColorList.Clear();
            currentHexaColumnData.columnDataList.Clear();*/
         int prefilledNum = Random.Range(1, colorConfig.colorList.Count);

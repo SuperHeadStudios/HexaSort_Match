@@ -284,7 +284,7 @@ public class BottomCell : MonoBehaviour
 
     private void IceCell()
     {
-        iceHexa.SetActive(true);
+        greenHexa.gameObject.SetActive(true);
         iceObj.SetActive(true);
     }
     private void VinesCell()
@@ -327,7 +327,7 @@ public class BottomCell : MonoBehaviour
     public void IceCellOpen()
     {
         isIce = false;
-        iceObj.SetActive(false);
+        //iceObj.SetActive(false);
     }
     public void VinesCellOpen()
     {
@@ -362,6 +362,9 @@ public class BottomCell : MonoBehaviour
                 BottomCell nearCell = hitData.transform.GetComponent<BottomCell>();
                 if (nearCell == null)
                     Debug.Log("hexacellListNul");
+
+                if (nearCell.isIce) continue;
+
                 if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
                 {
                     nearCellList.Add(hitData.transform.GetComponent<BottomCell>());
@@ -388,9 +391,9 @@ public class BottomCell : MonoBehaviour
                     if (nearCell.iceBlocker.MakeIceBreak())
                     {
                         nearCell.IceCellOpen();
-                        BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
+                      /*  BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
                         BoardController.instance.currentHitBottomCell = nearCell;
-                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);
+                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);*/
                         nearCell.isIce = false;
                     }
                 }
@@ -424,7 +427,7 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearOnStart()
     {
-        if (isPrefilled)
+        if (isPrefilled || isIce)
         {
             PrefilledHexa(greenHexa);
         }

@@ -18,6 +18,11 @@ public class IceBlocker : MonoBehaviour
     [SerializeField] private float radiusToBreak = .5f;
     [SerializeField] private float thirdradius;
     [SerializeField] private BottomCell currentCell;
+
+    [SerializeField] private ParticleSystem firstPartilces;
+    [SerializeField] private ParticleSystem secondPartilces;
+    [SerializeField] private ParticleSystem thirdPartilces;
+
     public float upwardModifier = 1.8f;
     public int index = 0;
     public bool isUsable;
@@ -52,57 +57,94 @@ public class IceBlocker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MakeFirstBreak();
-            MakeSecondBreak();
-            MakeThirdBreak();
+            index++;
+            if (index == 1)
+            {
+                MakeFirstBreak();
+            }
+            else if (index == 2)
+            {
+                MakeSecondBreak();
+            }
+            else if (index == 3)
+            {
+                MakeThirdBreak();
+            }
         }
     }
 
     private void MakeFirstBreak()
     {
+        firstPartilces.Play();
+
+        Vector3 explosionCenter = transform.position;
+
         foreach (Rigidbody rb in firstPartRbs)
         {
             rb.isKinematic = false;
+
+            Vector3 randomizedOffset = new Vector3(
+                Random.Range(-3f, 5f),
+                Random.Range(2f, 5f),
+                Random.Range(-3f, 5f)
+            );
+            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
         }
-        foreach (Rigidbody rb in firstPartRbs)
-        {
-            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
-        }
+        
         StartCoroutine(DisableFirstCol());
     }
     private void MakeSecondBreak()
     {
+        secondPartilces.Play();
+
+        Vector3 explosionCenter = transform.position;
+
         foreach (Rigidbody rb in secPartRbs)
         {
             rb.isKinematic = false;
-        }
-        foreach (Rigidbody rb in secPartRbs)
-        {
-            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
+
+            Vector3 randomizedOffset = new Vector3(
+                Random.Range(-3f, 5f),
+                Random.Range(2f, 5f),
+                Random.Range(-3f, 5f)
+            );
+            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
         }
         StartCoroutine(DisableSecCol());
 
     }
     private void MakeThirdBreak()
     {
+        thirdPartilces.Play();
+
+        Vector3 explosionCenter = transform.position;
+
         foreach (Rigidbody rb in thirdPartRbs)
         {
             rb.isKinematic = false;
-        }
-        foreach (Rigidbody rb in thirdPartRbs)
-        {
-            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
+
+            Vector3 randomizedOffset = new Vector3(
+                Random.Range(-3f, 5f),
+                Random.Range(2f, 5f),
+                Random.Range(-3f, 5f)
+            );
+            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
         }
         StartCoroutine(DisableThirdCol());
     }
 
     private IEnumerator DisableFirstCol()
     {
-        yield return new WaitForSeconds(2F);
+        yield return new WaitForSeconds(0.6f);
+        foreach (Rigidbody rb in firstPartRbs)
+        {
+            rb.gameObject.SetActive(false);
+        }
         foreach (Collider col in firstPartCol)
         {
             col.enabled = false;
         }
+        
         foreach (Rigidbody rbs in firstPartRbs)
         {
             rbs.mass = 0.01f;
@@ -112,7 +154,11 @@ public class IceBlocker : MonoBehaviour
     }
     private IEnumerator DisableSecCol()
     {
-        yield return new WaitForSeconds(2F); 
+        yield return new WaitForSeconds(0.6f);
+        foreach (Rigidbody rb in secPartRbs)
+        {
+            rb.gameObject.SetActive(false);
+        }
         foreach (Collider col in secPartCol)
         {
             col.enabled = false;
@@ -127,7 +173,11 @@ public class IceBlocker : MonoBehaviour
 
     private IEnumerator DisableThirdCol()
     {
-        yield return new WaitForSeconds(1.5F);
+        yield return new WaitForSeconds(0.6f);
+        foreach (Rigidbody rb in thirdPartRbs)
+        {
+            rb.gameObject.SetActive(false);
+        }
         foreach (Collider col in thirdPartCol)
         {
             col.enabled = false;

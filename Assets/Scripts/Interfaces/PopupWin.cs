@@ -84,7 +84,7 @@ public class PopupWin : BasePopup
 
     #endregion
 
-
+    #region Initialization
     public override void InitView()
     {
         rwValue = 0;
@@ -134,7 +134,11 @@ public class PopupWin : BasePopup
                isShow = false;
            });
     }
-        
+
+    #endregion
+
+    #region Popup Animation
+
     public void PopUpAnimation()
     {
         crown.DOScale(Vector3.one, .3f).OnComplete(() =>
@@ -168,20 +172,17 @@ public class PopupWin : BasePopup
     {
         for (int i = 0; i < inPopupContent.Length; i++)
         {
+            inPopupContent[i].DOScale(Vector3.one, 0.6f).SetEase(Ease.OutBounce);
             yield return new WaitForSeconds(0.1f);
-            inPopupContent[i].DOScale(Vector3.one, 0.6f).SetEase(Ease.OutBounce).OnComplete(() =>
+
+            if (i == 0)
             {
-                if (i == 0)
-                {
-                    UpdateTextToTarget(GameManager.instance.boardGenerator.goalNumber, goalTxt);
-                }
-                else if (i == 2)
-                {
-                    UpdateTextToTarget(rwValue, levelCoinText);
-                }
-
-            });
-
+                UpdateTextToTarget(GameManager.instance.boardGenerator.goalNumber, goalTxt);
+            }
+            else if (i == 2)
+            {
+                UpdateTextToTarget(rwValue, levelCoinText);
+            }
         }
     }
 
@@ -227,6 +228,7 @@ public class PopupWin : BasePopup
             });
     }
 
+    #endregion
 
 
     #region Coins Spawn & Move
@@ -269,8 +271,6 @@ public class PopupWin : BasePopup
     IEnumerator NextGameIE()
     {
         yield return new WaitForSeconds(0.1f);
-        if (GameManager.instance.levelIndex >= 3)
-            AdsControl.Instance.ShowInterstital();
         nextBtn.interactable = true;
         x2ClaimBtn.interactable = true;
         GameManager.instance.NextLevel();
