@@ -61,6 +61,12 @@ public class GameView : BaseView
     [SerializeField] private GameObject woodGoal;
     [SerializeField] private GameObject grassGoal;
 
+    [Space(10)]
+    [SerializeField] private ParticleSystem flowerPs_1;
+    [SerializeField] private ParticleSystem flowerPps_2;
+    [SerializeField] private Transform flowerIcon_1;
+    [SerializeField] private Transform flowerIcon_2;
+
 
     public bool isTogle = false;
 
@@ -168,7 +174,23 @@ public class GameView : BaseView
     }
 
 
+    public void PlayCollectEffect()
+    {
+        flowerPs_1.Play();
+        flowerPps_2.Play();
 
+        flowerIcon_1.DOScale(Vector3.one * 1.2f, 0.3f / 2).SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                flowerIcon_1.DOScale(Vector3.one, 0.3f / 2).SetEase(Ease.InOutSine);
+            });
+
+        flowerIcon_2.DOScale(Vector3.one * 1.2f, 0.3f / 2).SetEase(Ease.OutBack)
+           .OnComplete(() =>
+           {
+               flowerIcon_2.DOScale(Vector3.one, 0.3f / 2).SetEase(Ease.InOutSine);
+           });
+    }
 
     public override void InitView()
     {        
@@ -246,6 +268,8 @@ public class GameView : BaseView
         woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
         honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
         grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
+
+        PlayCollectEffect();
     }
 
     int displayValue = 0;

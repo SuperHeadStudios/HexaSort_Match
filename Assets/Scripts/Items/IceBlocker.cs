@@ -73,63 +73,46 @@ public class IceBlocker : MonoBehaviour
         }
     }
 
+    private void MakeBreak(Rigidbody[] partRbs, ParticleSystem particles)
+    {
+        if (partRbs == null || partRbs.Length == 0) return; // Safeguard check
+
+        particles.Play();
+
+        Vector3 explosionCenter = transform.position;
+
+        foreach (Rigidbody rb in partRbs)
+        {
+            rb.isKinematic = false;
+
+            // Randomized offset for varied directions
+            Vector3 randomizedOffset = new Vector3(
+                Random.Range(-1f, 1f),
+                Random.Range(0.5f, 1.5f),
+                Random.Range(-1f, 1f)
+            );
+
+            // Apply explosion force to push pieces in all directions
+            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, radiusToBreak, upwardModifier, ForceMode.Impulse);
+        }
+    }
+
+    // Call these methods as needed for first, second, and third breaks
     private void MakeFirstBreak()
     {
-        firstPartilces.Play();
-
-        Vector3 explosionCenter = transform.position;
-
-        foreach (Rigidbody rb in firstPartRbs)
-        {
-            rb.isKinematic = false;
-
-            Vector3 randomizedOffset = new Vector3(
-                Random.Range(-3f, 5f),
-                Random.Range(2f, 5f),
-                Random.Range(-3f, 5f)
-            );
-            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
-        }
-        
+        MakeBreak(firstPartRbs, firstPartilces);
         StartCoroutine(DisableFirstCol());
     }
+
     private void MakeSecondBreak()
     {
-        secondPartilces.Play();
-
-        Vector3 explosionCenter = transform.position;
-
-        foreach (Rigidbody rb in secPartRbs)
-        {
-            rb.isKinematic = false;
-
-            Vector3 randomizedOffset = new Vector3(
-                Random.Range(-3f, 5f),
-                Random.Range(2f, 5f),
-                Random.Range(-3f, 5f)
-            );
-            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
-        }
+        MakeBreak(secPartRbs, secondPartilces);
         StartCoroutine(DisableSecCol());
-
     }
+
     private void MakeThirdBreak()
     {
-        thirdPartilces.Play();
-
-        Vector3 explosionCenter = transform.position;
-
-        foreach (Rigidbody rb in thirdPartRbs)
-        {
-            rb.isKinematic = false;
-
-            Vector3 randomizedOffset = new Vector3(
-                Random.Range(-3f, 5f),
-                Random.Range(2f, 5f),
-                Random.Range(-3f, 5f)
-            );
-            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, 2f, 3f, ForceMode.Impulse);
-        }
+        MakeBreak(thirdPartRbs, thirdPartilces);
         StartCoroutine(DisableThirdCol());
     }
 
