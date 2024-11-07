@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource winSound;
 
+    public AudioSource trailAudio;
+
     public AudioSource columnJumpSfx;
 
     public AudioSource columnSellSfx;
@@ -82,6 +84,11 @@ public class AudioManager : MonoBehaviour
 
             for (int i = 0; i < soundList.Length; i++)
                 soundList[i].volume = 1.0f;
+            columnPlaceSfx.volume = .3f;
+            trailAudio.volume = 0.2f;
+            columnSellSfx.volume = .5f;
+            columnSpawnSfx.volume = 0.5f;
+            Debug.Log("Hit");
         }
         else
         {

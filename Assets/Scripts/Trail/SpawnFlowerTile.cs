@@ -38,7 +38,6 @@ public class SpawnFlowerTile : MonoBehaviour
 
         spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear);
 
-
         // Scale animation to half its original crown
         spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
             .OnComplete(() =>
@@ -50,7 +49,6 @@ public class SpawnFlowerTile : MonoBehaviour
     private IEnumerator MoveObjectToUICurve(GameObject spawnedObject, Transform player, int topSize)
     {
         yield return new WaitForSeconds(0.02f);
-
         // Calculate target UI position relative to the Camera Space Canvas
         Vector3 targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition.position);
         Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(

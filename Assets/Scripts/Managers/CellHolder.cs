@@ -42,7 +42,8 @@ public class CellHolder : MonoBehaviour
     {
         currentSlots = 3;
         hexaColumnList = new List<HexaColumn>();
-        CreateFirstPiece();
+        //CreateFirstPiece();
+        StartCoroutine(FirstPcDelay());
 
         if (GameManager.instance.boardGenerator.levelConfig.Difficulty == EnumConfigDiffTypeOfMap.Easy)
             currentDifficult = DIFFICULT_LEVEL.EASY;
@@ -121,6 +122,62 @@ public class CellHolder : MonoBehaviour
         }
     }
 
+    public IEnumerator FirstPcDelay()
+    {
+        yield return new WaitForSeconds(3.2f);
+        {
+            for (int i = 0; i < currentSlots; i++)
+            {
+                HexaColumnData firstPiece = new HexaColumnData();
+                firstPiece.columnDataList = new List<ColumnData>();
+
+                ColumnData randomData1 = new ColumnData(Random.Range(1, 7), Random.Range(2, 5));
+                ColumnData randomData2 = new ColumnData(Random.Range(1, 7), Random.Range(2, 6));
+
+                firstPiece.columnDataList.Add(randomData1);
+                firstPiece.columnDataList.Add(randomData2);
+
+                HexaColumnData mergePiece = new HexaColumnData();
+                mergePiece.columnDataList = new List<ColumnData>();
+
+                for (int m = 0; m < firstPiece.columnDataList.Count; m++)
+                {
+                    if (m == 0)
+                    {
+                        //Debug.Log("Cell Holder 91 first peice columnd data color id " + firstPiece.columnDataList[0].colorID);
+                        mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[0].colorID, firstPiece.columnDataList[0].columnValue));
+                    }
+                    else
+                    {
+                        if (firstPiece.columnDataList[m].colorID == mergePiece.columnDataList[mergePiece.columnDataList.Count - 1].colorID)
+                        {
+                            mergePiece.columnDataList[mergePiece.columnDataList.Count - 1].columnValue += firstPiece.columnDataList[m].columnValue;
+                        }
+                        else
+                        {
+                            //Debug.Log("Cell Holder 91 first peice columnd data color id 2_" + firstPiece.columnDataList[0].colorID);
+                            mergePiece.columnDataList.Add(new ColumnData(firstPiece.columnDataList[m].colorID, firstPiece.columnDataList[m].columnValue));
+                        }
+                    }
+                }
+
+                HexaColumn column = GameManager.instance.poolManager.GetHexaColumn();
+                column.InitColumn();
+                column.transform.SetParent(transform);
+                column.transform.localPosition = new Vector3((i - 1) * 3.0f, 0, 0);
+                column.cellHoder = this;
+                column.positionInHoler = column.transform.localPosition;
+                column.CreateColumn(mergePiece);
+                column.cellHoder = this;
+                hexaColumnList.Add(column);
+                column.gameObject.SetActive(false);
+                StartCoroutine(ColumnAppear(column.gameObject, i));
+            }
+        }
+    }
+    
+
+
     private IEnumerator ColumnAppear(GameObject column, int queueDelay)
     {
         yield return new WaitForSeconds(queueDelay * 0.15f);
@@ -129,6 +186,8 @@ public class CellHolder : MonoBehaviour
         column.transform.DOScale(Vector3.one, 0.15f).SetEase(Ease.Linear);
         AudioManager.instance.columnSpawnSfx.Play();
     }
+
+
 
     private void CreateNextPiece()
     {
