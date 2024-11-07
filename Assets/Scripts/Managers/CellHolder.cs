@@ -124,10 +124,10 @@ public class CellHolder : MonoBehaviour
     private IEnumerator ColumnAppear(GameObject column, int queueDelay)
     {
         yield return new WaitForSeconds(queueDelay * 0.15f);
-        AudioManager.instance.columnSpawnSfx.Play();
         column.gameObject.SetActive(true);
         column.transform.localScale = 0.5f * Vector3.one;
         column.transform.DOScale(Vector3.one, 0.15f).SetEase(Ease.Linear);
+        AudioManager.instance.columnSpawnSfx.Play();
     }
 
     private void CreateNextPiece()
