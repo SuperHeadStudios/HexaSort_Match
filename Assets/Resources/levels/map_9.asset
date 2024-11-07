@@ -83,7 +83,7 @@ MonoBehaviour:
     - Row: -1
       Col: 0
       Types: 
-      Cost: 250
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0

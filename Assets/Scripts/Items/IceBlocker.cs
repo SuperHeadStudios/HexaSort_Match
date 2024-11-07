@@ -50,10 +50,12 @@ public class IceBlocker : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(MakeIceBreak());
-        }*/
+            MakeFirstBreak();
+            MakeSecondBreak();
+            MakeThirdBreak();
+        }
     }
 
     private void MakeFirstBreak()
@@ -64,7 +66,7 @@ public class IceBlocker : MonoBehaviour
         }
         foreach (Rigidbody rb in firstPartRbs)
         {
-            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
         }
         StartCoroutine(DisableFirstCol());
     }
@@ -76,7 +78,7 @@ public class IceBlocker : MonoBehaviour
         }
         foreach (Rigidbody rb in secPartRbs)
         {
-            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
         }
         StartCoroutine(DisableSecCol());
 
@@ -89,7 +91,7 @@ public class IceBlocker : MonoBehaviour
         }
         foreach (Rigidbody rb in thirdPartRbs)
         {
-            rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
+            rb.AddExplosionForce(forceToBreak, transform.position, 3f);
         }
         StartCoroutine(DisableThirdCol());
     }
