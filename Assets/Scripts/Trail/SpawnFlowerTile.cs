@@ -74,6 +74,14 @@ public class SpawnFlowerTile : MonoBehaviour
             //GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
             Destroy(spawnedObject, 0.5f);
+
+            if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentWoodGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentHoneyGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentGrassGoalNumber <= 0)
+            {
+                GameManager.instance.isProgressFinished = true;
+            }
         });
     }
 

@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public int prefilledColorIndex;
 
+     public bool isProgressFinished = false;
+
     public enum GAME_STATE
     {
         HOME,
@@ -258,8 +260,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowGameWin()
+    public IEnumerator ShowGameWin()
     {
+        yield return new WaitUntil(() => isProgressFinished);
+
         currentGameState = GAME_STATE.GAME_WIN;
         //AudioManager.instance.winSound.Play();
         cellHolder.ClearCellHolder();

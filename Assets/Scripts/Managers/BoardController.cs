@@ -751,7 +751,7 @@ public class BoardController : MonoBehaviour
                     boardGenerator.currentHoneyGoalNumber <= 0 &&
                     boardGenerator.currentGrassGoalNumber <= 0)
                 {
-                    GameManager.instance.ShowGameWin();
+                    StartCoroutine(GameManager.instance.ShowGameWin());
                 }
                 else
                 {
