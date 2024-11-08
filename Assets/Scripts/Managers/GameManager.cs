@@ -264,6 +264,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => isProgressFinished);
 
+        yield return new WaitForSeconds(0.5f);
+
         currentGameState = GAME_STATE.GAME_WIN;
         //AudioManager.instance.winSound.Play();
         cellHolder.ClearCellHolder();

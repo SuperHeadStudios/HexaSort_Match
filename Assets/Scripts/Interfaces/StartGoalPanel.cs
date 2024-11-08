@@ -17,8 +17,7 @@ public class StartGoalPanel : BasePopup
     public TextMeshProUGUI grassTargetText;
 
     public BoosterUnlock boosterPannel;
-    
-    public BlockerUnlockPopup blockerPanel;
+    public BlockerUnlockPopup blockerUnlockPopup;
 
     [SerializeField] private Transform[] allGoals;
 
@@ -112,7 +111,7 @@ public class StartGoalPanel : BasePopup
             isShow = false;
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
             boosterPannel.ShowBoosterUnlockPopup();
-            blockerPanel.ShowBlockerUnlockPopup();
+            blockerUnlockPopup.ShowBlockerUnlockPopup();
         });
     }
 }

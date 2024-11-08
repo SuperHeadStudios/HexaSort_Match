@@ -1044,7 +1044,6 @@ Transform:
   - {fileID: 4088289409819314316}
   - {fileID: 5387504427661760050}
   - {fileID: 4683014713787305998}
-  - {fileID: 7057948026486324552}
   - {fileID: 2997583566831670312}
   - {fileID: 1024296946179376765}
   - {fileID: 5031828364103836699}
@@ -1080,7 +1079,7 @@ MonoBehaviour:
   - {fileID: 3361456491201888281}
   - {fileID: 6036396285064735162}
   - {fileID: 2975530900968464284}
-  - {fileID: 6759543359284302199}
+  - {fileID: 0}
   - {fileID: 8245747261680901710}
   - {fileID: 3510940419850045748}
   - {fileID: 7934650975623073550}
@@ -1089,7 +1088,9 @@ MonoBehaviour:
   forceToBreak: 40
   radiusToBreak: 0.5
   upwardModifier: 1.8
-  isUsable: 0
+  currentCell: {fileID: 0}
+  grassBreak: {fileID: 0}
+  centerLeaf: {fileID: 0}
 --- !u!1 &3128381744925573873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,117 +2070,6 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8055526554232586603}
-  serializedVersion: 4
-  m_Mass: 3
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!1 &8109956120625655418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7057948026486324552}
-  - component: {fileID: 8299043164959209896}
-  - component: {fileID: 4103226125273998464}
-  - component: {fileID: 6759543359284302199}
-  m_Layer: 7
-  m_Name: CenterLeaf
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7057948026486324552
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8109956120625655418}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.67905074, z: -0, w: 0.73409134}
-  m_LocalPosition: {x: 0.03, y: 1.412, z: -0.14}
-  m_LocalScale: {x: 0.0035, y: 0.001, z: 0.0035}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8388739004417566380}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8299043164959209896
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8109956120625655418}
-  m_Mesh: {fileID: 8136425147803223941, guid: 653490284f85ee24cb1488b86c375e00, type: 3}
---- !u!23 &4103226125273998464
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8109956120625655418}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -1655555323459530788, guid: 653490284f85ee24cb1488b86c375e00, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &6759543359284302199
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8109956120625655418}
   serializedVersion: 4
   m_Mass: 3
   m_Drag: 0

@@ -259,13 +259,15 @@ public class GameView : BaseView
     {
         yield return new WaitForSeconds(0.01f);
 
-        UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
+        if (GameManager.instance.boardGenerator.currentGoalNumber > 0)
+        {
+            UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
+            int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
+            IncrementText(fillGoalTarget, 0.2f);
 
-        int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-        IncrementText(fillGoalTarget, 0.2f);
-
-        currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
-        goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
+            currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
+            goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
+        }
 
         woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
         honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();

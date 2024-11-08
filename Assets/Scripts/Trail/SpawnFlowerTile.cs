@@ -6,7 +6,7 @@ public class SpawnFlowerTile : MonoBehaviour
 {
     public static SpawnFlowerTile instance;
 
-    [Header("Spawn Settings")]
+    [Header("----- Spawn Star Settings -----"), Space(5)]
     public GameObject objectToSpawn;           // 3D object prefab to spawn
     public Transform player;                   // Reference to the player's transform
 
@@ -14,6 +14,19 @@ public class SpawnFlowerTile : MonoBehaviour
     public RectTransform targetUIPosition;     // UI target position for the object to move to
     public RectTransform targetUIPosition_2;     // UI target position for the object to move to
     public Canvas uiCanvas;                    // Reference to the canvas for World to Screen position conversion
+
+    [Header("----- Spawn Wood Settings -----"), Space(5)]
+    [SerializeField] private GameObject woodTile;
+    [SerializeField] private RectTransform woodTarget;
+
+    [Header("----- Spawn Wood Settings -----"), Space(5)]
+    [SerializeField] private GameObject grassTile;
+    [SerializeField] private RectTransform grassTarget;
+
+    [Header("----- Spawn Wood Settings -----"), Space(5)]
+    [SerializeField] private GameObject honeyTile;
+    [SerializeField] private RectTransform honeyTarget;
+
 
     private void Awake()
     {
@@ -30,6 +43,8 @@ public class SpawnFlowerTile : MonoBehaviour
             //SpawnAndAnimate();
         }
     }
+
+    #region Flower Tile
 
     public void SpawnAndAnimate(Transform player, int topSize, Color color, Material mat)
     {
@@ -85,5 +100,72 @@ public class SpawnFlowerTile : MonoBehaviour
         });
     }
 
+    #endregion
 
+    #region All Tile
+
+    public void WoodTileTrailSpwan(Transform player)
+    {
+        TileSpawnAndAnimate(woodTile, woodTarget, player);
+    }
+
+    public void HoneyTileTrailSpwan(Transform player)
+    {
+        TileSpawnAndAnimate(honeyTile, honeyTarget, player);
+    }
+
+    public void GrassTileTrailSpwan(Transform player)
+    {
+        TileSpawnAndAnimate(grassTile, grassTarget, player);
+    }
+
+    #endregion
+
+    #region Tiles Trails Blockers
+
+    public void TileSpawnAndAnimate(GameObject spwanTile, RectTransform target , Transform player)
+    {
+        // Instantiate the object at the player's position
+        GameObject spawnedObject = Instantiate(spwanTile, player.position, Quaternion.identity);
+
+        spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear);
+
+        // Scale animation to half its original crown
+        spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                StartCoroutine(TileMoveObjectToUICurve(spawnedObject, target, player));
+            });
+    }
+
+    private IEnumerator TileMoveObjectToUICurve(GameObject spawnedObject, RectTransform target, Transform player)
+    {
+        yield return new WaitForSeconds(0.02f);
+        // Calculate target UI position relative to the Camera Space Canvas
+        Vector3 targetViewportPosition = Vector3.zero;
+        targetViewportPosition = Camera.main.WorldToViewportPoint(target.position);
+
+        Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(
+            targetViewportPosition.x,
+            targetViewportPosition.y,
+            Camera.main.nearClipPlane + uiCanvas.planeDistance
+        ));
+
+        // Animate the object to move to the target position with a smooth curve
+        spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
+        {
+            GameManager.instance.IncreaseWoodCount();
+            Destroy(spawnedObject, 0.5f);
+
+            if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentWoodGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentHoneyGoalNumber <= 0 &&
+                GameManager.instance.boardGenerator.currentGrassGoalNumber <= 0)
+            {
+                GameManager.instance.isProgressFinished = true;
+            }
+        });
+    }
+
+    #endregion
 }

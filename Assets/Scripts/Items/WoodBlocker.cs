@@ -88,7 +88,9 @@ public class WoodBlocker : MonoBehaviour
             rb.AddExplosionForce(forceToBreak, transform.position, thirdradius, upwardModifier, ForceMode.Impulse);
             StartCoroutine(DisableThirdCol());
         }
-        FlyingWood.instance.SpawnWood(transform.position);
+       // FlyingWood.instance.SpawnWood(transform.position);
+
+        SpawnFlowerTile.instance.WoodTileTrailSpwan(transform);
     }
 
     public IEnumerator DisableFirstCol()

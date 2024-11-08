@@ -39,11 +39,11 @@ public class GrassBlocker : MonoBehaviour
             Vector3 leafPosition = centerLeaf.position;
             if (currentCell.hexaColumn.hexaCellList.Count == 0)
             {
-                leafPosition.y = 0.028F;
+                leafPosition.y = 0.017f;
             }
             else
             {
-                leafPosition.y = currentCell.hexaColumn.hexaCellList.Count * 0.014f + 0.028F;
+                leafPosition.y = currentCell.hexaColumn.hexaCellList.Count * 0.017f + 0.017f;
             }
             centerLeaf.position = leafPosition;
         }

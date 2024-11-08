@@ -12,39 +12,6 @@ public class BlockerUnlockPopup : MonoBehaviour
     [SerializeField] private GameObject honeyPopup;
     [SerializeField] private GameObject grassPopup;
 
-    public int indexLevel;
-
-
-    private void Update()
-    {
-        
-        if (Input.GetKeyUp(KeyCode.Keypad1))
-        {
-            transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutExpo);
-            mainPopup.enabled = true;
-            woodPopup.SetActive(true);
-            woodPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-        }
-        if (Input.GetKeyUp(KeyCode.Keypad2))
-        {
-            transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutExpo);
-            mainPopup.enabled = true;
-            honeyPopup.SetActive(true);
-            honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-        }
-        if (Input.GetKeyUp(KeyCode.Keypad3))
-        {
-            transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutExpo);
-            mainPopup.enabled = true;
-            grassPopup.SetActive(true);
-            grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            PlayerPrefs.SetInt("CurrentLevel", indexLevel);
-        }
-    }
-
     public void ShowBlockerUnlockPopup()
     {
         switch (GameManager.instance.levelIndex)
@@ -54,7 +21,7 @@ public class BlockerUnlockPopup : MonoBehaviour
                 {
                     mainPopup.enabled = true;
                     woodPopup.SetActive(true);
-                    AudioManager.instance.boosterUnlockSound.Play();
+                    AudioManager.instance.trailAudio.Play();
                     woodPopup.transform.localScale = Vector3.zero;
                     woodPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
 
@@ -67,7 +34,7 @@ public class BlockerUnlockPopup : MonoBehaviour
                 {
                     mainPopup.enabled = true;
                     honeyPopup.SetActive(true);
-                    AudioManager.instance.boosterUnlockSound.Play();
+                    AudioManager.instance.trailAudio.Play();
                     honeyPopup.transform.localScale = Vector3.zero;
                     honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
 
@@ -80,7 +47,7 @@ public class BlockerUnlockPopup : MonoBehaviour
                 {
                     mainPopup.enabled = true;
                     grassPopup.SetActive(true);
-                    AudioManager.instance.boosterUnlockSound.Play();
+                    AudioManager.instance.trailAudio.Play();
                     grassPopup.transform.localScale = Vector3.zero;
                     grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
 

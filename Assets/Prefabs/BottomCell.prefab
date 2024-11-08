@@ -154,7 +154,7 @@ MonoBehaviour:
   boardController: {fileID: 0}
   boardGenerator: {fileID: 0}
   index: 0
-  currentLeafPos: 0.026
+  currentLeafPos: 0.012
   smoothTime: 0.025
   centerLeaf: {fileID: 864157066807103668}
   bottomMask:
@@ -3490,7 +3490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796315117563950425, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.127
+      value: -0.051
       objectReference: {fileID: 0}
     - target: {fileID: 1796315117563950425, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3527,6 +3527,10 @@ PrefabInstance:
     - target: {fileID: 1974273251340550663, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
       propertyPath: m_Name
       value: Leaves new broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974273251340550663, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3198985973966245626, guid: 72ee1448d383a3144a66875b7517dd36, type: 3}
       propertyPath: currentCell
