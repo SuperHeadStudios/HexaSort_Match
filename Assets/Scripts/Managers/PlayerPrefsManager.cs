@@ -45,6 +45,10 @@ namespace GameSystem
         static string HAMMERUNLOCK = "HAMMERUNLOCKKEY";
         static string SWAPUNLOCK = "UNLOCKKEY";
         static string SHUFFLEUNLOCK = "SHUFFLEUNLOCKKEY";
+        
+        static string WOODUNLOCK = "WOODUNLOCKKEY";
+        static string HONEYUNLOCK = "HONEYUNLOCKKEY";
+        static string GRASSUNLOCK = "GRASSUNLOCKKEY";
 
         #region Level Value
 
@@ -289,6 +293,41 @@ namespace GameSystem
         public static void SetShuffleUnlocked(bool state)
         {
             SaveBool(SHUFFLEUNLOCK, state);
+        }
+
+        #endregion
+
+        
+        #region Blocker Unlock
+
+        public static bool GetWoodUnlocked()
+        {
+            return GetBool(WOODUNLOCK, false);
+        }
+
+        public static void SetWoodUnlocked(bool state)
+        {
+            SaveBool(WOODUNLOCK, state);
+        }
+
+        public static bool GetHoneyUnlocked()
+        {
+            return GetBool(HONEYUNLOCK, false);
+        }
+
+        public static void SetHoneyUnlocked(bool state)
+        {
+            SaveBool(HONEYUNLOCK, state);
+        }
+
+        public static bool GetGrassUnlocked()
+        {
+            return GetBool(GRASSUNLOCK, false);
+        }
+
+        public static void SetGrassUnlocked(bool state)
+        {
+            SaveBool(GRASSUNLOCK, state);
         }
 
         #endregion

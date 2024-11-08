@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class BoosterUnlock : MonoBehaviour
 {
-
     [Header("----- Booster Unlock Popup-----"), Space(5)]
     [SerializeField] private RectTransform rays;
     [SerializeField] private float rotationSpeed;
@@ -114,7 +113,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockShuffle()
     {
-        if (GameManager.instance.levelIndex >= 6)
+        if (GameManager.instance.levelIndex >= 9)
         {
             shuffleBtn.enabled = true;
             shuffleBtn.image.sprite = unlockshuffleSprit;
@@ -188,7 +187,7 @@ public class BoosterUnlock : MonoBehaviour
                     }
                     break;
 
-                case 8:
+                case 9:
                     if (!PlayerPrefsManager.GetShuffleUnlocked())
                     {
                         mainPopup.enabled = true;
