@@ -149,7 +149,7 @@ public class BoosterUnlock : MonoBehaviour
 
         switch (levelIndex)
         {
-            case 3:
+            case 2:
 
                 if (!PlayerPrefsManager.GetHammerUnlocked())
                 {
