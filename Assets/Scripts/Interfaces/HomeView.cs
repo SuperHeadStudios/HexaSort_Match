@@ -46,7 +46,7 @@ public class HomeView : BaseView
     {
         if (GameManager.instance.livesManager.lives > 0)
         {
-            AudioManager.instance.clickSound.Play();
+            //AudioManager.instance.clickSound.Play();
             GameManager.instance.PlayGame();
         }
         else

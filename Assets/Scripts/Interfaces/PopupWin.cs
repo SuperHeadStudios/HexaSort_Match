@@ -7,9 +7,7 @@ using static AdsControl;
 using UnityEngine.Advertisements;
 using TMPro;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using GameSystem;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.SceneManagement;
 
 public class PopupWin : BasePopup
 {
@@ -132,6 +130,8 @@ public class PopupWin : BasePopup
                canvasGroup.interactable = false;
                canvasGroup.blocksRaycasts = false;
                isShow = false;
+
+               SceneManager.LoadScene(0);
            });
     }
 
@@ -145,6 +145,7 @@ public class PopupWin : BasePopup
         {
             crown.DOMove(crownTarget.position, .8f).SetEase(Ease.OutBounce);
 
+            AudioManager.instance.winSound.Play();
             popUp.DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
                 rightHorn.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
@@ -235,23 +236,28 @@ public class PopupWin : BasePopup
 
     public IEnumerator SpawnCoins()
     {
+        int currentCoin = rwValue;
+
         for (int i = 0; i < 10; i++)
         {
-            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Quaternion.identity, coinParent);
+            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
             cointList.Add(spwaCoin);
-            spwaCoin.transform.DOMove(cointTarget.position, 1f).SetEase(Ease.OutExpo).OnComplete(() =>
+            AudioManager.instance.coinCollectSound.Play();
+            currentCoin--;
+            UpdateTextToTarget(currentCoin, levelCoinText);
+            
+            spwaCoin.transform.DOMove(cointTarget.position, 0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
             {
-                if (i == 9)
-                {
-                    GameManager.instance.AddCoin(rwValue);
-                    StartCoroutine(NextGameIE());
-                    AdsControl.Instance.directPlay = true;
-                }
                 Destroy(spwaCoin, 0.01f);
             });
 
             yield return new WaitForSeconds(0.1f);
         }
+
+        yield return new WaitForSeconds(2.5f);
+        GameManager.instance.AddCoin(rwValue);
+        StartCoroutine(NextGameIE());
+        AdsControl.Instance.directPlay = true;
 
     }
 
@@ -261,19 +267,19 @@ public class PopupWin : BasePopup
 
     public void NextLevel()
     {
-        GameManager.instance.ResetBlockerValue();
+       // GameManager.instance.ResetBlockerValue();
+        StartCoroutine(SpawnCoins());
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
-        StartCoroutine(SpawnCoins());
     }
 
 
     IEnumerator NextGameIE()
     {
-        yield return new WaitForSeconds(0.1f);
         nextBtn.interactable = true;
         x2ClaimBtn.interactable = true;
-        GameManager.instance.NextLevel();
+        HideView();
+        yield return null;
     }
 
     public void ClaimX2()

@@ -179,6 +179,8 @@ public class GameView : BaseView
         flowerPs_1.Play();
         flowerPps_2.Play();
 
+        AudioManager.instance.flowerCollectedSound.Play();
+
         flowerIcon_1.DOScale(Vector3.one * 1.2f, 0.3f / 2).SetEase(Ease.OutBack)
             .OnComplete(() =>
             {

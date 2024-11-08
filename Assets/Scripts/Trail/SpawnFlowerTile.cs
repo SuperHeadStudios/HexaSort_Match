@@ -12,6 +12,7 @@ public class SpawnFlowerTile : MonoBehaviour
 
     [Header("UI Settings")]
     public RectTransform targetUIPosition;     // UI target position for the object to move to
+    public RectTransform targetUIPosition_2;     // UI target position for the object to move to
     public Canvas uiCanvas;                    // Reference to the canvas for World to Screen position conversion
 
     private void Awake()
@@ -50,7 +51,17 @@ public class SpawnFlowerTile : MonoBehaviour
     {
         yield return new WaitForSeconds(0.02f);
         // Calculate target UI position relative to the Camera Space Canvas
-        Vector3 targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition.position);
+        Vector3 targetViewportPosition = Vector3.zero;
+
+        if (GameManager.instance.uiManager.gameView.IsBlocker())
+        {
+            targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition_2.position);
+        }
+        else
+        {
+            targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition.position);
+        }
+
         Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(
             targetViewportPosition.x,
             targetViewportPosition.y,

@@ -9,8 +9,9 @@ public class BoosterUnlock : MonoBehaviour
     [Header("----- Booster Unlock Popup-----"), Space(5)]
     [SerializeField] private RectTransform rays;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private Image mainPopup;
 
-    [SerializeField] private GameObject hammeerPopup;
+    [SerializeField] private GameObject hammerPopup;
     [SerializeField] private GameObject swapPopup;
     [SerializeField] private GameObject shufflePopup;
 
@@ -36,12 +37,15 @@ public class BoosterUnlock : MonoBehaviour
     [SerializeField] private Sprite unlockshuffleSprit;
     [SerializeField] private GameObject shuffleLockIcon;
 
-    private int levelIndex;
+    [Header("----- Particles -----"), Space(5)]
+    [SerializeField] private ParticleSystem[] allPs;
+
+    [SerializeField]  private bool isNotOn = false;
 
     private void OnEnable()
     {
-        levelIndex = PlayerPrefs.GetInt("CurrentLevel");
-        transform.localScale = Vector3.zero;
+        mainPopup.enabled = false;
+        //transform.localScale = Vector3.zero;
         LockUnlockHammer();
         LockUnlockShuffle();
         LockUnlockSwap();
@@ -51,13 +55,13 @@ public class BoosterUnlock : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Space))
         {
-            levelIndex++;
+            GameManager.instance.levelIndex++;
         }
     }
 
     private void LockUnlockHammer()
     {
-        if(levelIndex >= 4)
+        if(GameManager.instance.levelIndex >= 4)
         {
             hammerBtn.enabled = true;
             hammerBtn.image.sprite = unlockHammerSprit;
@@ -83,7 +87,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockSwap()
     {
-        if (levelIndex >= 5)
+        if (GameManager.instance.levelIndex >= 5)
         {
             swapBtn.enabled = true;
             swapBtn.image.sprite = unlockSwapSprit;
@@ -110,7 +114,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockShuffle()
     {
-        if (levelIndex >= 6)
+        if (GameManager.instance.levelIndex >= 6)
         {
             shuffleBtn.enabled = true;
             shuffleBtn.image.sprite = unlockshuffleSprit;
@@ -143,44 +147,84 @@ public class BoosterUnlock : MonoBehaviour
 
     public void ShowBoosterUnlockPopup()
     {
-        hammeerPopup.SetActive(false);
-        swapPopup.SetActive(false);
-        shufflePopup.SetActive(false);
-
-        switch (levelIndex)
+        if (!isNotOn)
         {
-            case 2:
+            switch (GameManager.instance.levelIndex)
+            {
+                case 4: 
+                    if (!PlayerPrefsManager.GetHammerUnlocked())
+                    {
+                        mainPopup.enabled = true;
+                        hammerPopup.SetActive(true);
 
-                if (!PlayerPrefsManager.GetHammerUnlocked())
-                {
-                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-                    hammeerPopup.SetActive(true);
-                    PlayerPrefsManager.SetHammerUnlocked(true);
-                }
-                break; 
-            case 5:
+                        AudioManager.instance.boosterUnlockSound.Play();
+                        AudioManager.instance.confettiBlast.Play();
+                        AudioManager.instance.confettiBlast.Play();
 
-                if (!PlayerPrefsManager.GetSwapUnlocked())
-                {
-                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-                    swapPopup.SetActive(true);
-                    PlayerPrefsManager.SetSwapUnlocked(true);
-                }
-                break; 
-            case 8:
-                if (!PlayerPrefsManager.GetShuffleUnlocked())
-                {
-                    transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-                    shufflePopup.SetActive(true);
-                    PlayerPrefsManager.SetSwapUnlocked(true);
-                }
-                break;
+                        hammerPopup.transform.localScale = Vector3.zero;
+                        hammerPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => 
+                        { 
+                            PlayAllPs(); }
+                        );
+
+                        PlayerPrefsManager.SetHammerUnlocked(true);
+                    }
+                    break;
+
+                case 5:
+                    if (!PlayerPrefsManager.GetSwapUnlocked())
+                    {
+                        mainPopup.enabled = true;
+                        swapPopup.SetActive(true);
+
+                        AudioManager.instance.boosterUnlockSound.Play();
+                        AudioManager.instance.confettiBlast.Play();
+                        AudioManager.instance.confettiBlast.Play();
+
+                        swapPopup.transform.localScale = Vector3.zero;
+                        swapPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => { PlayAllPs();});
+
+                        PlayerPrefsManager.SetSwapUnlocked(true);
+                    }
+                    break;
+
+                case 8:
+                    if (!PlayerPrefsManager.GetShuffleUnlocked())
+                    {
+                        mainPopup.enabled = true;
+                        shufflePopup.SetActive(true);
+
+                        AudioManager.instance.boosterUnlockSound.Play();
+                        AudioManager.instance.confettiBlast.Play();
+                        AudioManager.instance.confettiBlast.Play();
+
+                        shufflePopup.transform.localScale = Vector3.zero;
+                        shufflePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => { PlayAllPs();});
+
+                        PlayerPrefsManager.SetSwapUnlocked(true);
+                    }
+                    break;
+            }
+            isNotOn = true;
         }
     }
 
+    private void PlayAllPs()
+    {
+        foreach (ParticleSystem ps in allPs)
+        {
+            ps.Play();
+        }
+    }
+
+
     public void HidePopup()
     {
-        transform.DOScale(Vector3.zero, 0.01f);
+        isNotOn = false;
+        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+        {
+            mainPopup.enabled = false;
+        });
         LockUnlockHammer();
         LockUnlockShuffle();
         LockUnlockSwap();

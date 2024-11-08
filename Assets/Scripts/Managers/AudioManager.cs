@@ -34,6 +34,10 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource confettiBlast;
 
+    public AudioSource boosterUnlockSound;
+
+    public AudioSource flowerCollectedSound;
+
     public AudioSource[] soundList;
 
     public static AudioManager instance;

@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
         else
         {
             coinValue = PlayerPrefs.GetInt("Coin" , 50);
-            levelIndex = PlayerPrefs.GetInt("CurrentLevel");
+            levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
             hammerBoosterValue = PlayerPrefs.GetInt("Hammer");
             moveBoosterValue = PlayerPrefs.GetInt("Move");
             shuffleBoosterValue = PlayerPrefs.GetInt("Shuffle");
@@ -261,27 +261,34 @@ public class GameManager : MonoBehaviour
     public void ShowGameWin()
     {
         currentGameState = GAME_STATE.GAME_WIN;
-        AudioManager.instance.winSound.Play();
+        //AudioManager.instance.winSound.Play();
         cellHolder.ClearCellHolder();
         boardController.ClearBoard();
         boardController.RotateAnim();
         uiManager.gameView.HideView();
         confetiVfx.Play();
+        AudioManager.instance.confettiBlast.Play();
+
         StartCoroutine(ShowGameWinIE());
     }
 
     public void ShowGameLose()
     {
         currentGameState = GAME_STATE.GAME_OVER;
-        AudioManager.instance.winSound.Play();
+        //AudioManager.instance.winSound.Play();
         StartCoroutine(ShowGameLoseIE());
     }
 
     IEnumerator ShowGameWinIE()
     {
+        yield return new WaitForSeconds(.02f);
+        AudioManager.instance.confettiBlast.Play();
+
         yield return new WaitForSeconds(2.0f);
         uiManager.popupWin.InitView();
+
         yield return new WaitForSeconds(0.1f);
+
         if (levelIndex >= 3)
             AdsControl.Instance.ShowInterstital();
 
@@ -352,20 +359,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AddCoinIE(int moreCoin)
     {
-        AudioManager.instance.coinFlySound.Play();
         //uiManager.coinView.SpawnCoin(Vector3.zero - new Vector3(0.0f, 10.0f, 0.0f));
-        yield return new WaitForSeconds(0.75f);
-        AudioManager.instance.coinFlySound.Stop();
-        AudioManager.instance.coinCollectSound.Play();
         coinValue += moreCoin;
-        PlayerPrefs.SetInt("Coin", coinValue);
-        uiManager.questPopup.IncreaseProgressQuest(1, moreCoin);
-        uiManager.questPopup.IncreaseProgressQuest(3, moreCoin);
         uiManager.coinView.UpdateCoinTxt();
+        PlayerPrefs.SetInt("Coin", coinValue);
+        /*
+        uiManager.questPopup.IncreaseProgressQuest(1, moreCoin);
+        uiManager.questPopup.IncreaseProgressQuest(3, moreCoin);*/
 
-        yield return new WaitForSeconds(2f);
-
-        SceneManager.LoadScene(0);
+        yield return null;
     }
 
     public void AddHammerBooster(int moreValue)
