@@ -64,7 +64,6 @@ public class WoodBlocker : MonoBehaviour
         {
             rb.isKinematic = false;
             rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
-            Debug.Log("Broken 2");
             StartCoroutine(DisableFirstCol());
             
         }
@@ -73,7 +72,6 @@ public class WoodBlocker : MonoBehaviour
     {
         foreach (Rigidbody rb in secPartRbs)
         {
-            Debug.Log("Brokennnnnnnnnnnn");
             rb.isKinematic = false;
             rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
             StartCoroutine(DisableSecCol());

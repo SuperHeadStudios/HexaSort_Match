@@ -6,7 +6,6 @@ using GameSystem;
 public class BlockerUnlockPopup : MonoBehaviour
 {
     [Header("----- Blocker Unlock Popup-----"), Space(5)]
-    [SerializeField] private RectTransform bg;
     [SerializeField] private Image mainPopup;
     [SerializeField] private GameObject woodPopup;
     [SerializeField] private GameObject honeyPopup;

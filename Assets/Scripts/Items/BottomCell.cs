@@ -362,8 +362,10 @@ public class BottomCell : MonoBehaviour
             {
                 BottomCell nearCell = hitData.transform.GetComponent<BottomCell>();
                 if (nearCell == null)
+                {
                     Debug.Log("hexacellListNul");
-
+                    continue;
+                }
                 if (nearCell.isIce) continue;
 
                 if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
