@@ -54,7 +54,7 @@ public class WoodBlocker : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MakeThirdBreak();
+            StartCoroutine(MakeWoodBreak());
         }
     }
 
@@ -138,7 +138,7 @@ public class WoodBlocker : MonoBehaviour
 
     public IEnumerator MakeWoodBreak()
     {
-        yield return new WaitForSeconds(2.4f);
+        yield return new WaitForSeconds(1f);
         switch (index)
         {
             case 0:

@@ -75,6 +75,7 @@ Transform:
   - {fileID: 5453403027511858915}
   - {fileID: 4733367101931874713}
   - {fileID: 7367244342174094169}
+  - {fileID: 8425116314407710481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!64 &64579568575471228
@@ -126,7 +127,7 @@ MonoBehaviour:
   lockMaterial: {fileID: 2100000, guid: ee97c1a8931101f4a9efd7d7bf21a3e8, type: 2}
   AdObj: {fileID: 1091802431546343}
   lockObj: {fileID: 8473700087318125433}
-  woodObj: {fileID: 4949498877443424157}
+  woodObj: {fileID: 8071260965675127589}
   grassObj: {fileID: 1959217275968445309}
   honeyObj: {fileID: 8530171667289901264}
   iceObj: {fileID: 1181631436008481674}
@@ -145,7 +146,7 @@ MonoBehaviour:
   isPrefilled: 0
   honeyBlocker: {fileID: 4993975865536115127}
   grassBlocker: {fileID: 3185059235690633088}
-  woodBlocker: {fileID: 2761101806723384107}
+  woodBlocker: {fileID: 4103896757588767677}
   iceBlocker: {fileID: 4719262835700491378}
   vinesBlocker: {fileID: 6671435369033421632}
   lockBlocker: {fileID: 1290126166622223839}
@@ -4379,6 +4380,92 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2914991117439205567, guid: d64cb70e96552e64fa58fc5ceecd75f4, type: 3}
   m_PrefabInstance: {fileID: 5641204145712600038}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5899865601837474791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4530917018380048}
+    m_Modifications:
+    - target: {fileID: 2441630033179799746, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_Name
+      value: WoodBlocker
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441630033179799746, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571519480193683546, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+      propertyPath: currentCell
+      value: 
+      objectReference: {fileID: 8938884348770471384}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+--- !u!114 &4103896757588767677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7571519480193683546, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+  m_PrefabInstance: {fileID: 5899865601837474791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071260965675127589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d95f60cecfb45448daa97511047a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8071260965675127589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2441630033179799746, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+  m_PrefabInstance: {fileID: 5899865601837474791}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8425116314407710481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2669664980962315510, guid: 3c984a0d35d305c44ba4780f69dd1a95, type: 3}
+  m_PrefabInstance: {fileID: 5899865601837474791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6236218497578054370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4440,22 +4527,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a71701fe10a4c54783b195c9a426b98, type: 3}
---- !u!114 &2761101806723384107 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8131839393627632073, guid: 1a71701fe10a4c54783b195c9a426b98, type: 3}
-  m_PrefabInstance: {fileID: 6236218497578054370}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4949498877443424157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d95f60cecfb45448daa97511047a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &4949498877443424157 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1313741227768253823, guid: 1a71701fe10a4c54783b195c9a426b98, type: 3}
-  m_PrefabInstance: {fileID: 6236218497578054370}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6381335927946535864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1010056021964280154, guid: 1a71701fe10a4c54783b195c9a426b98, type: 3}
