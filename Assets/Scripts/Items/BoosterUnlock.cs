@@ -200,7 +200,7 @@ public class BoosterUnlock : MonoBehaviour
                         shufflePopup.transform.localScale = Vector3.zero;
                         shufflePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => { PlayAllPs();});
 
-                        PlayerPrefsManager.SetSwapUnlocked(true);
+                        PlayerPrefsManager.SetShuffleUnlocked(true);
                     }
                     break;
             }
