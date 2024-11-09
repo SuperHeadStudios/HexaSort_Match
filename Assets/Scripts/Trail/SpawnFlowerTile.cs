@@ -18,15 +18,22 @@ public class SpawnFlowerTile : MonoBehaviour
     [Header("----- Spawn Wood Settings -----"), Space(5)]
     [SerializeField] private GameObject woodTile;
     [SerializeField] private RectTransform woodTarget;
+    [SerializeField] private Transform woodIcon;
+    [SerializeField] private ParticleSystem woodParticle;
 
-    [Header("----- Spawn Wood Settings -----"), Space(5)]
+    [Header("----- Spawn Grass Settings -----"), Space(5)]
     [SerializeField] private GameObject grassTile;
     [SerializeField] private RectTransform grassTarget;
+    [SerializeField] private Transform grassIcon;
+    [SerializeField] private ParticleSystem grassParticle;
 
-    [Header("----- Spawn Wood Settings -----"), Space(5)]
+    [Header("----- Spawn Honey Settings -----"), Space(5)]
     [SerializeField] private GameObject honeyTile;
     [SerializeField] private RectTransform honeyTarget;
+    [SerializeField] private Transform honeyIcon;
+    [SerializeField] private ParticleSystem honyParticles;
 
+    private TileType currentTileType = TileType.None;
 
     private void Awake()
     {
@@ -104,19 +111,72 @@ public class SpawnFlowerTile : MonoBehaviour
 
     #region All Tile
 
-    public void WoodTileTrailSpwan(Transform player)
+    public void WoodTileTrailSpawn(Transform player)
     {
+        currentTileType =  TileType.Wood;
         TileSpawnAndAnimate(woodTile, woodTarget, player);
     }
 
-    public void HoneyTileTrailSpwan(Transform player)
+    public void HoneyTileTrailSpawn(Transform player)
     {
+        currentTileType = TileType.Honey;
         TileSpawnAndAnimate(honeyTile, honeyTarget, player);
     }
 
-    public void GrassTileTrailSpwan(Transform player)
+    public void GrassTileTrailSpawn(Transform player)
     {
+        currentTileType = TileType.Grass;
         TileSpawnAndAnimate(grassTile, grassTarget, player);
+    }
+
+    private void WoodTileDataeUpdate()
+    {
+        GameManager.instance.IncreaseWoodCount();
+        PlayCollectEffectBlocker(woodParticle, woodIcon);
+    }
+
+    private void HoneyTileDataeUpdate()
+    {
+        GameManager.instance.IncreaseHoneyCount();
+        PlayCollectEffectBlocker(honyParticles, honeyIcon);
+    }
+
+    private void GrassTileDataeUpdate()
+    {
+        GameManager.instance.IncreaseGrassCount();
+        PlayCollectEffectBlocker(grassParticle, grassIcon);
+    }
+
+    public void PlayCollectEffectBlocker(ParticleSystem ps, Transform icon)
+    {
+        ps.Play();
+
+        AudioManager.instance.flowerCollectedSound.Play();
+
+        icon.DOScale(Vector3.one * 1.2f, 0.3f / 2).SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                icon.DOScale(Vector3.one, 0.3f / 2).SetEase(Ease.InOutSine);
+            });
+    }
+
+    public void UpdateBlockerProgress()
+    {
+        switch (currentTileType)
+        {
+            case TileType.Wood:
+                WoodTileDataeUpdate();
+                break;
+            case TileType.Honey:
+                HoneyTileDataeUpdate();
+                break;
+            case TileType.Grass:
+                GrassTileDataeUpdate();
+                break;
+            default:
+                Debug.LogWarning("Unknown tile type");
+                break;
+        }
     }
 
     #endregion
@@ -154,7 +214,7 @@ public class SpawnFlowerTile : MonoBehaviour
         // Animate the object to move to the target position with a smooth curve
         spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
-            GameManager.instance.IncreaseWoodCount();
+            UpdateBlockerProgress();
             Destroy(spawnedObject, 0.5f);
 
             if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&
@@ -168,4 +228,11 @@ public class SpawnFlowerTile : MonoBehaviour
     }
 
     #endregion
+}
+public enum TileType
+{
+    None,
+    Wood,
+    Grass,
+    Honey
 }

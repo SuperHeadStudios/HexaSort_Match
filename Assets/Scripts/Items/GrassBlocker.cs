@@ -52,7 +52,7 @@ public class GrassBlocker : MonoBehaviour
     public IEnumerator MakeGrassBreak()
     {
         yield return new WaitForSeconds(2.4f);
-        FlyingGrass.instance.SpawnGrass(transform.position);
+        SpawnFlowerTile.instance.GrassTileTrailSpawn(transform);
         foreach (Rigidbody rb in rbs)
         {
             rb.isKinematic = false;

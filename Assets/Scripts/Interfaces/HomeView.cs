@@ -52,7 +52,7 @@ public class HomeView : BaseView
         else
         {
             Debug.Log("No life ");
-            AudioManager.instance.clickSound.Play();
+            //AudioManager.instance.clickSound.Play();
             GameManager.instance.uiManager.fillLivesPopup.InitView();
             GameManager.instance.uiManager.fillLivesPopup.ShowView();
 

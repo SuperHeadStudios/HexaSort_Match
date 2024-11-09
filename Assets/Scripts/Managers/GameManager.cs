@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int woodCount;
     [SerializeField] public int honeyCount;
     [SerializeField] public int grassCount;
-    [SerializeField] public int lockcount = 150;
 
     [SerializeField] private TextMeshProUGUI woodCountText;
     [SerializeField] private TextMeshProUGUI honeyCountText;

@@ -40,7 +40,6 @@ public abstract class BaseView : MonoBehaviour
 
     public virtual void HideView()
     {
-        AudioManager.instance.clickSound.Play();
         DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0.0f, 0.1f).SetEase(Ease.Linear)
            .OnComplete(() => {
 
