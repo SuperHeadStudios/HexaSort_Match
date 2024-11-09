@@ -67,6 +67,8 @@ public class GameView : BaseView
     [SerializeField] private Transform flowerIcon_1;
     [SerializeField] private Transform flowerIcon_2;
 
+    [SerializeField] private BoosterUnlock boosterUnlock;
+
 
     public bool isTogle = false;
 
@@ -219,6 +221,9 @@ public class GameView : BaseView
             DisableArrow();
 
         GameManager.instance.uiManager.coinView.isGameSettings = true;
+
+        boosterUnlock.CheckBoosters();
+
     }
 
     public void DisableArrow()

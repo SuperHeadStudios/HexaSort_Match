@@ -41,7 +41,12 @@ public class BoosterUnlock : MonoBehaviour
 
     [SerializeField]  private bool isNotOn = false;
 
-    private void OnEnable()
+    private void Start()
+    {
+       // CheckBoosters();
+    }
+
+    public void CheckBoosters()
     {
         mainPopup.enabled = false;
         //transform.localScale = Vector3.zero;
@@ -60,10 +65,11 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockHammer()
     {
-        if(GameManager.instance.levelIndex >= 4)
+        if (GameManager.instance.levelIndex >= 4)
         {
             hammerBtn.enabled = true;
             hammerBtn.image.sprite = unlockHammerSprit;
+            hammerLockIcon.SetActive(false);
 
             if(GameManager.instance.hammerBoosterValue > 0)
             {
@@ -73,7 +79,6 @@ public class BoosterUnlock : MonoBehaviour
             {
                 hammerCountIcon.SetActive(false);
             }
-            hammerLockIcon.SetActive(false);
         }
         else
         {
@@ -86,7 +91,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockSwap()
     {
-        if (GameManager.instance.levelIndex >= 5)
+        if (GameManager.instance.levelIndex >= 2)
         {
             swapBtn.enabled = true;
             swapBtn.image.sprite = unlockSwapSprit;
@@ -170,7 +175,7 @@ public class BoosterUnlock : MonoBehaviour
                     }
                     break;
 
-                case 5:
+                case 2:
                     if (!PlayerPrefsManager.GetSwapUnlocked())
                     {
                         mainPopup.enabled = true;
