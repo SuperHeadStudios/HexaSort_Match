@@ -122,7 +122,7 @@ public class BoosterPopup : MonoBehaviour
 
             if(GameManager.instance.coinValue < 50)
             {
-                boosterPurchaseAdsBtn.interactable = false;
+                boosterPurchaseBtn.interactable = false;
             }
         }
 
@@ -138,7 +138,7 @@ public class BoosterPopup : MonoBehaviour
 
             if (GameManager.instance.coinValue < 50)
             {
-                boosterPurchaseAdsBtn.interactable = false;
+                boosterPurchaseBtn.interactable = false;
             }
         }
     }
@@ -154,7 +154,7 @@ public class BoosterPopup : MonoBehaviour
 
             if (GameManager.instance.coinValue < 50)
             {
-                boosterPurchaseAdsBtn.interactable = false;
+                boosterPurchaseBtn.interactable = false;
             }
         }
     }
