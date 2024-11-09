@@ -6,6 +6,7 @@ using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PopupLose : BasePopup
 {
@@ -18,6 +19,7 @@ public class PopupLose : BasePopup
     public CanvasGroup areYouSure;
 
     [SerializeField] private HomeView homeView;
+    [SerializeField] private Button coinBtn; 
 
 
     private void FixedUpdate()
@@ -48,6 +50,15 @@ public class PopupLose : BasePopup
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
+
+        if(GameManager.instance.coinValue < 200)
+        {
+            coinBtn.interactable = false;
+        }
+        else
+        {
+            coinBtn.interactable = true;
+        }
     }
     public void HideSure()
     {
@@ -107,7 +118,7 @@ public class PopupLose : BasePopup
     public void RetriveByCoin()
     {
         AudioManager.instance.clickSound.Play();
-        if (GameManager.instance.coinValue >=0)
+        if (GameManager.instance.coinValue >= 200)
         {
             Retrive();
         }

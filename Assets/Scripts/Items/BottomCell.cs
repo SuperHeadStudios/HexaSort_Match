@@ -126,6 +126,11 @@ public class BottomCell : MonoBehaviour
         }
     }
 
+    public bool IsAnyBlocker()
+    {
+        return isAd || isLock || isWood || isGrass || isHoney || isIce || isVines || isRandomPrefilled || isPrefilled; 
+    }
+
     public void CreateColumn()
     {
         hexaColumn = GameManager.instance.poolManager.GetHexaColumn();

@@ -496,6 +496,7 @@ public class BoardController : MonoBehaviour
 
     private void CheckSlotsInMap()
     {
+
         int slotsInMap = 0;
 
         for (int i = 0; i < GameManager.instance.boardGenerator.bottomCellList.Count; i++)
@@ -503,7 +504,14 @@ public class BoardController : MonoBehaviour
             if (GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn.hexaCellList.Count > 0)
             {
                 slotsInMap++;
+
             }
+
+            if (GameManager.instance.boardGenerator.bottomCellList[i].IsAnyBlocker())
+            {
+                slotsInMap++;
+            }
+            Debug.Log("slote increasing_ slot  _" + slotsInMap + " and slot map " + GameManager.instance.boardGenerator.currentMapSlots);
         }
 
         if (GameManager.instance.boardGenerator.currentMapSlots == slotsInMap)

@@ -28,7 +28,7 @@ public class LoadingView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        loadingText.text = "LADING... " + Mathf.RoundToInt(loadingBar.fillAmount * 100) + "%";
+        loadingText.text = "LOADING... " + Mathf.RoundToInt(loadingBar.fillAmount * 100) + "%";
     }
 
     void OpenGame()
