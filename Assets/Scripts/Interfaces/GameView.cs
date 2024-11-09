@@ -223,7 +223,7 @@ public class GameView : BaseView
         GameManager.instance.uiManager.coinView.isGameSettings = true;
 
         boosterUnlock.CheckBoosters();
-
+        settingBar.GetComponent<SettingBar>().LoadData();
     }
 
     public void DisableArrow()
@@ -252,7 +252,6 @@ public class GameView : BaseView
 
     public override void Update()
     {
-
     }
 
     public void UpdateGoalBar()

@@ -31,8 +31,6 @@ public class HexaColumn : MonoBehaviour
 
     public float offsetRaycast;
 
-    [SerializeField] private ColorConfig colorConfig;
-
     private int indexCount;
 
     public enum COLUMN_STATE
@@ -43,11 +41,12 @@ public class HexaColumn : MonoBehaviour
 
     public COLUMN_STATE currentColumnState;
 
+
+
     private void Start()
     {
         if (currentBottomCell == null) return;
-        colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
-
+       
         cellColorList.Clear();
         currentHexaColumnData.columnDataList.Clear();
 
@@ -69,11 +68,11 @@ public class HexaColumn : MonoBehaviour
 
     public Color SetColor()
     {
-        for (int i = 0; i < colorConfig.colorList.Count; i++)
+        for (int i = 0; i < GameManager.instance.colorConfig.colorList.Count; i++)
         {
-            if (topColorID == colorConfig.colorList[i].colorID)
+            if (topColorID == GameManager.instance.colorConfig.colorList[i].colorID)
             {
-                return colorConfig.colorList[i].colorValue;
+                return GameManager.instance.colorConfig.colorList[i].colorValue;
             }
         }
 
@@ -82,11 +81,11 @@ public class HexaColumn : MonoBehaviour
 
     public Material SetMat()
     {
-        for (int i = 0; i < colorConfig.colorList.Count; i++)
+        for (int i = 0; i < GameManager.instance.colorConfig.colorList.Count; i++)
         {
-            if (topColorID == colorConfig.colorList[i].colorID)
+            if (topColorID == GameManager.instance.colorConfig.colorList[i].colorID)
             {
-                return colorConfig.colorList[i].material;
+                return GameManager.instance.colorConfig.colorList[i].material;
             }
         }
 
@@ -98,34 +97,34 @@ public class HexaColumn : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         int group1Count = Random.Range(2, 4);
-        int firstColorIndex = Random.Range(0, colorConfig.colorList.Count);
+        int firstColorIndex = Random.Range(0, GameManager.instance.colorConfig.colorList.Count);
         int cellCount_1 = 0;
 
         for (int i = 0; i < group1Count && i < hexaCellList.Count; i++)
         {
-            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[firstColorIndex].material;
-            cellColorList.Add(colorConfig.colorList[firstColorIndex].colorID);
+            hexaCellList[i].meshRenderer.sharedMaterial = GameManager.instance.colorConfig.colorList[firstColorIndex].material;
+            cellColorList.Add(GameManager.instance.colorConfig.colorList[firstColorIndex].colorID);
             cellCount_1++;
         }
 
-        ColumnData columnData_1 = new ColumnData(colorConfig.colorList[firstColorIndex].colorID, cellCount_1);
+        ColumnData columnData_1 = new ColumnData(GameManager.instance.colorConfig.colorList[firstColorIndex].colorID, cellCount_1);
         currentHexaColumnData.columnDataList.Add(columnData_1);
 
         int secondColorIndex;
         do
         {
-            secondColorIndex = Random.Range(0, colorConfig.colorList.Count);
+            secondColorIndex = Random.Range(0, GameManager.instance.colorConfig.colorList.Count);
         } while (secondColorIndex == firstColorIndex);
         int cellCount_2 = 0;
 
         for (int i = group1Count; i < hexaCellList.Count; i++)
         {
-            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[secondColorIndex].material;
-            cellColorList.Add(colorConfig.colorList[secondColorIndex].colorID);
+            hexaCellList[i].meshRenderer.sharedMaterial = GameManager.instance.colorConfig.colorList[secondColorIndex].material;
+            cellColorList.Add(GameManager.instance.colorConfig.colorList[secondColorIndex].colorID);
             cellCount_2++;
         }
 
-        ColumnData columnData_2 = new ColumnData(colorConfig.colorList[secondColorIndex].colorID, cellCount_2);
+        ColumnData columnData_2 = new ColumnData(GameManager.instance.colorConfig.colorList[secondColorIndex].colorID, cellCount_2);
         currentHexaColumnData.columnDataList.Add(columnData_2);
 
         topColorID = cellColorList[cellColorList.Count - 1];
@@ -136,17 +135,17 @@ public class HexaColumn : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         /*   cellColorList.Clear();
            currentHexaColumnData.columnDataList.Clear();*/
-        int prefilledNum = Random.Range(1, colorConfig.colorList.Count);
+        int prefilledNum = Random.Range(1, GameManager.instance.colorConfig.colorList.Count);
         int cellCount_1 = 0;
 
         for (int i = 0; i < hexaCellList.Count; i++)
         {
-            hexaCellList[i].meshRenderer.sharedMaterial = colorConfig.colorList[prefilledNum].material;
-            cellColorList.Add(colorConfig.colorList[prefilledNum].colorID);
+            hexaCellList[i].meshRenderer.sharedMaterial = GameManager.instance.colorConfig.colorList[prefilledNum].material;
+            cellColorList.Add(GameManager.instance.colorConfig.colorList[prefilledNum].colorID);
             cellCount_1++;
         }
 
-        ColumnData columnData_1 = new ColumnData(colorConfig.colorList[prefilledNum].colorID, cellCount_1);
+        ColumnData columnData_1 = new ColumnData(GameManager.instance.colorConfig.colorList[prefilledNum].colorID, cellCount_1);
         currentHexaColumnData.columnDataList.Add(columnData_1);
         topColorID = cellColorList[cellColorList.Count - 1];
 
@@ -277,7 +276,7 @@ public class HexaColumn : MonoBehaviour
         UpdateColliderHeight();
         UpdateColorList();
 
-        /* colorConfig = Resources.Load("GameConfigs/ColorConfigSO") as ColorConfig;
+        /* GameManager.instance.colorConfig = Resources.Load("GameConfigs/GameManager.instance.colorConfigSO") as GameManager.instance.colorConfig;
 
          if (currentBottomCell.isRandomPrefilled)
          {

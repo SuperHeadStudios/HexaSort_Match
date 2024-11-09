@@ -549,7 +549,6 @@ public class BoardController : MonoBehaviour
 
     IEnumerator DestroyColumnByHammer(HexaColumn column)
     {
-        Debug.Log("Hammer-1");
         hmAttack.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, -2.5f);
         hammerEffect.transform.position = column.hexaCellList[0].transform.position + new Vector3(0f, 1.0f, 0f);
         //GameManager.instance.hammerExplosionVfx.Play();
@@ -559,10 +558,9 @@ public class BoardController : MonoBehaviour
 
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
-            Debug.Log("Hammer-2");
             GameManager.instance.poolManager.RemoveHexaCell(column.hexaCellList[j]);
         }
-        Debug.Log("Hammer-3");
+
         column.hexaCellList.Clear();
         column.currentHexaColumnData.columnDataList.Clear();
         column.cellColorList.Clear();
@@ -762,8 +760,12 @@ public class BoardController : MonoBehaviour
         });
     }
 
+
+
     public void ClearColumn()
     {
+        if (hmAttack.activeInHierarchy) return;
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

@@ -12,7 +12,8 @@ public class BoosterPopup : MonoBehaviour
     {
         Hammer,
         Refresh,
-        Swap
+        Swap,
+        None
     }
 
    [ SerializeField ] private BoosterState _state;
@@ -118,6 +119,11 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddHammerBooster(1);
             gameView.UpdateBoosterView();
+
+            if(GameManager.instance.coinValue < 50)
+            {
+                boosterPurchaseAdsBtn.interactable = false;
+            }
         }
 
     }
@@ -129,6 +135,11 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddShuffleBooster(1);
             gameView.UpdateBoosterView();
+
+            if (GameManager.instance.coinValue < 50)
+            {
+                boosterPurchaseAdsBtn.interactable = false;
+            }
         }
     }
 
@@ -140,6 +151,11 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddMoveBooster(1);
             gameView.UpdateBoosterView();
+
+            if (GameManager.instance.coinValue < 50)
+            {
+                boosterPurchaseAdsBtn.interactable = false;
+            }
         }
     }
 
@@ -181,5 +197,7 @@ public class BoosterPopup : MonoBehaviour
                 gameView.UpdateBoosterView();
                 break;
         }
+
+        gameView.closePurchse();
     }
 }

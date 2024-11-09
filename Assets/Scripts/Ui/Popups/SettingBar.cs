@@ -52,10 +52,18 @@ public class SettingBar : MonoBehaviour
         musicBtn.onClick.AddListener(MusicBottonClick);
         restartbtn.onClick.AddListener(UpdateUiOnStart);
         homeBtn.onClick.AddListener(UpdateUiOnStart);
+        vibrateBtn.onClick.AddListener(VibrateBottonClick);
 
+        LoadData();
+    }
+
+    public void LoadData()
+    {
         isMusicToggle = PlayerPrefsManager.GetMusicState();
         isSoundToggle = PlayerPrefsManager.GetSoundState();
         isVibrationToggle = PlayerPrefsManager.GetVibrateState();
+
+        UpdateUiOnStart();
     }
 
     public void ReplayBottonClick()
@@ -107,6 +115,8 @@ public class SettingBar : MonoBehaviour
   
     public void SoundBottonClick()
     {
+        Debug.Log("SoundBtn clicking_ " + isSoundToggle);
+
         isSoundToggle = !isSoundToggle;
         if (isSoundToggle == true)
         {
@@ -122,6 +132,7 @@ public class SettingBar : MonoBehaviour
 
     public void MusicBottonClick()
     {
+        Debug.Log("MusicBtn clicking_ " + isMusicToggle);
         isMusicToggle = !isMusicToggle;
         if (isMusicToggle == true)
         {
@@ -135,7 +146,8 @@ public class SettingBar : MonoBehaviour
         }
     }
     public void VibrateBottonClick()
-    {
+    { 
+        Debug.Log("V clicking_ " + isVibrationToggle);
         isVibrationToggle = !isVibrationToggle;
         if (isVibrationToggle == true)
         {
