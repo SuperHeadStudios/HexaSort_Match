@@ -80,11 +80,11 @@ public class BottomCell : MonoBehaviour
         boardController = transform.GetComponentInParent<BoardController>(); 
         boardGenerator = transform.GetComponentInParent<BoardGenerator>(); 
         Invoke(nameof(CheckNearOnStart),0.5f);
+        currentLockText.text = cost.ToString();
     }
     private void Update()
     {
         UpdateLeafPosition();
-        currentLockText.text = cost.ToString();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -414,16 +414,55 @@ public class BottomCell : MonoBehaviour
                 }
                 if (nearCell.isLock == true)
                 {
-                    nearCell.currentLockCount += currentCount;
-                    nearCell.cost-= nearCell.currentLockCount;
-                    if(nearCell.currentLockCount >= nearCell.cost)
-                    {
-                        StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
-                    }
+                    nearCell.cost -= currentCount;
+                    UpdateText(nearCell.cost, 1f, nearCell, currentCount);
+
                 }
             }
         }
     }
+
+    int displayValue_1 = 0;
+    public void UpdateText(int endValue, float duration, BottomCell nearCell, int currentCount)
+    {
+        // Initialize displayValue_1 from the starting cost (before reduction)
+        int displayValue_1 = nearCell.cost + currentCount;
+
+        DOTween.To(() => displayValue_1, x => displayValue_1 = x, endValue, duration)
+            .OnUpdate(() => {
+
+                // Update the displayed text with the current countdown value
+                nearCell.currentLockText.text = displayValue_1.ToString();
+
+                if(displayValue_1 <= 0)
+                {
+                    nearCell.currentLockText.text ="0";
+                }
+
+                // Start coroutine if countdown reaches zero
+                if (displayValue_1 <= 0)
+                {
+                    // Stop the animation and trigger unlock
+                    DOTween.Kill(this, false);
+                    
+                    if (displayValue_1 <= 0)
+                    {
+                        StartCoroutine(nearCell.lockBlocker.MakeLockOpen());
+                        nearCell.currentLockText.text = "0";
+                    }
+                }
+            })
+            .SetEase(Ease.Linear)
+            .OnComplete(() => {
+                displayValue_1 = endValue; // Ensure it ends at the target value
+                nearCell.currentLockText.text = displayValue_1.ToString();
+                if (displayValue_1 <= 0)
+                {
+                    nearCell.currentLockText.text = "0";
+                }
+            });
+    }
+
 
     public void CheckNearOnStart()
     {
