@@ -91,7 +91,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockSwap()
     {
-        if (GameManager.instance.levelIndex >= 2)
+        if (GameManager.instance.levelIndex >= 5)
         {
             swapBtn.enabled = true;
             swapBtn.image.sprite = unlockSwapSprit;
@@ -175,7 +175,7 @@ public class BoosterUnlock : MonoBehaviour
                     }
                     break;
 
-                case 2:
+                case 5:
                     if (!PlayerPrefsManager.GetSwapUnlocked())
                     {
                         mainPopup.enabled = true;

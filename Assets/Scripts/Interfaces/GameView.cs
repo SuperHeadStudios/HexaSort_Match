@@ -320,8 +320,8 @@ public class GameView : BaseView
     public void PauseGame()
     {
         AudioManager.instance.clickSound.Play();
-        GameManager.instance.uiManager.settingPopup.InitView();
-        GameManager.instance.uiManager.settingPopup.ShowView();
+        //GameManager.instance.uiManager.settingPopup.InitView();
+        //GameManager.instance.uiManager.settingPopup.ShowView();
     }
 
     public void UseHammer()

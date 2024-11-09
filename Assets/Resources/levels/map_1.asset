@@ -21,7 +21,7 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 200
+    Target: 100
   CellsForTutorial:
   - {x: -1, y: 0}
   - {x: -1, y: 1}
@@ -103,7 +103,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 5
+      State: 0
     - Row: -1
       Col: 0
       Types: 
@@ -147,11 +147,11 @@ MonoBehaviour:
     - Row: 0
       Col: 0
       Types: 
-      Cost: 10
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: 0
       Col: 1
       Types: 

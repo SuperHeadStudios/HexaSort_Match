@@ -18,6 +18,7 @@ public class BottomCell : MonoBehaviour
     public int currentLockCount;
 
     public ParticleSystem bottomParticle;
+    public ParticleSystem adBlockerParticle;
 
     public HexaColumn hexaColumn;
     public HexaColumn hexaColumn_ice;
@@ -534,6 +535,7 @@ public class BottomCell : MonoBehaviour
 
     public void EarnReward(Reward reward)
     {
+        adBlockerParticle.Play();
         AudioManager.instance.rewardDone.Play();
         isAd = false;
         meshRenderer.material = cellMaterial;

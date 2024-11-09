@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     public CoinView coinView;
 
-    public PopupSetting settingPopup;
+    //public PopupSetting settingPopup;
 
     public PopupPiggyBank piggyBankPopup;
 
