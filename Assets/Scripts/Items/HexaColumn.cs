@@ -350,7 +350,7 @@ public class HexaColumn : MonoBehaviour
         {
             transform.SetParent(cellHoder.transform);
         }
-        transform.DOLocalMove(positionInHoler, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
+        transform.DOLocalMove(positionInHoler, 0.2f).SetEase(Ease.InQuad).SetDelay(0.0f).OnComplete(() =>
         {
             currentColumnState = COLUMN_STATE.IDLE;
         });
@@ -360,7 +360,7 @@ public class HexaColumn : MonoBehaviour
     {
         currentColumnState = COLUMN_STATE.MOVING;
         transform.SetParent(currentBottomCell.transform);
-        transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.Linear).SetDelay(0.0f).OnComplete(() =>
+        transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.InQuad).SetDelay(0.0f).OnComplete(() =>
         {
             currentColumnState = COLUMN_STATE.IDLE;
         });
@@ -370,7 +370,7 @@ public class HexaColumn : MonoBehaviour
     {
         currentColumnState = COLUMN_STATE.MOVING;
         Debug.Log("START MOVE");
-        transform.DOLocalMove(targetPos, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOLocalMove(targetPos, 0.1f).SetEase(Ease.InQuad).OnComplete(() =>
         {
             //highlightEffect.highlighted = false;
             Debug.Log("FINISH MOVE");

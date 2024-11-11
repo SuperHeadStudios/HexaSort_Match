@@ -137,12 +137,12 @@ public class BoardController : MonoBehaviour
 
             return;
         }
-
+        ///// working for player 
         if (Input.GetMouseButtonDown(0))
         {
             if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
                 return;
-
+            if (currentHexaColumn != null) return;
             //Debug.Log("Working");
 
             PickHexaColumn();
@@ -154,7 +154,6 @@ public class BoardController : MonoBehaviour
         {
             if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
                 return;
-            Debug.Log("Working");
 
             if (Input.touchCount > 1) return;
 
@@ -289,12 +288,7 @@ public class BoardController : MonoBehaviour
 
     private void MoveToDragPos()
     {
-        /*
-        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
-        mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        lastMousePos = new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z);
-        currentHexaColumn.MoveToTarget(new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z));
-        */
+       
         mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         lastMousePos = new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z);
