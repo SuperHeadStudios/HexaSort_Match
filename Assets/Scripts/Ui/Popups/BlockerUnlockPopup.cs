@@ -10,6 +10,8 @@ public class BlockerUnlockPopup : MonoBehaviour
     [SerializeField] private GameObject woodPopup;
     [SerializeField] private GameObject honeyPopup;
     [SerializeField] private GameObject grassPopup;
+    [SerializeField] private GameObject icePopup;
+    [SerializeField] private GameObject vinesPopup;
 
     public void ShowBlockerUnlockPopup()
     {
@@ -52,6 +54,33 @@ public class BlockerUnlockPopup : MonoBehaviour
 
                     PlayerPrefsManager.SetGrassUnlocked(true);
                 }
+                break;
+            case 11:
+                if (!PlayerPrefsManager.GetIceUnlocked())
+                {
+                    mainPopup.enabled = true;
+                    icePopup.SetActive(true);
+                    AudioManager.instance.trailAudio.Play();
+                    icePopup.transform.localScale = Vector3.zero;
+                    icePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+
+                    PlayerPrefsManager.SetIceUnlocked(true);
+                }
+
+                break;
+
+            case 13:
+                if (!PlayerPrefsManager.GetVinesUnlocked())
+                {
+                    mainPopup.enabled = true;
+                    vinesPopup.SetActive(true);
+                    AudioManager.instance.trailAudio.Play();
+                    vinesPopup.transform.localScale = Vector3.zero;
+                    vinesPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+
+                    PlayerPrefsManager.SetVinesUnlocked(true);
+                }
+
                 break;
         }
     }

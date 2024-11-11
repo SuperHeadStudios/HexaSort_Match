@@ -62,9 +62,10 @@ public class PopupLose : BasePopup
     }
     public void HideSure()
     {
-        areYouSurePopup.DOScale(Vector3.zero, 1f).SetEase(Ease.InBack).OnComplete(() =>
+        areYouSurePopup.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             areYouSure.alpha = 0;
+            ShowView();
         });
     }
 

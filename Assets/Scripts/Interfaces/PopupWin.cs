@@ -244,8 +244,8 @@ public class PopupWin : BasePopup
             cointList.Add(spwaCoin);
             AudioManager.instance.coinCollectSound.Play();
             currentCoin--;
-            UpdateTextToTarget(currentCoin, levelCoinText);
-            
+
+            levelCoinText.text = currentCoin.ToString();            
             spwaCoin.transform.DOMove(cointTarget.position, 0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
             {
                 Destroy(spwaCoin, 0.01f);

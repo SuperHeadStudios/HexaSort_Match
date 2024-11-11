@@ -49,6 +49,8 @@ namespace GameSystem
         static string WOODUNLOCK = "WOODUNLOCKKEY";
         static string HONEYUNLOCK = "HONEYUNLOCKKEY";
         static string GRASSUNLOCK = "GRASSUNLOCKKEY";
+        static string ICCEUNLOCK = "ICEUNLOCKKEY";
+        static string VINESUNLOCK = "VINESUNLOCKKEY";
 
         #region Level Value
 
@@ -328,6 +330,26 @@ namespace GameSystem
         public static void SetGrassUnlocked(bool state)
         {
             SaveBool(GRASSUNLOCK, state);
+        }
+
+        public static bool GetIceUnlocked()
+        {
+            return GetBool(ICCEUNLOCK, false);
+        }
+
+        public static void SetIceUnlocked(bool state)
+        {
+            SaveBool(ICCEUNLOCK, state);
+        }
+
+        public static bool GetVinesUnlocked()
+        {
+            return GetBool(VINESUNLOCK, false);
+        }
+
+        public static void SetVinesUnlocked(bool state)
+        {
+            SaveBool(VINESUNLOCK, state);
         }
 
         #endregion

@@ -109,6 +109,8 @@ public class BoardController : MonoBehaviour
                 if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
                     return;
 
+                if (Input.touchCount > 1) return;
+
                 if (currentHexaColumn != null)
                 {
                     DragCurrentColumn();
@@ -141,6 +143,8 @@ public class BoardController : MonoBehaviour
             if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
                 return;
 
+            //Debug.Log("Working");
+
             PickHexaColumn();
             PickBottomCell();
         }
@@ -150,6 +154,9 @@ public class BoardController : MonoBehaviour
         {
             if (GameManager.instance.currentGameState != GameManager.GAME_STATE.PLAYING)
                 return;
+            Debug.Log("Working");
+
+            if (Input.touchCount > 1) return;
 
             if (currentHexaColumn == null)
                 return;
@@ -501,22 +508,15 @@ public class BoardController : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.boardGenerator.bottomCellList.Count; i++)
         {
-            if (GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn.hexaCellList.Count > 0)
+            if (GameManager.instance.boardGenerator.bottomCellList[i].hexaColumn.hexaCellList.Count > 0 || GameManager.instance.boardGenerator.bottomCellList[i].IsAnyBlocker())
             {
                 slotsInMap++;
 
             }
-
-            if (GameManager.instance.boardGenerator.bottomCellList[i].IsAnyBlocker())
-            {
-                slotsInMap++;
-            }
-            Debug.Log("slote increasing_ slot  _" + slotsInMap + " and slot map " + GameManager.instance.boardGenerator.currentMapSlots);
         }
 
         if (GameManager.instance.boardGenerator.currentMapSlots == slotsInMap)
         {
-            Debug.Log("Game Over");
             GameManager.instance.ShowGameLose();
         }
     }

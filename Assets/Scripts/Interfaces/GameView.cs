@@ -267,15 +267,15 @@ public class GameView : BaseView
         {
             UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
             int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-            IncrementText(fillGoalTarget, 0.2f);
+            IncrementText((fillGoalTarget-1), 0.2f);
 
             currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
         }
 
-        woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
-        honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
-        grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
+        //woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
+        //honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
+        //grassGoalText.text = GameManager.instance.boardGenerator.grassGoalNumber.ToString();
 
         PlayCollectEffect();
     }

@@ -106,6 +106,19 @@ public class BottomCell : MonoBehaviour
                 }
             }
         }
+
+        if (isLock)
+        {
+            if (cost <= boardGenerator.CurrentProgressCount())
+            {
+
+                StartCoroutine(lockBlocker.MakeLockOpen());
+            }
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void UpdateLeafPosition()
@@ -396,14 +409,7 @@ public class BottomCell : MonoBehaviour
                 }
                 else if (nearCell.isIce == true)
                 {
-                    if (nearCell.iceBlocker.MakeIceBreak())
-                    {
-                        nearCell.IceCellOpen();
-                      /*  BoardController.instance.currentHexaColumn = nearCell.hexaColumn_ice;
-                        BoardController.instance.currentHitBottomCell = nearCell;
-                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_ice, nearCell);*/
-                        nearCell.isIce = false;
-                    }
+                    StartCoroutine(nearCell.iceBlocker.MakeIceBreak_WithDelay());
                 }
                 else if (nearCell.isVines == true)
                 {
@@ -420,12 +426,7 @@ public class BottomCell : MonoBehaviour
                 {
                     StartCoroutine(nearCell.honeyBlocker.MakeHoneyBreak());
                 }
-                if (nearCell.isLock == true)
-                {
-                    nearCell.cost -= currentCount;
-                    UpdateText(nearCell.cost, 1f, nearCell, currentCount);
-
-                }
+               
             }
         }
     }

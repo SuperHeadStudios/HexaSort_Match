@@ -171,6 +171,8 @@ public class IceBlocker : MonoBehaviour
             rbs.isKinematic = false;
         }
         thirdObj.SetActive(false);
+        currentCell.isIce = false;
+        currentCell.IceCellOpen();
     }
 
     public bool MakeIceBreak()
@@ -192,5 +194,24 @@ public class IceBlocker : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+
+    public IEnumerator MakeIceBreak_WithDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        switch (index)
+        {
+            case 0:
+                MakeFirstBreak();
+                break;
+            case 1:
+                MakeSecondBreak();
+                break;
+            case 2:
+                MakeThirdBreak();
+                break;
+        }
+        index++;
     }
 }

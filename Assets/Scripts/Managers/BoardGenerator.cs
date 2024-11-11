@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class BoardGenerator : MonoBehaviour
@@ -222,6 +223,11 @@ public class BoardGenerator : MonoBehaviour
 
         currentMapSlots = levelConfig.LevelData.Cells.Count;
         GameManager.instance.uiManager.gameView.GoallbarShow();
+    }
+
+    public int CurrentProgressCount()
+    {
+        return goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
     }
 
     public void ClearMap()

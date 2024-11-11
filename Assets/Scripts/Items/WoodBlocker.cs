@@ -144,8 +144,6 @@ public class WoodBlocker : MonoBehaviour
                 break;
             case 1:
                 MakeSecondBreak();
-                break;
-            case 2:
                 MakeThirdBreak();
                 break;
         }
