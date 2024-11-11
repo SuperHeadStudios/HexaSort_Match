@@ -23,7 +23,7 @@ MonoBehaviour:
   - Type: 1
     Target: 350
   CellsForTutorial: []
-  Difficulty: 2
+  Difficulty: 1
   Thresholds:
   - HexCount: 350
     MaxTypesInStack: 2

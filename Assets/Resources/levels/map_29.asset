@@ -29,7 +29,7 @@ MonoBehaviour:
   - Type: 14
     Target: 2
   CellsForTutorial: []
-  Difficulty: 0
+  Difficulty: 1
   Thresholds:
   - HexCount: 20
     MaxTypesInStack: 2

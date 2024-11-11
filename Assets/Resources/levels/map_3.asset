@@ -24,7 +24,7 @@ MonoBehaviour:
     Target: 300
   CellsForTutorial:
   - {x: 0, y: 0}
-  Difficulty: 0
+  Difficulty: 1
   Thresholds:
   - HexCount: 10
     MaxTypesInStack: 2
