@@ -11,7 +11,6 @@ using System.Data;
 public class BottomCell : MonoBehaviour
 {
     public static BottomCell instance;
-
     [HideInInspector] public int row;
     [HideInInspector] public int column;
     [HideInInspector] public int cost;
@@ -308,7 +307,7 @@ public class BottomCell : MonoBehaviour
     }
     private void VinesCell()
     {
-        vinesHexa.SetActive(true);
+        //vinesHexa.SetActive(true);
         vinesObj.SetActive(true);
     }
     private void LockCell()
@@ -351,7 +350,7 @@ public class BottomCell : MonoBehaviour
     public void VinesCellOpen()
     {
         isVines = false;
-        vinesObj.SetActive(false);
+        //vinesObj.SetActive(false);
     }
     #endregion
 
@@ -384,7 +383,7 @@ public class BottomCell : MonoBehaviour
                     Debug.Log("hexacellListNul");
                     continue;
                 }
-                if (nearCell.isIce) continue;
+                if (nearCell.isIce|| nearCell.isVines) continue;
 
                 if (nearCell.hexaColumn.hexaCellList.Count > 0 && nearCell.hexaColumn.topColorID == hexaColumn.topColorID && nearCell.hexaColumn.topColorID != -1)
                 {
@@ -416,9 +415,9 @@ public class BottomCell : MonoBehaviour
                     if (nearCell.vinesBlocker.MakeVinesBreak())
                     {
                         nearCell.VinesCellOpen();
-                        BoardController.instance.currentHexaColumn = nearCell.hexaColumn_Vines;
+                        /*BoardController.instance.currentHexaColumn = nearCell.hexaColumn_Vines;
                         BoardController.instance.currentHitBottomCell = nearCell;
-                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_Vines, nearCell);
+                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_Vines, nearCell);*/
                         nearCell.isVines = false;
                     }
                 }
@@ -475,7 +474,7 @@ public class BottomCell : MonoBehaviour
 
     public void CheckNearOnStart()
     {
-        if (isPrefilled || isIce)
+        if (isPrefilled || isIce|| isVines)
         {
             PrefilledHexa(greenHexa);
         }

@@ -151,7 +151,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 7
     - Row: 0
       Col: 1
       Types: 

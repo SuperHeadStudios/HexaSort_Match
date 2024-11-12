@@ -64,6 +64,10 @@ public class HexaColumn : MonoBehaviour
         {
             StartCoroutine(SetPrefilled());
         }
+        if (currentBottomCell.isVines)
+        {
+            StartCoroutine(SetPrefilled());
+        }
     }
 
     public Color SetColor()
