@@ -31,7 +31,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 3ecb56da9bd522c469322e9ae38a5f74, type: 2}
   - colorID: 4
     colorType: 8
-    colorValue: {r: 0.7362523, g: 0, b: 1, a: 1}
+    colorValue: {r: 0.4464631, g: 0, b: 1, a: 1}
     material: {fileID: 2100000, guid: 9f0b35d316419ce4d84c93f06be45f35, type: 2}
   - colorID: 5
     colorType: 16
