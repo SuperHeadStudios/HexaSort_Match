@@ -309,7 +309,7 @@ public class CellHolder : MonoBehaviour
             HexaColumn column = GameManager.instance.poolManager.GetHexaColumn();
             column.InitColumn();
             column.transform.SetParent(transform);
-            column.transform.localPosition = new Vector3((i - 1) * 2.0f, 0, 0);
+            column.transform.localPosition = new Vector3((i - 1) * 3.0f, 0, 0);
             column.cellHoder = this;
             column.positionInHoler = column.transform.localPosition;
             column.CreateColumn(mergePiece);
