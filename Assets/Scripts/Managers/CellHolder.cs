@@ -76,11 +76,13 @@ public class CellHolder : MonoBehaviour
             HexaColumnData firstPiece = new HexaColumnData();
             firstPiece.columnDataList = new List<ColumnData>();
 
-            ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 5));
-            ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 6));
+            ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+            ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+            ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
+            firstPiece.columnDataList.Add(randomData3);
 
             HexaColumnData mergePiece = new HexaColumnData();
             mergePiece.columnDataList = new List<ColumnData>();
@@ -129,11 +131,13 @@ public class CellHolder : MonoBehaviour
                 HexaColumnData firstPiece = new HexaColumnData();
                 firstPiece.columnDataList = new List<ColumnData>();
 
-                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 5));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 6));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+                ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
+                firstPiece.columnDataList.Add(randomData3);
 
                 HexaColumnData mergePiece = new HexaColumnData();
                 mergePiece.columnDataList = new List<ColumnData>();

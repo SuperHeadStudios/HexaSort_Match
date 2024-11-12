@@ -3,10 +3,8 @@ using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
-using Unity.VisualScripting;
 using DG.Tweening;
 using TMPro;
-using System.Data;
 
 public class BottomCell : MonoBehaviour
 {
@@ -59,7 +57,6 @@ public class BottomCell : MonoBehaviour
     public LockBlocker lockBlocker;
 
     public bool isBreakNow = false;
-    public bool isUseNow;
 
     public BoardController boardController;
     public BoardGenerator boardGenerator;
@@ -110,7 +107,6 @@ public class BottomCell : MonoBehaviour
         {
             if (cost <= boardGenerator.CurrentProgressCount())
             {
-
                 StartCoroutine(lockBlocker.MakeLockOpen());
             }
         }
@@ -412,14 +408,7 @@ public class BottomCell : MonoBehaviour
                 }
                 else if (nearCell.isVines == true)
                 {
-                    if (nearCell.vinesBlocker.MakeVinesBreak())
-                    {
-                        nearCell.VinesCellOpen();
-                        /*BoardController.instance.currentHexaColumn = nearCell.hexaColumn_Vines;
-                        BoardController.instance.currentHitBottomCell = nearCell;
-                        BoardController.instance.PutColumnInHolder_2(nearCell.hexaColumn_Vines, nearCell);*/
-                        nearCell.isVines = false;
-                    }
+                    StartCoroutine(nearCell.vinesBlocker.MakeVinesBreak_WithDelay());
                 }
                 else if (nearCell.isHoney == true)
                 {

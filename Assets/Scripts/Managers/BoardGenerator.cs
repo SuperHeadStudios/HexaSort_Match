@@ -249,7 +249,7 @@ public class BoardGenerator : MonoBehaviour
     {
         if (widthOfMap == 2)
         {
-            Camera.main.orthographicSize = 12;
+            Camera.main.orthographicSize = 10.5f;
             cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
         }
         else if (widthOfMap == 3)
@@ -259,24 +259,24 @@ public class BoardGenerator : MonoBehaviour
         }
         else
         {
-            Camera.main.orthographicSize = 12;
+            Camera.main.orthographicSize = 10.5f;
             cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
         }
 
 
         if (heighOfMap == 2)
         {
-            Camera.main.orthographicSize = 12;
+            Camera.main.orthographicSize = 10.5f;
             cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
         }
         else if (heighOfMap == 3)
         {
-            Camera.main.orthographicSize = 13;
+            Camera.main.orthographicSize = 12.5f;
             cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -9.25f);
         }
         else
         {
-            Camera.main.orthographicSize = 12;
+            Camera.main.orthographicSize = 10.5f;
             cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
         }
     }

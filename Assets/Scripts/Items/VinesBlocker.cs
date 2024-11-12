@@ -87,6 +87,7 @@ public class VinesBlocker : MonoBehaviour
         {
             rb.AddExplosionForce(forceToBreak, transform.position, radiusToBreak, upwardModifier, ForceMode.Impulse);
         }
+        currentCell.isVines = false;
         StartCoroutine(DisableThirdCol());
     }
 
@@ -153,5 +154,23 @@ public class VinesBlocker : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public IEnumerator MakeVinesBreak_WithDelay()
+    {
+        yield return new WaitForSeconds(1.2f);
+        switch (index)
+        {
+            case 0:
+                MakeFirstBreak();
+                break;
+            case 1:
+                MakeSecondBreak();
+                break;
+            case 2:
+                MakeThirdBreak();
+                break;
+        }
+        index++;
     }
 }

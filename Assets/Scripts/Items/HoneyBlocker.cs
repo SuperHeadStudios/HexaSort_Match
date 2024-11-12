@@ -42,7 +42,6 @@ public class HoneyBlocker : MonoBehaviour
 
     public IEnumerator MakeHoneyBreak()
     {
-        BottomCell.instance.isUseNow = true;
         yield return new WaitForSeconds(2.4f);
         foreach (Rigidbody rb in rbs)
         {

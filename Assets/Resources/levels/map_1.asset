@@ -30,7 +30,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 0, y: -1}
   - {x: 1, y: 0}
-  Difficulty: 2
+  Difficulty: 0
   Thresholds:
   - HexCount: 20
     MaxTypesInStack: 2
@@ -151,7 +151,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 7
+      State: 0
     - Row: 0
       Col: 1
       Types: 
