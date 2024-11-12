@@ -16,28 +16,44 @@ MonoBehaviour:
   - colorID: 0
     colorType: 0
     colorValue: {r: 0.82825136, g: 0, b: 1, a: 1}
-    material: {fileID: 2100000, guid: ef5e83849bfcc85409e6740bbc30e6c5, type: 2}
+    material: {fileID: 2100000, guid: 126e7af1fd28b64479b89d41ade6f791, type: 2}
   - colorID: 1
     colorType: 1
     colorValue: {r: 0.7735849, g: 0.11311854, b: 0.11311854, a: 1}
-    material: {fileID: 2100000, guid: 03ffdf16f3703e5418cb10bc519fcf6d, type: 2}
+    material: {fileID: 2100000, guid: 60e930b1cdf3cf04ebe8095970e0bfe4, type: 2}
   - colorID: 2
     colorType: 2
     colorValue: {r: 0.2251691, g: 0.8679245, b: 0.3419259, a: 1}
-    material: {fileID: 2100000, guid: 95459ca396b32b2458c3e337aae2b2f5, type: 2}
+    material: {fileID: 2100000, guid: 0f27501acc9271d458f5ad126e62e824, type: 2}
   - colorID: 3
     colorType: 4
     colorValue: {r: 0.8113208, g: 0.7482431, b: 0.15690637, a: 1}
-    material: {fileID: 2100000, guid: 3ecb56da9bd522c469322e9ae38a5f74, type: 2}
+    material: {fileID: 2100000, guid: 4ee079ada63496e4f9cb93f640a98e91, type: 2}
   - colorID: 4
     colorType: 8
     colorValue: {r: 0.4464631, g: 0, b: 1, a: 1}
-    material: {fileID: 2100000, guid: 9f0b35d316419ce4d84c93f06be45f35, type: 2}
+    material: {fileID: 2100000, guid: 8eb70a0b8e6e51045bda42f0a4a1f21f, type: 2}
   - colorID: 5
     colorType: 16
     colorValue: {r: 0.12482201, g: 0.7550684, b: 0.8018868, a: 1}
-    material: {fileID: 2100000, guid: 04e2867e2f5136149900c3995f61b773, type: 2}
+    material: {fileID: 2100000, guid: 856517742283f924b9eac29b2b7e30d9, type: 2}
   - colorID: 6
     colorType: 32
     colorValue: {r: 1, g: 0.37814653, b: 0, a: 1}
-    material: {fileID: 2100000, guid: d70228f019fe25e46b1e898f40ff9fef, type: 2}
+    material: {fileID: 2100000, guid: 87bde34a0067fce4a84b20e14bc5e522, type: 2}
+  - colorID: 7
+    colorType: 64
+    colorValue: {r: 0, g: 1, b: 0.7093437, a: 1}
+    material: {fileID: 2100000, guid: fba52bc81bde200469c9ec8c6d5f54bd, type: 2}
+  - colorID: 8
+    colorType: 128
+    colorValue: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
+    material: {fileID: 2100000, guid: 921dd8ec163a5a04cadd01601d6e7087, type: 2}
+  - colorID: 9
+    colorType: 256
+    colorValue: {r: 1, g: 0.6977567, b: 0.514151, a: 1}
+    material: {fileID: 2100000, guid: 8d734984bf0b2ee49aa9747c0b0d9c32, type: 2}
+  - colorID: 10
+    colorType: 800
+    colorValue: {r: 0, g: 0.40475988, b: 1, a: 1}
+    material: {fileID: 2100000, guid: ac11825e3a508ee43b4e8463451121b4, type: 2}

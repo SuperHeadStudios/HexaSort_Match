@@ -198,8 +198,41 @@ public class GameManager : MonoBehaviour
 
         if (isTestMode)
             levelIndex = levelTest;
+    }
 
 
+    public void LoadGameData(int level)
+    {
+        if (PlayerPrefs.GetInt("FirstGame") == 0)
+        {
+            levelIndex = 1;
+            // coinValue = 50;
+            hammerBoosterValue = 1;
+            moveBoosterValue = 1;
+            shuffleBoosterValue = 1;
+            currentLuckyWheel = 1;
+
+            coinValue = PlayerPrefs.GetInt("Coin", 50);
+            PlayerPrefs.SetInt("FirstGame", 1);
+            PlayerPrefs.SetInt("Coin", coinValue);
+            PlayerPrefs.SetInt("Hammer", hammerBoosterValue);
+            PlayerPrefs.SetInt("Move", moveBoosterValue);
+            PlayerPrefs.SetInt("Shuffle", shuffleBoosterValue);
+            PlayerPrefs.SetInt("CurrentLevel", levelIndex);
+            PlayerPrefs.SetInt("CurrentLuckyWheel", currentLuckyWheel);
+        }
+        else
+        {
+            coinValue = PlayerPrefs.GetInt("Coin", 50);
+            levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
+            hammerBoosterValue = PlayerPrefs.GetInt("Hammer");
+            moveBoosterValue = PlayerPrefs.GetInt("Move");
+            shuffleBoosterValue = PlayerPrefs.GetInt("Shuffle");
+            currentLuckyWheel = PlayerPrefs.GetInt("CurrentLuckyWheel");
+        }
+
+        if (isTestMode)
+            levelIndex = level;
     }
 
     private void ShowHome()

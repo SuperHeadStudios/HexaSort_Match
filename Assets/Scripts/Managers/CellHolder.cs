@@ -13,6 +13,9 @@ public class CellHolder : MonoBehaviour
 
     public int currentSlots;
 
+    private int maxNum = 6;
+    
+
     public enum DIFFICULT_LEVEL
     {
         EASY,
@@ -38,6 +41,31 @@ public class CellHolder : MonoBehaviour
 
     public void InitHolder()
     {
+
+        if(GameManager.instance.levelIndex > 5 && GameManager.instance.levelIndex <= 10)
+        {
+            maxNum = 9;
+            Debug.Log("Level"+ maxNum);
+        }
+        else if (GameManager.instance.levelIndex > 10 && GameManager.instance.levelIndex <= 15)
+        {
+            maxNum = 8;
+        }
+        else if (GameManager.instance.levelIndex > 15 && GameManager.instance.levelIndex <= 20)
+        {
+            maxNum = 9;
+        }
+        else if (GameManager.instance.levelIndex > 20 && GameManager.instance.levelIndex <= 30)
+        {
+            maxNum = 10;
+        }
+        else
+        {
+            maxNum = 6;
+        }
+
+        Debug.Log(GameManager.instance.levelIndex);
+
         currentSlots = 3;
         hexaColumnList = new List<HexaColumn>();
         //CreateFirstPiece();
@@ -76,9 +104,9 @@ public class CellHolder : MonoBehaviour
             HexaColumnData firstPiece = new HexaColumnData();
             firstPiece.columnDataList = new List<ColumnData>();
 
-            ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-            ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-            ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
+            ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+            ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+            ColumnData randomData3 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
@@ -131,9 +159,9 @@ public class CellHolder : MonoBehaviour
                 HexaColumnData firstPiece = new HexaColumnData();
                 firstPiece.columnDataList = new List<ColumnData>();
 
-                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-                ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+                ColumnData randomData3 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
 
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
@@ -214,7 +242,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            clampValue = Random.Range(0, 6);
+                            clampValue = Random.Range(0, maxNum);
                         }
 
                         clampValue = Mathf.Clamp(clampValue, 2, 4);
@@ -227,7 +255,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            colorID = Random.Range(0, 6);
+                            colorID = Random.Range(0, maxNum);
                         }
 
                         ColumnData columnData = new ColumnData(colorID, clampValue);
@@ -248,7 +276,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            clampValue = Random.Range(0, 6);
+                            clampValue = Random.Range(0, maxNum);
                         }
 
                         clampValue = Mathf.Clamp(clampValue, 2, 4);
@@ -261,7 +289,7 @@ public class CellHolder : MonoBehaviour
                         }
                         else
                         {
-                            colorID = Random.Range(0, 6);
+                            colorID = Random.Range(0, maxNum);
                         }
 
                         ColumnData columnData = new ColumnData(colorID, clampValue);
@@ -271,8 +299,8 @@ public class CellHolder : MonoBehaviour
             }
             else
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 5));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 6));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 5));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 6));
 
                 if (randomData1.colorID == randomData2.colorID)
                 {

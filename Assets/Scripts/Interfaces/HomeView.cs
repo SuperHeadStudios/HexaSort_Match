@@ -42,6 +42,13 @@ public class HomeView : BaseView
 
     }
 
+    public void DebugFunction(int level)
+    {
+        GameManager.instance.LoadGameData(level);
+        PlayGame();
+    }
+
+
     public void PlayGame()
     {
         if (GameManager.instance.livesManager.lives > 0)
