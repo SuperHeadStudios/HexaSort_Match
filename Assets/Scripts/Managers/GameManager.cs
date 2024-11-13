@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
         if (isTestMode)
             levelIndex = level;
 
-        PlayerPrefs.SetInt("CurrentLevel", level);
+        //PlayerPrefs.SetInt("CurrentLevel", level);
     }
 
     private void ShowHome()

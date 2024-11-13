@@ -20,7 +20,6 @@ public class MapDataLevelConfigSO : ScriptableObject
 
 	public List<DataConfigMaxGoalOfMap> Goals;
 
-
 	public Vector2Int[] CellsForTutorial;
 
 	public EnumConfigDiffTypeOfMap Difficulty;

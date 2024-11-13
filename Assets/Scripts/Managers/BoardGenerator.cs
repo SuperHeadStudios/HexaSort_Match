@@ -247,37 +247,37 @@ public class BoardGenerator : MonoBehaviour
 
     private void SetCam()
     {
-        if (widthOfMap == 2)
+        /*if (widthOfMap == 2)
         {
             Camera.main.orthographicSize = 10.5f;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
         }
         else if (widthOfMap == 3)
         {
             Camera.main.orthographicSize = 14;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.5f);
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
         }
         else
         {
             Camera.main.orthographicSize = 10.5f;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
         }
 
 
         if (heighOfMap == 2)
         {
             Camera.main.orthographicSize = 10.5f;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
         }
         else if (heighOfMap == 3)
         {
-            Camera.main.orthographicSize = 12.5f;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -9.25f);
+            Camera.main.orthographicSize = 10.5f;
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
         }
         else
         {
             Camera.main.orthographicSize = 10.5f;
-            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -7.5f);
-        }
+            cellHolder.transform.localPosition = new Vector3(0.0f, 0.0f, -8.0f);
+        }*/
     }
 }

@@ -115,7 +115,6 @@ public class BoardController : MonoBehaviour
                 {
                     DragCurrentColumn();
                 }
-
             }
 
             if (Input.GetMouseButtonUp(0))

@@ -13,7 +13,8 @@ public class CellHolder : MonoBehaviour
 
     public int currentSlots;
 
-    private int maxNum = 6;
+    private int maxNum ;
+    private int miniNum = 6;
     
 
     public enum DIFFICULT_LEVEL
@@ -41,31 +42,6 @@ public class CellHolder : MonoBehaviour
 
     public void InitHolder()
     {
-
-        if(GameManager.instance.levelIndex > 5 && GameManager.instance.levelIndex <= 10)
-        {
-            maxNum = 9;
-            Debug.Log("Level"+ maxNum);
-        }
-        else if (GameManager.instance.levelIndex > 10 && GameManager.instance.levelIndex <= 15)
-        {
-            maxNum = 8;
-        }
-        else if (GameManager.instance.levelIndex > 15 && GameManager.instance.levelIndex <= 20)
-        {
-            maxNum = 9;
-        }
-        else if (GameManager.instance.levelIndex > 20 && GameManager.instance.levelIndex <= 30)
-        {
-            maxNum = 10;
-        }
-        else
-        {
-            maxNum = 6;
-        }
-
-        Debug.Log(GameManager.instance.levelIndex);
-
         currentSlots = 3;
         hexaColumnList = new List<HexaColumn>();
         //CreateFirstPiece();
@@ -104,9 +80,9 @@ public class CellHolder : MonoBehaviour
             HexaColumnData firstPiece = new HexaColumnData();
             firstPiece.columnDataList = new List<ColumnData>();
 
-            ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-            ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-            ColumnData randomData3 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+            ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+            ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+            ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
@@ -159,9 +135,9 @@ public class CellHolder : MonoBehaviour
                 HexaColumnData firstPiece = new HexaColumnData();
                 firstPiece.columnDataList = new List<ColumnData>();
 
-                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-                ColumnData randomData3 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+                ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
@@ -207,7 +183,6 @@ public class CellHolder : MonoBehaviour
     }
     
 
-
     private IEnumerator ColumnAppear(GameObject column, int queueDelay)
     {
         yield return new WaitForSeconds(queueDelay * 0.15f);
@@ -218,9 +193,58 @@ public class CellHolder : MonoBehaviour
     }
 
 
-
     private void CreateNextPiece()
     {
+        if (GameManager.instance.levelIndex > 5 && GameManager.instance.levelIndex <= 10)
+        {
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
+            {
+                maxNum = 8;
+                Debug.Log("Level" + maxNum);
+            }
+            else
+            {
+                maxNum = 6;
+            }
+        }
+        else if (GameManager.instance.levelIndex > 10 && GameManager.instance.levelIndex <= 15)
+        {
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            {
+                maxNum = 9;
+                Debug.Log("Level" + maxNum);
+            }
+            else
+            {
+                maxNum = 6;
+            }
+        }
+        else if (GameManager.instance.levelIndex > 15 && GameManager.instance.levelIndex <= 20)
+        {
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            {
+                maxNum = 10;
+                Debug.Log("Level" + maxNum);
+            }
+            else
+            {
+                maxNum = 6;
+            }
+        }
+        else if (GameManager.instance.levelIndex > 20 && GameManager.instance.levelIndex <= 30)
+        {
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            {
+                maxNum = 11;
+                Debug.Log("Level" + maxNum);
+            }
+            else
+            {
+                maxNum = 6;
+            }
+        }
+
+
         for (int i = 0; i < currentSlots; i++)
         {
             HexaColumnData firstPiece = new HexaColumnData();

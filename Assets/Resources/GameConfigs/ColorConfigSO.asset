@@ -43,17 +43,17 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 87bde34a0067fce4a84b20e14bc5e522, type: 2}
   - colorID: 7
     colorType: 64
-    colorValue: {r: 0, g: 1, b: 0.7093437, a: 1}
-    material: {fileID: 2100000, guid: fba52bc81bde200469c9ec8c6d5f54bd, type: 2}
+    colorValue: {r: 0, g: 0.8773585, b: 0.1284507, a: 1}
+    material: {fileID: 2100000, guid: 992531e5ac54f44419e7201d752da824, type: 2}
   - colorID: 8
     colorType: 128
-    colorValue: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
-    material: {fileID: 2100000, guid: 921dd8ec163a5a04cadd01601d6e7087, type: 2}
+    colorValue: {r: 0.5471698, g: 0.53942686, b: 0.53942686, a: 1}
+    material: {fileID: 2100000, guid: 08dfbd33b6e3f1341a1a6ab7ef954cb6, type: 2}
   - colorID: 9
     colorType: 256
-    colorValue: {r: 1, g: 0.6977567, b: 0.514151, a: 1}
-    material: {fileID: 2100000, guid: 8d734984bf0b2ee49aa9747c0b0d9c32, type: 2}
+    colorValue: {r: 0.7529412, g: 0, b: 0, a: 1}
+    material: {fileID: 2100000, guid: 4e6c5d4960e266746853d9d8ad4edb8f, type: 2}
   - colorID: 10
     colorType: 800
     colorValue: {r: 0, g: 0.40475988, b: 1, a: 1}
-    material: {fileID: 2100000, guid: ac11825e3a508ee43b4e8463451121b4, type: 2}
+    material: {fileID: 2100000, guid: 5dc343dbebf92b14b94e9afce69f5f69, type: 2}
