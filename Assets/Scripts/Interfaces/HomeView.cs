@@ -43,7 +43,12 @@ public class HomeView : BaseView
 
     public override void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            //cameraT.parent = gamePlayerPosition;
+            cameraT.position = gamePlayerPosition.position;
+            cameraT.rotation = gamePlayerPosition.rotation;
+        }
     }
 
     public void DebugFunction(int level)
@@ -59,8 +64,8 @@ public class HomeView : BaseView
         {
             //AudioManager.instance.clickSound.Play();
             GameManager.instance.PlayGame();
-            cameraT.parent = gamePlayerPosition;
-            cameraT.position = Vector3.zero;
+            cameraT.position = gamePlayerPosition.position;
+            cameraT.rotation = gamePlayerPosition.rotation;
             homeScreen_D.SetActive(false);
         }
         else

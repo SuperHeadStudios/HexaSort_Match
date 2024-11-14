@@ -30,8 +30,18 @@ public class HomeScreen3D : MonoBehaviour
 
     private void OnEnable()
     {
-        Camera.transform.parent = cameraPosition;
-        Camera.transform.position = Vector3.zero;
+        Camera.transform.position = cameraPosition.position;
+        Camera.transform.rotation = cameraPosition.rotation;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //Camera.transform.parent = cameraPosition;
+            Camera.transform.position = cameraPosition.position;
+            Camera.transform.rotation = cameraPosition.rotation;
+        }
     }
 
     private IEnumerator StartLoopAnimation()
