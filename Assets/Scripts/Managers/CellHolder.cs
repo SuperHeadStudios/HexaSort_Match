@@ -14,8 +14,6 @@ public class CellHolder : MonoBehaviour
     public int currentSlots;
 
     private int maxNum ;
-    private int miniNum = 6;
-    
 
     public enum DIFFICULT_LEVEL
     {

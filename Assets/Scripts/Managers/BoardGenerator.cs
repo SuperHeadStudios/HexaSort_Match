@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class BoardGenerator : MonoBehaviour
@@ -81,6 +80,7 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenMap()
     {
+
         if (isDebug)
         {
             levelConfig = Resources.Load("levels/map_" + levelNum.ToString()) as MapDataLevelConfigSO;
@@ -89,6 +89,13 @@ public class BoardGenerator : MonoBehaviour
         {
             levelConfig = Resources.Load("levels/map_" + GameManager.instance.levelIndex.ToString()) as MapDataLevelConfigSO;
         }
+
+        float boardPos_Z = levelConfig.boardPos_Z;
+        float cellPos_Z = levelConfig.cellPos_Z;
+        float camZoom = levelConfig.cameraZoom;
+        transform.position = new Vector3(0f,0f,boardPos_Z);
+        cellHolder.position = new Vector3(0,0,cellPos_Z);
+        Camera.main.orthographicSize = camZoom;
 
         bottomCellList = new List<BottomCell>();
 

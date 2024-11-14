@@ -5,6 +5,10 @@ using UnityEngine;
 public class MapDataLevelConfigSO : ScriptableObject
 {
 	public bool isBlockers;
+
+	public float cameraZoom;
+	public float boardPos_Z;
+	public float cellPos_Z;
 	
 	public EnumModeGameplayOfMap LevelMode;
 
@@ -27,4 +31,6 @@ public class MapDataLevelConfigSO : ScriptableObject
 	public DataConfigDiffOfMapLevel[] Thresholds;
 
 	public ConfigMapDataDO LevelData;
+
+
 }

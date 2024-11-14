@@ -419,7 +419,7 @@ public class BottomCell : MonoBehaviour
         }
     }
 
-    int displayValue_1 = 0;
+    //int displayValue_1 = 0;
     public void UpdateText(int endValue, float duration, BottomCell nearCell, int currentCount)
     {
         // Initialize displayValue_1 from the starting cost (before reduction)

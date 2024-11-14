@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using GoogleMobileAds.Api;
 using UnityEngine;
@@ -19,7 +17,8 @@ public class PopupLose : BasePopup
     public CanvasGroup areYouSure;
 
     [SerializeField] private HomeView homeView;
-    [SerializeField] private Button coinBtn; 
+    [SerializeField] private Button coinBtn;
+    [SerializeField] private GameObject settingBtn;
 
 
     private void FixedUpdate()
@@ -66,6 +65,7 @@ public class PopupLose : BasePopup
         {
             areYouSure.alpha = 0;
             ShowView();
+            settingBtn.SetActive(true);
         });
     }
 
@@ -73,6 +73,7 @@ public class PopupLose : BasePopup
     {
         losePopup.DOScale(Vector3.zero, 0.01f).SetEase(Ease.InBack).OnComplete(() =>
         {
+            settingBtn.SetActive(false);
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             isShow = true;
@@ -80,6 +81,7 @@ public class PopupLose : BasePopup
             areYouSure.blocksRaycasts = true;
             areYouSure.interactable = true;
             areYouSurePopup.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+
         });
     }
 

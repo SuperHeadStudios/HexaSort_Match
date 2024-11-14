@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: map_8
   m_EditorClassIdentifier: 
   isBlockers: 0
+  cameraZoom: 10.5
+  boardPos_Z: -0.6
+  cellPos_Z: -8
   LevelMode: 0
   Time: 0
   Moves: 0

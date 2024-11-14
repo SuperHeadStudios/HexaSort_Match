@@ -5,12 +5,10 @@ public class GrassBlocker : MonoBehaviour
 {
     public static GrassBlocker instance;
     [SerializeField] private Rigidbody[] rbs;
-    [SerializeField] private float forceToBreak = 40f;
     [SerializeField] private float radiusToBreak = .5f;
     public float upwardModifier = 1.8f;
     [SerializeField] private BottomCell currentCell;
     [SerializeField] private ParticleSystem grassBreak;
-
     [SerializeField] public Transform centerLeaf;
 
     private void Awake()

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingBar : MonoBehaviour
@@ -35,7 +36,11 @@ public class SettingBar : MonoBehaviour
     [SerializeField] private Button vibrateBtn;
     [SerializeField] private Button restartbtn;
     [SerializeField] private Button homeBtn;
-    
+
+
+    [SerializeField] private CanvasGroup areYouSure;
+    [SerializeField] private Transform areYouSurePopup;
+    [SerializeField] private GameObject setBtn;
 
 
     [SerializeField] private bool isMusicToggle = false;
@@ -78,8 +83,38 @@ public class SettingBar : MonoBehaviour
         lifeBar.SetActive(true);
     }
 
+    public void AreYouSure()
+    {
+        setBtn.SetActive(false);
+        areYouSure.alpha = 1;
+        areYouSure.blocksRaycasts = true;
+        areYouSure.interactable = true;
+        areYouSurePopup.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+    }
+
+    public void HideSure()
+    {
+        areYouSurePopup.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            setBtn.SetActive(true);
+            areYouSure.alpha = 0;
+            areYouSure.blocksRaycasts = false;
+            areYouSure.interactable = false;
+        });
+    }
+
+    public void LifeLoseButton()
+    {
+        AdsControl.Instance.directPlay = false;
+        GameManager.instance.livesManager.ConsumeLife();
+        GameManager.instance.BackToHome();
+        SceneManager.LoadScene(0);
+    }
+
+
     private void UpdateUiOnStart()
     {
+        
         isMusicToggle = PlayerPrefsManager.GetMusicState();
         isSoundToggle = PlayerPrefsManager.GetSoundState();
         isVibrationToggle = PlayerPrefsManager.GetVibrateState();
