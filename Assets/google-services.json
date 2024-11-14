@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "262744216299",
+    "project_id": "flower-hexa-puzzle",
+    "storage_bucket": "flower-hexa-puzzle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262744216299:android:12b978c519c749006024ae",
+        "android_client_info": {
+          "package_name": "com.ss.flowerhexapuzzle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ8CdHbZLxIaJS11msLPFEwyLZ_Laeh7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,6 @@ public class HomeScreen3D : MonoBehaviour
     [SerializeField] private float duration = 1.5f;
     [SerializeField] private float rotationDuration = 1.5f;
     [SerializeField] private Ease ease = Ease.Linear;
-    [SerializeField] private Transform map;
     [SerializeField] private FlowerStack choosenFlowerStack;
     [SerializeField] private Vector3 rotateFactor;
     [SerializeField] private int firstStackMoveCount = 0;
@@ -22,6 +21,7 @@ public class HomeScreen3D : MonoBehaviour
     [SerializeField] private Camera Camera;
     [SerializeField] private Transform cameraPosition;
 
+    [SerializeField] private bool isLoading = false;
 
     private void Start()
     {
@@ -30,6 +30,7 @@ public class HomeScreen3D : MonoBehaviour
 
     private void OnEnable()
     {
+        if (isLoading) return;
         Camera.transform.position = cameraPosition.position;
         Camera.transform.rotation = cameraPosition.rotation;
     }
