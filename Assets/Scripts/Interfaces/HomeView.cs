@@ -53,7 +53,7 @@ public class HomeView : BaseView
 
     public void DebugFunction(int level)
     {
-        GameManager.instance.LoadGameData(level);
+        GameManager.instance.LoadGameData(level,true);
         PlayGame();
     }
 

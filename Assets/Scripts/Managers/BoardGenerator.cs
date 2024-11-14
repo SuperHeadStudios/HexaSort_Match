@@ -94,7 +94,7 @@ public class BoardGenerator : MonoBehaviour
         float cellPos_Z = levelConfig.cellPos_Z;
         float camZoom = levelConfig.cameraZoom;
         transform.position = new Vector3(0f,0f,boardPos_Z);
-        cellHolder.position = new Vector3(0,0,cellPos_Z);
+        cellHolder.position = new Vector3(0,-0.6f,cellPos_Z);
         Camera.main.orthographicSize = camZoom;
 
         bottomCellList = new List<BottomCell>();
