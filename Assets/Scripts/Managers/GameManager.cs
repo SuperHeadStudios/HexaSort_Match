@@ -196,6 +196,8 @@ public class GameManager : MonoBehaviour
             currentLuckyWheel = PlayerPrefs.GetInt("CurrentLuckyWheel");
         }
 
+        FirebaseManager.instance.LogStartEvent(levelIndex);
+
         if (isTestMode)
             levelIndex = levelTest;
     }
@@ -321,6 +323,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowGameWinIE()
     {
+        FirebaseManager.instance.LogWinEvent(levelIndex);
+
         yield return new WaitForSeconds(.02f);
         AudioManager.instance.confettiBlast.Play();
 
@@ -328,6 +332,9 @@ public class GameManager : MonoBehaviour
         uiManager.popupWin.InitView();
 
         yield return new WaitForSeconds(0.1f);
+
+        AppLovinMaxAdManager.instance.HideBannerAd();
+        AdsControl.Instance.ShowInterstital(AdLocation.Win);
 
         if (levelIndex >= 3)
         {
@@ -353,10 +360,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowGameLoseIE()
     {
+        FirebaseManager.instance.LogLoseEvent(levelIndex);
         yield return new WaitForSeconds(1.0f);
 
-        AppLovinMaxAdManager.instance.HideBannerAd();
-        AdsControl.Instance.ShowInterstital(AdLocation.Lose);
+        if (levelIndex >= 3)
+        {
+            AppLovinMaxAdManager.instance.HideBannerAd();
+            AdsControl.Instance.ShowInterstital(AdLocation.Win);
+        }
 
         uiManager.popupLose.InitView();
         uiManager.popupLose.ShowView();
