@@ -273,7 +273,7 @@ public class BottomCell : MonoBehaviour
     {
         bottomParticle.Stop();
         meshRenderer.material = cellMaterial;
-        meshRenderer.transform.localPosition = new Vector3(0, 0.0f, 0);
+        meshRenderer.transform.localPosition = new Vector3(0, -0.1f, 0);
     }
 
     private void AdCell()
@@ -308,12 +308,14 @@ public class BottomCell : MonoBehaviour
     }
     private void LockCell()
     {
+        meshRenderer.material = lockMaterial;
         lockObj.SetActive(true);
     }
     private void OpenLockCell()
     {
         isLock = false;
         lockObj.SetActive(false);
+        meshRenderer.material = cellMaterial;
     }
 
     private void OpenCell()

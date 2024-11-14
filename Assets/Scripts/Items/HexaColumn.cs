@@ -15,9 +15,9 @@ public class HexaColumn : MonoBehaviour
 
     public HexaColumnData currentHexaColumnData;
 
-    private const float localSpacingY = 0.15f;
+    private const float localSpacingY = 0.20f;
 
-    private const float colliderHeight = 0.16f;
+    private const float colliderHeight = 0.21f;
 
     public BoxCollider boxCollider;
 

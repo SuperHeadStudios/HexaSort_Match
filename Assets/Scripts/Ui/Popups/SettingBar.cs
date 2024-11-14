@@ -89,7 +89,7 @@ public class SettingBar : MonoBehaviour
         areYouSure.alpha = 1;
         areYouSure.blocksRaycasts = true;
         areYouSure.interactable = true;
-        areYouSurePopup.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
+        areYouSurePopup.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
     }
 
     public void HideSure()

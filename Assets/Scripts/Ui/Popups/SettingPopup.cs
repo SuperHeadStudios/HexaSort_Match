@@ -44,7 +44,7 @@ public class SettingPopup : MonoBehaviour
 
 
         popup.localScale = Vector3.zero;
-        popup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
+        popup.DOScale(Vector3.one * 0.85f, 1f).SetEase(Ease.OutBounce);
         UpdateUiOnStart();
     }
     private void UpdateUiOnStart()

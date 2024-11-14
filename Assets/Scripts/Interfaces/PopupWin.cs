@@ -146,7 +146,7 @@ public class PopupWin : BasePopup
             crown.DOMove(crownTarget.position, .8f).SetEase(Ease.OutBounce);
 
             AudioManager.instance.winSound.Play();
-            popUp.DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
+            popUp.DOScale(Vector3.one*0.9f, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
                 rightHorn.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {

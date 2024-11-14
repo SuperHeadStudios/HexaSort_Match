@@ -195,9 +195,9 @@ public class CellHolder : MonoBehaviour
     {
         if (GameManager.instance.levelIndex > 0 && GameManager.instance.levelIndex <= 10)
         {
-            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(10, 200))
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
             {
-                maxNum = 11;
+                maxNum = 8;
                 Debug.Log("Level" + maxNum);
             }
             else
@@ -207,7 +207,7 @@ public class CellHolder : MonoBehaviour
         }
         else if (GameManager.instance.levelIndex > 10 && GameManager.instance.levelIndex <= 15)
         {
-            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
             {
                 maxNum = 9;
                 Debug.Log("Level" + maxNum);
@@ -219,7 +219,7 @@ public class CellHolder : MonoBehaviour
         }
         else if (GameManager.instance.levelIndex > 15 && GameManager.instance.levelIndex <= 20)
         {
-            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
             {
                 maxNum = 10;
                 Debug.Log("Level" + maxNum);
@@ -231,7 +231,7 @@ public class CellHolder : MonoBehaviour
         }
         else if (GameManager.instance.levelIndex > 20 && GameManager.instance.levelIndex <= 30)
         {
-            if (BoardController.instance.boardGenerator.CurrentProgressCount() > Random.Range(100, 200))
+            if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
             {
                 maxNum = 11;
                 Debug.Log("Level" + maxNum);
