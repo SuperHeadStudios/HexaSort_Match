@@ -2,9 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using GoogleMobileAds.Api;
 using static AdsControl;
-using UnityEngine.Advertisements;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -146,7 +144,7 @@ public class PopupWin : BasePopup
             crown.DOMove(crownTarget.position, .8f).SetEase(Ease.OutBounce);
 
             AudioManager.instance.winSound.Play();
-            popUp.DOScale(Vector3.one*0.9f, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
+            popUp.DOScale(Vector3.one, 0.8f).SetEase(Ease.OutBounce).OnComplete(() =>
             {
                 rightHorn.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
@@ -295,58 +293,13 @@ public class PopupWin : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnReward);
-                }
-            }
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.UNITY)
-        {
-            ShowRWUnityAds();
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.MEDIATION)
-        {
-            if (AdsControl.Instance.rewardedAd.CanShowAd())
 
-                AdsControl.Instance.ShowRewardAd(EarnReward);
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
 
-            else
-                ShowRWUnityAds();
-        }
-    }
-
-    public void EarnReward(Reward reward)
-    {
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
         GameManager.instance.AddCoin(2 * rwValue);
         StartCoroutine(NextGameIE());
-    }
-
-    public void ShowRWUnityAds()
-    {
-        AdsControl.Instance.PlayUnityVideoAd((string ID, UnityAdsShowCompletionState callBackState) =>
-        {
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                nextBtn.interactable = false;
-                x2ClaimBtn.interactable = false;
-                GameManager.instance.AddCoin(2 * rwValue);
-                StartCoroutine(NextGameIE());
-            }
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                AdsControl.Instance.LoadUnityAd();
-            }
-
-        });
     }
 
     #endregion

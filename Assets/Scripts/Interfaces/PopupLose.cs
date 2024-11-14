@@ -1,5 +1,4 @@
 using DG.Tweening;
-using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
@@ -45,7 +44,7 @@ public class PopupLose : BasePopup
     {
         losePopup.localScale = Vector3.zero;
         canvasGroup.alpha = 1;
-        losePopup.DOScale(Vector3.one * 0.9f, 1f).SetEase(Ease.OutBounce);
+        losePopup.DOScale(Vector3.one, 1f).SetEase(Ease.OutBounce);
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
@@ -136,52 +135,10 @@ public class PopupLose : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnReward);
-                }
-            }
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.UNITY)
-        {
-            ShowRWUnityAds();
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.MEDIATION)
-        {
-            if (AdsControl.Instance.rewardedAd.CanShowAd())
-
-                AdsControl.Instance.ShowRewardAd(EarnReward);
-
-            else
-                ShowRWUnityAds();
-        }
-    }
-
-    public void EarnReward(Reward reward)
-    {
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
         Retrive();
     }
 
-    public void ShowRWUnityAds()
-    {
-        AdsControl.Instance.PlayUnityVideoAd((string ID, UnityAdsShowCompletionState callBackState) =>
-        {
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                Retrive();
-            }
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                AdsControl.Instance.LoadUnityAd();
-            }
-        });
-    }
 
     public void BuySpecialPack()
     {

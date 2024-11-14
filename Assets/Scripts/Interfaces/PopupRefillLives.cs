@@ -1,7 +1,6 @@
-using GoogleMobileAds.Api;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.UI;
 using static AdsControl;
 
@@ -87,53 +86,9 @@ public class PopupRefillLives : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnReward);
-                }
-            }
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.UNITY)
-        {
-            ShowRWUnityAds();
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.MEDIATION)
-        {
-            if (AdsControl.Instance.rewardedAd.CanShowAd())
 
-                AdsControl.Instance.ShowRewardAd(EarnReward);
-
-            else
-                ShowRWUnityAds();
-        }
-    }
-
-    public void EarnReward(Reward reward)
-    {
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
         GameManager.instance.livesManager.GiveOneLife();
         FillHearts();
-    }
-
-    public void ShowRWUnityAds()
-    {
-        AdsControl.Instance.PlayUnityVideoAd((string ID, UnityAdsShowCompletionState callBackState) =>
-        {
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                GameManager.instance.livesManager.GiveOneLife();
-                FillHearts();
-            }
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                AdsControl.Instance.LoadUnityAd();
-            }
-
-        });
     }
 }

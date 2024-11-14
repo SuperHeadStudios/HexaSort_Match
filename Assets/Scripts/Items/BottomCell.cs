@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using GoogleMobileAds.Api;
 using UnityEngine;
 using static AdsControl;
 using UnityEngine.Advertisements;
@@ -273,7 +272,7 @@ public class BottomCell : MonoBehaviour
     {
         bottomParticle.Stop();
         meshRenderer.material = cellMaterial;
-        meshRenderer.transform.localPosition = new Vector3(0, -0.1f, 0);
+        meshRenderer.transform.localPosition = new Vector3(0, 0.0f, 0);
     }
 
     private void AdCell()
@@ -308,14 +307,12 @@ public class BottomCell : MonoBehaviour
     }
     private void LockCell()
     {
-        meshRenderer.material = lockMaterial;
         lockObj.SetActive(true);
     }
     private void OpenLockCell()
     {
         isLock = false;
         lockObj.SetActive(false);
-        meshRenderer.material = cellMaterial;
     }
 
     private void OpenCell()
@@ -506,57 +503,11 @@ public class BottomCell : MonoBehaviour
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnReward);
-                }
-            }
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.UNITY)
-        {
-            ShowRWUnityAds();
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.MEDIATION)
-        {
-            if (AdsControl.Instance.rewardedAd.CanShowAd())
-
-                AdsControl.Instance.ShowRewardAd(EarnReward);
-
-            else
-                ShowRWUnityAds();
-        }
-    }
-
-    public void EarnReward(Reward reward)
-    {
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
         adBlockerParticle.Play();
         AudioManager.instance.rewardDone.Play();
         isAd = false;
         meshRenderer.material = cellMaterial;
         AdObj.SetActive(false);
     }
-
-    public void ShowRWUnityAds()
-    {
-        AdsControl.Instance.PlayUnityVideoAd((string ID, UnityAdsShowCompletionState callBackState) =>
-        {
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                isAd = false;
-                meshRenderer.material = cellMaterial;
-                AdObj.SetActive(false);
-            }
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                AdsControl.Instance.LoadUnityAd();
-            }
-        });
-    }
-
 }

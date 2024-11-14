@@ -4,8 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using static AdsControl;
-using GoogleMobileAds.Api;
-using UnityEngine.Advertisements;
 
 public class LuckyWheelView : BaseView
 {
@@ -177,52 +175,8 @@ public class LuckyWheelView : BaseView
     public void WatchAdsSpin()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnFreeSpin);
-                }
-            }
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.UNITY)
-        {
-            ShowRWUnityAds();
-        }
-        else if (AdsControl.Instance.currentAdsType == ADS_TYPE.MEDIATION)
-        {
-            if (AdsControl.Instance.rewardedAd.CanShowAd())
 
-                AdsControl.Instance.ShowRewardAd(EarnFreeSpin);
-
-            else
-                ShowRWUnityAds();
-        }   
-    }
-
-    public void EarnFreeSpin(Reward reward)
-    {
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
         StartSpin();
     }
-
-    public void ShowRWUnityAds()
-    {
-        AdsControl.Instance.PlayUnityVideoAd((string ID, UnityAdsShowCompletionState callBackState) =>
-        {
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                StartSpin();
-            }
-
-            if (ID.Equals(AdsControl.Instance.adUnityRWUnitId) && callBackState.Equals(UnityAdsShowCompletionState.COMPLETED))
-            {
-                AdsControl.Instance.LoadUnityAd();
-            }
-
-        });
-    }
-    
 }

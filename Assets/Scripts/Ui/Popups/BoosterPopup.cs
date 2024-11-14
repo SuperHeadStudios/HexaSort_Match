@@ -1,6 +1,4 @@
-using GoogleMobileAds.Api;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -167,19 +165,11 @@ public class BoosterPopup : MonoBehaviour
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        if (AdsControl.Instance.currentAdsType == ADS_TYPE.ADMOB)
-        {
-            if (AdsControl.Instance.rewardedAd != null)
-            {
-                if (AdsControl.Instance.rewardedAd.CanShowAd())
-                {
-                    AdsControl.Instance.ShowRewardAd(EarnReward);
-                }
-            }
-        }
+        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        EarnReward();
     }
 
-    public void EarnReward(Reward reward)
+    public void EarnReward()
     {
         switch (_state)
         {
