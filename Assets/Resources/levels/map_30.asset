@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: map_30
   m_EditorClassIdentifier: 
   isBlockers: 0
-  cameraZoom: 10.5
+  cameraZoom: 13.5
   boardPos_Z: 0
-  cellPos_Z: -8
+  cellPos_Z: -9.5
   LevelMode: 0
   Time: 0
   Moves: 0
@@ -292,6 +292,70 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 8
+    - Row: 1
+      Col: -3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 1
+      Col: 3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 0
+      Col: -3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 0
+      Col: 3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: -1
+      Col: -3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: -1
+      Col: 3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: -2
+      Col: -3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: -2
+      Col: 3
+      Types: 0100000001000000100000001000000020000000200000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
     Pieces:
     - Types: 
     - Types: 

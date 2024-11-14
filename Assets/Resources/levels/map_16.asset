@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: map_16
   m_EditorClassIdentifier: 
   isBlockers: 0
-  cameraZoom: 10.5
-  boardPos_Z: 0
-  cellPos_Z: -8
+  cameraZoom: 11.5
+  boardPos_Z: -0.2
+  cellPos_Z: -8.5
   LevelMode: 0
   Time: 0
   Moves: 0
@@ -214,8 +214,8 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 0
-    - Row: -3
-      Col: -2
+    - Row: 2
+      Col: 2
       Types: 
       Cost: 0
       CoinCost: 0

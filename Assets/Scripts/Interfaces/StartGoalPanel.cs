@@ -68,7 +68,6 @@ public class StartGoalPanel : BasePopup
             honeyGoal.SetActive(true);
         }
 
-        rootTrans.localScale = Vector3.zero;
         goalTxt.transform.localScale = Vector3.zero;
         for (int i = 0; i < allGoals.Length; i++)
         {
@@ -77,7 +76,7 @@ public class StartGoalPanel : BasePopup
 
         yield return new WaitForSeconds(0.3f);
 
-        rootTrans.DOScale(Vector3.one, .8f).SetEase(Ease.OutExpo).OnComplete(() =>
+        rootTrans.DOLocalMoveY(rootTrans.localPosition.y + 1400, .8f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
             goalTxt.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
             StartCoroutine(GoalsAnimation());
@@ -103,7 +102,7 @@ public class StartGoalPanel : BasePopup
 
     public override void HideView()
     {
-        rootTrans.DOScale(Vector3.zero * 0.5f, 0.6f).SetDelay(0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
+        rootTrans.DOLocalMoveY(rootTrans.position.y + 1400, 0.6f).SetDelay(0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
             canvasGroup.alpha = 0.0f;
             canvasGroup.interactable = false;
@@ -112,6 +111,7 @@ public class StartGoalPanel : BasePopup
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
             boosterPannel.ShowBoosterUnlockPopup();
             blockerUnlockPopup.ShowBlockerUnlockPopup();
+            rootTrans.DOLocalMoveY(rootTrans.position.y - 1400, 0f);
         });
     }
 }
