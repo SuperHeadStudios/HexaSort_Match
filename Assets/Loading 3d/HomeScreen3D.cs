@@ -8,58 +8,60 @@ using UnityEngine.UIElements;
 public class HomeScreen3D : MonoBehaviour
 {
     [SerializeField] private FlowerStack[] mapTiles; 
+    [SerializeField] private List<FlowerStack> mainFilledTiles;
     [SerializeField] private float jumpPower = 3f;
     [SerializeField] private int numJumps = 1;
     [SerializeField] private float duration = 1.5f;
     [SerializeField] private float rotationDuration = 1.5f;
     [SerializeField] private Ease ease = Ease.Linear;
-
-    [SerializeField] private FlowerStack currentFlowerStack;
-    [SerializeField] private FlowerStack choosednFlowerStack;
+    [SerializeField] private Transform map;
+    [SerializeField] private FlowerStack choosenFlowerStack;
+    [SerializeField] private Vector3 rotateFactor;
+    [SerializeField] private int firstStackMoveCount = 0;
 
 
     private void Start()
     {
-       
+        StartCoroutine(StartLoopAnimation());
     }
 
-    private void Update()
+  
+
+    private IEnumerator StartLoopAnimation()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        while (true)
         {
-            for (int i = 0; i < mapTiles.Length; i++)
+            if (firstStackMoveCount == 0)
             {
-                if (mapTiles[i].isOccupied)
+                mainFilledTiles.Clear();
+
+                for (int i = 0; i < mapTiles.Length; i++)
                 {
-                    currentFlowerStack = mapTiles[i];
+                    if (mapTiles[i].isOccupied)
+                    {
+                        mainFilledTiles.Add(mapTiles[i]);
+                    }
                 }
-                break;
             }
 
-            choosednFlowerStack = ChooseRandomTile();
+            StartCoroutine(JumpHexaStack(mainFilledTiles[firstStackMoveCount]));
 
-            if (choosednFlowerStack != null)
-            {
-                Debug.Log("Chosen tile: " + choosednFlowerStack.name);
-            }
-            else
-            {
-                Debug.Log("No available tiles to choose from.");
-            }
-            StartCoroutine(JumpHexaStack());
+            yield return new WaitForSeconds(1.5f);
+
         }
     }
 
 
-    private IEnumerator JumpHexaStack()
+    private IEnumerator JumpHexaStack(FlowerStack currentFlowerStack)
     {
         float yValue = 0.5f;
 
-        for (int i = currentFlowerStack.currentStack.Count - 1; i >= 0 ; i--)
+        choosenFlowerStack = ChooseRandomTile(currentFlowerStack);
+        for (int i = currentFlowerStack.currentStack.Count - 1; i >= 0; i--)
         {
             Transform objectToMove = currentFlowerStack.currentStack[i];
 
-            Vector3 positionToMove = choosednFlowerStack.transform.position;
+            Vector3 positionToMove = choosenFlowerStack.transform.position;
             positionToMove.y += yValue;
 
             GetDirection(positionToMove, objectToMove);
@@ -69,8 +71,8 @@ public class HomeScreen3D : MonoBehaviour
                 // Create a jump animation
                 objectToMove.DOJump(positionToMove, jumpPower, numJumps, duration).SetEase(ease).OnComplete(() =>
                 {
-                    choosednFlowerStack.AddHexa(objectToMove);
-                    objectToMove.transform.parent = choosednFlowerStack.transform;
+                    choosenFlowerStack.AddHexa(objectToMove);
+                    objectToMove.transform.parent = choosenFlowerStack.transform;
                 });
 
             }
@@ -78,13 +80,19 @@ public class HomeScreen3D : MonoBehaviour
             yValue += 0.2f;
         }
 
+
         currentFlowerStack.currentStack.Clear();
-        choosednFlowerStack.isOccupied = true;
+        choosenFlowerStack.isOccupied = true;
         currentFlowerStack.isOccupied = false;
 
-        currentFlowerStack = choosednFlowerStack;
+        firstStackMoveCount++;
 
-    }   
+        if(firstStackMoveCount > 2)
+        {
+            firstStackMoveCount = 0;
+        }
+        yield return new WaitForSeconds(1f);
+    }
 
     private void GetDirection(Vector3 endPosition, Transform obj)
     {
@@ -123,13 +131,13 @@ public class HomeScreen3D : MonoBehaviour
         }*/
     }
 
-    private FlowerStack ChooseRandomTile()
+    private FlowerStack ChooseRandomTile(FlowerStack currentFlowerStack)
     {
         FlowerStack randomTile = null;
         List<FlowerStack> availableTiles = new List<FlowerStack>();
 
         // Populate the list of available tiles, ignoring the currently chosen tile
-        foreach (var tile in mapTiles)
+        foreach (var tile in currentFlowerStack.nearByCells)
         {
             if (tile != currentFlowerStack && !tile.isOccupied)
             {

@@ -7,6 +7,10 @@ public class FlowerStack : MonoBehaviour
     public bool isOccupied = false;
     public List<Transform> currentStack = new List<Transform>();
 
+    public List<FlowerStack> nearByCells;
+
+    public int moveCount = 2;
+
     public void AddHexa(Transform flower)
     {
         currentStack.Add(flower);
@@ -18,4 +22,6 @@ public class FlowerStack : MonoBehaviour
         currentStack.Clear();
         isOccupied = false; 
     }    
+
+
 }
