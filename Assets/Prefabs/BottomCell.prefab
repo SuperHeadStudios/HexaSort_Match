@@ -3896,10 +3896,6 @@ PrefabInstance:
       propertyPath: currentCell
       value: 
       objectReference: {fileID: 8938884348770471384}
-    - target: {fileID: 3947863988477896525, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: unlockParticle
-      value: 
-      objectReference: {fileID: 9109460407792544197}
     - target: {fileID: 4273346221857931906, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3944,21 +3940,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockBlocker
       objectReference: {fileID: 0}
-    - target: {fileID: 5960077453873840619, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6368261158717752357, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6999629183167402363, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1726025475755920100, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
@@ -3992,11 +3975,6 @@ Transform:
 --- !u!1 &8473700087318125433 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5960077453873840619, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
-  m_PrefabInstance: {fileID: 2823426600601393810}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &9109460407792544197 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6432721858181313367, guid: 8a947af97d97ae34ab64e64f7b398fc3, type: 3}
   m_PrefabInstance: {fileID: 2823426600601393810}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3509318394341468885
