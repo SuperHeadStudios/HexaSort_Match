@@ -165,7 +165,7 @@ public class BoosterPopup : MonoBehaviour
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(CurrentAdLocation());
         EarnReward();
     }
 
@@ -189,5 +189,23 @@ public class BoosterPopup : MonoBehaviour
         }
 
         gameView.closePurchse();
+    }
+
+    public AdLocation CurrentAdLocation()
+    {
+        if(_state == BoosterState.Hammer)
+        {
+            return AdLocation.Hammer_Booster;
+        }
+        else if(_state == BoosterState.Swap)
+        {
+            return AdLocation.Swap_Booster;
+        }
+        else if(_state != BoosterState.Refresh)
+        {
+            return AdLocation.Shuffule_Booster;
+        }
+
+        return AdLocation.None;
     }
 }

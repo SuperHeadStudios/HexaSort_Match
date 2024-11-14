@@ -110,7 +110,7 @@ public class RewardButton : MonoBehaviour
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+       // AppLovinMaxAdManager.instance.ShowRewardedAd();
         AudioManager.instance.rewardDone.Play();
         long dailyKey = (long)(DateTime.Today.Subtract(new DateTime(2019, 1, 1))).TotalSeconds;
         PlayerPrefs.SetInt("Daily" + dailyKey.ToString() + itemIndex.ToString(), 1);

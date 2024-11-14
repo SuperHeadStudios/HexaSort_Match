@@ -16,23 +16,6 @@ public class FirebaseManager : MonoBehaviour
     private float levelEndTime;
 
 
-    public enum AdType
-    {
-        Banner,
-        Interstitial,
-        Reward_Interstitial,
-        Reward,
-        AppOpen
-    }
-
-    public enum AdLocation
-    {
-        Win,
-        Lose,
-        Home,
-        Hammer_Booster
-    }
-
     enum LevelTrack
     {
         Start_,
@@ -124,31 +107,7 @@ public class FirebaseManager : MonoBehaviour
 
     #region Track_Ad_Impressions
 
-    private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-    {
-        double revenue = adInfo.Revenue;
-
-        // Miscellaneous data
-        string countryCode = MaxSdk.GetSdkConfiguration().CountryCode; // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD"
-        string networkName = adInfo.NetworkName; // Display name of the network that showed the ad
-        string adUnitIdentifier = adInfo.AdUnitIdentifier; // The MAX Ad Unit ID
-        string placement = adInfo.Placement; // The placement this ad's postbacks are tied to
-        string networkPlacement = adInfo.NetworkPlacement; // The placement ID from the network that showed the ad
-    }
-
-    private AdType DetermineAdType(string adUnitIdentifier)
-    {
-        if (adUnitIdentifier.Contains("rewarded"))
-            return AdType.Reward;
-        else if (adUnitIdentifier.Contains("interstitial"))
-            return AdType.Interstitial;
-        else if (adUnitIdentifier.Contains("appopen"))
-            return AdType.AppOpen;
-        else
-            return AdType.Banner;
-    }
-
-    public void TrackAdImpression(AdType adType, AdLocation adLocation, string adNetwork, int adCount)
+    public void TrackAdImpression(AdType adType, AdLocation adLocation, string adNetwork, int adCount, double ecpm, double revenue)
     {
         if (app != null)
         {
@@ -156,7 +115,9 @@ public class FirebaseManager : MonoBehaviour
                 new Parameter("ad_type", adType.ToString()),
                 new Parameter("ad_location", adLocation.ToString()),
                 new Parameter("ad_network", adNetwork),
-                new Parameter("ad_count", adCount)
+                new Parameter("ad_count", adCount),
+                new Parameter("ad_cpm", ecpm),
+                new Parameter("ad_revnue", revenue)
             );
             Debug.Log($"Ad impression tracked: Type - {adType}, Location - {adLocation}, Network - {adNetwork}, Count - {adCount}");
         }
@@ -289,4 +250,32 @@ public class FirebaseManager : MonoBehaviour
 
     #endregion
 
+}
+
+
+
+public enum AdType
+{
+    Banner,
+    Interstitial,
+    Reward_Interstitial,
+    Reward,
+    AppOpen
+}
+
+public enum AdLocation
+{
+    Game,
+    Win,
+    Lose,
+    Home,
+    Hammer_Booster,
+    Swap_Booster,
+    Shuffule_Booster,
+    AddCoins,
+    LuckyWheel,
+    RefillLives,
+    None,
+    Adblocker,
+    WinReward,
 }

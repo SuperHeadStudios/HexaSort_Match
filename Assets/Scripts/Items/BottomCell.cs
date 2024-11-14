@@ -503,7 +503,7 @@ public class BottomCell : MonoBehaviour
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Adblocker);
         adBlockerParticle.Play();
         AudioManager.instance.rewardDone.Play();
         isAd = false;

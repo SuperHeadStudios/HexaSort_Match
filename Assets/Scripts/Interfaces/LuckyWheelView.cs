@@ -176,7 +176,7 @@ public class LuckyWheelView : BaseView
     {
         AudioManager.instance.clickSound.Play();
 
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
         StartSpin();
     }
 }

@@ -330,8 +330,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         if (levelIndex >= 3)
-            AdsControl.Instance.ShowInterstital();
-
+        {
+            AppLovinMaxAdManager.instance.HideBannerAd();
+            AdsControl.Instance.ShowInterstital(AdLocation.Win);
+        }
         uiManager.popupWin.ShowView();
 
         if (!isTestMode)
@@ -352,6 +354,9 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowGameLoseIE()
     {
         yield return new WaitForSeconds(1.0f);
+
+        AppLovinMaxAdManager.instance.HideBannerAd();
+        AdsControl.Instance.ShowInterstital(AdLocation.Lose);
 
         uiManager.popupLose.InitView();
         uiManager.popupLose.ShowView();

@@ -40,7 +40,7 @@ public class PopupMoreCoin : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.AddCoins);
 
         HideView();
         GameManager.instance.uiManager.coinView.InitView();

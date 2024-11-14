@@ -87,7 +87,7 @@ public class PopupRefillLives : BasePopup
     {
         AudioManager.instance.clickSound.Play();
 
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.RefillLives);
         GameManager.instance.livesManager.GiveOneLife();
         FillHearts();
     }

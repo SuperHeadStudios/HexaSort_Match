@@ -294,7 +294,7 @@ public class PopupWin : BasePopup
     {
         AudioManager.instance.clickSound.Play();
 
-        AppLovinMaxAdManager.instance.ShowRewardedAd();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
 
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;

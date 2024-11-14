@@ -14,6 +14,14 @@ public class AppLovinMaxAdManager : MonoBehaviour
     [SerializeField] private string bannerAdUnitId = "YOUR_BANNER_AD_UNIT_ID";
     [SerializeField] private string rewardedAdUnitId = "YOUR_REWARDED_AD_UNIT_ID";
 
+    [SerializeField] private AdLocation inters_AdLocation;
+    [SerializeField] private AdLocation reward_AdLocation;
+
+    private int bannerCount;
+    private int rewardCount;
+    private int intersCount;
+
+
     #endregion
 
     #region Initialization
@@ -35,6 +43,13 @@ public class AppLovinMaxAdManager : MonoBehaviour
     private void Start()
     {
         InitializeAppLovinSdk();
+
+        PaidEventInititalizaation();
+    }
+
+    private void OnDestroy()
+    {
+        PaidEventDiscard();
     }
 
     private void InitializeAppLovinSdk()
@@ -60,6 +75,55 @@ public class AppLovinMaxAdManager : MonoBehaviour
     }
 
     #endregion
+
+    #region PaidEvent
+
+    private void PaidEventInititalizaation()
+    {
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+    }
+
+    private void PaidEventDiscard()
+    {
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+    }
+
+    private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        double revenue = adInfo.Revenue;
+        double cmp = revenue * 1000;
+
+        // Miscellaneous data
+        string countryCode = MaxSdk.GetSdkConfiguration().CountryCode; // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD"
+        string networkName = adInfo.NetworkName; // Display name of the network that showed the ad
+        string adUnitIdentifier = adInfo.AdUnitIdentifier; // The MAX Ad Unit ID
+        string placement = adInfo.Placement; // The placement this ad's postbacks are tied to
+        string networkPlacement = adInfo.NetworkPlacement; // The placement ID from the network that showed the ad
+
+        if(adUnitId == bannerAdUnitId)
+        {
+            FirebaseManager.instance.TrackAdImpression(AdType.Banner, AdLocation.Game, networkName, 1, cmp, revenue);
+        }
+
+        if(adUnitId == rewardedAdUnitId)
+        {
+            FirebaseManager.instance.TrackAdImpression(AdType.Reward, reward_AdLocation, networkName, 1, cmp, revenue);
+        }
+
+        if(adUnitId == interstitialAdUnitId)
+        {
+            FirebaseManager.instance.TrackAdImpression(AdType.Interstitial, inters_AdLocation, networkName, 1, cmp, revenue);
+        }
+    }
+
+    #endregion
+
 
     #region Interstitial Ad
 
@@ -116,11 +180,12 @@ public class AppLovinMaxAdManager : MonoBehaviour
         // Interstitial ad is hidden. Pre-load the next ad.
         LoadInterstitial();
     }
-    public void ShowInterstitialAd()
+    public void ShowInterstitialAd(AdLocation adLocation)
     {
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
         {
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
+            inters_AdLocation = adLocation;
         }
         else
         {
@@ -199,11 +264,12 @@ public class AppLovinMaxAdManager : MonoBehaviour
     {
         // Ad revenue paid. Use this callback to track user revenue.
     }
-    public void ShowRewardedAd()
+    public void ShowRewardedAd(AdLocation adLocation)
     {
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
             MaxSdk.ShowRewardedAd(rewardedAdUnitId);
+            reward_AdLocation = adLocation;
         }
         else
         {
@@ -229,6 +295,8 @@ public class AppLovinMaxAdManager : MonoBehaviour
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnBannerAdExpandedEvent;
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnBannerAdCollapsedEvent;
+
+        ShowBannerAd();
     }
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) { }
