@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void LoadGameData(int level)
+    public void LoadGameData(int level, bool isTestMode = false)
     {
         if (PlayerPrefs.GetInt("FirstGame") == 0)
         {

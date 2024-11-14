@@ -80,11 +80,9 @@ public class CellHolder : MonoBehaviour
 
             ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
             ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-            ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
             firstPiece.columnDataList.Add(randomData1);
             firstPiece.columnDataList.Add(randomData2);
-            firstPiece.columnDataList.Add(randomData3);
 
             HexaColumnData mergePiece = new HexaColumnData();
             mergePiece.columnDataList = new List<ColumnData>();
@@ -135,11 +133,9 @@ public class CellHolder : MonoBehaviour
 
                 ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
                 ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
-                ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 4));
 
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
-                firstPiece.columnDataList.Add(randomData3);
 
                 HexaColumnData mergePiece = new HexaColumnData();
                 mergePiece.columnDataList = new List<ColumnData>();
@@ -321,10 +317,11 @@ public class CellHolder : MonoBehaviour
             }
             else
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 5));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 6));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+                ColumnData randomData4 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 6));
 
-                if (randomData1.colorID == randomData2.colorID)
+                if (randomData1.colorID == randomData2.colorID || randomData1.colorID== randomData4.colorID || randomData2.colorID == randomData4.colorID)
                 {
                     ColumnData randomData3 = new ColumnData(randomData1.colorID, randomData1.columnValue + randomData2.colorID);
                     firstPiece.columnDataList.Add(randomData3);
@@ -333,6 +330,7 @@ public class CellHolder : MonoBehaviour
                 {
                     firstPiece.columnDataList.Add(randomData1);
                     firstPiece.columnDataList.Add(randomData2);
+                    firstPiece.columnDataList.Add(randomData4);
                 }
             }
 

@@ -20,9 +20,9 @@ public class LockBlocker : MonoBehaviour
 
     public IEnumerator MakeLockOpen()
     {
-        currentCell.OpenLockCell();
         currentCell.isLock = false;
         unlockParticle.Play();
+        currentCell.OpenLockCell();
         yield return new WaitForSeconds(0.3f);
         transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.InBack).OnComplete(() =>
         {

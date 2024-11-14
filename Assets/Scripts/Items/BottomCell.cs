@@ -309,10 +309,10 @@ public class BottomCell : MonoBehaviour
     {
         lockObj.SetActive(true);
     }
-    private void OpenLockCell()
+    public void OpenLockCell()
     {
-        isLock = false;
-        lockObj.SetActive(false);
+        meshRenderer.material = cellMaterial;
+        //lockObj.SetActive(false);
     }
 
     private void OpenCell()
