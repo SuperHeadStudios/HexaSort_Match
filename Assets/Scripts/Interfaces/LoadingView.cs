@@ -18,17 +18,13 @@ public class LoadingView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loadingBar.fillAmount = 0;
-        loadingBar.DOFillAmount(1, 3).OnComplete(() =>
-        {
-            OpenGame();
-        });
+        OpenGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        loadingText.text = "LOADING... " + Mathf.RoundToInt(loadingBar.fillAmount * 100) + "%";
+        //loadingText.text = "LOADING... " + Mathf.RoundToInt(loadingBar.fillAmount * 100) + "%";
     }
 
     void OpenGame()

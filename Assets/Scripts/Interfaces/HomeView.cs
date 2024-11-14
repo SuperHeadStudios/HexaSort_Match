@@ -17,6 +17,10 @@ public class HomeView : BaseView
     [SerializeField] private GameObject lifeBar;
     [SerializeField] private CoinView coinView;
 
+    [SerializeField] private Transform cameraT;
+    [SerializeField] private Transform gamePlayerPosition;
+    [SerializeField] private GameObject homeScreen_D;
+
     public void ShowSettingPopup()
     {
         openPopup.SetActive(true);
@@ -55,6 +59,9 @@ public class HomeView : BaseView
         {
             //AudioManager.instance.clickSound.Play();
             GameManager.instance.PlayGame();
+            cameraT.parent = gamePlayerPosition;
+            cameraT.position = Vector3.zero;
+            homeScreen_D.SetActive(false);
         }
         else
         {

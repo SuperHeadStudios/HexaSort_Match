@@ -19,13 +19,20 @@ public class HomeScreen3D : MonoBehaviour
     [SerializeField] private Vector3 rotateFactor;
     [SerializeField] private int firstStackMoveCount = 0;
 
+    [SerializeField] private Camera Camera;
+    [SerializeField] private Transform cameraPosition;
+
 
     private void Start()
     {
         StartCoroutine(StartLoopAnimation());
     }
 
-  
+    private void OnEnable()
+    {
+        Camera.transform.parent = cameraPosition;
+        Camera.transform.position = Vector3.zero;
+    }
 
     private IEnumerator StartLoopAnimation()
     {
