@@ -17,6 +17,7 @@ public class VinesBlocker : MonoBehaviour
     [SerializeField] private float radiusToBreak = .5f;
     [SerializeField] private float thirdradius;
     [SerializeField] private BottomCell currentCell;
+
     public float upwardModifier = 1.8f;
     public int index = 0;
     public bool isUsable;
@@ -51,7 +52,58 @@ public class VinesBlocker : MonoBehaviour
     {
        
     }
+    private void MakeBreak(Rigidbody[] partRbs)
+    {
+        if (partRbs == null || partRbs.Length == 0) return; // Safeguard check
 
+
+        Vector3 explosionCenter = transform.position;
+
+        foreach (Rigidbody rb in partRbs)
+        {
+            rb.isKinematic = false;
+
+            // Randomized offset for varied directions
+            Vector3 randomizedOffset = new Vector3(
+                Random.Range(-1f, 1f),
+                Random.Range(0.5f, 1.5f),
+                Random.Range(-1f, 1f)
+            );
+
+            // Apply explosion force to push pieces in all directions
+            rb.AddExplosionForce(forceToBreak, explosionCenter + randomizedOffset, radiusToBreak, upwardModifier, ForceMode.Impulse);
+        }
+    }
+
+    // Call these methods as needed for first, second, and third breaks
+    private void MakeFirstBreak()
+    {
+        MakeBreak(firstPartRbs);
+        StartCoroutine(DisableFirstCol());
+    }
+
+    private void MakeSecondBreak()
+    {
+        MakeBreak(secPartRbs);
+        StartCoroutine(DisableSecCol());
+    }
+
+    private void MakeThirdBreak()
+    {
+        MakeBreak(thirdPartRbs);
+        StartCoroutine(DisableThirdCol());
+    }
+
+
+
+
+
+
+
+
+
+
+/*
     private void MakeFirstBreak()
     {
         foreach (Rigidbody rb in firstPartRbs)
@@ -89,7 +141,7 @@ public class VinesBlocker : MonoBehaviour
         }
         currentCell.isVines = false;
         StartCoroutine(DisableThirdCol());
-    }
+    }*/
 
     private IEnumerator DisableFirstCol()
     {
@@ -158,7 +210,7 @@ public class VinesBlocker : MonoBehaviour
 
     public IEnumerator MakeVinesBreak_WithDelay()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
         switch (index)
         {
             case 0:
