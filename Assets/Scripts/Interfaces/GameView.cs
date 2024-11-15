@@ -275,9 +275,6 @@ public class GameView : BaseView
             int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
             IncrementText((fillGoalTarget-1), 0.2f);
 
-
-            Debug.Log("Fille Text " + fillGoalTarget);
-
             currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
         }

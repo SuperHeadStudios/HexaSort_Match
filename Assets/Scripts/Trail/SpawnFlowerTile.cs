@@ -32,6 +32,8 @@ public class SpawnFlowerTile : MonoBehaviour
     [SerializeField] private RectTransform honeyTarget;
     [SerializeField] private Transform honeyIcon;
     [SerializeField] private ParticleSystem honyParticles;
+    [SerializeField] private Camera uiCamera;
+
 
     private TileType currentTileType = TileType.None;
 
@@ -72,34 +74,38 @@ public class SpawnFlowerTile : MonoBehaviour
     private IEnumerator MoveObjectToUICurve(GameObject spawnedObject, Transform player, int topSize)
     {
         yield return new WaitForSeconds(0.02f);
+
         // Calculate target UI position relative to the Camera Space Canvas
         Vector3 targetViewportPosition = Vector3.zero;
 
         if (GameManager.instance.uiManager.gameView.IsBlocker())
         {
-            targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition_2.position);
+            targetViewportPosition = uiCamera.WorldToViewportPoint(targetUIPosition_2.position);
         }
         else
         {
-            targetViewportPosition = Camera.main.WorldToViewportPoint(targetUIPosition.position);
+            targetViewportPosition = uiCamera.WorldToViewportPoint(targetUIPosition.position);
         }
 
-        Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(
+        // Ensure the z-component matches the canvas plane distance
+        Vector3 targetWorldPosition = uiCamera.ViewportToWorldPoint(new Vector3(
             targetViewportPosition.x,
             targetViewportPosition.y,
-            Camera.main.nearClipPlane + uiCanvas.planeDistance
+            uiCanvas.planeDistance // Ensures the object moves to the correct depth relative to the camera
         ));
 
         // Animate the object to move to the target position with a smooth curve
         spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
-            //GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
+            // Update UI and clean up the spawned object
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
             spawnedObject.transform.GetChild(0).gameObject.SetActive(false);
             spawnedObject.transform.GetChild(1).gameObject.SetActive(false);
 
+            // Destroy the object after some time
             Destroy(spawnedObject, 3f);
 
+            // Check and update progress status
             if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&
                 GameManager.instance.boardGenerator.currentWoodGoalNumber <= 0 &&
                 GameManager.instance.boardGenerator.currentHoneyGoalNumber <= 0 &&
@@ -109,6 +115,7 @@ public class SpawnFlowerTile : MonoBehaviour
             }
         });
     }
+
 
     #endregion
 
@@ -186,14 +193,15 @@ public class SpawnFlowerTile : MonoBehaviour
 
     #region Tiles Trails Blockers
 
-    public void TileSpawnAndAnimate(GameObject spwanTile, RectTransform target , Transform player)
+    public void TileSpawnAndAnimate(GameObject spawnTile, RectTransform target, Transform player)
     {
         // Instantiate the object at the player's position
-        GameObject spawnedObject = Instantiate(spwanTile, player.position, Quaternion.identity);
+        GameObject spawnedObject = Instantiate(spawnTile, player.position, Quaternion.identity);
 
+        // Initial upward movement animation
         spawnedObject.transform.DOLocalMoveY(3, 0.3f).SetEase(Ease.Linear);
 
-        // Scale animation to half its original crown
+        // Scale animation to shrink the object smoothly
         spawnedObject.transform.DOScale(spawnedObject.transform.localScale * 0.35f, 0.2f).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
@@ -203,23 +211,27 @@ public class SpawnFlowerTile : MonoBehaviour
 
     private IEnumerator TileMoveObjectToUICurve(GameObject spawnedObject, RectTransform target, Transform player)
     {
+        // Ensure there's a slight delay before starting the movement
         yield return new WaitForSeconds(0.02f);
-        // Calculate target UI position relative to the Camera Space Canvas
-        Vector3 targetViewportPosition = Vector3.zero;
-        targetViewportPosition = Camera.main.WorldToViewportPoint(target.position);
 
-        Vector3 targetWorldPosition = Camera.main.ViewportToWorldPoint(new Vector3(
-            targetViewportPosition.x,
-            targetViewportPosition.y,
-            Camera.main.nearClipPlane + uiCanvas.planeDistance
+        // Calculate target UI position relative to the Camera Space Canvas
+        Vector3 targetScreenPosition = RectTransformUtility.WorldToScreenPoint(uiCamera, target.position);
+        Vector3 targetWorldPosition = uiCamera.ScreenToWorldPoint(new Vector3(
+            targetScreenPosition.x,
+            targetScreenPosition.y,
+            uiCanvas.planeDistance // Ensures the correct depth based on canvas plane distance
         ));
+
+
 
         // Animate the object to move to the target position with a smooth curve
         spawnedObject.transform.DOMove(targetWorldPosition, 0.6f).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
+            // Update progress status and clean up the object
             UpdateBlockerProgress();
             Destroy(spawnedObject, 0.5f);
 
+            // Check if all goals are completed and set the progress flag
             if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&
                 GameManager.instance.boardGenerator.currentWoodGoalNumber <= 0 &&
                 GameManager.instance.boardGenerator.currentHoneyGoalNumber <= 0 &&
@@ -229,6 +241,7 @@ public class SpawnFlowerTile : MonoBehaviour
             }
         });
     }
+
 
     #endregion
 }
