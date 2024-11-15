@@ -205,7 +205,7 @@ public class CellHolder : MonoBehaviour
 
     private void CreateNextPiece()
     {
-        if (GameManager.instance.levelIndex > 0 && GameManager.instance.levelIndex <= 10)
+        if (GameManager.instance.levelIndex > 5 && GameManager.instance.levelIndex <= 10)
         {
             if (BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(100, 200))
             {
