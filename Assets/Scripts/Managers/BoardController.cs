@@ -782,6 +782,8 @@ public class BoardController : MonoBehaviour
                     //bottomCell.GetNearCells();
                     if (bottomCell.hexaColumn.hexaCellList.Count > 0)
                     {
+                        if(bottomCell.isVines)
+                            return;
                         StartCoroutine(DestroyColumnByHammer(bottomCell.hexaColumn));
                     }
                 }

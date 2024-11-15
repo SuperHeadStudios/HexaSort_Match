@@ -10,6 +10,7 @@ public class BoosterUnlock : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Image mainPopup;
 
+
     [SerializeField] private GameObject hammerPopup;
     [SerializeField] private GameObject swapPopup;
     [SerializeField] private GameObject shufflePopup;
@@ -151,6 +152,7 @@ public class BoosterUnlock : MonoBehaviour
 
     public void ShowBoosterUnlockPopup()
     {
+       
         if (!isNotOn)
         {
             switch (GameManager.instance.levelIndex)
@@ -225,10 +227,31 @@ public class BoosterUnlock : MonoBehaviour
     public void HidePopup()
     {
         isNotOn = false;
-        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+
+        switch (GameManager.instance.levelIndex)
         {
-            mainPopup.enabled = false;
-        });
+            case 4:
+                hammerPopup.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    mainPopup.enabled = false;
+                });
+                break;
+
+            case 5:
+                swapPopup.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    mainPopup.enabled = false;
+                });
+                break;
+
+            case 9:
+                shufflePopup.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    mainPopup.enabled = false;
+                });
+                break;
+        }
+
         LockUnlockHammer();
         LockUnlockShuffle();
         LockUnlockSwap();
