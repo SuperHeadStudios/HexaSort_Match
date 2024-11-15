@@ -20,6 +20,7 @@ public class LockBlocker : MonoBehaviour
 
     public IEnumerator MakeLockOpen()
     {
+        yield return new WaitForSeconds(2.2f);
         currentCell.isLock = false;
         unlockParticle.Play();
         currentCell.OpenLockCell();
