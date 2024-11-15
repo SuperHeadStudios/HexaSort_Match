@@ -371,6 +371,7 @@ MonoBehaviour:
   - {fileID: 6277343760395914497}
   - {fileID: 1515098095131375821}
   - {fileID: 854662031636728617}
+  currentCell: {fileID: 0}
   upwardModifier: 1.8
   index: 0
   finalBroken: 0

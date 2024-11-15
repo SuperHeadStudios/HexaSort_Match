@@ -198,6 +198,10 @@ public class GameView : BaseView
         currentGoalValue = 0.0f;
 
         int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
+        if(fillGoalTarget < 0)
+        {
+            fillGoalTarget = 0;
+        }
 
         fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
         currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);

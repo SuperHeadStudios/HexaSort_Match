@@ -427,6 +427,8 @@ public class HexaColumn : MonoBehaviour
                         return;
                     else if (hitBottomCell.isLock)
                         return;
+                    else if (hitBottomCell.isPrefilled)
+                        return;
                     if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                         return;
                     GameManager.instance.boardController.currentHitBottomCell = hitBottomCell;
@@ -448,6 +450,8 @@ public class HexaColumn : MonoBehaviour
                         else if (hitBottomCell.isVines)
                             return;
                         else if (hitBottomCell.isLock)
+                            return;
+                        else if (hitBottomCell.isPrefilled)
                             return;
                         if (hitBottomCell.hexaColumn.hexaCellList.Count > 0)
                             return;

@@ -38,9 +38,12 @@ public class SettingBar : MonoBehaviour
     [SerializeField] private Button homeBtn;
 
 
-    [SerializeField] private CanvasGroup areYouSure;
-    [SerializeField] private Transform areYouSurePopup;
+    [SerializeField] private CanvasGroup areYouSureHome;
+    [SerializeField] private Transform areYouSurePopupHome;
     [SerializeField] private GameObject setBtn;
+
+    [SerializeField] private CanvasGroup areYouSureRestart;
+    [SerializeField] private Transform areYouSurePopupRestart;
 
 
     [SerializeField] private bool isMusicToggle = false;
@@ -83,23 +86,44 @@ public class SettingBar : MonoBehaviour
         lifeBar.SetActive(true);
     }
 
-    public void AreYouSure()
+    public void AreYouSureHome()
     {
         setBtn.SetActive(false);
-        areYouSure.alpha = 1;
-        areYouSure.blocksRaycasts = true;
-        areYouSure.interactable = true;
-        areYouSurePopup.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
+        areYouSureHome.alpha = 1;
+        areYouSureHome.blocksRaycasts = true;
+        areYouSureHome.interactable = true;
+        areYouSurePopupHome.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
     }
 
-    public void HideSure()
+    public void HideSureHome()
     {
-        areYouSurePopup.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
+        areYouSurePopupHome.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             setBtn.SetActive(true);
-            areYouSure.alpha = 0;
-            areYouSure.blocksRaycasts = false;
-            areYouSure.interactable = false;
+            areYouSureHome.alpha = 0;
+            areYouSureHome.blocksRaycasts = false;
+            areYouSureHome.interactable = false;
+        });
+    }
+
+    public void AreYouSureRestart()
+    {
+        setBtn.SetActive(false);
+        areYouSureRestart.alpha = 1;
+        areYouSureRestart.blocksRaycasts = true;
+        areYouSureRestart.interactable = true;
+        areYouSurePopupRestart.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
+    }
+
+    public void HideSureRestart()
+    {
+        areYouSurePopupRestart.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            setBtn.SetActive(true);
+            areYouSureRestart.alpha = 0;
+            areYouSureRestart.blocksRaycasts = false;
+            areYouSureRestart.interactable = false;
+            
         });
     }
 
@@ -110,11 +134,22 @@ public class SettingBar : MonoBehaviour
         GameManager.instance.BackToHome();
         SceneManager.LoadScene(0);
     }
+    
+    public void LifeLoseButtonRestart()
+    {
+        AdsControl.Instance.directPlay = true;
+        //GameManager.instance.livesManager.ConsumeLife();
+        //GameManager.instance.BackToHome();
+        //GameManager.instance.ReplayNow();
+        HideSureRestart();
+        SceneManager.LoadScene(0);
+    }
+
+
 
 
     private void UpdateUiOnStart()
     {
-        
         isMusicToggle = PlayerPrefsManager.GetMusicState();
         isSoundToggle = PlayerPrefsManager.GetSoundState();
         isVibrationToggle = PlayerPrefsManager.GetVibrateState();

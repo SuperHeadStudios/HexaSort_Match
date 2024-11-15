@@ -379,6 +379,11 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
 
+    public void ReplayNow()
+    {
+        InitGame();
+    }
+
     public void NextLevel()
     {
         uiManager.popupWin.HideView();

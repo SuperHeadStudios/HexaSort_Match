@@ -280,6 +280,16 @@ public class BottomCell : MonoBehaviour
         meshRenderer.material = lockMaterial;
         AdObj.SetActive(true);
     }
+    private void LockCell()
+    {
+        lockObj.SetActive(true);
+        meshRenderer.material = lockMaterial;
+    }
+    public void OpenLockCell()
+    {
+        meshRenderer.material = cellMaterial;
+        //lockObj.SetActive(false);
+    }
     private void WoodCell()
     {
         woodObj.SetActive(true);
@@ -304,15 +314,6 @@ public class BottomCell : MonoBehaviour
     {
         //vinesHexa.SetActive(true);
         vinesObj.SetActive(true);
-    }
-    private void LockCell()
-    {
-        lockObj.SetActive(true);
-    }
-    public void OpenLockCell()
-    {
-        meshRenderer.material = cellMaterial;
-        //lockObj.SetActive(false);
     }
 
     private void OpenCell()

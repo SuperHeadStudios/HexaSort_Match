@@ -24,6 +24,7 @@ public class LockBlocker : MonoBehaviour
         unlockParticle.Play();
         currentCell.OpenLockCell();
         yield return new WaitForSeconds(0.3f);
+        currentCell.lockObj.SetActive(false);
         transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.InBack).OnComplete(() =>
         {
         });

@@ -968,7 +968,6 @@ MonoBehaviour:
   - {fileID: 6077481467663619829}
   - {fileID: 5317591136021203302}
   - {fileID: 7907764758363247178}
-  forceToBreak: 5
   radiusToBreak: 0.5
   upwardModifier: 1.8
   currentCell: {fileID: 0}

@@ -1869,6 +1869,7 @@ MonoBehaviour:
   upwardModifier: 1.8
   beeFly: {fileID: 7730832510378748832}
   beeWalk: {fileID: 1468093730574821652}
+  currentCell: {fileID: 0}
 --- !u!1 &8023038401073477892
 GameObject:
   m_ObjectHideFlags: 0
