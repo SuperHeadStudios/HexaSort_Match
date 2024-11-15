@@ -95,6 +95,9 @@ public class SpawnFlowerTile : MonoBehaviour
         {
             //GameManager.instance.boardGenerator.currentGoalNumber -= topSize;
             GameManager.instance.uiManager.gameView.UpdateGoalBar();
+            spawnedObject.transform.GetChild(0).gameObject.SetActive(false);
+            spawnedObject.transform.GetChild(1).gameObject.SetActive(false);
+
             Destroy(spawnedObject, 3f);
 
             if (GameManager.instance.boardGenerator.currentGoalNumber <= 0 &&

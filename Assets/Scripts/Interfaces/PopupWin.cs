@@ -238,7 +238,7 @@ public class PopupWin : BasePopup
 
         for (int i = 0; i < rwValue; i++)
         {
-            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
+            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Quaternion.identity, coinParent);
             cointList.Add(spwaCoin);
             AudioManager.instance.coinCollectSound.Play();
 
