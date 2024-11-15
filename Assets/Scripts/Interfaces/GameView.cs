@@ -275,9 +275,19 @@ public class GameView : BaseView
             int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
             IncrementText((fillGoalTarget-1), 0.2f);
 
+
+            Debug.Log("Fille Text " + fillGoalTarget);
+
             currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
             goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
         }
+
+        if(BoardController.instance.boardGenerator.currentGoalNumber <= 0)
+        {
+            goalValueBar.DOFillAmount(1, 0.5f);
+            IncrementText((BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber), 0.2f);
+        }
+
 
         //woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
         //honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
@@ -297,14 +307,20 @@ public class GameView : BaseView
                 displayValue++;
                 fillCounText.text = displayValue + "/" + BoardController.instance.boardGenerator.goalNumber;
 
-                if(displayValue > BoardController.instance.boardGenerator.goalNumber)
+                if (displayValue > BoardController.instance.boardGenerator.goalNumber)
                 {
                     fillCounText.text = BoardController.instance.boardGenerator.goalNumber + "/" + BoardController.instance.boardGenerator.goalNumber;
                 }
 
             })
             .SetEase(Ease.Linear)
-            .OnComplete(() => displayValue = targetValue); // Ensure it ends at the exact target value
+            .OnComplete(() =>
+            {
+                displayValue = targetValue;
+
+                fillCounText.text = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber + "/" + BoardController.instance.boardGenerator.goalNumber;
+
+            }); // Ensure it ends at the exact target value
     }
 
 

@@ -69,8 +69,12 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
+
+            FirebaseAnalytics.LogEvent("Level_",
+               new Parameter((LevelTrack.Start_ + levelName).ToString(), levelName));
+/*
             FirebaseAnalytics.LogEvent(LevelTrack.Start_.ToString(), new Parameter("Level_", levelName));
-            Debug.Log("Logged start event for level: " + levelName);
+            Debug.Log("Logged start event for level: " + levelName);*/
         }
         else
         {
@@ -82,7 +86,8 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            FirebaseAnalytics.LogEvent(LevelTrack.Win_.ToString(), new Parameter("Level_", levelName));
+            FirebaseAnalytics.LogEvent("Level_",
+                new Parameter((LevelTrack.Win_ + levelName).ToString(), levelName));
             Debug.Log("Logged win event for level: " + levelName);
         }
         else
@@ -95,7 +100,8 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            FirebaseAnalytics.LogEvent(LevelTrack.Lose_.ToString(), new Parameter("Level_", levelName));
+            FirebaseAnalytics.LogEvent("Level_",
+               new Parameter((LevelTrack.Lose_ + levelName).ToString(), levelName));
         }
         else
         {
