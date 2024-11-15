@@ -174,6 +174,7 @@ public class VinesBlocker : MonoBehaviour
 
     private IEnumerator DisableThirdCol()
     {
+        currentCell.isVines = false;
         yield return new WaitForSeconds(1.5F);
         foreach (Collider col in thirdPartCol)
         {
