@@ -118,12 +118,12 @@ public class CoinView : BaseView
 
     public void CoinBarAnimationPlay()
     {
-        coinForAnimation.DOScale(Vector3.one * 1.5f, 0.2f).SetEase(Ease.OutBounce);
+        coinForAnimation.DOScale(Vector3.one * 1.3f, 0.1f).SetEase(Ease.OutBounce).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void CoinAnimationStop()
     {
-        coinForAnimation.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
+        coinForAnimation.DOKill();
     }
 
 

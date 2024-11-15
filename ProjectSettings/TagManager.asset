@@ -11,12 +11,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - LoadingData3d
+  - 
   - Water
   - UI
   - HexaColumn
   - BottomCell
-  - 
+  - LoadingData3d
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Vfx
-    uniqueID: 2907926365
+  - name: UI
+    uniqueID: 3708544949
+    locked: 0
+  - name: LoadingData3d
+    uniqueID: 2246623807
     locked: 0

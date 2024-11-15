@@ -236,7 +236,7 @@ public class PopupWin : BasePopup
     {
         int currentCoin = rwValue;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < rwValue; i++)
         {
             GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
             cointList.Add(spwaCoin);
@@ -254,15 +254,15 @@ public class PopupWin : BasePopup
             {
                 Destroy(spwaCoin, 0.01f);
 
-                if(rwValue > 0)
+                if(currentLevel > 0)
                 {
                     GameManager.instance.AddCoin(1);
                 }
-                else
+
+                if(currentCoin == 0)
                 {
                     GameManager.instance.uiManager.coinView.CoinAnimationStop();
                 }
-
             });
 
             yield return new WaitForSeconds(0.1f);
