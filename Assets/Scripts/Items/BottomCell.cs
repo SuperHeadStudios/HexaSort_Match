@@ -505,8 +505,8 @@ public class BottomCell : MonoBehaviour
     {
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Adblocker);
-        adBlockerParticle.Play();
         AudioManager.instance.rewardDone.Play();
+        adBlockerParticle.Play();
         isAd = false;
         meshRenderer.material = cellMaterial;
         AdObj.SetActive(false);
