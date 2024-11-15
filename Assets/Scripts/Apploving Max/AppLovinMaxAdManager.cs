@@ -40,6 +40,14 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ShowRewardedAd(AdLocation.None);
+        }
+    }
+
     private void Start()
     {
         InitializeAppLovinSdk();
@@ -83,7 +91,6 @@ public class AppLovinMaxAdManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
-        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
     }
 
     private void PaidEventDiscard()
@@ -91,36 +98,47 @@ public class AppLovinMaxAdManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
-        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
     }
 
     private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
+        Debug.Log("Claling on ad eveni int ");
+
+
         double revenue = adInfo.Revenue;
         double cmp = revenue * 1000;
 
         // Miscellaneous data
-        string countryCode = MaxSdk.GetSdkConfiguration().CountryCode; // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD"
-        string networkName = adInfo.NetworkName; // Display name of the network that showed the ad
-        string adUnitIdentifier = adInfo.AdUnitIdentifier; // The MAX Ad Unit ID
-        string placement = adInfo.Placement; // The placement this ad's postbacks are tied to
-        string networkPlacement = adInfo.NetworkPlacement; // The placement ID from the network that showed the ad
+        string countryCode = MaxSdk.GetSdkConfiguration().CountryCode;
+        string networkName = adInfo.NetworkName;
+        string adUnitIdentifier = adInfo.AdUnitIdentifier;
+        string placement = adInfo.Placement;
+        string networkPlacement = adInfo.NetworkPlacement;
 
-        if(adUnitId == bannerAdUnitId)
+        // Debugging ad unit ID
+        Debug.Log("AdUnitId: " + adUnitId);
+
+        if (adUnitId == bannerAdUnitId)
         {
+            Debug.Log("Tracking Banner Ad Impression.");
             FirebaseManager.instance.TrackAdImpression(AdType.Banner, AdLocation.Game, networkName, 1, cmp, revenue);
         }
-
-        if(adUnitId == rewardedAdUnitId)
+        else if (adUnitId == rewardedAdUnitId)
         {
+            Debug.Log("Tracking Rewarded Ad Impression.");
             FirebaseManager.instance.TrackAdImpression(AdType.Reward, reward_AdLocation, networkName, 1, cmp, revenue);
         }
-
-        if(adUnitId == interstitialAdUnitId)
+        else if (adUnitId == interstitialAdUnitId)
         {
+            Debug.Log("Tracking Interstitial Ad Impression.");
             FirebaseManager.instance.TrackAdImpression(AdType.Interstitial, inters_AdLocation, networkName, 1, cmp, revenue);
         }
+        else
+        {
+            Debug.LogWarning("Unrecognized Ad Unit ID: " + adUnitId);
+        }
     }
+
 
     #endregion
 
