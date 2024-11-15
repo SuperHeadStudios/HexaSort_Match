@@ -29,32 +29,6 @@ public class BlockerUnlockPopup : MonoBehaviour
                     PlayerPrefsManager.SetWoodUnlocked(true);
                 }
                 break;
-
-            case 24:
-                if (!PlayerPrefsManager.GetHoneyUnlocked())
-                {
-                    mainPopup.enabled = true;
-                    honeyPopup.SetActive(true);
-                    AudioManager.instance.trailAudio.Play();
-                    honeyPopup.transform.localScale = Vector3.zero;
-                    honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-
-                    PlayerPrefsManager.SetHoneyUnlocked(true);
-                }
-                break;
-
-            case 15:
-                if (!PlayerPrefsManager.GetGrassUnlocked())
-                {
-                    mainPopup.enabled = true;
-                    grassPopup.SetActive(true);
-                    AudioManager.instance.trailAudio.Play();
-                    grassPopup.transform.localScale = Vector3.zero;
-                    grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
-
-                    PlayerPrefsManager.SetGrassUnlocked(true);
-                }
-                break;
             case 11:
                 if (!PlayerPrefsManager.GetIceUnlocked())
                 {
@@ -82,6 +56,33 @@ public class BlockerUnlockPopup : MonoBehaviour
                 }
 
                 break;
+
+            case 15:
+                if (!PlayerPrefsManager.GetGrassUnlocked())
+                {
+                    mainPopup.enabled = true;
+                    grassPopup.SetActive(true);
+                    AudioManager.instance.trailAudio.Play();
+                    grassPopup.transform.localScale = Vector3.zero;
+                    grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+
+                    PlayerPrefsManager.SetGrassUnlocked(true);
+                }
+                break;
+
+            case 24:
+                if (!PlayerPrefsManager.GetHoneyUnlocked())
+                {
+                    mainPopup.enabled = true;
+                    honeyPopup.SetActive(true);
+                    AudioManager.instance.trailAudio.Play();
+                    honeyPopup.transform.localScale = Vector3.zero;
+                    honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+
+                    PlayerPrefsManager.SetHoneyUnlocked(true);
+                }
+                break;
+
         }
     }
 

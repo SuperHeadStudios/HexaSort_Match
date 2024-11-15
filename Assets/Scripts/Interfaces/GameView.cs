@@ -195,22 +195,7 @@ public class GameView : BaseView
 
     public override void InitView()
     {        
-        currentGoalValue = 0.0f;
-
-        int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-        if(fillGoalTarget < 0)
-        {
-            fillGoalTarget = 0;
-        }
-
-        fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
-        currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
-        goalValueBar.fillAmount = currentGoalValue;
-
-        goalText.text = GameManager.instance.boardGenerator.goalNumber.ToString() ;
-        woodGoalText.text = BoardController.instance.boardGenerator.woodGoalNumber.ToString();
-        honeyGoalText.text = BoardController.instance.boardGenerator.honeyGoalNumber.ToString();
-        grassGoalText.text = BoardController.instance.boardGenerator.grassGoalNumber.ToString();
+        StartCoroutine(UpdateGoalBarData());
 
         levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         currentState = BOOSTER_STATE.NONE;
@@ -225,6 +210,26 @@ public class GameView : BaseView
 
         boosterUnlock.CheckBoosters();
         settingBar.GetComponent<SettingBar>().LoadData();
+    }
+
+    private IEnumerator UpdateGoalBarData()
+    {
+        yield return new WaitForSeconds(0.02f);
+        currentGoalValue = 0.0f;
+
+        int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - BoardController.instance.boardGenerator.currentGoalNumber;
+        if (fillGoalTarget < 0)
+        {
+            fillGoalTarget = 0;
+        }
+        fillCounText.text = fillGoalTarget + "/" + BoardController.instance.boardGenerator.goalNumber;
+        currentGoalValue = (float)fillGoalTarget / (float)(BoardController.instance.boardGenerator.goalNumber);
+        goalValueBar.fillAmount = currentGoalValue;
+
+        goalText.text = BoardController.instance.boardGenerator.goalNumber.ToString();
+        woodGoalText.text = BoardController.instance.boardGenerator.woodGoalNumber.ToString();
+        honeyGoalText.text = BoardController.instance.boardGenerator.honeyGoalNumber.ToString();
+        grassGoalText.text = BoardController.instance.boardGenerator.grassGoalNumber.ToString();
     }
 
     public void DisableArrow()

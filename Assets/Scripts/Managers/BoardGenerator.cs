@@ -80,7 +80,8 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenMap()
     {
-
+        
+        
         if (isDebug)
         {
             levelConfig = Resources.Load("levels/map_" + levelNum.ToString()) as MapDataLevelConfigSO;

@@ -241,19 +241,34 @@ public class PopupWin : BasePopup
             GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
             cointList.Add(spwaCoin);
             AudioManager.instance.coinCollectSound.Play();
+
+            if (currentCoin == rwValue)
+            {
+                GameManager.instance.uiManager.coinView.CoinBarAnimationPlay();
+            }
             currentCoin--;
+
 
             levelCoinText.text = currentCoin.ToString();            
             spwaCoin.transform.DOMove(cointTarget.position, 0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
             {
                 Destroy(spwaCoin, 0.01f);
+
+                if(rwValue > 0)
+                {
+                    GameManager.instance.AddCoin(1);
+                }
+                else
+                {
+                    GameManager.instance.uiManager.coinView.CoinAnimationStop();
+                }
+
             });
 
             yield return new WaitForSeconds(0.1f);
         }
 
         yield return new WaitForSeconds(2.5f);
-        GameManager.instance.AddCoin(rwValue);
         StartCoroutine(NextGameIE());
         AdsControl.Instance.directPlay = true;
 

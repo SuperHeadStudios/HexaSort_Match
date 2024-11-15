@@ -28,6 +28,8 @@ public class CoinView : BaseView
 
     public Transform livesFullPanel;
 
+    [SerializeField] private Transform coinForAnimation;
+
     [SerializeField] private Button addLiveBtn;
     [SerializeField] private GameObject showFullText;
 
@@ -113,6 +115,17 @@ public class CoinView : BaseView
     {
         coinCountTxt.text = GameManager.instance.coinValue.ToString();
     }
+
+    public void CoinBarAnimationPlay()
+    {
+        coinForAnimation.DOScale(Vector3.one * 1.5f, 0.2f).SetEase(Ease.OutBounce);
+    }
+
+    public void CoinAnimationStop()
+    {
+        coinForAnimation.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
+    }
+
 
     //List<Vector3> arcPoint = new List<Vector3>();
 
