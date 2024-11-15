@@ -4498,21 +4498,41 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19867328, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19869450, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19869450, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19871652, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19871652, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19887858, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19887858, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19892234, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19892234, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 82478465213567410, guid: a4a75b35f16849741923ecde44087a1b, type: 3}
       propertyPath: m_PlayOnAwake
