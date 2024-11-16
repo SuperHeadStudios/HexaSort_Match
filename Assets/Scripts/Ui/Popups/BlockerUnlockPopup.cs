@@ -17,7 +17,7 @@ public class BlockerUnlockPopup : MonoBehaviour
     {
         switch (GameManager.instance.levelIndex)
         {
-            case 8:
+            case 4:
                 if (!PlayerPrefsManager.GetWoodUnlocked())
                 {
                     mainPopup.enabled = true;
@@ -29,7 +29,7 @@ public class BlockerUnlockPopup : MonoBehaviour
                     PlayerPrefsManager.SetWoodUnlocked(true);
                 }
                 break;
-            case 11:
+            case 7:
                 if (!PlayerPrefsManager.GetIceUnlocked())
                 {
                     mainPopup.enabled = true;
@@ -43,7 +43,7 @@ public class BlockerUnlockPopup : MonoBehaviour
 
                 break;
 
-            case 13:
+            case 12:
                 if (!PlayerPrefsManager.GetVinesUnlocked())
                 {
                     mainPopup.enabled = true;
@@ -70,7 +70,7 @@ public class BlockerUnlockPopup : MonoBehaviour
                 }
                 break;
 
-            case 24:
+            case 18:
                 if (!PlayerPrefsManager.GetHoneyUnlocked())
                 {
                     mainPopup.enabled = true;
@@ -89,12 +89,31 @@ public class BlockerUnlockPopup : MonoBehaviour
 
     public void HidePopup()
     {
-        transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
+        switch (GameManager.instance.levelIndex)
+        {
+            case 4:
+                HidPopUpView(woodPopup.transform);
+                break;
+            case 7:
+                HidPopUpView(icePopup.transform);
+                break;
+            case 12:
+                HidPopUpView(vinesPopup.transform);
+                break;
+            case 15:
+                HidPopUpView(grassPopup.transform);
+                break;
+            case 18:
+                HidPopUpView(honeyPopup.transform);
+                break;
+        }
+    }
+
+    private void HidPopUpView(Transform popup)
+    {
+        popup.DOScale(Vector3.zero, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
         {
             mainPopup.enabled = false;
-            grassPopup.transform.DOScale(Vector3.zero, 0.5f);
-            honeyPopup.transform.DOScale(Vector3.zero, 0.5f);
-            woodPopup.transform.DOScale(Vector3.zero, 0.5f);
         });
     }
 }

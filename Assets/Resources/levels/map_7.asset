@@ -12,46 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_7
   m_EditorClassIdentifier: 
-  isBlockers: 0
-  cameraZoom: 10.5
-  boardPos_Z: -0.35
-  cellPos_Z: -8
+  isBlockers: 1
+  cameraZoom: 11.2
+  boardPos_Z: -0.6
+  cellPos_Z: -8.4
   LevelMode: 0
   Time: 0
   Moves: 0
-  PreCreatedHex: 100
+  PreCreatedHex: 0
   FlipTime: 0.45
   TutorialSteps: 0
   Goals:
   - Type: 1
     Target: 350
-  CellsForTutorial:
-  - {x: -1, y: 0}
-  - {x: -1, y: 1}
-  - {x: -1, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: -1}
+  CellsForTutorial: []
   Difficulty: 1
   Thresholds:
   - HexCount: 350
     MaxTypesInStack: 2
     MaxTypes: 3
     HalfHexProbability: 0
-    Difficulty: 1
+    Difficulty: 2
   LevelData:
     Cells:
     - Row: -2
       Col: -2
-      Types: 
-      Cost: 0
+      Types: 800000008000000002000000020000000100000001000000
+      Cost: 250
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: -2
       Col: -1
       Types: 
-      Cost: 0
+      Cost: 250
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -59,21 +54,45 @@ MonoBehaviour:
     - Row: -2
       Col: 0
       Types: 
-      Cost: 0
+      Cost: 250
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 8
     - Row: -2
       Col: 1
       Types: 
-      Cost: 0
+      Cost: 150
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 0
     - Row: -2
       Col: 2
+      Types: 100000001000000001000000010000000200000002000000
+      Cost: 250
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 8
+    - Row: -1
+      Col: -2
+      Types: 
+      Cost: 75
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: -1
+      Col: -1
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 1
+    - Row: -1
+      Col: 0
       Types: 
       Cost: 0
       CoinCost: 0
@@ -81,6 +100,22 @@ MonoBehaviour:
       RequiredType: 0
       State: 0
     - Row: -1
+      Col: 1
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 1
+    - Row: -1
+      Col: 2
+      Types: 
+      Cost: 50
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 0
       Col: -2
       Types: 
       Cost: 0
@@ -88,46 +123,6 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 0
-    - Row: -1
-      Col: -1
-      Types: 
-      Cost: 0
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
-    - Row: -1
-      Col: 0
-      Types: 
-      Cost: 0
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
-    - Row: -1
-      Col: 1
-      Types: 
-      Cost: 0
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
-    - Row: -1
-      Col: 2
-      Types: 
-      Cost: 0
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
-    - Row: 0
-      Col: -2
-      Types: 
-      Cost: 0
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
     - Row: 0
       Col: -1
       Types: 
@@ -143,7 +138,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 4
     - Row: 0
       Col: 1
       Types: 
@@ -163,15 +158,15 @@ MonoBehaviour:
     - Row: 1
       Col: -2
       Types: 
-      Cost: 0
+      Cost: 25
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 4
     - Row: 1
       Col: -1
       Types: 
-      Cost: 0
+      Cost: 125
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -183,17 +178,25 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 1
     - Row: 1
-      Col: 1
+      Col: 2
       Types: 
       Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
+      State: 4
+    - Row: 2
+      Col: -2
+      Types: 200000002000000001000000010000000400000004000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
       State: 0
-    - Row: 1
-      Col: 2
+    - Row: 2
+      Col: -1
       Types: 
       Cost: 0
       CoinCost: 0
@@ -202,6 +205,30 @@ MonoBehaviour:
       State: 0
     - Row: 2
       Col: 0
+      Types: 
+      Cost: 150
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 8
+    - Row: 1
+      Col: 1
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 2
+      Col: 1
+      Types: 
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 2
+      Col: 2
       Types: 
       Cost: 0
       CoinCost: 0

@@ -101,7 +101,7 @@ public class HexaColumn : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         int group1Count = Random.Range(2, 4);
-        int firstColorIndex = Random.Range(0, GameManager.instance.colorConfig.colorList.Count);
+        int firstColorIndex = Random.Range(0, 6);
         int cellCount_1 = 0;
 
         for (int i = 0; i < group1Count && i < hexaCellList.Count; i++)
@@ -117,7 +117,7 @@ public class HexaColumn : MonoBehaviour
         int secondColorIndex;
         do
         {
-            secondColorIndex = Random.Range(0, GameManager.instance.colorConfig.colorList.Count);
+            secondColorIndex = Random.Range(0, 6);
         } while (secondColorIndex == firstColorIndex);
         int cellCount_2 = 0;
 
@@ -139,7 +139,7 @@ public class HexaColumn : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         /*   cellColorList.Clear();
            currentHexaColumnData.columnDataList.Clear();*/
-        int prefilledNum = Random.Range(1, GameManager.instance.colorConfig.colorList.Count);
+        int prefilledNum = Random.Range(1, 6);
         int cellCount_1 = 0;
 
         for (int i = 0; i < hexaCellList.Count; i++)

@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WoodBlocker : MonoBehaviour
@@ -8,9 +7,15 @@ public class WoodBlocker : MonoBehaviour
     [SerializeField] private Rigidbody[] firstPartRbs;
     [SerializeField] private Rigidbody[] secPartRbs;
     [SerializeField] private Rigidbody[] thirdPartRbs;
+
+    [SerializeField] private GameObject firstObjCombine;
+    [SerializeField] private GameObject secondObjCombine;
+    [SerializeField] private GameObject thirdObjCombine;
+
     [SerializeField] private GameObject firstObj;
     [SerializeField] private GameObject secObj;
     [SerializeField] private GameObject thirdObj;
+
     [SerializeField] private float forceToBreak = 40f;
     [SerializeField] private float radiusToBreak = .5f;
     [SerializeField] private float thirdradius;
@@ -48,6 +53,15 @@ public class WoodBlocker : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+
+        firstObj.SetActive(false);
+        firstObjCombine.SetActive(true);
+
+        secObj.SetActive(false);
+        secondObjCombine.SetActive(true);
+
+        thirdObj.SetActive(false);
+        thirdObjCombine.SetActive(true);
     }
 
     private void Update()
@@ -60,6 +74,9 @@ public class WoodBlocker : MonoBehaviour
 
     public void MakeFirstBreak()
     {
+        firstObj.SetActive(true);
+        firstObjCombine.SetActive(false);
+
         foreach (Rigidbody rb in firstPartRbs)
         {
             rb.isKinematic = false;
@@ -70,6 +87,9 @@ public class WoodBlocker : MonoBehaviour
     }
     public void MakeSecondBreak()
     {
+        secObj.SetActive(true);
+        secondObjCombine.SetActive(false);
+
         foreach (Rigidbody rb in secPartRbs)
         {
             rb.isKinematic = false;
@@ -79,6 +99,9 @@ public class WoodBlocker : MonoBehaviour
     }
     public void MakeThirdBreak()
     {
+        thirdObj.SetActive(true);
+        thirdObjCombine.SetActive(false);
+
         foreach (Rigidbody rb in thirdPartRbs)
         {
             finalBroken = true;
@@ -136,7 +159,7 @@ public class WoodBlocker : MonoBehaviour
 
     public IEnumerator MakeWoodBreak()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         switch (index)
         {
             case 0:

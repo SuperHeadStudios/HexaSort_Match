@@ -142,7 +142,7 @@ public class SettingBar : MonoBehaviour
         //GameManager.instance.BackToHome();
         //GameManager.instance.ReplayNow();
         HideSureRestart();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
 

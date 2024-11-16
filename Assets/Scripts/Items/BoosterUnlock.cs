@@ -66,7 +66,7 @@ public class BoosterUnlock : MonoBehaviour
 
     private void LockUnlockHammer()
     {
-        if (GameManager.instance.levelIndex >= 4)
+        if (GameManager.instance.levelIndex >= 3)
         {
             hammerBtn.enabled = true;
             hammerBtn.image.sprite = unlockHammerSprit;
@@ -157,7 +157,7 @@ public class BoosterUnlock : MonoBehaviour
         {
             switch (GameManager.instance.levelIndex)
             {
-                case 4: 
+                case 3: 
                     if (!PlayerPrefsManager.GetHammerUnlocked())
                     {
                         mainPopup.enabled = true;
@@ -230,7 +230,7 @@ public class BoosterUnlock : MonoBehaviour
 
         switch (GameManager.instance.levelIndex)
         {
-            case 4:
+            case 3:
                 hammerPopup.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
                     mainPopup.enabled = false;

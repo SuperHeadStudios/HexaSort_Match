@@ -127,7 +127,7 @@ public class BoardController : MonoBehaviour
                 else
                 {
                     if (GameManager.instance.boardController.currentHitBottomCell.hexaColumn.hexaCellList.Count == 0)
-                        PutColumnInNewPlace();
+                        StartCoroutine(PutColumnInNewPlace());
                     else
                         ReleaseMovingCell();
                 }
@@ -413,7 +413,7 @@ public class BoardController : MonoBehaviour
 
     }
 
-    public void PutColumnInNewPlace()
+    public IEnumerator PutColumnInNewPlace()
     {
         GameManager.instance.uiManager.gameView.SubMoveValue();
         GameManager.instance.uiManager.gameView.CloseMove();
@@ -422,7 +422,7 @@ public class BoardController : MonoBehaviour
         if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
 
-        currentHitBottomCell.hexaColumn.AddMovingCells(currentHexaColumn);
+        currentHitBottomCell.hexaColumn.AddCellColumn(currentHexaColumn);
         currentHexaColumn.EmptyColumnData();
         currentHitBottomCell.UnSelectCell();
         currentHexaColumn.transform.SetParent(currentHexaColumn.currentBottomCell.transform);
@@ -432,7 +432,9 @@ public class BoardController : MonoBehaviour
         if (currentState == BOARD_STATE.IDLE)
         {
             currentState = BOARD_STATE.PROCESSING;
+            yield return new WaitForSeconds(0.2f);
             currentHitBottomCell.GetNearCells();
+            RefreshAllNearCells();
             currentHitBottomCell = null;
             CleanHexaMap();
         }
@@ -610,9 +612,23 @@ public class BoardController : MonoBehaviour
         //Debug.Log("Check Pcs" + name);
         List<Vector3> arcPoint = new List<Vector3>();
 
-        for (int i = 0; i < 10; i++)
+        int stackCount = 0;
+
+        if(GameManager.instance.levelIndex > 3)
         {
-            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 2.0f, (float)i / 9.0f));
+            stackCount = 15;
+        }
+        else
+        {
+            stackCount = 10;
+        }
+
+
+        for (int i = 0; i < stackCount; i++)
+        {
+            // Make sure to adjust the 't' calculation to properly distribute between 0 and 1
+            float t = (float)i / (stackCount - 1);
+            arcPoint.Add(SampleParabola(cell.localPosition, targetPos, 2.0f, t));
         }
 
         cell.DOLocalPath(arcPoint.ToArray(), 0.5f, PathType.Linear).SetDelay((float)queue * 0.05f).SetLoops(1).SetEase(Ease.Linear).OnComplete(() =>
@@ -677,7 +693,19 @@ public class BoardController : MonoBehaviour
         bool isFull = false;
         int dataCount = cell.currentHexaColumnData.columnDataList.Count;
         int topSize = cell.currentHexaColumnData.columnDataList[dataCount - 1].columnValue;
-        if (topSize >= 10)
+
+        int stackCount = 0;
+
+        if (GameManager.instance.levelIndex > 3) 
+        {
+            stackCount = 15;
+        }
+        else
+        {
+            stackCount = 10;
+        }
+        
+        if (topSize >= stackCount)
         {
             isFull = true;
             cell.currentBottomCell.CheckNearByOnCompelteStake(topSize);
