@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using GameSystem;
 
 public class GameView : BaseView
 {
@@ -199,7 +200,6 @@ public class GameView : BaseView
 
         levelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         currentState = BOOSTER_STATE.NONE;
-        UpdateBoosterView();
 
         if (GameManager.instance.levelIndex == 1)
             ShowArrow();
@@ -209,6 +209,8 @@ public class GameView : BaseView
         GameManager.instance.uiManager.coinView.isGameSettings = true;
 
         boosterUnlock.CheckBoosters();
+        UpdateBoosterView();
+
         settingBar.GetComponent<SettingBar>().LoadData();
     }
 
@@ -480,36 +482,46 @@ public class GameView : BaseView
 
     public void UpdateBoosterView()
     {
-        if(GameManager.instance.hammerBoosterValue > 0)
+        if (PlayerPrefsManager.GetHammerUnlocked())
         {
-            hammerCountTxt.text = GameManager.instance.hammerBoosterValue.ToString();
-            hammerPriceTag.SetActive(false);
-        }
-        else
-        {
-            hammerPriceTag.SetActive(true);
-        }
-        
-
-        if (GameManager.instance.moveBoosterValue > 0)
-        {
-            moveCountTxt.text = GameManager.instance.moveBoosterValue.ToString();
-            movePriceTag.SetActive(false);
-        }
-        else
-        {
-            movePriceTag.SetActive(true);
+            if (GameManager.instance.hammerBoosterValue > 0)
+            {
+                hammerCountTxt.transform.parent.gameObject.SetActive(true);
+                hammerCountTxt.text = GameManager.instance.hammerBoosterValue.ToString();
+                hammerPriceTag.SetActive(false);
+            }
+            else
+            {
+                hammerPriceTag.SetActive(true);
+            }
         }
 
-
-        if (GameManager.instance.shuffleBoosterValue > 0)
+        if (PlayerPrefsManager.GetSwapUnlocked())
         {
-            shuffleCountTxt.text = GameManager.instance.shuffleBoosterValue.ToString();
-            shufflePriceTag.SetActive(false);
+            if (GameManager.instance.moveBoosterValue > 0)
+            {
+                moveCountTxt.transform.parent.gameObject.SetActive(true);
+                moveCountTxt.text = GameManager.instance.moveBoosterValue.ToString();
+                movePriceTag.SetActive(false);
+            }
+            else
+            {
+                movePriceTag.SetActive(true);
+            }
         }
-        else
+
+        if (PlayerPrefsManager.GetShuffleUnlocked())
         {
-            shufflePriceTag.SetActive(true);
+            if (GameManager.instance.shuffleBoosterValue > 0)
+            {
+                shuffleCountTxt.transform.parent.gameObject.SetActive(true);
+                shuffleCountTxt.text = GameManager.instance.shuffleBoosterValue.ToString();
+                shufflePriceTag.SetActive(false);
+            }
+            else
+            {
+                shufflePriceTag.SetActive(true);
+            }
         }
     }
 }

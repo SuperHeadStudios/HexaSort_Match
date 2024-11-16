@@ -1,4 +1,5 @@
 
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class BoosterPopup : MonoBehaviour
     }
 
    [ SerializeField ] private BoosterState _state;
+
+    [SerializeField] private GameObject notCoinGameObj;
 
     [Header("----- UI Settings -----"), Space(5)]
     [SerializeField] private Image iconImage;
@@ -60,14 +63,14 @@ public class BoosterPopup : MonoBehaviour
 
     public void ChangeBooster(BoosterState state)
     {
-        if (GameManager.instance.coinValue < 50)
+       /* if (GameManager.instance.coinValue < 50)
         {
             boosterPurchaseBtn.interactable = false;
         }
         else
         {
             boosterPurchaseBtn.interactable = true;
-        }
+        }*/
         _state = state;
 
         switch (state)
@@ -95,18 +98,28 @@ public class BoosterPopup : MonoBehaviour
 
     private void PurchaseBoosterWithCoins()
     {
-        
-        switch (_state)
+        if (GameManager.instance.coinValue >= 50)
         {
-            case BoosterState.Hammer:
-                PurchaseHammerWithCoin();
-                break;
-            case BoosterState.Swap:
-                PurchaseSwapWithCoin();
-                break;
-            case BoosterState.Refresh:
-                PurchaseShuffleWithCoin();
-                break;
+            switch (_state)
+            {
+                case BoosterState.Hammer:
+                    PurchaseHammerWithCoin();
+                    break;
+                case BoosterState.Swap:
+                    PurchaseSwapWithCoin();
+                    break;
+                case BoosterState.Refresh:
+                    PurchaseShuffleWithCoin();
+                    break;
+            }
+        }
+        else
+        {
+            GameObject newPrb = Instantiate(notCoinGameObj, boosterPurchaseBtn.transform.position, Camera.main.transform.rotation, boosterPurchaseBtn.transform);
+            newPrb.transform.DOMoveY(transform.position.y + 50f, 10f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                Destroy(newPrb);
+            });
         }
     }
 
@@ -117,11 +130,6 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddHammerBooster(1);
             gameView.UpdateBoosterView();
-
-            if(GameManager.instance.coinValue < 50)
-            {
-                boosterPurchaseBtn.interactable = false;
-            }
         }
 
     }
@@ -133,11 +141,6 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddShuffleBooster(1);
             gameView.UpdateBoosterView();
-
-            if (GameManager.instance.coinValue < 50)
-            {
-                boosterPurchaseBtn.interactable = false;
-            }
         }
     }
 
@@ -149,11 +152,6 @@ public class BoosterPopup : MonoBehaviour
             GameManager.instance.SubCoin(50);
             GameManager.instance.AddMoveBooster(1);
             gameView.UpdateBoosterView();
-
-            if (GameManager.instance.coinValue < 50)
-            {
-                boosterPurchaseBtn.interactable = false;
-            }
         }
     }
 
@@ -171,6 +169,8 @@ public class BoosterPopup : MonoBehaviour
 
     public void EarnReward()
     {
+        Debug.Log(_state);
+
         switch (_state)
         {
             case BoosterState.Hammer:
@@ -184,7 +184,7 @@ public class BoosterPopup : MonoBehaviour
             case BoosterState.Refresh:
 
                 GameManager.instance.AddShuffleBooster(1);
-                gameView.UpdateBoosterView();
+                gameView.UpdateBoosterView();;
                 break;
         }
 

@@ -25,7 +25,6 @@ public class PoolManager : MonoBehaviour
     //for hexa column
     [Range(1, 30)]
     public int initHexaColumnAmount;
-    [HideInInspector]
     public List<HexaColumn> hexaColumnPools = null;
     public HexaColumn hexaColumnPrefab;
 

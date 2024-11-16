@@ -194,6 +194,19 @@ public class HexaColumn : MonoBehaviour
     public void CreateColumn(HexaColumnData hexaColumnData)
     {
         currentHexaColumnData = hexaColumnData;
+        
+        if(hexaColumnData == null)
+        {
+            Debug.Log("Null data line");
+        }
+
+        if(hexaColumnData.columnDataList.Count == 0)
+        {
+            Debug.Log("Null Data list line 205");
+        }
+
+
+
 
         for (int i = 0; i < hexaColumnData.columnDataList.Count; i++)
         {

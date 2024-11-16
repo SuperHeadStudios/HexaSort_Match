@@ -128,6 +128,11 @@ public class CellHolder : MonoBehaviour
             hexaColumnList.Add(column);
             column.gameObject.SetActive(false);
             StartCoroutine(ColumnAppear(column.gameObject, i));
+            Debug.Log("Gene_1");
+            if (column.hexaCellList.Count == 0)
+            {
+                Debug.Log("This Making gen 1");
+            }
         }
     }
 
@@ -186,6 +191,10 @@ public class CellHolder : MonoBehaviour
                 column.CreateColumn(mergePiece);
                 column.cellHoder = this;
                 hexaColumnList.Add(column);
+                Debug.Log("Gene_2"); if (column.hexaCellList.Count == 0)
+                {
+                    Debug.Log("This Making gen 2");
+                }
                 column.gameObject.SetActive(false);
                 StartCoroutine(ColumnAppear(column.gameObject, i));
             }
@@ -335,9 +344,8 @@ public class CellHolder : MonoBehaviour
             {
                 ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
                 ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
-                ColumnData randomData4 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 6));
 
-                if (randomData1.colorID == randomData2.colorID || randomData1.colorID== randomData4.colorID || randomData2.colorID == randomData4.colorID)
+                if (randomData1.colorID == randomData2.colorID )
                 {
                     ColumnData randomData3 = new ColumnData(randomData1.colorID, randomData1.columnValue + randomData2.colorID);
                     firstPiece.columnDataList.Add(randomData3);
@@ -346,7 +354,6 @@ public class CellHolder : MonoBehaviour
                 {
                     firstPiece.columnDataList.Add(randomData1);
                     firstPiece.columnDataList.Add(randomData2);
-                    firstPiece.columnDataList.Add(randomData4);
                 }
             }
 
@@ -371,6 +378,11 @@ public class CellHolder : MonoBehaviour
                     }
                 }
             }
+            if (mergePiece.columnDataList.Count == 0)
+            {
+                Debug.Log("Data CDhe");
+               
+            }
 
             HexaColumn column = GameManager.instance.poolManager.GetHexaColumn();
             column.InitColumn();
@@ -382,6 +394,12 @@ public class CellHolder : MonoBehaviour
             hexaColumnList.Add(column);
             column.gameObject.SetActive(false);
             StartCoroutine(ColumnAppear(column.gameObject, i));
+            Debug.Log("Gene_3");
+
+            if(column.hexaCellList.Count == 0)
+            {
+                Debug.Log("This Making gen 3");
+            }
         }
     }
 
