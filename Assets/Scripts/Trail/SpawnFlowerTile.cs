@@ -163,10 +163,10 @@ public class SpawnFlowerTile : MonoBehaviour
 
         AudioManager.instance.flowerCollectedSound.Play();
 
-        icon.DOScale(Vector3.one * 1.2f, 0.3f / 2).SetEase(Ease.OutBack)
+        icon.DOScale(Vector3.one * 1f, 0.3f / 2).SetEase(Ease.OutBack)
             .OnComplete(() =>
             {
-                icon.DOScale(Vector3.one, 0.3f / 2).SetEase(Ease.InOutSine);
+                icon.DOScale(Vector3.one * 0.7f, 0.3f / 2).SetEase(Ease.InOutSine);
             });
     }
 

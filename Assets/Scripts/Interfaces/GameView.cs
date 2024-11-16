@@ -67,7 +67,7 @@ public class GameView : BaseView
     [SerializeField] private Transform flowerIcon_2;
 
     [SerializeField] private BoosterUnlock boosterUnlock;
-
+    [SerializeField] private GameObject goalTick;
 
     public bool isTogle = false;
 
@@ -269,22 +269,25 @@ public class GameView : BaseView
     {
         yield return new WaitForSeconds(0.01f);
 
-        if (GameManager.instance.boardGenerator.currentGoalNumber > 0)
+        if (BoardController.instance.boardGenerator.currentGoalNumber <= 0)
         {
-            UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
-            int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
-            IncrementText((fillGoalTarget-1), 0.2f);
-
-            currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
-            goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
+            goalText.gameObject.SetActive(false);
+            goalTick.gameObject.SetActive(true);
         }
+        UpdateText(GameManager.instance.boardGenerator.currentGoalNumber, 0.2f);
+        int fillGoalTarget = BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber;
+        IncrementText((fillGoalTarget - 1), 0.2f);
 
-        if(BoardController.instance.boardGenerator.currentGoalNumber <= 0)
+        currentGoalValue = (float)fillGoalTarget / (float)(GameManager.instance.boardGenerator.goalNumber);
+        goalValueBar.DOFillAmount(currentGoalValue, 0.5f);
+
+
+        if (BoardController.instance.boardGenerator.currentGoalNumber <= 0)
         {
             goalValueBar.DOFillAmount(1, 0.5f);
-            IncrementText((BoardController.instance.boardGenerator.goalNumber - GameManager.instance.boardGenerator.currentGoalNumber), 0.2f);
-        }
+            IncrementText(BoardController.instance.boardGenerator.goalNumber, 0.2f);
 
+        }
 
         //woodGoalText.text = GameManager.instance.boardGenerator.woodGoalNumber.ToString();
         //honeyGoalText.text = GameManager.instance.boardGenerator.honeyGoalNumber.ToString();
@@ -328,10 +331,19 @@ public class GameView : BaseView
         DOTween.To(() => displayValue_1, x => displayValue_1 = x, endValue, duration)
             .OnUpdate(() => {
                 goalText.text = displayValue_1.ToString();
+
+                if(BoardController.instance.boardGenerator.currentGoalNumber <= 0)
+                {
+                    goalText.gameObject.SetActive(false);
+                    goalTick.gameObject.SetActive(true);
+                }
+
             })
             .SetEase(Ease.Linear)
             .OnComplete(() => {
                 displayValue_1 = endValue; // Ensure it ends exactly at the target value
+
+                goalText.text = GameManager.instance.boardGenerator.currentGoalNumber.ToString();
             });
     }
 

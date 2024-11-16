@@ -90,7 +90,7 @@ public class PopupLose : BasePopup
       /*  GameManager.instance.BackToHome();
         homeView.PlayGame();*/
         AdsControl.Instance.directPlay = true;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
     public override void HideView()
