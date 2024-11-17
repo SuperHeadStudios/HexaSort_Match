@@ -1,4 +1,3 @@
-using AppLovinMax.Scripts.IntegrationManager.Editor;
 using Firebase;
 using Firebase.Analytics;
 using Firebase.Extensions;
@@ -168,8 +167,16 @@ public class FirebaseManager : MonoBehaviour
                 new Parameter("ad_cpm", ecpm),
                 new Parameter("ad_revnue", revenue));
                 break;
+            case AdType.AppOpen:
+                FirebaseAnalytics.LogEvent("AppOpen_Ads",
+                new Parameter("ad_network", adNetwork),
+                new Parameter("ad_cpm", ecpm),
+                new Parameter("ad_revnue", revenue));
+                break;
         }
     }
+
+
 
     #endregion
 

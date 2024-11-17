@@ -13,7 +13,7 @@ public class CellHolder : MonoBehaviour
 
     public int currentSlots;
 
-    private int maxNum ;
+    private int maxNum = 6;
 
     public enum DIFFICULT_LEVEL
     {
@@ -357,6 +357,16 @@ public class CellHolder : MonoBehaviour
                 }
             }
 
+            if (firstPiece.columnDataList.Count == 0)
+            {
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+                firstPiece.columnDataList.Add(randomData1);
+                firstPiece.columnDataList.Add(randomData2);
+                Debug.Log("Data CDhe and " + maxNum);
+            }
+                Debug.Log("Data CDhe and out" + maxNum);
+
             HexaColumnData mergePiece = new HexaColumnData();
             mergePiece.columnDataList = new List<ColumnData>();
 
@@ -378,11 +388,7 @@ public class CellHolder : MonoBehaviour
                     }
                 }
             }
-            if (mergePiece.columnDataList.Count == 0)
-            {
-                Debug.Log("Data CDhe");
-               
-            }
+           
 
             HexaColumn column = GameManager.instance.poolManager.GetHexaColumn();
             column.InitColumn();
@@ -394,12 +400,6 @@ public class CellHolder : MonoBehaviour
             hexaColumnList.Add(column);
             column.gameObject.SetActive(false);
             StartCoroutine(ColumnAppear(column.gameObject, i));
-            Debug.Log("Gene_3");
-
-            if(column.hexaCellList.Count == 0)
-            {
-                Debug.Log("This Making gen 3");
-            }
         }
     }
 

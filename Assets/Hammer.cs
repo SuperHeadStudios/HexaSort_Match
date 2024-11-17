@@ -15,8 +15,11 @@ public class Hammer : MonoBehaviour
     {
         if (isHammerStart) return;
         isHammerStart = true; 
-        boardController.ClearColumn();
+        //boardController.ClearColumn();
         boardController.hammerEffect.Play();
+
+        Debug.Log("Working Hanera Animation");
+
     }
 
 

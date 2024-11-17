@@ -90,6 +90,7 @@ public class BoardController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Working Hanera Mouse");
                 //ClearColumn();
                 ClearColumn();
                 return;
@@ -559,6 +560,7 @@ public class BoardController : MonoBehaviour
 
         yield return new WaitForSeconds(1.8f);
 
+        // Remove hexacells from the pool
         for (int j = 0; j < column.hexaCellList.Count; j++)
         {
             GameManager.instance.poolManager.RemoveHexaCell(column.hexaCellList[j]);
@@ -568,19 +570,18 @@ public class BoardController : MonoBehaviour
         column.currentHexaColumnData.columnDataList.Clear();
         column.cellColorList.Clear();
         column.topColorID = -1;
-        GameManager.instance.uiManager.gameView.SubHammerValue();
-        GameManager.instance.uiManager.gameView.CloseHammer();
+
         AudioManager.instance.hammerSound.Play();
         if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.HeavyImpact);
     }
 
     IEnumerator HammerBoosterAttack()
-    {
-        hmAttack.SetActive(true);
-        yield return new WaitForSeconds(2.5f);
-        hmAttack.SetActive(false);
-    }
+{
+    hmAttack.SetActive(true);
+    yield return new WaitForSeconds(2.5f);
+    hmAttack.SetActive(false);
+}
 
     private void RefreshAllNearCells()
     {
