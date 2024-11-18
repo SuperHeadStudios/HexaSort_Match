@@ -292,7 +292,7 @@ public class BoardController : MonoBehaviour
     private void MoveToDragPos()
     {
        
-        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z + 2f);
+        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         lastMousePos = new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z);
         currentHexaColumn.transform.localPosition = lastMousePos;
