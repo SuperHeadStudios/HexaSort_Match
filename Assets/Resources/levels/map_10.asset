@@ -24,9 +24,9 @@ MonoBehaviour:
   TutorialSteps: 0
   Goals:
   - Type: 1
-    Target: 500
+    Target: 450
   - Type: 3
-    Target: 3
+    Target: 4
   CellsForTutorial: []
   Difficulty: 1
   Thresholds:
@@ -132,7 +132,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 4
     - Row: 0
       Col: 1
       Types: 
@@ -204,7 +204,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: 2
       Col: 2
       Types: 

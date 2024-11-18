@@ -38,19 +38,19 @@ MonoBehaviour:
     - Row: -2
       Col: -2
       Types: 800000008000000002000000020000000100000001000000
-      Cost: 250
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 1
+    - Row: -2
+      Col: -1
+      Types: 
+      Cost: 100
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 8
-    - Row: -2
-      Col: -1
-      Types: 
-      Cost: 250
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
     - Row: -2
       Col: 0
       Types: 
@@ -62,19 +62,19 @@ MonoBehaviour:
     - Row: -2
       Col: 1
       Types: 
-      Cost: 150
-      CoinCost: 0
-      NeighbourSortPriority: 0
-      RequiredType: 0
-      State: 0
-    - Row: -2
-      Col: 2
-      Types: 100000001000000001000000010000000200000002000000
-      Cost: 250
+      Cost: 50
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 8
+    - Row: -2
+      Col: 2
+      Types: 100000001000000001000000010000000200000002000000
+      Cost: 0
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 1
     - Row: -1
       Col: -2
       Types: 
@@ -90,7 +90,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: -1
       Col: 0
       Types: 
@@ -106,7 +106,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: -1
       Col: 2
       Types: 
@@ -158,7 +158,7 @@ MonoBehaviour:
     - Row: 1
       Col: -2
       Types: 
-      Cost: 25
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
     - Row: 1
       Col: -1
       Types: 
-      Cost: 125
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 1
+      State: 0
     - Row: 1
       Col: 2
       Types: 

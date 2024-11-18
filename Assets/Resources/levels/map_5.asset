@@ -24,7 +24,9 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 400
+    Target: 350
+  - Type: 3
+    Target: 4
   CellsForTutorial:
   - {x: -1, y: 0}
   - {x: -1, y: 1}
@@ -98,7 +100,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: -1
       Col: 0
       Types: 
@@ -114,7 +116,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: -1
       Col: 2
       Types: 
@@ -178,7 +180,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: 1
       Col: 0
       Types: 
@@ -194,7 +196,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 0
+      State: 3
     - Row: 1
       Col: 2
       Types: 
@@ -206,11 +208,11 @@ MonoBehaviour:
     - Row: 2
       Col: -2
       Types: 08000000080000000800000008000000
-      Cost: 250
+      Cost: 0
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 8
+      State: 0
     - Row: 2
       Col: -1
       Types: 
