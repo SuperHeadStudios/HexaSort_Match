@@ -136,7 +136,7 @@ public class HexaColumn : MonoBehaviour
 
     private IEnumerator SetPrefilled()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
         /*   cellColorList.Clear();
            currentHexaColumnData.columnDataList.Clear();*/
         int prefilledNum = Random.Range(1, 6);
@@ -158,10 +158,6 @@ public class HexaColumn : MonoBehaviour
         topColorID = cellColorList[cellColorList.Count - 1];
 
         yield return new WaitForSeconds(2f);
-        if (cellColorList.Count == 0)
-        {
-            Debug.Log("NullListColor-2");
-        }
         currentBottomCell.isPrefilled = false;
     }
 

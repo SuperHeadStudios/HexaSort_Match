@@ -330,10 +330,16 @@ public class BoardController : MonoBehaviour
 
     public void PutColumnInHolder_2(HexaColumn hexaColumn, BottomCell bottomCell)
     {
-        if (GameManager.instance.boardController.currentHitBottomCell.hexaColumn.hexaCellList.Count == 0)
+        if (currentHitBottomCell == null) { Debug.Log("Null cell"); }
+
+        if (currentHitBottomCell.hexaColumn.hexaCellList.Count == 0)
+        {
             PutColumnInHolder(hexaColumn, bottomCell);
+        }
         else
+        {
             ReleaseFocusCell();
+        }
     }
 
     public void PutColumnInHolder(HexaColumn hexaColumn, BottomCell bottomCell)
