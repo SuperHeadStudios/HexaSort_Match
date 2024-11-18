@@ -4,6 +4,7 @@ using static AdsControl;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PopupLose : BasePopup
 {
@@ -109,10 +110,13 @@ public class PopupLose : BasePopup
 
 
 
-    private void Retrive()
+    private IEnumerator Retrive()
     {
         HideView();
         GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
+
+        yield return new WaitForSeconds(2f);
+
         GameManager.instance.boardController.DestroyThreeColums();
         GameManager.instance.cellHolder.ShuffleHolder();
     }
@@ -122,7 +126,7 @@ public class PopupLose : BasePopup
         AudioManager.instance.clickSound.Play();
         if (GameManager.instance.coinValue >= 200)
         {
-            Retrive();
+            StartCoroutine(Retrive());
         }
     }
 
@@ -136,7 +140,7 @@ public class PopupLose : BasePopup
     {
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Lose);
-        Retrive();
+        StartCoroutine(Retrive());
     }
 
 

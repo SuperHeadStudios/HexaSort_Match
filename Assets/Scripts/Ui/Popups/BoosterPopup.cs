@@ -169,8 +169,6 @@ public class BoosterPopup : MonoBehaviour
 
     public void EarnReward()
     {
-        Debug.Log(_state);
-
         switch (_state)
         {
             case BoosterState.Hammer:

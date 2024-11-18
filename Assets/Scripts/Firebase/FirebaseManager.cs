@@ -1,3 +1,4 @@
+
 using Firebase;
 using Firebase.Analytics;
 using Firebase.Extensions;
@@ -69,10 +70,14 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            string level = "Level_" + levelName;
+            string level = "Level_" + LevelTrack.Start_.ToString() + levelName;
 
-            FirebaseAnalytics.LogEvent(level,
+            string level_ = "Level_" + levelName;
+
+            FirebaseAnalytics.LogEvent(level_,
               new Parameter(LevelTrack.Start_.ToString(), levelName));
+
+            FirebaseAnalytics.LogEvent(level);
 
             Debug.Log("Logged start event for level: " + LevelTrack.Start_ + levelName);
         }
@@ -86,12 +91,15 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            string level = "Level_" + levelName;
+            string level = "Level_" + LevelTrack.Win_.ToString() + levelName;
 
-            FirebaseAnalytics.LogEvent(level,
+            string level_ = "Level_" + levelName;
+
+            FirebaseAnalytics.LogEvent(level_,
             new Parameter(LevelTrack.Win_.ToString(), levelName));
 
-            // FirebaseAnalytics.LogEvent(LevelTrack.Win_.ToString(), new Parameter("Level_", levelName));
+            FirebaseAnalytics.LogEvent(level);
+
             Debug.Log("Logged win event for level: " + LevelTrack.Win_ + levelName);
         }
         else
@@ -104,12 +112,12 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            string level = "Level_" + levelName;
+            string level = "Level_" + LevelTrack.Win_.ToString() + levelName;
 
-            FirebaseAnalytics.LogEvent(level,
+            string level_ = "Level_" + levelName;
+            FirebaseAnalytics.LogEvent(level_,
             new Parameter(LevelTrack.Lose_.ToString(), levelName));
-
-            //FirebaseAnalytics.LogEvent(LevelTrack.Lose_.ToString(), new Parameter("Level_", levelName));
+            FirebaseAnalytics.LogEvent(level);
             Debug.Log("Logged Lose event for level: " + LevelTrack.Lose_ + levelName);
         }
         else
@@ -122,7 +130,7 @@ public class FirebaseManager : MonoBehaviour
 
     #region Track_Ad_Impressions
 
-    public void TrackAdImpression(AdType adType, AdLocation adLocation, string adNetwork, int adCount, double ecpm, double revenue)
+    public void TrackAdImpression(AdType adType, AdLocation adLocation, string adNetwork, int adCount, double ecpm, double revenue, int levelNum)
     {
         if (app != null)
         {
@@ -137,6 +145,7 @@ public class FirebaseManager : MonoBehaviour
             Debug.Log($"Ad impression tracked: Type - {adType}, Location - {adLocation}, Network - {adNetwork}, Count - {adCount}");
 
             TrackTotalAds(adType, adNetwork, ecpm, revenue);
+            LevelAdTrack(levelNum.ToString(), adType, revenue);
         }
         else
         {
@@ -177,8 +186,33 @@ public class FirebaseManager : MonoBehaviour
     }
 
 
+    public void LevelAdTrack(string levelName, AdType adType, double revenue)
+    {
+        string level = "Level_" + levelName;
+
+        FirebaseAnalytics.LogEvent(level,
+            new Parameter(adType.ToString(), revenue)
+        );
+    }
+
 
     #endregion
+
+    #region Booster Used InLevel 
+
+    public void TrackBoostersUsed(int levelNum, BoosterTypeUsed boosterTypeUsed)
+    {
+        string BoosterUsed = boosterTypeUsed.ToString();
+
+        string level = "Level_" + levelNum.ToString() + "_" + boosterTypeUsed;
+
+        FirebaseAnalytics.LogEvent(level);
+
+        Debug.Log(level);
+    }
+
+    #endregion
+
 
 
     #region Track_Retry
@@ -329,4 +363,11 @@ public enum AdLocation
     None,
     Adblocker,
     WinReward,
+}
+
+public enum BoosterTypeUsed
+{
+    Hammer,
+    Move,
+    Refresh
 }

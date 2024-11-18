@@ -121,17 +121,17 @@ public class AppLovinMaxAdManager : MonoBehaviour
         if (adUnitId == bannerAdUnitId)
         {
             Debug.Log("Tracking Banner Ad Impression.");
-            FirebaseManager.instance.TrackAdImpression(AdType.Banner, AdLocation.Game, networkName, 1, cmp, revenue);
+            FirebaseManager.instance.TrackAdImpression(AdType.Banner, AdLocation.Game, networkName, 1, cmp, revenue, PlayerPrefs.GetInt("CurrentLevel", 1));
         }
         else if (adUnitId == rewardedAdUnitId)
         {
             Debug.Log("Tracking Rewarded Ad Impression.");
-            FirebaseManager.instance.TrackAdImpression(AdType.Reward, reward_AdLocation, networkName, 1, cmp, revenue);
+            FirebaseManager.instance.TrackAdImpression(AdType.Reward, reward_AdLocation, networkName, 1, cmp, revenue, PlayerPrefs.GetInt("CurrentLevel", 1));
         }
         else if (adUnitId == interstitialAdUnitId)
         {
             Debug.Log("Tracking Interstitial Ad Impression.");
-            FirebaseManager.instance.TrackAdImpression(AdType.Interstitial, inters_AdLocation, networkName, 1, cmp, revenue);
+            FirebaseManager.instance.TrackAdImpression(AdType.Interstitial, inters_AdLocation, networkName, 1, cmp, revenue, PlayerPrefs.GetInt("CurrentLevel", 1));
         }
         else
         {

@@ -60,7 +60,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
         if (adUnitId == appOpenAdUnitId)
         {
             Debug.Log("Tracking Banner Ad Impression.");
-            FirebaseManager.instance.TrackAdImpression(AdType.AppOpen, AdLocation.Game, networkName, 1, cmp, revenue);
+            FirebaseManager.instance.TrackAdImpression(AdType.AppOpen, AdLocation.Game, networkName, 1, cmp, revenue, PlayerPrefs.GetInt("CurrentLevel", 1));
         }
         else
         {

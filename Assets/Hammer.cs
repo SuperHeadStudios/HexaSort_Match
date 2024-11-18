@@ -18,8 +18,6 @@ public class Hammer : MonoBehaviour
         //boardController.ClearColumn();
         boardController.hammerEffect.Play();
 
-        Debug.Log("Working Hanera Animation");
-
     }
 
 

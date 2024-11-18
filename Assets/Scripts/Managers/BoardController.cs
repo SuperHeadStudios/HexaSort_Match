@@ -91,8 +91,10 @@ public class BoardController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Working Hanera Mouse");
-                //ClearColumn();
+
+
                 ClearColumn();
+                FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Hammer);
                 return;
             }
         }
@@ -101,6 +103,7 @@ public class BoardController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Move);
                 PickHexaColumnInMaps();
             }
 
@@ -279,7 +282,7 @@ public class BoardController : MonoBehaviour
 
     private void DragCurrentColumn()
     {
-        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
+        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z +2f);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 offsetAnchor = new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z) - lastMousePos;
         currentHexaColumn.transform.localPosition += offsetAnchor;
@@ -289,7 +292,7 @@ public class BoardController : MonoBehaviour
     private void MoveToDragPos()
     {
        
-        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z);
+        mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(currentHexaColumn.transform.position).z + 2f);
         mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         lastMousePos = new Vector3(mouseWorldPos.x, 2.5f, mouseWorldPos.z);
         currentHexaColumn.transform.localPosition = lastMousePos;
@@ -569,7 +572,9 @@ public class BoardController : MonoBehaviour
         column.hexaCellList.Clear();
         column.currentHexaColumnData.columnDataList.Clear();
         column.cellColorList.Clear();
-        column.topColorID = -1;
+        column.topColorID = -1; 
+        GameManager.instance.uiManager.gameView.SubHammerValue();
+        GameManager.instance.uiManager.gameView.CloseHammer();
 
         AudioManager.instance.hammerSound.Play();
         if (AudioManager.instance.hapticState)

@@ -448,7 +448,6 @@ public class GameView : BaseView
         {
             //StartCoroutine(shuffleBoosterTut());
             GameManager.instance.cellHolder.ShuffleHolder();
-
             SubShuffleValue();
             UpdateBoosterView();
         }
