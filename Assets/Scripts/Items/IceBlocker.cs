@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -12,8 +13,11 @@ public class IceBlocker : MonoBehaviour
     [SerializeField] private Collider[] secPartCol;
     [SerializeField] private Collider[] thirdPartCol;
     [SerializeField] private GameObject firstObj;
+    [SerializeField] private GameObject firstObjCombine;
     [SerializeField] private GameObject secObj;
+    [SerializeField] private GameObject secObjCombine;
     [SerializeField] private GameObject thirdObj;
+    [SerializeField] private GameObject thirdObjCombine;
     [SerializeField] private float forceToBreak = 40f;
     [SerializeField] private float radiusToBreak = .5f;
     [SerializeField] private float thirdradius;
@@ -51,6 +55,12 @@ public class IceBlocker : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+        firstObjCombine.SetActive(true);
+        firstObj.SetActive(false);
+        secObjCombine.SetActive(true);
+        secObj.SetActive(false);
+        thirdObjCombine.SetActive(true);
+        thirdObj.SetActive(false);
     }
 
     private void Update()
@@ -100,18 +110,24 @@ public class IceBlocker : MonoBehaviour
     // Call these methods as needed for first, second, and third breaks
     private void MakeFirstBreak()
     {
+        firstObj.SetActive(true);
+        firstObjCombine.SetActive(false);    
         MakeBreak(firstPartRbs, firstPartilces);
         StartCoroutine(DisableFirstCol());
     }
 
     private void MakeSecondBreak()
     {
+        secObj.SetActive(true );
+        secObjCombine.SetActive(false);
         MakeBreak(secPartRbs, secondPartilces);
         StartCoroutine(DisableSecCol());
     }
 
     private void MakeThirdBreak()
     {
+        thirdObj.SetActive(true);
+        thirdObjCombine.SetActive(false);
         MakeBreak(thirdPartRbs, thirdPartilces);
         StartCoroutine(DisableThirdCol());
     }

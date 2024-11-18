@@ -103,7 +103,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 7
     - Row: -1
       Col: 1
       Types: 
@@ -183,7 +183,7 @@ MonoBehaviour:
       CoinCost: 0
       NeighbourSortPriority: 0
       RequiredType: 0
-      State: 9
+      State: 7
     - Row: 1
       Col: 1
       Types: 

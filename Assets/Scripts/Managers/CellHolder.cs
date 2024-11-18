@@ -274,7 +274,15 @@ public class CellHolder : MonoBehaviour
                 maxNum = 6;
             }
         }
-
+        int miniStack = 0;
+        if(GameManager.instance.levelIndex > 3)
+        {
+            miniStack = 4;
+        }
+        else
+        {
+            miniStack = 3;
+        }
 
         for (int i = 0; i < currentSlots; i++)
         {
@@ -354,8 +362,8 @@ public class CellHolder : MonoBehaviour
             }
             else
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(miniStack, 5));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(miniStack, 6));
 
                 if (randomData1.colorID == randomData2.colorID )
                 {
@@ -371,8 +379,8 @@ public class CellHolder : MonoBehaviour
 
             if (firstPiece.columnDataList.Count == 0)
             {
-                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 3));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, maxNum), Random.Range(miniStack, 5));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(miniStack, 6));
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
             }

@@ -592,11 +592,11 @@ public class BoardController : MonoBehaviour
     hmAttack.SetActive(false);
 }
 
-    private void RefreshAllNearCells()
+    public void RefreshAllNearCells()
     {
-        for (int i = 0; i < GameManager.instance.boardController.hexaColumnsInMap.Count; i++)
+        for (int i = 0; i < hexaColumnsInMap.Count; i++)
         {
-            GameManager.instance.boardController.hexaColumnsInMap[i].currentBottomCell.GetNearCells();
+            hexaColumnsInMap[i].currentBottomCell.GetNearCells();
         }
     }
 

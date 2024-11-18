@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MapDataLevelConfigSO", menuName = "GameData/MapDataLevelConfigSO")]
 public class MapDataLevelConfigSO : ScriptableObject
 {
-	public bool isBlockers;
-
 	public float cameraZoom;
 	public float boardPos_Z;
 	public float cellPos_Z;

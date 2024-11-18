@@ -405,10 +405,12 @@ public class BottomCell : MonoBehaviour
                 else if (nearCell.isIce == true)
                 {
                     StartCoroutine(nearCell.iceBlocker.MakeIceBreak_WithDelay());
+                   BoardController.instance.RefreshAllNearCells();
                 }
                 else if (nearCell.isVines == true)
                 {
                     StartCoroutine(nearCell.vinesBlocker.MakeVinesBreak_WithDelay());
+                    BoardController.instance.RefreshAllNearCells();
                 }
                 else if (nearCell.isHoney == true)
                 {
