@@ -152,7 +152,6 @@ public class BoosterUnlock : MonoBehaviour
 
     public void ShowBoosterUnlockPopup()
     {
-       
         if (!isNotOn)
         {
             switch (GameManager.instance.levelIndex)

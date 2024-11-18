@@ -363,9 +363,7 @@ public class CellHolder : MonoBehaviour
                 ColumnData randomData2 = new ColumnData(Random.Range(0, maxNum), Random.Range(2, 4));
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
-                Debug.Log("Data CDhe and " + maxNum);
             }
-                Debug.Log("Data CDhe and out" + maxNum);
 
             HexaColumnData mergePiece = new HexaColumnData();
             mergePiece.columnDataList = new List<ColumnData>();

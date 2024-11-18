@@ -40,8 +40,6 @@ public class GameView : BaseView
 
     private bool finishTut;
 
-    public bool isBlockers;
-
     public GameObject blockers;
 
     public GameObject targetFill;
@@ -87,20 +85,14 @@ public class GameView : BaseView
     private void Awake()
     {
         finishTut = false;
-        isBlockers = true;
     }
 
-    public bool IsBlocker()
+   
+    public void GoallbarShow( bool isBlockers)
     {
-        return BoardController.instance.boardGenerator.woodGoalNumber > 0 ||
-            BoardController.instance.boardGenerator.honeyGoalNumber > 0 ||
-            BoardController.instance.boardGenerator.grassGoalNumber > 0;
-    }
-
-    public void GoallbarShow()
-    {
-        if(IsBlocker())
+        if(isBlockers)
         {
+            Debug.Log("IsBlocker"+ BoardController.instance.boardGenerator.woodGoalNumber + "honey"+BoardController.instance.boardGenerator.honeyGoalNumber + "Grass"+BoardController.instance.boardGenerator.grassGoalNumber);
             blockergoalbar.SetActive(true);
             goalbar.SetActive(false);
 
@@ -119,6 +111,7 @@ public class GameView : BaseView
         }
         else
         {
+            Debug.Log("IsNotBlocker" + BoardController.instance.boardGenerator.woodGoalNumber + "honey" + BoardController.instance.boardGenerator.honeyGoalNumber + "Grass" + BoardController.instance.boardGenerator.grassGoalNumber);
             blockergoalbar.SetActive(false);
             goalbar.SetActive(true);
         }

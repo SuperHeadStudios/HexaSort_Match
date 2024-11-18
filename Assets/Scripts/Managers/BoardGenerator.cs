@@ -20,6 +20,8 @@ public class BoardGenerator : MonoBehaviour
 
     private int maxRow;
 
+    public bool isBlockers = false;
+
     public int goalNumber;
 
     public int currentGoalNumber;
@@ -127,15 +129,18 @@ public class BoardGenerator : MonoBehaviour
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Wood)
             {
                 bottomCell.InitWoodCell(true);
+                isBlockers = true;
 
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Grass)
             {
                 bottomCell.InitGrassCell(true);
+                isBlockers = true;
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Honey)
             {
                 bottomCell.InitHoneyCell(true);
+                isBlockers = true;
             }
             else if (levelConfig.LevelData.Cells[i].State == EnumStateOfBottomCell.Ice)
             {
@@ -228,9 +233,9 @@ public class BoardGenerator : MonoBehaviour
                 grassGoal.SetActive(false);
             }
         }
-
+        Debug.Log(isBlockers);
         currentMapSlots = levelConfig.LevelData.Cells.Count;
-        GameManager.instance.uiManager.gameView.GoallbarShow();
+        GameManager.instance.uiManager.gameView.GoallbarShow(isBlockers);
     }
 
     public int CurrentProgressCount()

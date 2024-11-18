@@ -105,6 +105,13 @@ public class GameManager : MonoBehaviour
         {
             woodTick.SetActive(true);
             woodGoal.SetActive(false);
+            if (boardGenerator.currentGoalNumber <= 0 &&
+                    boardGenerator.currentWoodGoalNumber <= 0 &&
+                    boardGenerator.currentHoneyGoalNumber <= 0 &&
+                    boardGenerator.currentGrassGoalNumber <= 0)
+            {
+                StartCoroutine(GameManager.instance.ShowGameWin());
+            }
         }
     }
     public void IncreaseHoneyCount()
@@ -119,6 +126,13 @@ public class GameManager : MonoBehaviour
         {
             honeyTick.SetActive(true);
             honeyGoal.SetActive(false);
+            if (boardGenerator.currentGoalNumber <= 0 &&
+                    boardGenerator.currentWoodGoalNumber <= 0 &&
+                    boardGenerator.currentHoneyGoalNumber <= 0 &&
+                    boardGenerator.currentGrassGoalNumber <= 0)
+            {
+                StartCoroutine(GameManager.instance.ShowGameWin());
+            }
         }
     }
     public void IncreaseGrassCount()
@@ -133,6 +147,13 @@ public class GameManager : MonoBehaviour
         {
             grassTick.SetActive(true);
             grassGoal.SetActive(false);
+            if (boardGenerator.currentGoalNumber <= 0 &&
+                    boardGenerator.currentWoodGoalNumber <= 0 &&
+                    boardGenerator.currentHoneyGoalNumber <= 0 &&
+                    boardGenerator.currentGrassGoalNumber <= 0)
+            {
+                StartCoroutine(GameManager.instance.ShowGameWin());
+            }
         }
     }
     

@@ -78,7 +78,7 @@ public class SpawnFlowerTile : MonoBehaviour
         // Calculate target UI position relative to the Camera Space Canvas
         Vector3 targetViewportPosition = Vector3.zero;
 
-        if (GameManager.instance.uiManager.gameView.IsBlocker())
+        if (BoardController.instance.boardGenerator.isBlockers)
         {
             targetViewportPosition = uiCamera.WorldToViewportPoint(targetUIPosition_2.position);
         }
