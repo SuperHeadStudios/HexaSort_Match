@@ -240,7 +240,7 @@ public class PopupWin : BasePopup
         {
             GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
             cointList.Add(spwaCoin);
-            AudioManager.instance.coinCollectSound.Play();
+            
 
             if (currentCoin == rwValue)
             {
@@ -250,6 +250,7 @@ public class PopupWin : BasePopup
 
 
             levelCoinText.text = currentCoin.ToString();            
+            AudioManager.instance.coinCollectSound.Play();
             spwaCoin.transform.DOMove(cointTarget.position, 0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
             {
                 Destroy(spwaCoin, 0.01f);

@@ -93,6 +93,12 @@ public class CellHolder : MonoBehaviour
                 }
             }
 
+            if (firstPiece.columnDataList.Count == 0)
+            {
+                firstPiece.columnDataList.Add(randomData1);
+                firstPiece.columnDataList.Add(randomData2);
+            }
+
             HexaColumnData mergePiece = new HexaColumnData();
             mergePiece.columnDataList = new List<ColumnData>();
 
@@ -155,6 +161,12 @@ public class CellHolder : MonoBehaviour
                 if (GameManager.instance.levelIndex >= 2 && BoardController.instance.boardGenerator.CurrentProgressCount() >= Random.Range(50, 150))
                 {
                      firstPiece.columnDataList.Add(randomData3);
+                }
+
+                if (firstPiece.columnDataList.Count == 0)
+                {
+                    firstPiece.columnDataList.Add(randomData1);
+                    firstPiece.columnDataList.Add(randomData2);
                 }
 
 
@@ -398,6 +410,10 @@ public class CellHolder : MonoBehaviour
             hexaColumnList.Add(column);
             column.gameObject.SetActive(false);
             StartCoroutine(ColumnAppear(column.gameObject, i));
+            if(transform.childCount == 0)
+            {
+                CheckPiecesInHolder();
+            }
         }
     }
 
