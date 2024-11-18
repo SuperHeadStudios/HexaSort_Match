@@ -586,11 +586,11 @@ public class BoardController : MonoBehaviour
     }
 
     IEnumerator HammerBoosterAttack()
-{
-    hmAttack.SetActive(true);
-    yield return new WaitForSeconds(2.5f);
-    hmAttack.SetActive(false);
-}
+    {
+        hmAttack.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        hmAttack.SetActive(false);
+    }
 
     public void RefreshAllNearCells()
     {
@@ -826,7 +826,7 @@ public class BoardController : MonoBehaviour
                     //bottomCell.GetNearCells();
                     if (bottomCell.hexaColumn.hexaCellList.Count > 0)
                     {
-                        if(bottomCell.isVines)
+                        if(bottomCell.isVines || bottomCell.isIce)
                             return;
                         StartCoroutine(DestroyColumnByHammer(bottomCell.hexaColumn));
                     }

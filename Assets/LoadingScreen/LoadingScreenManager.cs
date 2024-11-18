@@ -12,12 +12,32 @@ public class LoadingScreenManager : MonoBehaviour
     [SerializeField] private float loadingDuration = 3f;
     [SerializeField] private GameObject AdPanel;
 
+
     public AsyncOperation operation;
 
     public bool isLoadHome = false;
     bool isSeconPlay;
+    private const string TermsAcceptedKey = "TermsAccepted";
 
-    void Start()
+    private void Start()
+    {
+        if (isLoadHome)
+        {
+            StartLoading();
+            Debug.Log("calling from home loading scene");
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        if (!isLoadHome)
+        {
+            StartLoading();
+        }
+    }
+
+    public void StartLoading()
     {
         isSeconPlay = PlayerPrefsHelper.GetBool("isSeconPlay", false);
 

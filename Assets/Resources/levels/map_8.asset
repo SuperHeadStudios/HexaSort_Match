@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_8
   m_EditorClassIdentifier: 
-  isBlockers: 0
   cameraZoom: 10.5
   boardPos_Z: -0.4
   cellPos_Z: -8
@@ -226,6 +225,30 @@ MonoBehaviour:
       NeighbourSortPriority: 0
       RequiredType: 0
       State: 8
+    - Row: 0
+      Col: 0
+      Types: 020000000200000002000000010000000100000001000000
+      Cost: 50
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 2
+      Col: 2
+      Types: 020000000200000002000000010000000100000001000000
+      Cost: 50
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
+    - Row: 2
+      Col: -2
+      Types: 020000000200000002000000010000000100000001000000
+      Cost: 50
+      CoinCost: 0
+      NeighbourSortPriority: 0
+      RequiredType: 0
+      State: 0
     Pieces:
     - Types: 
     - Types: 

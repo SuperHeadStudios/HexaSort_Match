@@ -360,6 +360,7 @@ public class GameView : BaseView
         {
             purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
             purchaseBooster.parent.GetComponent<Image>().enabled = true;
+            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
         }
 
     }
@@ -396,6 +397,7 @@ public class GameView : BaseView
         {
             purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
             purchaseBooster.parent.GetComponent<Image>().enabled = true;
+            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
         }
     }
 
@@ -455,6 +457,7 @@ public class GameView : BaseView
         {
             purchaseBooster.DOScale(Vector3.one * 0.9f, 0.1f);
             purchaseBooster.parent.GetComponent<Image>().enabled = true;
+            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
         }
     }
 
@@ -469,7 +472,8 @@ public class GameView : BaseView
     {
         purchaseBooster.DOScale(Vector3.zero, 0.1f);
         purchaseBooster.parent.GetComponent<Image>().enabled = false;
-        GameManager.instance.uiManager.gameView.ShowView(); 
+        GameManager.instance.uiManager.gameView.ShowView();
+        GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
     }
 
     public void UpdateBoosterView()

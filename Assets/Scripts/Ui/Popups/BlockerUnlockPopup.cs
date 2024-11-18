@@ -20,11 +20,15 @@ public class BlockerUnlockPopup : MonoBehaviour
             case 4:
                 if (!PlayerPrefsManager.GetWoodUnlocked())
                 {
+                   
                     mainPopup.enabled = true;
                     woodPopup.SetActive(true);
                     AudioManager.instance.trailAudio.Play();
                     woodPopup.transform.localScale = Vector3.zero;
-                    woodPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    woodPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                    {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                    });
 
                     PlayerPrefsManager.SetWoodUnlocked(true);
                 }
@@ -36,7 +40,10 @@ public class BlockerUnlockPopup : MonoBehaviour
                     icePopup.SetActive(true);
                     AudioManager.instance.trailAudio.Play();
                     icePopup.transform.localScale = Vector3.zero;
-                    icePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    icePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                    {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                    });
 
                     PlayerPrefsManager.SetIceUnlocked(true);
                 }
@@ -50,7 +57,10 @@ public class BlockerUnlockPopup : MonoBehaviour
                     vinesPopup.SetActive(true);
                     AudioManager.instance.trailAudio.Play();
                     vinesPopup.transform.localScale = Vector3.zero;
-                    vinesPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    vinesPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                    {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                    });
 
                     PlayerPrefsManager.SetVinesUnlocked(true);
                 }
@@ -64,7 +74,10 @@ public class BlockerUnlockPopup : MonoBehaviour
                     grassPopup.SetActive(true);
                     AudioManager.instance.trailAudio.Play();
                     grassPopup.transform.localScale = Vector3.zero;
-                    grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    grassPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                    {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                    });
 
                     PlayerPrefsManager.SetGrassUnlocked(true);
                 }
@@ -77,7 +90,10 @@ public class BlockerUnlockPopup : MonoBehaviour
                     honeyPopup.SetActive(true);
                     AudioManager.instance.trailAudio.Play();
                     honeyPopup.transform.localScale = Vector3.zero;
-                    honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo);
+                    honeyPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() =>
+                    {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                    });
 
                     PlayerPrefsManager.SetHoneyUnlocked(true);
                 }
@@ -114,6 +130,7 @@ public class BlockerUnlockPopup : MonoBehaviour
         popup.DOScale(Vector3.zero, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
         {
             mainPopup.enabled = false;
+            GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
         });
     }
 }

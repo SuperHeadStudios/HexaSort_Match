@@ -130,15 +130,15 @@ public class SettingBar : MonoBehaviour
     public void LifeLoseButton()
     {
         AdsControl.Instance.directPlay = false;
-        //GameManager.instance.livesManager.ConsumeLife();
+        GameManager.instance.livesManager.ConsumeLife();
         GameManager.instance.BackToHome();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
     
     public void LifeLoseButtonRestart()
     {
         AdsControl.Instance.directPlay = true;
-        //GameManager.instance.livesManager.ConsumeLife();
+        GameManager.instance.livesManager.ConsumeLife();
         //GameManager.instance.BackToHome();
         //GameManager.instance.ReplayNow();
         HideSureRestart();

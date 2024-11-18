@@ -168,7 +168,8 @@ public class BoosterUnlock : MonoBehaviour
 
                         hammerPopup.transform.localScale = Vector3.zero;
                         hammerPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => 
-                        { 
+                        {
+                            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
                             PlayAllPs(); }
                         );
 
@@ -187,7 +188,11 @@ public class BoosterUnlock : MonoBehaviour
                         AudioManager.instance.confettiBlast.Play();
 
                         swapPopup.transform.localScale = Vector3.zero;
-                        swapPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => { PlayAllPs();});
+                        swapPopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => 
+                        {
+                            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                            PlayAllPs();
+                        });
 
                         PlayerPrefsManager.SetSwapUnlocked(true);
                     }
@@ -196,6 +201,7 @@ public class BoosterUnlock : MonoBehaviour
                 case 9:
                     if (!PlayerPrefsManager.GetShuffleUnlocked())
                     {
+                        GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
                         mainPopup.enabled = true;
                         shufflePopup.SetActive(true);
 
@@ -204,7 +210,11 @@ public class BoosterUnlock : MonoBehaviour
                         AudioManager.instance.confettiBlast.Play();
 
                         shufflePopup.transform.localScale = Vector3.zero;
-                        shufflePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => { PlayAllPs();});
+                        shufflePopup.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutExpo).OnComplete(() => 
+                        {
+                            GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
+                            PlayAllPs();
+                        });
 
                         PlayerPrefsManager.SetShuffleUnlocked(true);
                     }
@@ -226,7 +236,6 @@ public class BoosterUnlock : MonoBehaviour
     public void HidePopup()
     {
         isNotOn = false;
-
         switch (GameManager.instance.levelIndex)
         {
             case 3:
@@ -254,5 +263,6 @@ public class BoosterUnlock : MonoBehaviour
         LockUnlockHammer();
         LockUnlockShuffle();
         LockUnlockSwap();
+        GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
     }
 }

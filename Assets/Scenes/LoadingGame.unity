@@ -357,7 +357,7 @@ MonoBehaviour:
   loadingText: {fileID: 1076621007}
   loadingDuration: 2.5
   AdPanel: {fileID: 2018538203}
-  isLoadHome: 0
+  isLoadHome: 1
 --- !u!1 &353162818
 GameObject:
   m_ObjectHideFlags: 0
