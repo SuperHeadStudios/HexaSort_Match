@@ -35,6 +35,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource flowerCollectedSound;
 
+    public AudioSource spinWheel;
+
     public AudioSource[] soundList;
 
     public static AudioManager instance;

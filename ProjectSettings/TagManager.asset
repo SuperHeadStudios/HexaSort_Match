@@ -7,6 +7,13 @@ TagManager:
   - BottomCell
   - CellColumn
   - Missile
+  - X5
+  - X10
+  - X100
+  - X3
+  - X2
+  - X1
+  - X20
   layers:
   - Default
   - TransparentFX

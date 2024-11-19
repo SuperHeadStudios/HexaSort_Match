@@ -23,7 +23,7 @@ public abstract class BaseView : MonoBehaviour
     {
         canvasGroup.alpha = 0.0f;
 
-        DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1.0f, 0.1f).SetEase(Ease.Linear)
+            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1.0f, 0.1f).SetEase(Ease.Linear)
             .OnComplete(() => {
 
                 canvasGroup.alpha = 1.0f;
@@ -40,7 +40,7 @@ public abstract class BaseView : MonoBehaviour
 
     public virtual void HideView()
     {
-        DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0.0f, 0.1f).SetEase(Ease.Linear)
+            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0.0f, 0.1f).SetEase(Ease.Linear)
            .OnComplete(() => {
 
                canvasGroup.alpha = 0.0f;
