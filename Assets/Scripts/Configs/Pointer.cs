@@ -15,11 +15,15 @@ public class Pointer : MonoBehaviour
     [SerializeField] private float initialSpeed = 1000f;
     [SerializeField] private Transform roots;
     [SerializeField] private Transform arrowPos;
-    [SerializeField] private ParticleSystem confettiPlay;
+
+    [SerializeField] public ParticleSystem rewardGotParticle;
+    [SerializeField] public ParticleSystem rewardPointParticle;
+    [SerializeField] private ParticleSystem rightConfeti;
+    [SerializeField] private ParticleSystem rightConfetiFall;
+    [SerializeField] private ParticleSystem leftConfeti;
+    [SerializeField] private ParticleSystem leftConfetiFall;
 
     [SerializeField] private Collider2D[] allColliders;
-
-
 
     [Header("------ Coins Move Settings ------"), Space(5)]
     [SerializeField] private float randPosi;
@@ -139,9 +143,16 @@ public class Pointer : MonoBehaviour
     {
         roots.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
-            resultObject.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
-            confettiPlay.Play();
+            resultObject.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                rewardPointParticle.Play();
+            });
+            leftConfeti.Play();
+            leftConfetiFall.Play();
+            rightConfeti.Play(); 
+            rightConfetiFall.Play();
             closeBtn.SetActive(true);
+            freeBtn.SetActive(false);
         });
     }
 
@@ -156,9 +167,6 @@ public class Pointer : MonoBehaviour
             resultObject.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
         });*/
     }
-
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -193,6 +201,7 @@ public class Pointer : MonoBehaviour
         {
             isCoinMakeTrue = true;
             StartCoroutine(CoinAnimationMoving());
+            StartCoroutine(RewardIconCoinAnimation());
         }
         else if (collision.gameObject.CompareTag("X2") || collision.gameObject.CompareTag("X3") || collision.gameObject.CompareTag("X1"))
         {
@@ -217,15 +226,25 @@ public class Pointer : MonoBehaviour
         }
     }
 
+    public IEnumerator RewardIconCoinAnimation()
+    {
+        if (isRewardComplete == true)
+        {
+            yield return new WaitForSeconds(2);
+
+            rewardIcon.rectTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.Linear);
+        }
+        else
+        {
+            Debug.Log("DoNothing");
+        }
+    }
+
     public IEnumerator CoinAnimationMoving()
     {
         yield return new WaitForSeconds (1);
         if (isCoinMakeTrue)
         {
-            rewardValueTxt.rectTransform.DOLocalMoveY(470, 2f).SetEase(Ease.Linear).OnComplete(() =>
-            {
-                rewardValueTxt.gameObject.SetActive(false);
-            });
             StartCoroutine(SpawnCoins());
         }
     }
@@ -235,11 +254,16 @@ public class Pointer : MonoBehaviour
         if (isRewardComplete == true)
         {
             yield return new WaitForSeconds(2);
-            rewardValueTxt.rectTransform.DOLocalMoveY(470, 2f).SetEase(Ease.Linear).OnComplete(() =>
+            AudioManager.instance.trailAudio.Play();
+            rewardIcon.transform.DOLocalMoveY(-650, .3f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                rewardValueTxt.gameObject.SetActive(false);
+                closeBtn.transform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.OutBounce).OnComplete(() =>
+                {
+                    rewardGotParticle.Play();
+                    AudioManager.instance.flowerCollectedSound.Play();
+                    closeBtn.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutBounce);
+                });
             });
-            rewardIcon.transform.DOLocalMoveY(-650, .3f).SetEase(Ease.Linear);
         }
         else
         {
@@ -291,12 +315,7 @@ public class Pointer : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
-
     }
-
-
-
-
 
     public void ResetRewardDisplay()
     {
@@ -311,14 +330,5 @@ public class Pointer : MonoBehaviour
         {
             rewardIcon.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
         });
-        rewardValueTxt.transform.DOLocalMoveY(0, .01f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            rewardValueTxt.gameObject.SetActive(true);
-        });
     }
-
-
-
-
-
 }

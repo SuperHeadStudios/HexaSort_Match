@@ -60,8 +60,8 @@ public class GameView : BaseView
     [SerializeField] private GameObject grassGoal;
 
     [Space(10)]
-    [SerializeField] private ParticleSystem flowerPs_1;
-    [SerializeField] private ParticleSystem flowerPps_2;
+    [SerializeField] public ParticleSystem flowerPs_1;
+    [SerializeField] public ParticleSystem flowerPps_2;
     [SerializeField] private Transform flowerIcon_1;
     [SerializeField] private Transform flowerIcon_2;
 
