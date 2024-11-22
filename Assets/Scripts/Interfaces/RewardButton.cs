@@ -36,7 +36,7 @@ public class RewardButton : MonoBehaviour
     private void Start()
     {
         UpdateUI();
-        collectBtn.onClick.AddListener(() => DailyRewardManager.instance.ClaimReward(itemIndex));
+        collectBtn.onClick.AddListener(() => DailyLoginRewardManager.instance.ClaimReward(itemIndex));
     }
 
     public void SetActiveState()

@@ -363,6 +363,7 @@ public enum AdLocation
     None,
     Adblocker,
     WinReward,
+    dailyReward,
 }
 
 public enum BoosterTypeUsed
