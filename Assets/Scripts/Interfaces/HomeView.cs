@@ -8,6 +8,8 @@ public class HomeView : BaseView
 {
     public TextMeshProUGUI currentLevelTxt;
 
+    public TextMeshProUGUI wheelDialgueText;
+
     public TextMeshProUGUI spinProgressTxt;
 
     public Image spinProgressBar;
@@ -22,6 +24,7 @@ public class HomeView : BaseView
     [SerializeField] private GameObject homeScreen_D;
 
     [SerializeField] private GameObject spinWheelBtn;
+    [SerializeField] private Pointer wheelPopup;
 
     public void ShowSettingPopup()
     {
@@ -137,6 +140,36 @@ public class HomeView : BaseView
             {
                 spinWheelBtn.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
             });
+            if(GameManager.instance.levelIndex == 5)
+            {
+                wheelPopup.spinAvail = true;
+                Debug.Log("SpinAvail");
+            }
+            
+            if(GameManager.instance.levelIndex == 10)
+            {
+                wheelPopup.spinAvail = true;
+            }
+            
+            if(GameManager.instance.levelIndex == 15)
+            {
+                wheelPopup.spinAvail = true;
+            }
+            
+            if(GameManager.instance.levelIndex == 20)
+            {
+                wheelPopup.spinAvail = true;
+            }
+            
+            if(GameManager.instance.levelIndex == 25)
+            {
+                wheelPopup.spinAvail = true;
+            }
+            
+            if(GameManager.instance.levelIndex == 30)
+            {
+                wheelPopup.spinAvail = true;
+            }
         }
         else
         {

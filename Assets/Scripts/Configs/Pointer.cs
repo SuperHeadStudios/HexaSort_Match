@@ -33,11 +33,11 @@ public class Pointer : MonoBehaviour
     [Header("UI and Assets")]
     [SerializeField] private GameObject resultObject;
     [SerializeField] private TextMeshProUGUI rewardValueTxt;
-    [SerializeField] private TextMeshProUGUI dilogueText;
+    [SerializeField] private TextMeshProUGUI wheelDialgueText;
     [SerializeField] private Image rewardIcon;
     [SerializeField] private Sprite coinSpr, hammerSpr, moveSpr, shuffleSpr;
-    [SerializeField] private Sprite spinBtn, spinOffBtn;
-    [SerializeField] private Button freeBtn, adsBtn, closeTextBtn;
+    [SerializeField] private Sprite spinSpr, spinOffSpr;
+    [SerializeField] private Button spnBtn, adsBtn, closeTextBtn;
 
     private bool isSpinning;
 
@@ -47,53 +47,76 @@ public class Pointer : MonoBehaviour
     [SerializeField] private AnimationCurve easingCurve;  // Easing curve for deceleration
 
     public bool isRewardComplete = false;
-    public bool isCoinMakeTrue = false;
+    public bool coinReward;
+    public bool spinAvail;
     private void OnEnable()
     {
-       
+        
+    }
+    private void Update()
+    {
+        if (spinAvail)
+        {
+            spnBtn.gameObject.SetActive(true);
+            adsBtn.gameObject.SetActive(false);
+            spnBtn.interactable = true;
+            spnBtn.GetComponent<Image>().sprite = spinSpr;
+        }
     }
 
     public void SpinWheel()
     {
-        freeBtn.GetComponent<Image>().sprite = spinOffBtn;
-        if (isSpinning) return;
-        isSpinning = true;
-        float randomRotation = Random.Range(360f * 5, 360f * 10); 
-        float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
-        AudioManager.instance.spinWheel.Play();
-        StartCoroutine(SpinAnimation(randomRotation, spinDuration));
+        if (spinAvail)
+        {
+            spinAvail = false;
+            spnBtn.GetComponent<Image>().sprite = spinOffSpr;
+            if (isSpinning) return;
+            isSpinning = true;
+            float randomRotation = Random.Range(360f * 5, 360f * 10);
+            float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
+            AudioManager.instance.spinWheel.Play();
+            StartCoroutine(SpinAnimation(randomRotation, spinDuration));
+            spnBtn.interactable = false;
+        }
+    }
+
+    public void WatchAdsSpin()
+    {
+        AudioManager.instance.clickSound.Play();
+        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
+        spinAvail = true;
     }
 
     private IEnumerator SpinAnimation(float targetRotation, float duration)
     {
-        float elapsedTime = 0f;
-        float startRotation = wheel.localEulerAngles.z;
-        float endRotation = startRotation + targetRotation;
+            float elapsedTime = 0f;
+            float startRotation = wheel.localEulerAngles.z;
+            float endRotation = startRotation + targetRotation;
 
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / duration;
 
-            // Apply easing curve for smooth deceleration
-            float easedT = easingCurve.Evaluate(t);
+                // Apply easing curve for smooth deceleration
+                float easedT = easingCurve.Evaluate(t);
 
-            float currentRotation = Mathf.Lerp(startRotation, endRotation, easedT);
-            wheel.localEulerAngles = new Vector3(0, 0, currentRotation);
+                float currentRotation = Mathf.Lerp(startRotation, endRotation, easedT);
+                wheel.localEulerAngles = new Vector3(0, 0, currentRotation);
 
-            yield return null;
-        }
-        // Snap to the final rotation
-        wheel.localEulerAngles = new Vector3(0, 0, endRotation % 360);
-        isSpinning = false;
+                yield return null;
+            }
+            // Snap to the final rotation
+            wheel.localEulerAngles = new Vector3(0, 0, endRotation % 360);
+            isSpinning = false;
 
-        // Call reward logic
-        StartCoroutine(OnSpinComplete());
+            // Call reward logic
+            StartCoroutine(OnSpinComplete());
     }
 
     private IEnumerator OnSpinComplete()
     {
-        dilogueText.text = "Watch Ad To Spin Again";
+        wheelDialgueText.text = "Watch Ad To Spin Again";
         AudioManager.instance.spinWheel.Stop();
         EnableAllColliders();
         yield return new WaitForSeconds(0.1f);
@@ -115,10 +138,10 @@ public class Pointer : MonoBehaviour
         return index % sectionCount;
     }
 
-    private void Start()
+    private void Awake()
     {
         ResetRewardDisplay();
-        DisableAllColliders();
+        DisableAllColliders();/*
         if(GameManager.instance.levelIndex == 5)
         {
             dilogueText.text = "You Have Completed Level - 5";
@@ -131,22 +154,22 @@ public class Pointer : MonoBehaviour
         {
             dilogueText.text = "You Have Completed Level - 15";
         }
-        else if (GameManager.instance.levelIndex == 10)
+        else if (GameManager.instance.levelIndex == 20)
         {
             dilogueText.text = "You Have Completed Level - 20";
         }
-        else if (GameManager.instance.levelIndex == 10)
+        else if (GameManager.instance.levelIndex == 25)
         {
             dilogueText.text = "You Have Completed Level - 25";
         }
-        else if (GameManager.instance.levelIndex == 10)
+        else if (GameManager.instance.levelIndex == 30)
         {
             dilogueText.text = "You Have Completed Level - 30";
         }
         else
         {
             dilogueText.text = "Tap Spin To Speen Wheel";
-        }
+        }*/
     }
 
     private void DisableAllColliders()
@@ -156,11 +179,6 @@ public class Pointer : MonoBehaviour
     private void EnableAllColliders()
     {
         GetComponent<Collider>().enabled = true;
-    }
-
-    private float EaseOutQuad(float t)
-    {
-        return t * (2 - t);
     }
 
     private void ShowRewardWon()
@@ -181,6 +199,8 @@ public class Pointer : MonoBehaviour
     private IEnumerator HideRewardWon()
     {
         yield return new WaitForSeconds(.5f);
+        adsBtn.gameObject.SetActive(true);
+        spnBtn.gameObject.SetActive(false);
         resultObject.GetComponent<Image>().enabled = false;
         resultObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.Linear);
     }
@@ -228,7 +248,7 @@ public class Pointer : MonoBehaviour
 
         if (collision.gameObject.CompareTag("X5") || collision.gameObject.CompareTag("X10") || collision.gameObject.CompareTag("X100"))
         {
-            isCoinMakeTrue = true;
+
             StartCoroutine(CoinAnimationMoving());
             StartCoroutine(RewardIconCoinAnimation());
         }
@@ -272,7 +292,7 @@ public class Pointer : MonoBehaviour
     public IEnumerator CoinAnimationMoving()
     {
         yield return new WaitForSeconds (1);
-        if (isCoinMakeTrue)
+        if (coinReward)
         {
             StartCoroutine(SpawnCoins());
         }
@@ -350,7 +370,7 @@ public class Pointer : MonoBehaviour
         //rewardValueTxt.text = "Spin the Wheel!";
         resultObject.transform.DOScale(Vector3.zero, 0.05f);
         roots.DOScale(Vector3.one, 0.01f);
-        GameManager.instance.uiManager.luckyWheelView.HideView();
+        //GameManager.instance.uiManager.luckyWheelView.HideView();
         rewardIcon.transform.DOMoveY(-156, 0.5f).OnComplete(() =>
         {
             rewardIcon.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);

@@ -84,12 +84,8 @@ public class LuckyWheelView : BaseView
         randomRound = rewardIndexList[0];
         rewardIndexList.RemoveAt(0);
 
-        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo).OnComplete(() =>
-        {
-            ShowReward();
-        });
+        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
     }
-
 
     public IEnumerator SpinWithAd()
     {
@@ -115,10 +111,7 @@ public class LuckyWheelView : BaseView
         randomRound = rewardIndexList[0];
         rewardIndexList.RemoveAt(0);
 
-        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo).OnComplete(() =>
-        {
-            ShowReward();
-        });
+        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
     }
 
 
@@ -137,7 +130,7 @@ public class LuckyWheelView : BaseView
     public override void InitView()
     {
         //AdsControl.Instance.HideBannerAd();
-        randomRound = 0;
+        /*randomRound = 0;
         spinCount = 8;
         resultObject.SetActive(false);
         rewardIndexList.Clear();
@@ -146,8 +139,8 @@ public class LuckyWheelView : BaseView
         adsBtn.SetActive(false);
         closeBtn.SetActive(false);
         closeTextBtn.SetActive(true);
-
-        List<int> tempIndexList = new List<int>();
+*/
+        /*List<int> tempIndexList = new List<int>();
 
         for (int i = 0; i < 8; i++)
         {
@@ -161,7 +154,7 @@ public class LuckyWheelView : BaseView
             int randomIndex = Random.Range(0, tempIndexList.Count);
             rewardIndexList.Add(tempIndexList[randomIndex]);
             tempIndexList.RemoveAt(randomIndex);
-        }
+        }*/
     }
 
     private void ShowReward()
@@ -240,20 +233,18 @@ public class LuckyWheelView : BaseView
 
     public void Close()
     {
-        AudioManager.instance.clickSound.Play();
+        /*AudioManager.instance.clickSound.Play();*/
         HideView();
     }
 
     public void FreeSpin()
     {
-        AudioManager.instance.clickSound.Play();
-        StartSpin();
+        /*AudioManager.instance.clickSound.Play();
+        StartSpin();*/
     }
     
     public void WatchAdsSpin()
     {
-        AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
-        StartCoroutine(SpinWithAd());
+        Debug.Log("LuckyWheel");
     }
 }
