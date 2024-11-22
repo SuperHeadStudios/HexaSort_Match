@@ -167,35 +167,6 @@ public class HomeView : BaseView
             {
                 spinWheelBtn.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
             });
-            if(GameManager.instance.levelIndex == 5)
-            {
-                wheelPopup.spinAvail = true;
-            }
-            
-            if(GameManager.instance.levelIndex == 10)
-            {
-                wheelPopup.spinAvail = true;
-            }
-            
-            if(GameManager.instance.levelIndex == 15)
-            {
-                wheelPopup.spinAvail = true;
-            }
-            
-            if(GameManager.instance.levelIndex == 20)
-            {
-                wheelPopup.spinAvail = true;
-            }
-            
-            if(GameManager.instance.levelIndex == 25)
-            {
-                wheelPopup.spinAvail = true;
-            }
-            
-            if(GameManager.instance.levelIndex == 30)
-            {
-                wheelPopup.spinAvail = true;
-            }
         }
         else
         {
@@ -205,7 +176,7 @@ public class HomeView : BaseView
 
     public void ShowLuckyWheel()
     {
-        wheelPopup.SpinFillBar();
+        wheelPopup.UpdateSpinWheel();
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.luckyWheelView.InitView();
         GameManager.instance.uiManager.luckyWheelView.ShowView();

@@ -3,6 +3,7 @@ using GameSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,14 +66,16 @@ public class Pointer : MonoBehaviour
     }
     private void Update()
     {
-        UpdateUiText();
-        if (spinAvail)
+        if(isSpinning)
         {
-            spnBtn.gameObject.SetActive(true);
+            closeTextBtn.gameObject.SetActive(false);
             adsBtn.gameObject.SetActive(false);
-            spnBtn.interactable = true;
-            spnBtn.GetComponent<Image>().sprite = spinSpr;
         }
+        else
+        {
+            closeTextBtn.gameObject.SetActive(true);
+        }
+        
     }
 
     public void SpinWheel()
@@ -99,7 +102,26 @@ public class Pointer : MonoBehaviour
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
         spinAvail = true;
-        ResetWheelProgr();
+        StartCoroutine(AdSpin());
+    }
+
+
+    public IEnumerator AdSpin()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (spinAvail)
+        {
+            spinAvail = false;
+            spnBtn.GetComponent<Image>().sprite = spinOffSpr;
+            if (isSpinning) yield break;
+            isSpinning = true;
+            float randomRotation = Random.Range(360f * 5, 360f * 10);
+            float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
+            AudioManager.instance.spinWheel.Play();
+            StartCoroutine(SpinAnimation(randomRotation, spinDuration));
+            spnBtn.interactable = false;
+        }
     }
 
     private IEnumerator SpinAnimation(float targetRotation, float duration)
@@ -141,6 +163,10 @@ public class Pointer : MonoBehaviour
         int rewardIndex = GetRewardIndex(finalAngle);
         Debug.Log("Reward Index: " + rewardIndex);
         ShowRewardWon();
+
+        PlayerPrefsManager.SaveIsSpin(true);
+       
+        UpdateSpinWheel();
     }
 
     private int GetRewardIndex(float angle)
@@ -159,16 +185,59 @@ public class Pointer : MonoBehaviour
         GetComponent<Collider>().enabled = false;
     }
 
+    public void UpdateSpinWheel()
+    {
+        UpdateUiText();
+        if (spinAvail)
+        {
+            spnBtn.gameObject.SetActive(true);
+            adsBtn.gameObject.SetActive(false);
+            spnBtn.interactable = true;
+            spnBtn.GetComponent<Image>().sprite = spinSpr;
+        }
+        if (!PlayerPrefsManager.GetIsSpin()) return;
+        currentValue = PlayerPrefsManager.GetSpineProgCount();
+
+        float fillValue = currentValue / maxValue;
+        fillImageSpin.fillAmount = fillValue;
+        progressText.text = currentValue + "/5";
+
+        if(currentValue >= maxValue)
+        {
+            spnBtn.gameObject.SetActive(true);
+            adsBtn.gameObject.SetActive(false);
+            spinAvail = true;
+        }
+        else
+        {
+            spnBtn.gameObject.SetActive(false);
+            adsBtn.gameObject.SetActive(true);
+        }
+    }
+
     public void SpinFillBar()
     {
         currentValue = PlayerPrefsManager.GetSpineProgCount();
         if (currentValue >= maxValue) return;
-
+        progressText.text = currentValue + "/5";
         currentValue++;
         PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
-        spinAvail = true;
+
+        if (currentValue >= maxValue)
+        {
+            spnBtn.gameObject.SetActive(false);
+            adsBtn.gameObject.SetActive(true);
+            spinAvail = true;
+        }
+        else
+        {
+            spnBtn.gameObject.SetActive(true);
+            adsBtn.gameObject.SetActive(false);
+        }
+
+        
     }
 
     public void ResetWheelProgr()
@@ -182,11 +251,18 @@ public class Pointer : MonoBehaviour
     public void UpdateUiText()
     {
         lvlCount = GameManager.instance.levelIndex;
-        progressText.text = lvlCount.ToString() +" / " + maxLvl;
 
         if (lvlCount == 5)
         {
-            maxLvl = 5;
+            if (!PlayerPrefsManager.GetIsSpin())
+            {
+                spinAvail = true;
+                currentValue = maxValue;
+
+                float fillValue = currentValue / maxValue;
+                fillImageSpin.fillAmount = fillValue;
+                progressText.text = currentValue + "/5";
+            }
             wheelDialgueText.text = "You Have Completed Level - 5";
         }
         else if (lvlCount == 10)
@@ -328,6 +404,7 @@ public class Pointer : MonoBehaviour
             rewardIcon.rectTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 boosterReward = false;
+                adsBtn.gameObject.SetActive(true);
             });
         }
         else
@@ -395,7 +472,7 @@ public class Pointer : MonoBehaviour
 
         for (int i = 0; i < rwValue; i++)
         {
-            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
+            GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, cointTarget);
             cointList.Add(spwaCoin);
 
 
@@ -419,6 +496,7 @@ public class Pointer : MonoBehaviour
                     GameManager.instance.uiManager.coinView.CoinAnimationStop();
                     StartCoroutine(HideRewardWon());
                     coinReward = false;
+                    adsBtn.gameObject.SetActive(true);
                 }
             });
 
