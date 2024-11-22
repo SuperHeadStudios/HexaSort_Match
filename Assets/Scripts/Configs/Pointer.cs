@@ -1,9 +1,7 @@
 using DG.Tweening;
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,6 @@ public class Pointer : MonoBehaviour
     [SerializeField] private float spinDuration = 4f;
     [SerializeField] private float initialSpeed = 1000f;
     [SerializeField] private Transform roots;
-    [SerializeField] private Transform arrowPos;
 
     [SerializeField] public ParticleSystem rewardGotParticle;
     [SerializeField] public ParticleSystem rewardPointParticle;
@@ -37,8 +34,10 @@ public class Pointer : MonoBehaviour
     [Header("UI and Assets")]
     [SerializeField] private GameObject resultObject;
     [SerializeField] private TextMeshProUGUI rewardValueTxt;
+    [SerializeField] private TextMeshProUGUI dilogueText;
     [SerializeField] private Image rewardIcon;
     [SerializeField] private Sprite coinSpr, hammerSpr, moveSpr, shuffleSpr;
+    [SerializeField] private Sprite spinBtn, spinOffBtn;
     [SerializeField] private GameObject freeBtn, adsBtn, closeBtn, closeTextBtn;
 
     private int spinCount = 3;
@@ -51,15 +50,17 @@ public class Pointer : MonoBehaviour
 
     public bool isRewardComplete = false;
     public bool isCoinMakeTrue = false;
+    private void OnEnable()
+    {
+       
+    }
 
     public void SpinWheel()
     {
         if (isSpinning) return;
 
         isSpinning = true;
-
-        // Calculate a random rotation and duration
-        float randomRotation = Random.Range(360f * 5, 360f * 10); // Rotate multiple full spins
+        float randomRotation = Random.Range(360f * 5, 360f * 10); 
         float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
         
         AudioManager.instance.spinWheel.Play();
@@ -97,6 +98,7 @@ public class Pointer : MonoBehaviour
 
     private IEnumerator OnSpinComplete()
     {
+        dilogueText.text = "Watch Ad To Spin Again";
         AudioManager.instance.spinWheel.Stop();
         EnableAllColliders();
         yield return new WaitForSeconds(0.1f);
@@ -105,7 +107,7 @@ public class Pointer : MonoBehaviour
         float finalAngle = wheel.eulerAngles.z;
         int rewardIndex = GetRewardIndex(finalAngle);
         Debug.Log("Reward Index: " + rewardIndex);
-        DisplayReward();
+        ShowRewardWon();
     }
 
     private int GetRewardIndex(float angle)
@@ -123,6 +125,34 @@ public class Pointer : MonoBehaviour
     {
         ResetRewardDisplay();
         DisableAllColliders();
+        if(GameManager.instance.levelIndex == 5)
+        {
+            dilogueText.text = "You Have Completed Level - 5";
+        }
+        else if (GameManager.instance.levelIndex == 10)
+        {
+            dilogueText.text = "You Have Completed Level - 10";
+        }
+        else if (GameManager.instance.levelIndex == 15)
+        {
+            dilogueText.text = "You Have Completed Level - 15";
+        }
+        else if (GameManager.instance.levelIndex == 10)
+        {
+            dilogueText.text = "You Have Completed Level - 20";
+        }
+        else if (GameManager.instance.levelIndex == 10)
+        {
+            dilogueText.text = "You Have Completed Level - 25";
+        }
+        else if (GameManager.instance.levelIndex == 10)
+        {
+            dilogueText.text = "You Have Completed Level - 30";
+        }
+        else
+        {
+            dilogueText.text = "Tap Spin To Speen Wheel";
+        }
     }
 
     private void DisableAllColliders()
@@ -139,8 +169,9 @@ public class Pointer : MonoBehaviour
         return t * (2 - t);
     }
 
-    private void DisplayReward()
+    private void ShowRewardWon()
     {
+        resultObject.GetComponent<Image>().enabled = true;
         roots.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             resultObject.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
@@ -151,9 +182,18 @@ public class Pointer : MonoBehaviour
             leftConfetiFall.Play();
             rightConfeti.Play(); 
             rightConfetiFall.Play();
-            closeBtn.SetActive(true);
             freeBtn.SetActive(false);
         });
+    }
+    private IEnumerator HideRewardWon()
+    {
+        yield return new WaitForSeconds(.5f);
+        resultObject.GetComponent<Image>().enabled = false;
+        resultObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.Linear);
+        freeBtn.SetActive(true);
+        freeBtn.GetComponent<Button>().interactable = false;
+        freeBtn.GetComponent<Image>().sprite = spinOffBtn;
+        closeBtn.SetActive(false);
     }
 
     private void SetRewardUI(Sprite icon, string value, System.Action rewardAction)
@@ -261,7 +301,10 @@ public class Pointer : MonoBehaviour
                 {
                     rewardGotParticle.Play();
                     AudioManager.instance.flowerCollectedSound.Play();
-                    closeBtn.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutBounce);
+                    closeBtn.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutBounce).OnComplete(() =>
+                    {
+                        StartCoroutine(HideRewardWon());
+                    });
                 });
             });
         }
@@ -302,14 +345,15 @@ public class Pointer : MonoBehaviour
             {
                 Destroy(spwaCoin, 0.01f);
 
-                /*if (currentLevel > 0)
+                if (GameManager.instance.levelIndex > 0)
                 {
                     GameManager.instance.AddCoin(1);
-                }*/
+                }
 
                 if (currentCoin == 0)
                 {
                     GameManager.instance.uiManager.coinView.CoinAnimationStop();
+                    StartCoroutine(HideRewardWon());
                 }
             });
 

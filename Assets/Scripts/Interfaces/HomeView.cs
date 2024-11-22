@@ -21,6 +21,8 @@ public class HomeView : BaseView
     [SerializeField] private Transform gamePlayerPosition;
     [SerializeField] private GameObject homeScreen_D;
 
+    [SerializeField] private GameObject spinWheelBtn;
+
     public void ShowSettingPopup()
     {
         openPopup.SetActive(true);
@@ -34,6 +36,7 @@ public class HomeView : BaseView
         coinView.UpdateCoinTxt();
         lifeBar.SetActive(true);
         coinView.isGameSettings = false;
+        ShowSpinWheelBtn();
     }
 
     public override void Start()
@@ -93,17 +96,6 @@ public class HomeView : BaseView
         });
     });*/
 
-
-
-
-
-
-
-
-
-
-
-
     /*GameManager.instance.uiManager.settingPopup.InitView();
         GameManager.instance.uiManager.settingPopup.ShowView();*/
     public void ShowShop()
@@ -134,6 +126,22 @@ public class HomeView : BaseView
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
 
+    }
+
+    public void ShowSpinWheelBtn()
+    {
+        if (GameManager.instance.levelIndex >= 5)
+        {
+            spinWheelBtn.SetActive(true);
+            spinWheelBtn.transform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                spinWheelBtn.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.Linear);
+            });
+        }
+        else
+        {
+            spinWheelBtn.SetActive(false);
+        }
     }
 
     public void ShowLuckyWheel()
