@@ -219,8 +219,8 @@ public class Pointer : MonoBehaviour
     {
         currentValue = PlayerPrefsManager.GetSpineProgCount();
         if (currentValue >= maxValue) return;
-        progressText.text = currentValue + "/5";
         currentValue++;
+        progressText.text = currentValue + "/5";
         PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;

@@ -150,7 +150,7 @@ public class HomeView : BaseView
 
     public void CloseDailyReward()
     {
-        dailyRewardPopup.DOScale(Vector3.zero, 1).SetEase(Ease.InSine).OnComplete(() =>
+        dailyRewardPopup.DOScale(Vector3.zero, .5f).SetEase(Ease.InSine).OnComplete(() =>
         {
             dailyReward.alpha = 0;
             dailyReward.blocksRaycasts = false;
