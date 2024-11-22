@@ -13,14 +13,13 @@ public class Pointer : MonoBehaviour
     [SerializeField] private float initialSpeed = 1000f;
     [SerializeField] private Transform roots;
 
+    [Header("All Particles Of LuckyWheel"), Space (5)]
     [SerializeField] public ParticleSystem rewardGotParticle;
     [SerializeField] public ParticleSystem rewardPointParticle;
     [SerializeField] private ParticleSystem rightConfeti;
     [SerializeField] private ParticleSystem rightConfetiFall;
     [SerializeField] private ParticleSystem leftConfeti;
     [SerializeField] private ParticleSystem leftConfetiFall;
-
-    [SerializeField] private Collider2D[] allColliders;
 
     [Header("------ Coins Move Settings ------"), Space(5)]
     [SerializeField] private float randPosi;
@@ -38,9 +37,8 @@ public class Pointer : MonoBehaviour
     [SerializeField] private Image rewardIcon;
     [SerializeField] private Sprite coinSpr, hammerSpr, moveSpr, shuffleSpr;
     [SerializeField] private Sprite spinBtn, spinOffBtn;
-    [SerializeField] private GameObject freeBtn, adsBtn, closeBtn, closeTextBtn;
+    [SerializeField] private Button freeBtn, adsBtn, closeTextBtn;
 
-    private int spinCount = 3;
     private bool isSpinning;
 
     [SerializeField] private float minSpinDuration = 2.0f; // Minimum duration of the spin
@@ -57,12 +55,11 @@ public class Pointer : MonoBehaviour
 
     public void SpinWheel()
     {
+        freeBtn.GetComponent<Image>().sprite = spinOffBtn;
         if (isSpinning) return;
-
         isSpinning = true;
         float randomRotation = Random.Range(360f * 5, 360f * 10); 
         float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
-        
         AudioManager.instance.spinWheel.Play();
         StartCoroutine(SpinAnimation(randomRotation, spinDuration));
     }
@@ -86,10 +83,8 @@ public class Pointer : MonoBehaviour
 
             yield return null;
         }
-
         // Snap to the final rotation
         wheel.localEulerAngles = new Vector3(0, 0, endRotation % 360);
-
         isSpinning = false;
 
         // Call reward logic
@@ -112,7 +107,6 @@ public class Pointer : MonoBehaviour
 
     private int GetRewardIndex(float angle)
     {
-        // Assume the wheel has 8 sections, each 45 degrees
         int sectionCount = 8;
         float sectionAngle = 360f / sectionCount;
 
@@ -182,7 +176,6 @@ public class Pointer : MonoBehaviour
             leftConfetiFall.Play();
             rightConfeti.Play(); 
             rightConfetiFall.Play();
-            freeBtn.SetActive(false);
         });
     }
     private IEnumerator HideRewardWon()
@@ -190,10 +183,6 @@ public class Pointer : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         resultObject.GetComponent<Image>().enabled = false;
         resultObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.Linear);
-        freeBtn.SetActive(true);
-        freeBtn.GetComponent<Button>().interactable = false;
-        freeBtn.GetComponent<Image>().sprite = spinOffBtn;
-        closeBtn.SetActive(false);
     }
 
     private void SetRewardUI(Sprite icon, string value, System.Action rewardAction)
@@ -297,15 +286,9 @@ public class Pointer : MonoBehaviour
             AudioManager.instance.trailAudio.Play();
             rewardIcon.transform.DOLocalMoveY(-650, .3f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                closeBtn.transform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.OutBounce).OnComplete(() =>
-                {
                     rewardGotParticle.Play();
                     AudioManager.instance.flowerCollectedSound.Play();
-                    closeBtn.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutBounce).OnComplete(() =>
-                    {
-                        StartCoroutine(HideRewardWon());
-                    });
-                });
+                    StartCoroutine(HideRewardWon());
             });
         }
         else
@@ -367,9 +350,7 @@ public class Pointer : MonoBehaviour
         //rewardValueTxt.text = "Spin the Wheel!";
         resultObject.transform.DOScale(Vector3.zero, 0.05f);
         roots.DOScale(Vector3.one, 0.01f);
-        //GameManager.instance.uiManager.luckyWheelView.HideView();
-        closeBtn.SetActive(false);
-        freeBtn.SetActive(true);
+        GameManager.instance.uiManager.luckyWheelView.HideView();
         rewardIcon.transform.DOMoveY(-156, 0.5f).OnComplete(() =>
         {
             rewardIcon.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
