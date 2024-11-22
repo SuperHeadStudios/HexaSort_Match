@@ -143,7 +143,6 @@ public class HomeView : BaseView
             if(GameManager.instance.levelIndex == 5)
             {
                 wheelPopup.spinAvail = true;
-                Debug.Log("SpinAvail");
             }
             
             if(GameManager.instance.levelIndex == 10)

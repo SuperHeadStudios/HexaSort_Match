@@ -29,13 +29,6 @@ public class LuckyWheelView : BaseView
 
     public GameObject[] selectObjList;
 
-    public GameObject freeBtn;
-
-    public GameObject adsBtn;
-
-    public GameObject closeBtn;
-
-    public GameObject closeTextBtn;
 
     private int spinCount;
 
@@ -75,16 +68,12 @@ public class LuckyWheelView : BaseView
         PlayerPrefs.SetInt("CurrentLuckyWheel", 1);
         GameManager.instance.uiManager.questPopup.IncreaseProgressQuest(2, 1);
         GameManager.instance.uiManager.homeView.InitView();
-        freeBtn.SetActive(false);
-        adsBtn.SetActive(false);
-        closeBtn.SetActive(false);
-        closeTextBtn.SetActive(false);
         spinCount--;
 
         randomRound = rewardIndexList[0];
         rewardIndexList.RemoveAt(0);
 
-        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
+        //rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
     }
 
     public IEnumerator SpinWithAd()
@@ -102,16 +91,12 @@ public class LuckyWheelView : BaseView
         PlayerPrefs.SetInt("CurrentLuckyWheel", 1);
         GameManager.instance.uiManager.questPopup.IncreaseProgressQuest(2, 1);
         GameManager.instance.uiManager.homeView.InitView();
-        freeBtn.SetActive(false);
-        adsBtn.SetActive(false);
-        closeBtn.SetActive(false);
-        closeTextBtn.SetActive(false);
         spinCount--;
 
         randomRound = rewardIndexList[0];
         rewardIndexList.RemoveAt(0);
 
-        rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
+        //rootItemTrans.DORotate(new Vector3(0f, 0f, 6 * 360 + 60 * randomRound), 5f, RotateMode.FastBeyond360).SetEase(Ease.InOutExpo);
     }
 
 
@@ -216,18 +201,10 @@ public class LuckyWheelView : BaseView
 
         if (spinCount > 0)
         {
-            freeBtn.SetActive(true);
-            adsBtn.SetActive(false);
-            closeBtn.SetActive(false);
-            closeTextBtn.SetActive(true);
         }
 
         else
         {
-            freeBtn.SetActive(false);
-            adsBtn.SetActive(true);
-            closeBtn.SetActive(true);
-            closeTextBtn.SetActive(false);
         }
     }
 

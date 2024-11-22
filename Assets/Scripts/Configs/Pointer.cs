@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,19 +35,28 @@ public class Pointer : MonoBehaviour
     [SerializeField] private GameObject resultObject;
     [SerializeField] private TextMeshProUGUI rewardValueTxt;
     [SerializeField] private TextMeshProUGUI wheelDialgueText;
+    [SerializeField] private TextMeshProUGUI progressText;
+
     [SerializeField] private Image rewardIcon;
     [SerializeField] private Sprite coinSpr, hammerSpr, moveSpr, shuffleSpr;
     [SerializeField] private Sprite spinSpr, spinOffSpr;
     [SerializeField] private Button spnBtn, adsBtn, closeTextBtn;
 
     private bool isSpinning;
+    public int lvlCount;
+    public int maxLvl;
+
+    public float maxValue;
+    public float currentValue;
+    [SerializeField] private Image fillImageSpin;
 
     [SerializeField] private float minSpinDuration = 2.0f; // Minimum duration of the spin
     [SerializeField] private float maxSpinDuration = 5.0f; // Maximum duration of the spin
     [SerializeField] private float spinSpeed = 500.0f;     // Base spin speed
     [SerializeField] private AnimationCurve easingCurve;  // Easing curve for deceleration
 
-    public bool isRewardComplete = false;
+    
+    public bool boosterReward;
     public bool coinReward;
     public bool spinAvail;
     private void OnEnable()
@@ -55,6 +65,7 @@ public class Pointer : MonoBehaviour
     }
     private void Update()
     {
+        UpdateUiText();
         if (spinAvail)
         {
             spnBtn.gameObject.SetActive(true);
@@ -82,6 +93,8 @@ public class Pointer : MonoBehaviour
 
     public void WatchAdsSpin()
     {
+        ResetRewardDisplay();
+        GetComponent<Collider>().enabled = false;
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
         spinAvail = true;
@@ -116,9 +129,9 @@ public class Pointer : MonoBehaviour
 
     private IEnumerator OnSpinComplete()
     {
+        GetComponent<Collider>().enabled = true;
         wheelDialgueText.text = "Watch Ad To Spin Again";
         AudioManager.instance.spinWheel.Stop();
-        EnableAllColliders();
         yield return new WaitForSeconds(0.1f);
         Debug.Log("Spin Complete!");
         // Determine reward logic based on final rotation
@@ -141,45 +154,56 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         ResetRewardDisplay();
-        DisableAllColliders();/*
-        if(GameManager.instance.levelIndex == 5)
+        GetComponent<Collider>().enabled = false;
+    }
+    public void SpinFillBar()
+    {
+        currentValue++;
+        float fillValue = currentValue / maxValue;
+        fillImageSpin.fillAmount = fillValue;
+    }
+
+    public void UpdateUiText()
+    {
+        lvlCount = GameManager.instance.levelIndex;
+        progressText.text = lvlCount.ToString() +" / " + maxLvl;
+
+        if (lvlCount == 5)
         {
-            dilogueText.text = "You Have Completed Level - 5";
+            maxLvl = 5;
+            wheelDialgueText.text = "You Have Completed Level - 5";
         }
-        else if (GameManager.instance.levelIndex == 10)
+        else if (lvlCount == 10)
         {
-            dilogueText.text = "You Have Completed Level - 10";
+            maxLvl = 10;
+            wheelDialgueText.text = "You Have Completed Level - 10";
         }
-        else if (GameManager.instance.levelIndex == 15)
+        else if (lvlCount == 15)
         {
-            dilogueText.text = "You Have Completed Level - 15";
+            maxLvl = 15;
+            wheelDialgueText.text = "You Have Completed Level - 15";
         }
-        else if (GameManager.instance.levelIndex == 20)
+        else if (lvlCount == 20)
         {
-            dilogueText.text = "You Have Completed Level - 20";
+            maxLvl = 20;
+            wheelDialgueText.text = "You Have Completed Level - 20";
         }
-        else if (GameManager.instance.levelIndex == 25)
+        else if (lvlCount == 25)
         {
-            dilogueText.text = "You Have Completed Level - 25";
+            maxLvl = 25;
+            wheelDialgueText.text = "You Have Completed Level - 25";
         }
-        else if (GameManager.instance.levelIndex == 30)
+        else if (lvlCount == 30)
         {
-            dilogueText.text = "You Have Completed Level - 30";
+            maxLvl = 30;
+            wheelDialgueText.text = "You Have Completed Level - 30";
         }
         else
         {
-            dilogueText.text = "Tap Spin To Speen Wheel";
-        }*/
+            wheelDialgueText.text = "Tap Spin To Speen Wheel";
+        }
     }
 
-    private void DisableAllColliders()
-    {
-       GetComponent<Collider>().enabled = false;
-    }
-    private void EnableAllColliders()
-    {
-        GetComponent<Collider>().enabled = true;
-    }
 
     private void ShowRewardWon()
     {
@@ -189,6 +213,20 @@ public class Pointer : MonoBehaviour
             resultObject.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 rewardPointParticle.Play();
+                if (coinReward)
+                {
+                    StartCoroutine(CoinAnimationMoving());
+                }
+                else if(boosterReward)
+                {
+                    StartCoroutine(RewardIconAnimation());
+                    StartCoroutine(RewardMove());
+                }
+                else
+                {
+                    StartCoroutine(RewardIconAnimation());
+                    StartCoroutine(RewardMove());
+                }
             });
             leftConfeti.Play();
             leftConfetiFall.Play();
@@ -223,51 +261,58 @@ public class Pointer : MonoBehaviour
         {
             case "X5":
                 rwValue = 10;
-                SetRewardUI(coinSpr, "5 coins", () => GameManager.instance.AddCoin(5));
+                SetRewardUI(coinSpr, "5 coins", () => GameManager.instance.AddCoin(0));
                 Debug.Log("Trigger1");
+                GetComponent<Collider>().enabled = false;
                 break;
             case "X10":
                 rwValue = 10;
-                SetRewardUI(coinSpr, "10 Coins", () => GameManager.instance.AddCoin(10));
+                SetRewardUI(coinSpr, "10 Coins", () => GameManager.instance.AddCoin(0));
+                GetComponent<Collider>().enabled = false;
                 break;
             case "X2":
                 SetRewardUI(shuffleSpr, "X2", () => GameManager.instance.AddShuffleBooster(2));
+                GetComponent<Collider>().enabled = false;
                 break;
             case "X3":
                 SetRewardUI(moveSpr, "X3", () => GameManager.instance.AddMoveBooster(3));
+                GetComponent<Collider>().enabled = false;
                 break;
             case "X100":
                 rwValue = 10;
-                SetRewardUI(coinSpr, "100 Coins", () => GameManager.instance.AddCoin(100));
+                SetRewardUI(coinSpr, "100 Coins", () => GameManager.instance.AddCoin(0));
+                GetComponent<Collider>().enabled = false;
                 break;
             case "X1":
                 rwValue = 10;
                 SetRewardUI(hammerSpr, "X1", () => GameManager.instance.AddHammerBooster(1));
+                GetComponent<Collider>().enabled = false;
                 break;
+                
         }
 
         if (collision.gameObject.CompareTag("X5") || collision.gameObject.CompareTag("X10") || collision.gameObject.CompareTag("X100"))
         {
-
-            StartCoroutine(CoinAnimationMoving());
-            StartCoroutine(RewardIconCoinAnimation());
+            coinReward = true;
+            
         }
         else if (collision.gameObject.CompareTag("X2") || collision.gameObject.CompareTag("X3") || collision.gameObject.CompareTag("X1"))
         {
-            isRewardComplete = true;
+            boosterReward = true;
         }
-        StartCoroutine(RewardIconAnimation());
-        StartCoroutine(RewardMove());
     }
 
 
     public IEnumerator RewardIconAnimation()
     {
-        if (isRewardComplete == true)
+        if (boosterReward)
         {
             yield return new WaitForSeconds(2);
 
-            rewardIcon.rectTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.Linear);
+            rewardIcon.rectTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                boosterReward = false;
+            });
         }
         else
         {
@@ -277,7 +322,7 @@ public class Pointer : MonoBehaviour
 
     public IEnumerator RewardIconCoinAnimation()
     {
-        if (isRewardComplete == true)
+        if (boosterReward)
         {
             yield return new WaitForSeconds(2);
 
@@ -300,15 +345,15 @@ public class Pointer : MonoBehaviour
 
     public IEnumerator RewardMove()
     {
-        if (isRewardComplete == true)
+        if (boosterReward)
         {
             yield return new WaitForSeconds(2);
             AudioManager.instance.trailAudio.Play();
             rewardIcon.transform.DOLocalMoveY(-650, .3f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                    rewardGotParticle.Play();
-                    AudioManager.instance.flowerCollectedSound.Play();
-                    StartCoroutine(HideRewardWon());
+                rewardGotParticle.Play();
+                AudioManager.instance.flowerCollectedSound.Play();
+                StartCoroutine(HideRewardWon());
             });
         }
         else
@@ -357,6 +402,7 @@ public class Pointer : MonoBehaviour
                 {
                     GameManager.instance.uiManager.coinView.CoinAnimationStop();
                     StartCoroutine(HideRewardWon());
+                    coinReward = false;
                 }
             });
 
@@ -366,7 +412,7 @@ public class Pointer : MonoBehaviour
 
     public void ResetRewardDisplay()
     {
-        DisableAllColliders();
+        GetComponent<Collider>().enabled = false;
         //rewardValueTxt.text = "Spin the Wheel!";
         resultObject.transform.DOScale(Vector3.zero, 0.05f);
         roots.DOScale(Vector3.one, 0.01f);

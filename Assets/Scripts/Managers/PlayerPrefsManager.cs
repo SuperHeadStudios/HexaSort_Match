@@ -52,6 +52,9 @@ namespace GameSystem
         static string ICCEUNLOCK = "ICEUNLOCKKEY";
         static string VINESUNLOCK = "VINESUNLOCKKEY";
 
+        static string WHEELSPINAVAILABLE = "WHEELSPINKEY";
+        static string WHEELSPINGRPOGRESS = "WHEELPRGRESS";
+
         #region Level Value
 
         // Game Levels Area
@@ -354,6 +357,21 @@ namespace GameSystem
 
         #endregion
 
+        public static int GetSpineProgCount()
+        { return PlayerPrefs.GetInt(WHEELSPINGRPOGRESS, 0); }
+
+        public static void SaveSpineProgCount(int count)
+        { PlayerPrefs.SetInt(WHEELSPINGRPOGRESS, count); }
+
+        public static bool GetIsSpin()
+        {
+            return GetBool(WHEELSPINAVAILABLE, false); 
+        }
+
+        public static void SaveIsSpin(bool spineAavailable)
+        {
+            SaveBool(WHEELSPINAVAILABLE, spineAavailable);
+        }
 
         // Game Level Counter Area
         public static int GetIntrsAdCount()
