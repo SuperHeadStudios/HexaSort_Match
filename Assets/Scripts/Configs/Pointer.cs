@@ -367,7 +367,7 @@ public class Pointer : MonoBehaviour
         //rewardValueTxt.text = "Spin the Wheel!";
         resultObject.transform.DOScale(Vector3.zero, 0.05f);
         roots.DOScale(Vector3.one, 0.01f);
-        GameManager.instance.uiManager.luckyWheelView.HideView();
+        //GameManager.instance.uiManager.luckyWheelView.HideView();
         closeBtn.SetActive(false);
         freeBtn.SetActive(true);
         rewardIcon.transform.DOMoveY(-156, 0.5f).OnComplete(() =>
