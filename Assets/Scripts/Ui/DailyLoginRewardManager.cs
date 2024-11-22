@@ -60,7 +60,6 @@ public class DailyLoginRewardManager : MonoBehaviour
         LoadProgress();
         UpdateUI();
         globalClaimButton.onClick.AddListener(ClaimCurrentDayRewards);
-        UpdateClaimButtonState();
     }
 
     private void LoadProgress()
@@ -75,6 +74,8 @@ public class DailyLoginRewardManager : MonoBehaviour
         {
             lastClaimDate = DateTime.MinValue;
         }
+
+        CheckDay();
     }
 
     private void SaveProgress()
@@ -88,25 +89,19 @@ public class DailyLoginRewardManager : MonoBehaviour
     {
         if (DateTime.Now.Date > lastClaimDate.Date)
         {
-            if (currentDay < totalDays)
-            {
-                currentDay++;
-            }
-            else
-            {
-                currentDay = 1;
-            }
-            lastClaimDate = DateTime.Now;
-            SaveProgress();
+            globalClaimButton.interactable = true;
+        }
+        else
+        {
+            globalClaimButton.interactable = false;
         }
     }
 
     public void ClaimCurrentDayRewards()
     {
-        if (currentDay <= totalDays && !IsRewardClaimed(currentDay))
+        if (currentDay <= totalDays)
         {
             ClaimReward(currentDay);
-            UpdateClaimButtonState();
         }
     }
 
@@ -114,24 +109,19 @@ public class DailyLoginRewardManager : MonoBehaviour
     {
         rewardButtons[day].MarkAsCollected();
 
-        Debug.Log(day);
-
         if (day == totalDays)
         {
-            GrantReward(day, RewardButton.REWARD_TYPE.GOLD, 100);
-            GrantReward(day, RewardButton.REWARD_TYPE.HAMMER, 1);
-            GrantReward(day, RewardButton.REWARD_TYPE.MOVE, 1);
-            GrantReward(day, RewardButton.REWARD_TYPE.SHUFFLE, 1);
+            GrantReward(day, RewardButton.REWARD_TYPE.ALL, 100);
         }
         else
         {
             GrantReward(day, rewardButtons[day].currentRewardType, rewardButtons[day].rewardValue);
         }
 
+        globalClaimButton.interactable = false;
         currentDay++;
         SaveProgress();
         UpdateUI();
-        globalClaimButton.interactable = false;
     }
 
     private void GrantReward(int day, RewardButton.REWARD_TYPE rewardType, int value)
@@ -144,9 +134,10 @@ public class DailyLoginRewardManager : MonoBehaviour
         switch (rewardType)
         {
             case RewardButton.REWARD_TYPE.GOLD:
+                demoCoin.gameObject.SetActive(true);
+                
                 MakinCoinReward(value);
                 break;
-
             case RewardButton.REWARD_TYPE.HAMMER:
                 hammerIcon.gameObject.SetActive(true);
                 BoosterAnimation(hammerIcon);
@@ -175,18 +166,17 @@ public class DailyLoginRewardManager : MonoBehaviour
                 swapIcon.gameObject.SetActive(true);
                 shuffleIcon.gameObject.SetActive(true);
 
-                MakinCoinReward(150);
+                MakinCoinReward(value);
+                BoosterAnimation(hammerIcon);
+                BoosterAnimation(swapIcon);
+                BoosterAnimation(shuffleIcon);
+
                 GameManager.instance.AddHammerBooster(1);
                 GameManager.instance.AddMoveBooster(1);
                 GameManager.instance.AddShuffleBooster(1);
                 break;
         }
         MarkRewardAsClaimed(day);
-    }
-
-    private bool IsRewardClaimed(int day)
-    {
-        return PlayerPrefs.GetInt($"Day{day}Claimed", 0) == 1;
     }
 
     private void MarkRewardAsClaimed(int day)
@@ -214,10 +204,6 @@ public class DailyLoginRewardManager : MonoBehaviour
         }
     }
 
-    private void UpdateClaimButtonState()
-    {
-        globalClaimButton.interactable = !IsRewardClaimed(currentDay);
-    }
 
     private void BoosterAnimation(Transform item)
     {
@@ -255,7 +241,7 @@ public class DailyLoginRewardManager : MonoBehaviour
 
     private void Spwantext(int coinCount)
     {
-        GameObject textPr = Instantiate(textPrefab, demoCoin.transform.position + new Vector3(0f, 2f, 0f), Camera.main.transform.rotation, demoCoin.parent);
+        GameObject textPr = Instantiate(textPrefab, demoCoin.transform.position + new Vector3(0f, 2f, 0f), Camera.main.transform.rotation, demoCoin.parent.parent);
         textPr.GetComponent<TextMeshProUGUI>().text = "X" + coinCount;
         textPr.transform.localScale = Vector3.zero;
         textPr.transform.DOScale(Vector3.one * 3, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
@@ -292,7 +278,6 @@ public class DailyLoginRewardManager : MonoBehaviour
 
             coinP.transform.DOPath(path, 0.8f, PathType.CatmullRom).SetEase(Ease.OutSine).OnComplete(() =>
             {
-               
                 coinP.SetActive(false);
                 Destroy(coinP, 1f);
                 coinCollectPs.Play();
@@ -312,8 +297,8 @@ public class DailyLoginRewardManager : MonoBehaviour
         if (coinCount == 0)
         {
             demoCoin.localScale = Vector3.zero;
-            yield return new WaitForSeconds(2f);
             coinCollectPs.Stop();
+            yield return new WaitForSeconds(1f);
             coinPanelCG.alpha = 0;
         }
     }
