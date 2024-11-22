@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JetBrains.Annotations;
 using System.Dynamic;
 using TMPro;
 using UnityEngine;
@@ -28,6 +29,8 @@ public class HomeView : BaseView
     [SerializeField] private Transform wheelIcon;
     [SerializeField] private float wheelSpeed;
 
+    [SerializeField] private CanvasGroup dailyReward;
+    [SerializeField] private Transform dailyRewardPopup;
     public void ShowSettingPopup()
     {
         openPopup.SetActive(true);
@@ -133,6 +136,26 @@ public class HomeView : BaseView
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
 
+    }
+
+    public void ShowDailyReward()
+    {
+        dailyReward.alpha = 1;
+        dailyReward.blocksRaycasts = true;
+        dailyReward.interactable = true;
+        dailyRewardPopup.localScale = Vector3.zero;
+        dailyRewardPopup.DOScale(Vector3.one, 1).SetEase(Ease.OutBounce);
+    }
+
+
+    public void CloseDailyReward()
+    {
+        dailyRewardPopup.DOScale(Vector3.zero, 1).SetEase(Ease.InSine).OnComplete(() =>
+        {
+            dailyReward.alpha = 0;
+            dailyReward.blocksRaycasts = false;
+            dailyReward.interactable = false;
+        });
     }
 
     public void ShowSpinWheelBtn()
