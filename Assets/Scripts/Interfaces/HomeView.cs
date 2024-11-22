@@ -24,7 +24,9 @@ public class HomeView : BaseView
     [SerializeField] private GameObject homeScreen_D;
 
     [SerializeField] private GameObject spinWheelBtn;
-    [SerializeField] private Pointer wheelPopup;
+    [SerializeField] public Pointer wheelPopup;
+    [SerializeField] private Transform wheelIcon;
+    [SerializeField] private float wheelSpeed;
 
     public void ShowSettingPopup()
     {
@@ -55,6 +57,8 @@ public class HomeView : BaseView
             cameraT.position = gamePlayerPosition.position;
             cameraT.rotation = gamePlayerPosition.rotation;
         }
+
+        wheelIcon.Rotate(0, 0, wheelSpeed);
     }
 
     public void DebugFunction(int level)
@@ -178,12 +182,10 @@ public class HomeView : BaseView
 
     public void ShowLuckyWheel()
     {
-        if (GameManager.instance.currentLuckyWheel == 5)
-        {
-            AudioManager.instance.clickSound.Play();
-            GameManager.instance.uiManager.luckyWheelView.InitView();
-            GameManager.instance.uiManager.luckyWheelView.ShowView();
-        }
+        wheelPopup.SpinFillBar();
+        AudioManager.instance.clickSound.Play();
+        GameManager.instance.uiManager.luckyWheelView.InitView();
+        GameManager.instance.uiManager.luckyWheelView.ShowView();
 
     }
 }

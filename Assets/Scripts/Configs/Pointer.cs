@@ -1,8 +1,8 @@
 using DG.Tweening;
+using GameSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,6 +87,7 @@ public class Pointer : MonoBehaviour
             float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
             AudioManager.instance.spinWheel.Play();
             StartCoroutine(SpinAnimation(randomRotation, spinDuration));
+            ResetWheelProgr();
             spnBtn.interactable = false;
         }
     }
@@ -98,6 +99,7 @@ public class Pointer : MonoBehaviour
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
         spinAvail = true;
+        ResetWheelProgr();
     }
 
     private IEnumerator SpinAnimation(float targetRotation, float duration)
@@ -156,9 +158,23 @@ public class Pointer : MonoBehaviour
         ResetRewardDisplay();
         GetComponent<Collider>().enabled = false;
     }
+
     public void SpinFillBar()
     {
+        currentValue = PlayerPrefsManager.GetSpineProgCount();
+        if (currentValue >= maxValue) return;
+
         currentValue++;
+        PlayerPrefsManager.SaveSpineProgCount(currentValue);
+        float fillValue = currentValue / maxValue;
+        fillImageSpin.fillAmount = fillValue;
+        spinAvail = true;
+    }
+
+    public void ResetWheelProgr()
+    {
+        currentValue = 0;
+        PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
     }

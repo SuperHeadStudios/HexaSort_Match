@@ -357,11 +357,11 @@ namespace GameSystem
 
         #endregion
 
-        public static int GetSpineProgCount()
-        { return PlayerPrefs.GetInt(WHEELSPINGRPOGRESS, 0); }
+        public static float GetSpineProgCount()
+        { return PlayerPrefs.GetFloat(WHEELSPINGRPOGRESS, 0); }
 
-        public static void SaveSpineProgCount(int count)
-        { PlayerPrefs.SetInt(WHEELSPINGRPOGRESS, count); }
+        public static void SaveSpineProgCount(float count)
+        { PlayerPrefs.SetFloat(WHEELSPINGRPOGRESS, count); }
 
         public static bool GetIsSpin()
         {
