@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using System.Collections;
 using TMPro;
@@ -12,14 +12,19 @@ public class DailyRewardManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hourlyBtnText;
     [SerializeField] private Sprite btnEnableSprite;
     [SerializeField] private Sprite btnDisbaleSprite;
+    [SerializeField] private FillBarManager FillBarManager;
+    [SerializeField] private CanvasGroup canvasGroup;
  
     private DateTime hourlyReward;
     private bool hourlyTimerActive = false;
 
-
     [Header("----- Lives Reward -----"), Space(5)]
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private TextMeshProUGUI heartTextInf;
+    [SerializeField] private Transform heartImg;
+    [SerializeField] private Transform heartInPanel;
+    [SerializeField] private ParticleSystem heartPs;
+    [SerializeField] private ParticleSystem heartCollectPs;
 
     private DateTime livesRewardTim;
     private bool livesTimerActive = false;
@@ -69,6 +74,8 @@ public class DailyRewardManager : MonoBehaviour
     private const string LIVETIMEKEY = "LIVESTIME";
     private const string REWARDINDEX = "REWARDINDEXKEY";
 
+    #region Initialization
+
     void Start()
     {
         coinPanelCG.alpha = 0;
@@ -76,9 +83,7 @@ public class DailyRewardManager : MonoBehaviour
         CheckLastRewardTime();
         CheckLastHourlyRewardTime();
         CheckLivesRewardTime();
-
         ButtonsInitialization();
-
         UpdateCoinRewaardOnStart();
     }
 
@@ -109,6 +114,8 @@ public class DailyRewardManager : MonoBehaviour
         thirtyFiveXBtn.onClick.AddListener(ClaimAdsRewards);
     }
 
+    #endregion
+
     #region Coin Ads Rewards
 
     private void UpdateCoinRewaardOnStart()
@@ -117,6 +124,7 @@ public class DailyRewardManager : MonoBehaviour
 
         if (rewardIndex == 0)
         {
+            fifteenXBtn.gameObject.SetActive(true);
             fifteenXBtn.interactable = true;
             fifteenXBtn.image.sprite = btnEnableSprite;
             fifteenTextObj.SetActive(false);
@@ -134,6 +142,7 @@ public class DailyRewardManager : MonoBehaviour
 
         if (rewardIndex == 1)
         {
+            twentyFiveXBtn.gameObject.SetActive(true);
             twentyFiveXBtn.interactable = true;
             twentyFiveXBtn.image.sprite = btnEnableSprite;
             twentyFiveTextObj.SetActive(false);
@@ -142,6 +151,7 @@ public class DailyRewardManager : MonoBehaviour
         }
         else if (rewardIndex < 1)
         {
+            twentyFiveXBtn.gameObject.SetActive(true);
             twentyFiveXBtn.interactable = false;
             twentyFiveXBtn.image.sprite = btnDisbaleSprite;
             twentyFiveTextObj.SetActive(false);
@@ -161,6 +171,7 @@ public class DailyRewardManager : MonoBehaviour
         
         if (rewardIndex == 2)
         {
+            livesBtn.gameObject.SetActive(true);
             livesBtn.interactable = true;
             livesBtn.image.sprite = btnEnableSprite;
             livesTextObj.SetActive(false);
@@ -169,6 +180,7 @@ public class DailyRewardManager : MonoBehaviour
         }
         else if (rewardIndex < 2)
         {
+            livesBtn.gameObject.SetActive(true);
             livesBtn.interactable = false;
             livesBtn.image.sprite = btnDisbaleSprite;
             livesTextObj.SetActive(false);
@@ -187,6 +199,7 @@ public class DailyRewardManager : MonoBehaviour
 
         if (rewardIndex == 3)
         {
+            thirtyFiveXBtn.gameObject.SetActive(true);
             thirtyFiveXBtn.interactable = true;
             thirtyFiveXBtn.image.sprite = btnEnableSprite;
             thiryFiveTextObj.SetActive(false);
@@ -195,6 +208,7 @@ public class DailyRewardManager : MonoBehaviour
         }
         else if(rewardIndex < 3)
         {
+            thirtyFiveXBtn.gameObject.SetActive(true);
             thirtyFiveXBtn.interactable = false;
             thirtyFiveXBtn.image.sprite = btnDisbaleSprite;
             thiryFiveTextObj.SetActive(false);
@@ -216,6 +230,7 @@ public class DailyRewardManager : MonoBehaviour
     {
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.dailyReward);
         StartCoroutine(MakeReward());
+        canvasGroup.blocksRaycasts = false;
     }
 
     private IEnumerator MakeReward()
@@ -227,26 +242,50 @@ public class DailyRewardManager : MonoBehaviour
         {
             case 0:
                 MakinCoinReward(15);
+                ClaimReward();
                 break;
             case 1:
                 MakinCoinReward(25);
                 break;
             case 2:
-                LivesManager.instance.GiveInifinite(1);
-                ClaimLivesReward();
+                LiveHeartAnimation();
                 break;
             case 3:
                 MakinCoinReward(35);
                 break;
         }
 
+        FillBarManager.FourthTikc();
         index++;
         SetRewardIndex(index);
         UpdateCoinRewaardOnStart();
+        FillBarManager.IncreaseProgress();
     }
 
 
+    private void LiveHeartAnimation()
+    {
+        coinPanelCG.alpha = 1;
+        heartImg.localScale = Vector3.zero;
+        heartImg.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+        {
+            heartPs.Play();
 
+            heartImg.DOScale(Vector3.one / 2, 0.5f).SetEase(Ease.OutSine);
+
+            heartImg.DOMove(heartInPanel.position, .5f).SetDelay(0.2f).OnComplete(() =>
+            {
+                heartCollectPs.Play();
+                heartImg.position = Vector3.zero;
+                heartImg.localScale = Vector3.zero;
+
+                LivesManager.instance.GiveInifinite(15);
+                ClaimLivesReward();
+                coinPanelCG.alpha = 0;
+                canvasGroup.blocksRaycasts = true;
+            });
+        });
+    }
 
     #endregion
 
@@ -295,7 +334,7 @@ public class DailyRewardManager : MonoBehaviour
 
     private void ResetLivesRewardTimer()
     {
-        livesRewardTim = DateTime.Now.AddMinutes(1);
+        livesRewardTim = DateTime.Now.AddMinutes(15);
 
         PlayerPrefs.SetString(LIVETIMEKEY, livesRewardTim.ToString("o"));
         PlayerPrefs.Save();
@@ -310,7 +349,7 @@ public class DailyRewardManager : MonoBehaviour
         if (remainingTime.TotalSeconds > 0)
         {
             livesText.text = remainingTime.ToString(@"mm\:ss");
-            heartTextInf.text = "?";
+            heartTextInf.text = "∞";
         }
         else
         {
@@ -321,13 +360,10 @@ public class DailyRewardManager : MonoBehaviour
 
     private void ClaimLivesReward()
     {
-        livesRewardTim.AddMinutes(1);
         ResetLivesRewardTimer();
-        MakinCoinReward(5);
     }
 
     #endregion
-
 
     #region 1 Hours Reward
 
@@ -379,7 +415,7 @@ public class DailyRewardManager : MonoBehaviour
 
     private void ResetHourlyRewardTimer()
     {
-        hourlyReward = DateTime.Now.AddSeconds(5);
+        hourlyReward = DateTime.Now.AddHours(1);
 
         PlayerPrefs.SetString(ONEHOURKEY, hourlyReward.ToString("o")); 
         PlayerPrefs.Save();
@@ -410,9 +446,10 @@ public class DailyRewardManager : MonoBehaviour
 
     private void ClaimHourlyReward()
     {
-        hourlyReward.AddMinutes(2);
+        hourlyReward.AddHours(1);
         ResetHourlyRewardTimer();
         MakinCoinReward(5);
+        canvasGroup.blocksRaycasts = false;
     }
 
 
@@ -446,24 +483,18 @@ public class DailyRewardManager : MonoBehaviour
 
             if (DateTime.Now >= nextRewardTime)
             {
-                Debug.Log("Reward is available!");
                 timerActive = false;
                 timerText.text = "Reward Available!";
             }
             else
             {
-                Debug.Log("Reward is not yet available.");
                 timerActive = true;
             }
         }
         else
         {
-            Debug.Log("First-time reward setup.");
-            // Set the timer to start now
-            nextRewardTime = DateTime.Now.AddHours(24);
-            PlayerPrefs.SetString(RewardTimeKey, nextRewardTime.ToString());
-            PlayerPrefs.Save();
-            timerActive = true;
+            timerActive = false;
+            timerText.text = "Reward Available!";
         }
     }
 
@@ -478,12 +509,18 @@ public class DailyRewardManager : MonoBehaviour
 
         if (remainingTime.TotalSeconds > 0)
         {
-            timerText.text = $"Next Reward In: {remainingTime.Hours:D2}:{remainingTime.Minutes:D2}:{remainingTime.Seconds:D2}";
+            timerText.text = $"Reset In: {remainingTime.Hours:D2}:{remainingTime.Minutes:D2}:{remainingTime.Seconds:D2}";
         }
         else
         {
             timerText.text = "Reward Available!";
             timerActive = false;
+            SetRewardIndex(0);
+            FillBarManager.ResetFillbar();
+            CheckLastRewardTime();
+            CheckLastHourlyRewardTime();
+            CheckLivesRewardTime();
+            UpdateCoinRewaardOnStart();
         }
     }
 
@@ -548,7 +585,7 @@ public class DailyRewardManager : MonoBehaviour
             });
 
             coinCount--;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.025f);
         }
 
         
@@ -559,6 +596,7 @@ public class DailyRewardManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             coinCollectPs.Stop();
             coinPanelCG.alpha = 0;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 

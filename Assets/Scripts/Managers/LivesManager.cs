@@ -73,6 +73,8 @@ public class LivesManager : MonoBehaviour
 
     private bool applicationWasPaused;
 
+    public bool hasInfintyLives = false;
+
     private void Awake()
     {
         if (instance == null)
