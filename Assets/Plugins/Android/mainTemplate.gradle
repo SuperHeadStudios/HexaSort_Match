@@ -4,6 +4,14 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'androidx.recyclerview:recyclerview:1.2.1' // Packages/com.applovin.mediation.adapters.mintegral.android/Editor/Dependencies.xml:9
+    implementation 'com.applovin.mediation:bytedance-adapter:6.3.0.4.0' // Packages/com.applovin.mediation.adapters.bytedance.android/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:facebook-adapter:[6.18.0.1]' // Packages/com.applovin.mediation.adapters.facebook.android/Editor/Dependencies.xml:7
+    implementation 'com.applovin.mediation:google-adapter:[23.5.0.0]' // Packages/com.applovin.mediation.adapters.google.android/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:ironsource-adapter:8.5.0.0.0' // Packages/com.applovin.mediation.adapters.ironsource.android/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:mintegral-adapter:16.8.81.0' // Packages/com.applovin.mediation.adapters.mintegral.android/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:unityads-adapter:4.12.5.0' // Packages/com.applovin.mediation.adapters.unityads.android/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:vungle-adapter:7.4.2.1' // Packages/com.applovin.mediation.adapters.vungle.android/Editor/Dependencies.xml:4
     implementation 'com.applovin:applovin-sdk:13.0.1' // Packages/com.applovin.mediation.ads/AppLovin/Editor/Dependencies.xml:4
     implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     implementation 'com.google.firebase:firebase-analytics:22.1.2' // Assets/Firebase/Editor/AppDependencies.xml:15
