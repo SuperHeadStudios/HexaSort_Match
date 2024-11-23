@@ -172,6 +172,8 @@ public class IceBlocker : MonoBehaviour
 
     private IEnumerator DisableThirdCol()
     {
+        currentCell.isIce = false;
+        currentCell.IceCellOpen();
         yield return new WaitForSeconds(0.6f);
         foreach (Rigidbody rb in thirdPartRbs)
         {
@@ -187,8 +189,7 @@ public class IceBlocker : MonoBehaviour
             rbs.isKinematic = false;
         }
         thirdObj.SetActive(false);
-        currentCell.isIce = false;
-        currentCell.IceCellOpen();
+        
     }
 
     public bool MakeIceBreak()
