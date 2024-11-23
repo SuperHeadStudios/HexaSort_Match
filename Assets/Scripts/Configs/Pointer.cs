@@ -73,7 +73,7 @@ public class Pointer : MonoBehaviour
         {
             maxValue = 5;
         }
-        else if(spinIndex == 2)
+        else if(spinIndex == 1)
         {
             maxValue = 10;
         }
@@ -268,7 +268,19 @@ public class Pointer : MonoBehaviour
 
     public void UpdateUiText()
     {
-        maxValue = 5;
+        if (spinIndex == 0)
+        {
+            maxValue = 5;
+        }
+        else if (spinIndex == 1)
+        {
+            maxValue = 10;
+        }
+        else
+        {
+            maxValue = 15;
+        }
+
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
         progressText.text = currentValue + "/ " + maxValue;
