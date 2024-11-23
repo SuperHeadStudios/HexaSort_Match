@@ -126,6 +126,8 @@ public class IceBlocker : MonoBehaviour
 
     private void MakeThirdBreak()
     {
+        currentCell.isIce = false;
+        currentCell.IceCellOpen();
         thirdObj.SetActive(true);
         thirdObjCombine.SetActive(false);
         MakeBreak(thirdPartRbs, thirdPartilces);

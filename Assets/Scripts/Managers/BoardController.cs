@@ -711,7 +711,7 @@ public class BoardController : MonoBehaviour
 
         int stackCount = 0;
 
-        if (GameManager.instance.levelIndex > 3) 
+        if (GameManager.instance.levelIndex > 5) 
         {
             stackCount = 15;
         }
