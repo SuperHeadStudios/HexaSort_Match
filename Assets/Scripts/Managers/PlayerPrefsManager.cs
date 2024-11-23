@@ -55,6 +55,8 @@ namespace GameSystem
         static string WHEELSPINAVAILABLE = "WHEELSPINKEY";
         static string WHEELSPINGRPOGRESS = "WHEELPRGRESS";
 
+        static string WHEELINDEXCOUNT = "WHEELINDEXKEY";
+
         #region Level Value
 
         // Game Levels Area
@@ -362,6 +364,13 @@ namespace GameSystem
 
         public static void SaveSpineProgCount(float count)
         { PlayerPrefs.SetFloat(WHEELSPINGRPOGRESS, count); }
+
+        public static int GetSpinIndexCount()
+        { return PlayerPrefs.GetInt(WHEELINDEXCOUNT, 0); }
+
+        public static void SaveSpinIndexCount(int index)
+        { PlayerPrefs.SetInt(WHEELINDEXCOUNT, index); }
+
 
         public static bool GetIsSpin()
         {

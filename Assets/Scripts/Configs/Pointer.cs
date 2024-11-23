@@ -45,8 +45,7 @@ public class Pointer : MonoBehaviour
     [SerializeField] private Button spnBtn, adsBtn, closeTextBtn;
 
     private bool isSpinning;
-    public int lvlCount;
-    public int maxLvl;
+    private int spinIndex;
 
     public float maxValue;
     public float currentValue;
@@ -68,6 +67,20 @@ public class Pointer : MonoBehaviour
     private void Start()
     {
         angles = new List<int> { 45, 90, 135, 180, 225, 270, 315, 360 };
+        spinIndex = PlayerPrefsManager.GetSpinIndexCount();
+
+        if(spinIndex == 0)
+        {
+            maxValue = 5;
+        }
+        else if(spinIndex == 2)
+        {
+            maxValue = 10;
+        }
+        else
+        {
+            maxValue = 15;
+        }
     }
     private void Update()
     {
@@ -225,13 +238,12 @@ public class Pointer : MonoBehaviour
         PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
-        lvlCount = GameManager.instance.levelIndex;
+
         if (currentValue >= maxValue)
         {
             spnBtn.gameObject.SetActive(false);
             adsBtn.gameObject.SetActive(true);
             spinAvail = true;
-            wheelDialgueText.text = "You Have Completed Level - "+ lvlCount;
         }
         else
         {
@@ -242,24 +254,27 @@ public class Pointer : MonoBehaviour
 
     public void ResetWheelProgr()
     {
+        if (currentValue < maxValue) return;
+
         currentValue = 0;
         PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
+        spinIndex++;
+        PlayerPrefsManager.SaveSpinIndexCount(spinIndex);
+
+        UpdateUiText();
     }
 
     public void UpdateUiText()
     {
-        lvlCount = GameManager.instance.levelIndex;
+        maxValue = 5;
+        float fillValue = currentValue / maxValue;
+        fillImageSpin.fillAmount = fillValue;
+        progressText.text = currentValue + "/ " + maxValue;
 
-        if (lvlCount > 0 && lvlCount <= 5)
+        if (spinIndex == 0) 
         {
-            maxValue = 5;
-            float fillValue = currentValue / maxValue;
-            fillImageSpin.fillAmount = fillValue;
-            progressText.text = currentValue + "/ " + maxValue;
-
-            //wheelDialgueText.text = "You Have Completed 5 levels";
             if (currentValue <= maxValue)
             {
                 wheelDialgueText.text = "Win 5 levels to Spin the Wheel";
@@ -269,10 +284,9 @@ public class Pointer : MonoBehaviour
                 wheelDialgueText.text = "You Have Completed 5 levels";
             }
         }
-        else if (lvlCount > 5 && lvlCount <= 15)
+        else if( spinIndex == 1)
         {
-            maxValue = 10;
-            if (currentValue <= maxValue)
+            if(currentValue <= maxValue)
             {
                 wheelDialgueText.text = "Win 10 levels to Spin the Wheel";
             }
@@ -281,9 +295,9 @@ public class Pointer : MonoBehaviour
                 wheelDialgueText.text = "You Have Completed 10 levels";
             }
         }
-        else if (lvlCount > 15 && lvlCount <= 30)
+        else
         {
-            maxValue = 15; if (currentValue <= maxValue)
+            if(currentValue <= maxValue)
             {
                 wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
             }
@@ -292,18 +306,7 @@ public class Pointer : MonoBehaviour
                 wheelDialgueText.text = "You Have Completed 15 levels";
             }
         }
-        else if (lvlCount > 30)
-        {
-            maxValue = 15;
-            if (currentValue <= maxValue)
-            {
-                wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
-            }
-            else
-            {
-                wheelDialgueText.text = "You Have Completed 15 levels";
-            }
-        }
+
     }
 
 
