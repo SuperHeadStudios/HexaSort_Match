@@ -418,6 +418,7 @@ public class GameManager : MonoBehaviour
         boardController.ClearBoard();
         boardGenerator.ClearMap();
         uiManager.gameView.DisableArrow();
+        uiManager.gameView.DisableArrow_2();
         uiManager.gameView.HideView();
         uiManager.homeView.InitView();
         uiManager.homeView.ShowView();

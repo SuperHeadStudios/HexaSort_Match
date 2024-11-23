@@ -308,14 +308,24 @@ public class PopupWin : BasePopup
 
     public void WatchAds()
     {
-        AudioManager.instance.clickSound.Play();
 
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AudioManager.instance.clickSound.Play();
 
-        nextBtn.interactable = false;
-        x2ClaimBtn.interactable = false;
-        GameManager.instance.AddCoin(2 * rwValue);
-        StartCoroutine(NextGameIE());
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
+
+            nextBtn.interactable = false;
+            x2ClaimBtn.interactable = false;
+            GameManager.instance.AddCoin(2 * rwValue);
+            StartCoroutine(NextGameIE());
+
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(x2ClaimBtn.transform);
+        }
+
     }
 
     #endregion

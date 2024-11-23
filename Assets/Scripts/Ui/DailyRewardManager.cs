@@ -85,6 +85,7 @@ public class DailyRewardManager : MonoBehaviour
         CheckLivesRewardTime();
         ButtonsInitialization();
         UpdateCoinRewaardOnStart();
+        UpdateLivesTimerDisplay();
     }
 
     void Update()
@@ -228,9 +229,36 @@ public class DailyRewardManager : MonoBehaviour
 
     public void ClaimAdsRewards()
     {
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.dailyReward);
-        StartCoroutine(MakeReward());
-        canvasGroup.blocksRaycasts = false;
+        Transform adBtn = null;
+        int index = GetRewardIndex();
+        switch (index)
+        {
+            case 0:
+                adBtn = thirtyFiveXBtn.transform;
+                break;
+            case 1:
+                adBtn = twentyFiveXBtn.transform;
+                break;
+            case 2:
+                adBtn = livesBtn.transform;
+                break;
+            case 3:
+                adBtn = twentyFiveXBtn.transform;
+                break;
+
+        }
+
+
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.dailyReward);
+            StartCoroutine(MakeReward());
+            canvasGroup.blocksRaycasts = false;
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(adBtn.transform);
+        }
     }
 
     private IEnumerator MakeReward()
@@ -348,6 +376,7 @@ public class DailyRewardManager : MonoBehaviour
 
         if (remainingTime.TotalSeconds > 0)
         {
+            livesTimerActive = true;
             livesText.text = remainingTime.ToString(@"mm\:ss");
             heartTextInf.text = "∞";
         }

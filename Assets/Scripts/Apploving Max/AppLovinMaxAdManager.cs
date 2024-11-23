@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System;
 using System.Drawing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,7 +22,7 @@ public class AppLovinMaxAdManager : MonoBehaviour
     private int bannerCount;
     private int rewardCount;
     private int intersCount;
-
+    [SerializeField] private GameObject textNotiObj;
 
     #endregion
 
@@ -73,6 +75,22 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
     #endregion
 
+    #region NotiAds
+
+    public void SpwanNotiText(Transform adBtn)
+    {
+        GameObject notiObj = Instantiate(textNotiObj, adBtn.position + new Vector3(0, 1, 0), Camera.main.transform.rotation, adBtn);
+        notiObj.transform.localScale = Vector3.one * 1.5f;
+        notiObj.GetComponent<TextMeshProUGUI>().text = "No ads available, try again later";
+        notiObj.transform.DOLocalMoveY(adBtn.position.y + 400, 2).SetEase(Ease.OutSine).OnComplete(() =>
+        {
+            Destroy(notiObj);
+        });
+    }
+
+    #endregion
+
+
     #region Load and Show Ads
 
     private void LoadAllAds()
@@ -91,6 +109,10 @@ public class AppLovinMaxAdManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += FirebaseManager.instance.OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += FirebaseManager.instance.OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += FirebaseManager.instance.OnAdRevenuePaidEvent;
     }
 
     private void PaidEventDiscard()
@@ -98,6 +120,10 @@ public class AppLovinMaxAdManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+
+        MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent -= FirebaseManager.instance.OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent -= FirebaseManager.instance.OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent -= FirebaseManager.instance.OnAdRevenuePaidEvent;
     }
 
     private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -137,6 +163,9 @@ public class AppLovinMaxAdManager : MonoBehaviour
         {
             Debug.LogWarning("Unrecognized Ad Unit ID: " + adUnitId);
         }
+
+
+
     }
 
 
@@ -294,6 +323,12 @@ public class AppLovinMaxAdManager : MonoBehaviour
             Debug.Log("Rewarded Ad is not ready.");
         }
     }
+
+    public bool IsRewardedAdReady()
+    {
+        return MaxSdk.IsRewardedAdReady(rewardedAdUnitId);
+    }
+
 
     #endregion
 

@@ -122,6 +122,7 @@ public class DailyLoginRewardManager : MonoBehaviour
         currentDay++;
         SaveProgress();
         UpdateUI();
+
     }
 
     private void GrantReward(int day, RewardButton.REWARD_TYPE rewardType, int value)
@@ -130,7 +131,7 @@ public class DailyLoginRewardManager : MonoBehaviour
         hammerIcon.gameObject.SetActive(false);
         swapIcon.gameObject.SetActive(false);
         shuffleIcon.gameObject.SetActive(false);
-
+        
         switch (rewardType)
         {
             case RewardButton.REWARD_TYPE.GOLD:
@@ -142,25 +143,25 @@ public class DailyLoginRewardManager : MonoBehaviour
                 hammerIcon.gameObject.SetActive(true);
                 BoosterAnimation(hammerIcon);
                 GameManager.instance.AddHammerBooster(value);
-                hammerPs.Play();
+                hammerPs.Play(); AudioManager.instance.boosterUnlockSound.Play();
                 break;
 
             case RewardButton.REWARD_TYPE.MOVE:
                 swapIcon.gameObject.SetActive(true);
                 BoosterAnimation(swapIcon);
                 GameManager.instance.AddMoveBooster(value);
-                swapPs.Play();
+                swapPs.Play(); AudioManager.instance.boosterUnlockSound.Play();
                 break;
 
             case RewardButton.REWARD_TYPE.SHUFFLE:
                 shuffleIcon.gameObject.SetActive(true);
                 BoosterAnimation(shuffleIcon);
                 GameManager.instance.AddShuffleBooster(value);
-                shufflePs.Play();
+                shufflePs.Play(); AudioManager.instance.boosterUnlockSound.Play();
                 break;
 
             case RewardButton.REWARD_TYPE.ALL:
-
+                AudioManager.instance.boosterUnlockSound.Play();
                 demoCoin.gameObject.SetActive(true);
                 hammerIcon.gameObject.SetActive(true);
                 swapIcon.gameObject.SetActive(true);
@@ -287,12 +288,6 @@ public class DailyLoginRewardManager : MonoBehaviour
             yield return new WaitForSeconds(0.025f);
         }
 
-        while (currentCoint > 0)
-        {
-            GameManager.instance.AddCoin(1);
-            currentCoint--;
-            yield return new WaitForSeconds(0.001f);
-        }
 
         if (coinCount == 0)
         {
@@ -300,7 +295,17 @@ public class DailyLoginRewardManager : MonoBehaviour
             coinCollectPs.Stop();
             yield return new WaitForSeconds(1f);
             coinPanelCG.alpha = 0;
+            GameManager.instance.uiManager.dailyPopup.HideView();
         }
+
+        while (currentCoint > 0)
+        {
+            GameManager.instance.AddCoin(1);
+            currentCoint--;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+       
     }
 
 

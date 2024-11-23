@@ -37,8 +37,10 @@ public class GameView : BaseView
     public GameObject hammerPriceTag, movePriceTag, shufflePriceTag;
 
     public GameObject lv1Arrow;
+    public GameObject lv2Arrow;
 
-    private bool finishTut;
+    public bool finishTut;
+    public bool finishTut_2;
 
     public GameObject blockers;
 
@@ -197,7 +199,7 @@ public class GameView : BaseView
         if (GameManager.instance.levelIndex == 1)
             ShowArrow();
         else
-            DisableArrow();
+            DisableArrow(); DisableArrow_2();
 
         GameManager.instance.uiManager.coinView.isGameSettings = true;
 
@@ -233,6 +235,10 @@ public class GameView : BaseView
         {
             lv1Arrow.SetActive(false);
             finishTut = true;
+            if (GameManager.instance.levelIndex <= 1)
+            {
+                StartCoroutine(ShowArrow_2());
+            }
         }
         
     }
@@ -246,6 +252,29 @@ public class GameView : BaseView
 
     }
 
+
+    public IEnumerator ShowArrow_2()
+    {
+        yield return new WaitForSeconds(.5f);
+        if (!finishTut_2)
+        {
+            lv2Arrow.SetActive(true); 
+        }
+    }
+
+    public void DisableArrow_2()
+    {
+        if(!finishTut_2 && finishTut)
+        {
+            if (lv2Arrow.activeInHierarchy)
+            {
+                lv2Arrow.SetActive(false);
+                finishTut_2 = true;
+            }
+        }
+    }
+
+  
     public override void Start()
     {
         purchaseBooster.parent.GetComponent<Image>().enabled = false;

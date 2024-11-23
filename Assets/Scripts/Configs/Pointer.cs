@@ -3,7 +3,7 @@ using GameSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +11,6 @@ public class Pointer : MonoBehaviour
 {
     [Header("Wheel Settings")]
     [SerializeField] private Transform wheel;
-    [SerializeField] private float spinDuration = 4f;
-    [SerializeField] private float initialSpeed = 1000f;
     [SerializeField] private Transform roots;
     [SerializeField] private List<int> angles;
 
@@ -25,7 +23,6 @@ public class Pointer : MonoBehaviour
     [SerializeField] private ParticleSystem leftConfetiFall;
 
     [Header("------ Coins Move Settings ------"), Space(5)]
-    [SerializeField] private float randPosi;
     [SerializeField] private GameObject cointPrefab;
     [SerializeField] private Transform cointTarget;
     [SerializeField] private Transform coinParent;
@@ -41,7 +38,7 @@ public class Pointer : MonoBehaviour
 
     [SerializeField] private Image rewardIcon;
     [SerializeField] private Sprite coinSpr, hammerSpr, moveSpr, shuffleSpr;
-    [SerializeField] private Sprite spinSpr, spinOffSpr;
+    [SerializeField] private Sprite spinOffSpr;
     [SerializeField] private Button spnBtn, adsBtn, closeTextBtn;
 
     private bool isSpinning;
@@ -53,17 +50,14 @@ public class Pointer : MonoBehaviour
 
     [SerializeField] private float minSpinDuration = 2.0f; // Minimum duration of the spin
     [SerializeField] private float maxSpinDuration = 5.0f; // Maximum duration of the spin
-    [SerializeField] private float spinSpeed = 500.0f;     // Base spin speed
     [SerializeField] private AnimationCurve easingCurve;  // Easing curve for deceleration
 
     
     public bool boosterReward;
     public bool coinReward;
     public bool spinAvail;
-    private void OnEnable()
-    {
-        
-    }
+    
+
     private void Start()
     {
         angles = new List<int> { 45, 90, 135, 180, 225, 270, 315, 360 };
@@ -116,13 +110,20 @@ public class Pointer : MonoBehaviour
     }
 
     public void WatchAdsSpin()
-    {
-        ResetRewardDisplay();
-        GetComponent<Collider>().enabled = false;
-        AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
-        spinAvail = true;
-        StartCoroutine(AdsSpin());
+    {        
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            ResetRewardDisplay();
+            GetComponent<Collider>().enabled = false;
+            AudioManager.instance.clickSound.Play();
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
+            spinAvail = true;
+            StartCoroutine(AdsSpin());
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(adsBtn.transform);
+        }
     }
 
 
@@ -324,6 +325,7 @@ public class Pointer : MonoBehaviour
 
     private void ShowRewardWon()
     {
+        AudioManager.instance.boosterUnlockSound.Play();
         resultObject.GetComponent<Image>().enabled = true;
         roots.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {

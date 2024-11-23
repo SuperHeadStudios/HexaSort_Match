@@ -134,7 +134,7 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            FirebaseAnalytics.LogEvent("ad_impression",
+            FirebaseAnalytics.LogEvent("ad_impression_custom",
                 new Parameter("ad_type", adType.ToString()),
                 new Parameter("ad_location", adLocation.ToString()),
                 new Parameter("ad_network", adNetwork),
@@ -146,11 +146,26 @@ public class FirebaseManager : MonoBehaviour
 
             TrackTotalAds(adType, adNetwork, ecpm, revenue);
             LevelAdTrack(levelNum.ToString(), adType, revenue);
+
         }
         else
         {
             Debug.LogWarning("Firebase is not initialized. Ad impression not tracked.");
         }
+    }
+
+    public void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo impressionData)
+    {
+        double revenue = impressionData.Revenue;
+        var impressionParameters = new[] {
+        new Parameter("ad_platform", "AppLovin"),
+        new Parameter("ad_source", impressionData.NetworkName),
+        new Parameter("ad_unit_name", impressionData.AdUnitIdentifier),
+        new Parameter("ad_format", impressionData.AdFormat),
+        new Parameter("value", revenue),
+        new Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
+        };
+        FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
     }
 
 

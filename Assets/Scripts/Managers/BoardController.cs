@@ -345,8 +345,11 @@ public class BoardController : MonoBehaviour
         AudioManager.instance.columnPlaceSfx.Play();
 
         if (GameManager.instance.levelIndex == 1)
+        {
             GameManager.instance.uiManager.gameView.DisableArrow();
-
+            GameManager.instance.uiManager.gameView.DisableArrow_2();
+        }
+                
 
         if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);
@@ -386,8 +389,10 @@ public class BoardController : MonoBehaviour
         AudioManager.instance.columnPlaceSfx.Play();
 
         if (GameManager.instance.levelIndex == 1)
+        {
             GameManager.instance.uiManager.gameView.DisableArrow();
-
+            GameManager.instance.uiManager.gameView.DisableArrow_2();
+        }
 
         if (AudioManager.instance.hapticState)
             HapticPatterns.PlayPreset(HapticPatterns.PresetType.MediumImpact);

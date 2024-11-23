@@ -19,7 +19,7 @@ public class PopupLose : BasePopup
     [SerializeField] private HomeView homeView;
     [SerializeField] private Button coinBtn;
     [SerializeField] private GameObject settingBtn;
-
+    [SerializeField] GameObject adBtn;
 
     private void FixedUpdate()
     {
@@ -138,9 +138,16 @@ public class PopupLose : BasePopup
 
     public void WatchAds()
     {
-        AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Lose);
-        StartCoroutine(Retrive());
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AudioManager.instance.clickSound.Play();
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Lose);
+            StartCoroutine(Retrive());
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(adBtn.transform);
+        }
     }
 
 

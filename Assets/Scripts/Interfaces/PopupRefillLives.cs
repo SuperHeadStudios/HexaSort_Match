@@ -10,6 +10,8 @@ public class PopupRefillLives : BasePopup
     [SerializeField] private Button coinBtn;
     [SerializeField] private GameObject[] hearts;
 
+    [SerializeField] private GameObject adsBtn;
+
     private const string LIVES_SAVEKEY = "Lives";
     private int totalLives = 0;
 
@@ -85,10 +87,18 @@ public class PopupRefillLives : BasePopup
 
     public void WatchAds()
     {
-        AudioManager.instance.clickSound.Play();
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AudioManager.instance.clickSound.Play();
 
-        AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.RefillLives);
-        GameManager.instance.livesManager.GiveOneLife();
-        FillHearts();
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.RefillLives);
+            GameManager.instance.livesManager.GiveOneLife();
+            FillHearts();
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(adsBtn.transform);
+        }
+       
     }
 }

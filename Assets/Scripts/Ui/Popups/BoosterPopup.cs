@@ -38,7 +38,6 @@ public class BoosterPopup : MonoBehaviour
     [SerializeField] private Button boosterPurchaseBtn;
     [SerializeField] private Button boosterPurchaseAdsBtn;
 
-
     void Start()
     {
         hammerBtn.onClick.AddListener(() =>
@@ -162,9 +161,16 @@ public class BoosterPopup : MonoBehaviour
 
     public void WatchAds()
     {
-        AudioManager.instance.clickSound.Play();
-        AppLovinMaxAdManager.instance.ShowRewardedAd(CurrentAdLocation());
-        EarnReward();
+        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AudioManager.instance.clickSound.Play();
+            AppLovinMaxAdManager.instance.ShowRewardedAd(CurrentAdLocation());
+            EarnReward();
+        }
+        else
+        {
+            AppLovinMaxAdManager.instance.SpwanNotiText(boosterPurchaseAdsBtn.transform);
+        }
     }
 
     public void EarnReward()
