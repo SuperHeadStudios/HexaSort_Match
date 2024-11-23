@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_12
   m_EditorClassIdentifier: 
-  isBlockers: 0
   cameraZoom: 11
   boardPos_Z: -0.6
   cellPos_Z: -8.1
@@ -25,8 +24,6 @@ MonoBehaviour:
   Goals:
   - Type: 1
     Target: 400
-  - Type: 3
-    Target: 2
   CellsForTutorial: []
   Difficulty: 2
   Thresholds:

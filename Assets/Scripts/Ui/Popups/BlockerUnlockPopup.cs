@@ -50,7 +50,7 @@ public class BlockerUnlockPopup : MonoBehaviour
 
                 break;
 
-            case 12:
+            case 11:
                 if (!PlayerPrefsManager.GetVinesUnlocked())
                 {
                     mainPopup.enabled = true;
