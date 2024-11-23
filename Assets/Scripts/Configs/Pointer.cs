@@ -252,7 +252,7 @@ public class Pointer : MonoBehaviour
     {
         lvlCount = GameManager.instance.levelIndex;
 
-        if (lvlCount > 0 && lvlCount < 5)
+        if (lvlCount > 0 && lvlCount <= 5)
         {
             maxValue = 5;
             float fillValue = currentValue / maxValue;
@@ -269,24 +269,40 @@ public class Pointer : MonoBehaviour
                 wheelDialgueText.text = "You Have Completed 5 levels";
             }
         }
-        else if (lvlCount >= 5 && lvlCount < 15)
+        else if (lvlCount > 5 && lvlCount <= 15)
         {
             maxValue = 10;
-            wheelDialgueText.text = "Win 10 levels to Spin the Wheel";
+            if (currentValue <= maxValue)
+            {
+                wheelDialgueText.text = "Win 10 levels to Spin the Wheel";
+            }
+            else
+            {
+                wheelDialgueText.text = "You Have Completed 10 levels";
+            }
         }
-        else if (lvlCount >= 15 && lvlCount < 30)
+        else if (lvlCount > 15 && lvlCount <= 30)
         {
-            maxValue = 15;
-            wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
+            maxValue = 15; if (currentValue <= maxValue)
+            {
+                wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
+            }
+            else
+            {
+                wheelDialgueText.text = "You Have Completed 15 levels";
+            }
         }
         else if (lvlCount > 30)
         {
             maxValue = 15;
-            wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
-        }
-        else
-        {
-            wheelDialgueText.text = "Tap Spin To Speen Wheel";
+            if (currentValue <= maxValue)
+            {
+                wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
+            }
+            else
+            {
+                wheelDialgueText.text = "You Have Completed 15 levels";
+            }
         }
     }
 
