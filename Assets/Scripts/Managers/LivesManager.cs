@@ -237,7 +237,7 @@ public class LivesManager : MonoBehaviour
             return true;
         }
         bool result;
-        if (lives > 0)
+        if (lives > 0 && !HasInfiniteLives)
         {
             result = true;
 

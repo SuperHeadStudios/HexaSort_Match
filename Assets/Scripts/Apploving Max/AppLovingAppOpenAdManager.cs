@@ -8,6 +8,8 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
 
     [SerializeField] private string appOpenAdUnitId = "YOUR_APP_OPEN_AD_UNIT_ID";
 
+    public bool isIntersOrRwrdShowing = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -75,7 +77,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus)
     {
-        if (!pauseStatus)
+        if (!pauseStatus && !isIntersOrRwrdShowing)
         {
             ShowAdIfReady();
         }
@@ -91,5 +93,11 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
         {
             MaxSdk.LoadAppOpenAd(appOpenAdUnitId);
         }
+    }
+
+    public IEnumerator RewardAndIntrsComplete()
+    {
+        yield return new WaitForSeconds(1f);
+        isIntersOrRwrdShowing = false;
     }
 }

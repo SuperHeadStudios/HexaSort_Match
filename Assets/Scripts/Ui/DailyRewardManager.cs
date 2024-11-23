@@ -376,12 +376,14 @@ public class DailyRewardManager : MonoBehaviour
 
         if (remainingTime.TotalSeconds > 0)
         {
+            heartTextInf.gameObject.SetActive(true);
             livesTimerActive = true;
             livesText.text = remainingTime.ToString(@"mm\:ss");
             heartTextInf.text = "∞";
         }
         else
         {
+            livesText.text = LivesManager.instance.lives.ToString();
             livesTimerActive = false;
             heartTextInf.text = "";
         }

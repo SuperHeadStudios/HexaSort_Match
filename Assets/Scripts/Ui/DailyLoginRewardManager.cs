@@ -272,6 +272,9 @@ public class DailyLoginRewardManager : MonoBehaviour
             startPosition, midPoint, targetPosition
         };
 
+
+        coinCollectPs.Play();
+
         while (coinCount > 0)
         {
             AudioManager.instance.coinCollectSound.Play();
@@ -281,9 +284,14 @@ public class DailyLoginRewardManager : MonoBehaviour
             {
                 coinP.SetActive(false);
                 Destroy(coinP, 1f);
-                coinCollectPs.Play();
+
+                if (coinCount == 0)
+                {
+                    coinCollectPs.Stop();
+                }
             });
 
+          
             coinCount--;
             yield return new WaitForSeconds(0.025f);
         }
@@ -292,7 +300,6 @@ public class DailyLoginRewardManager : MonoBehaviour
         if (coinCount == 0)
         {
             demoCoin.localScale = Vector3.zero;
-            coinCollectPs.Stop();
             yield return new WaitForSeconds(1f);
             coinPanelCG.alpha = 0;
             GameManager.instance.uiManager.dailyPopup.HideView();
@@ -304,8 +311,6 @@ public class DailyLoginRewardManager : MonoBehaviour
             currentCoint--;
             yield return new WaitForSeconds(0.001f);
         }
-
-       
     }
 
 

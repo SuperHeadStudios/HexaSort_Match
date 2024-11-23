@@ -224,6 +224,8 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
     private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
+        StartCoroutine(AppLovingAppOpenAdManager.instance.RewardAndIntrsComplete());
+        ShowBannerAd();
         // Interstitial ad is hidden. Pre-load the next ad.
         LoadInterstitial();
     }
@@ -233,6 +235,9 @@ public class AppLovinMaxAdManager : MonoBehaviour
         {
             MaxSdk.ShowInterstitial(interstitialAdUnitId);
             inters_AdLocation = adLocation;
+            Debug.Log("Intrs Showing");
+            AppLovingAppOpenAdManager.instance.isIntersOrRwrdShowing = true;
+            HideBannerAd();
         }
         else
         {
@@ -300,6 +305,8 @@ public class AppLovinMaxAdManager : MonoBehaviour
     {
         // Rewarded ad is hidden. Pre-load the next ad
         LoadRewardedAd();
+        StartCoroutine(AppLovingAppOpenAdManager.instance.RewardAndIntrsComplete());
+        ShowBannerAd();
     }
 
     private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward, MaxSdkBase.AdInfo adInfo)
@@ -311,12 +318,16 @@ public class AppLovinMaxAdManager : MonoBehaviour
     {
         // Ad revenue paid. Use this callback to track user revenue.
     }
+
+    
     public void ShowRewardedAd(AdLocation adLocation)
     {
         if (MaxSdk.IsRewardedAdReady(rewardedAdUnitId))
         {
             MaxSdk.ShowRewardedAd(rewardedAdUnitId);
             reward_AdLocation = adLocation;
+            AppLovingAppOpenAdManager.instance.isIntersOrRwrdShowing = true;
+            HideBannerAd();
         }
         else
         {

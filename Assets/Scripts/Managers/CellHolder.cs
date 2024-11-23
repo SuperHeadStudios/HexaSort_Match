@@ -15,6 +15,8 @@ public class CellHolder : MonoBehaviour
 
     private int maxNum = 6;
 
+    [SerializeField] private bool isTute = false;
+
     public enum DIFFICULT_LEVEL
     {
         EASY,
@@ -27,9 +29,9 @@ public class CellHolder : MonoBehaviour
     private float probabilityValue;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
+        isTute = true;
     }
 
     // Update is called once per frame
@@ -151,10 +153,17 @@ public class CellHolder : MonoBehaviour
                 HexaColumnData firstPiece = new HexaColumnData();
                 firstPiece.columnDataList = new List<ColumnData>();
 
-
-                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(1, 3));
-                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+                ColumnData randomData1 = new ColumnData(Random.Range(0, 6), Random.Range(4, 3));
+                ColumnData randomData2 = new ColumnData(Random.Range(0, 6), Random.Range(3, 3));
                 ColumnData randomData3 = new ColumnData(Random.Range(0, 6), Random.Range(2, 3));
+
+                if (GameManager.instance.levelIndex == 1 && isTute)
+                {
+                    randomData1 = new ColumnData(Random.Range(3, 3), Random.Range(4, 3));
+                    randomData2 = new ColumnData(Random.Range(3, 3), Random.Range(3, 3));
+                    randomData3 = new ColumnData(Random.Range(0, 5), Random.Range(2, 3));
+                }
+
                 firstPiece.columnDataList.Add(randomData1);
                 firstPiece.columnDataList.Add(randomData2);
 
@@ -209,7 +218,9 @@ public class CellHolder : MonoBehaviour
                 }
                 column.gameObject.SetActive(false);
                 StartCoroutine(ColumnAppear(column.gameObject, i));
+
             }
+                isTute = false;
         }
     }
     
