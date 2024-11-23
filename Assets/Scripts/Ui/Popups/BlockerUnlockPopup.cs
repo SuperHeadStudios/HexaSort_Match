@@ -113,7 +113,7 @@ public class BlockerUnlockPopup : MonoBehaviour
             case 7:
                 HidPopUpView(icePopup.transform);
                 break;
-            case 12:
+            case 11:
                 HidPopUpView(vinesPopup.transform);
                 break;
             case 15:
