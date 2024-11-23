@@ -14,6 +14,7 @@ public class Pointer : MonoBehaviour
     [SerializeField] private float spinDuration = 4f;
     [SerializeField] private float initialSpeed = 1000f;
     [SerializeField] private Transform roots;
+    [SerializeField] private List<int> angles;
 
     [Header("All Particles Of LuckyWheel"), Space (5)]
     [SerializeField] public ParticleSystem rewardGotParticle;
@@ -64,6 +65,10 @@ public class Pointer : MonoBehaviour
     {
         
     }
+    private void Start()
+    {
+        angles = new List<int> { 45, 90, 135, 180, 225, 270, 315, 360 };
+    }
     private void Update()
     {
         if(isSpinning)
@@ -86,7 +91,9 @@ public class Pointer : MonoBehaviour
             spnBtn.GetComponent<Image>().sprite = spinOffSpr;
             if (isSpinning) return;
             isSpinning = true;
-            float randomRotation = Random.Range(360f * 5, 360f * 10);
+            int multipler = Random.Range(5, 10);
+            float currentRotation = angles[Random.Range(0, angles.Count)];
+            float randomRotation = (360 * multipler) + currentRotation;
             float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
             AudioManager.instance.spinWheel.Play();
             StartCoroutine(SpinAnimation(randomRotation, spinDuration));
@@ -102,11 +109,11 @@ public class Pointer : MonoBehaviour
         AudioManager.instance.clickSound.Play();
         AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
         spinAvail = true;
-        StartCoroutine(AdSpin());
+        StartCoroutine(AdsSpin());
     }
 
 
-    public IEnumerator AdSpin()
+    public IEnumerator AdsSpin()
     {
         yield return new WaitForSeconds(1f);
 
@@ -116,7 +123,9 @@ public class Pointer : MonoBehaviour
             spnBtn.GetComponent<Image>().sprite = spinOffSpr;
             if (isSpinning) yield break;
             isSpinning = true;
-            float randomRotation = Random.Range(360f * 5, 360f * 10);
+            int multipler = Random.Range(5, 10);
+            float currentRotation = angles[Random.Range(0, angles.Count)];
+            float randomRotation = (360 * multipler) + currentRotation;
             float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
             AudioManager.instance.spinWheel.Play();
             StartCoroutine(SpinAnimation(randomRotation, spinDuration));
@@ -154,7 +163,7 @@ public class Pointer : MonoBehaviour
     private IEnumerator OnSpinComplete()
     {
         GetComponent<Collider>().enabled = true;
-        wheelDialgueText.text = "Watch Ad To Spin Again";
+        UpdateUiText();
         AudioManager.instance.spinWheel.Stop();
         yield return new WaitForSeconds(0.1f);
         Debug.Log("Spin Complete!");
@@ -188,19 +197,11 @@ public class Pointer : MonoBehaviour
     public void UpdateSpinWheel()
     {
         UpdateUiText();
-        if (spinAvail)
-        {
-            spnBtn.gameObject.SetActive(true);
-            adsBtn.gameObject.SetActive(false);
-            spnBtn.interactable = true;
-            spnBtn.GetComponent<Image>().sprite = spinSpr;
-        }
-        if (!PlayerPrefsManager.GetIsSpin()) return;
         currentValue = PlayerPrefsManager.GetSpineProgCount();
 
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
-        progressText.text = currentValue + "/5";
+        progressText.text = currentValue + "/"+ maxValue;
 
         if(currentValue >= maxValue)
         {
@@ -220,24 +221,23 @@ public class Pointer : MonoBehaviour
         currentValue = PlayerPrefsManager.GetSpineProgCount();
         if (currentValue >= maxValue) return;
         currentValue++;
-        progressText.text = currentValue + "/5";
+        progressText.text = currentValue + "/"+ maxValue;
         PlayerPrefsManager.SaveSpineProgCount(currentValue);
         float fillValue = currentValue / maxValue;
         fillImageSpin.fillAmount = fillValue;
-
+        lvlCount = GameManager.instance.levelIndex;
         if (currentValue >= maxValue)
         {
             spnBtn.gameObject.SetActive(false);
             adsBtn.gameObject.SetActive(true);
             spinAvail = true;
+            wheelDialgueText.text = "You Have Completed Level - "+ lvlCount;
         }
         else
         {
             spnBtn.gameObject.SetActive(true);
             adsBtn.gameObject.SetActive(false);
         }
-
-        
     }
 
     public void ResetWheelProgr()
@@ -252,43 +252,37 @@ public class Pointer : MonoBehaviour
     {
         lvlCount = GameManager.instance.levelIndex;
 
-        if (lvlCount == 5)
+        if (lvlCount > 0 && lvlCount < 5)
         {
-            if (!PlayerPrefsManager.GetIsSpin())
-            {
-                spinAvail = true;
-                currentValue = maxValue;
+            maxValue = 5;
+            float fillValue = currentValue / maxValue;
+            fillImageSpin.fillAmount = fillValue;
+            progressText.text = currentValue + "/ " + maxValue;
 
-                float fillValue = currentValue / maxValue;
-                fillImageSpin.fillAmount = fillValue;
-                progressText.text = currentValue + "/5";
+            //wheelDialgueText.text = "You Have Completed 5 levels";
+            if (currentValue <= maxValue)
+            {
+                wheelDialgueText.text = "Win 5 levels to Spin the Wheel";
             }
-            wheelDialgueText.text = "You Have Completed Level - 5";
+            else
+            {
+                wheelDialgueText.text = "You Have Completed 5 levels";
+            }
         }
-        else if (lvlCount == 10)
+        else if (lvlCount >= 5 && lvlCount < 15)
         {
-            maxLvl = 10;
-            wheelDialgueText.text = "You Have Completed Level - 10";
+            maxValue = 10;
+            wheelDialgueText.text = "Win 10 levels to Spin the Wheel";
         }
-        else if (lvlCount == 15)
+        else if (lvlCount >= 15 && lvlCount < 30)
         {
-            maxLvl = 15;
-            wheelDialgueText.text = "You Have Completed Level - 15";
+            maxValue = 15;
+            wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
         }
-        else if (lvlCount == 20)
+        else if (lvlCount > 30)
         {
-            maxLvl = 20;
-            wheelDialgueText.text = "You Have Completed Level - 20";
-        }
-        else if (lvlCount == 25)
-        {
-            maxLvl = 25;
-            wheelDialgueText.text = "You Have Completed Level - 25";
-        }
-        else if (lvlCount == 30)
-        {
-            maxLvl = 30;
-            wheelDialgueText.text = "You Have Completed Level - 30";
+            maxValue = 15;
+            wheelDialgueText.text = "Win 15 levels to Spin the Wheel";
         }
         else
         {

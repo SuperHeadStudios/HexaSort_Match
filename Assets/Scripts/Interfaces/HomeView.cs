@@ -160,7 +160,7 @@ public class HomeView : BaseView
 
     public void ShowSpinWheelBtn()
     {
-        if (GameManager.instance.levelIndex >= 5)
+        if (GameManager.instance.levelIndex > 0)
         {
             spinWheelBtn.SetActive(true);
             spinWheelBtn.transform.DOScale(Vector3.one * 1.2f, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
