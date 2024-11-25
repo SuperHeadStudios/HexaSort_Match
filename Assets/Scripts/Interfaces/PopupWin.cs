@@ -232,7 +232,7 @@ public class PopupWin : BasePopup
 
     #region Coins Spawn & Move
 
-    public IEnumerator SpawnCoins()
+    public IEnumerator SpawnCoins(int multiplier)
     {
         int currentCoin = rwValue;
 
@@ -241,7 +241,6 @@ public class PopupWin : BasePopup
             GameObject spwaCoin = Instantiate(cointPrefab, coinParent.position, Camera.main.transform.rotation, coinParent);
             cointList.Add(spwaCoin);
             
-
             if (currentCoin == rwValue)
             {
                 GameManager.instance.uiManager.coinView.CoinBarAnimationPlay();
@@ -257,7 +256,7 @@ public class PopupWin : BasePopup
 
                 if(currentLevel > 0)
                 {
-                    GameManager.instance.AddCoin(1);
+                    GameManager.instance.AddCoin(multiplier);
                 }
 
                 if(currentCoin == 0)
@@ -282,7 +281,7 @@ public class PopupWin : BasePopup
     public void NextLevel()
     {
        // GameManager.instance.ResetBlockerValue();
-        StartCoroutine(SpawnCoins());
+        StartCoroutine(SpawnCoins(1));
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
     }
@@ -298,7 +297,7 @@ public class PopupWin : BasePopup
 
     public void ClaimX2()
     {
-        WatchAds();
+        StartCoroutine(WatchAds());
     }
 
     #endregion
@@ -306,9 +305,8 @@ public class PopupWin : BasePopup
     #region Show Ads
 
 
-    public void WatchAds()
+    public IEnumerator WatchAds()
     {
-
         if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
         {
             AudioManager.instance.clickSound.Play();
@@ -317,9 +315,8 @@ public class PopupWin : BasePopup
 
             nextBtn.interactable = false;
             x2ClaimBtn.interactable = false;
-            GameManager.instance.AddCoin(2 * rwValue);
-            StartCoroutine(NextGameIE());
-
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(SpawnCoins(2));
         }
         else
         {

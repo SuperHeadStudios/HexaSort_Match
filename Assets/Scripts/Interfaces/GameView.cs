@@ -50,6 +50,7 @@ public class GameView : BaseView
 
     public Transform settingBar;
     public Transform[] transforms;
+    public Transform spawnTextTarget;
 
     [SerializeField] private GameObject goalbar;
     [SerializeField] private GameObject blockergoalbar;

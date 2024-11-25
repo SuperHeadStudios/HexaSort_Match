@@ -171,7 +171,6 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
     #endregion
 
-
     #region Interstitial Ad
 
     public void InitializeInterstitialAds()
