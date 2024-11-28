@@ -145,14 +145,14 @@ public class HomeView : BaseView
         dailyReward.blocksRaycasts = true;
         dailyReward.interactable = true;
         dailyRewardPopup.localScale = Vector3.one * 0.55f;
-        dailyRewardPopup.DOScale(Vector3.one* 0.95f, 0.25f).SetEase(Ease.OutBounce);
+        dailyRewardPopup.DOScale(Vector3.one* 0.85f, 0.25f).SetEase(Ease.OutBounce);
     }
 
 
     public void CloseDailyReward()
     {
         AudioManager.instance.clickSound.Play();
-        dailyRewardPopup.DOScale(Vector3.one * 1.15f, 0.05f).SetEase(Ease.OutQuart).OnComplete(() =>
+        dailyRewardPopup.DOScale(Vector3.one * 1f, 0.05f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
             dailyReward.alpha = 0;
             dailyReward.blocksRaycasts = false;
