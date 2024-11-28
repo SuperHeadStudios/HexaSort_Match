@@ -92,7 +92,7 @@ public class BoardController : MonoBehaviour
 
 
                 ClearColumn();
-                FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Hammer);
+                //FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Hammer);
                 return;
             }
         }
@@ -101,7 +101,7 @@ public class BoardController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Move);
+                //FirebaseManager.instance.TrackBoostersUsed(GameManager.instance.levelIndex, BoosterTypeUsed.Move);
                 PickHexaColumnInMaps();
             }
 

@@ -64,14 +64,14 @@ public class AdsControl : MonoBehaviour
 
 
 
-    public void ShowInterstital(AdLocation adLocation)
+    /*public void ShowInterstital(AdLocation adLocation)
     {
         if (IsRemoveAds())
             return;
 
-        AppLovinMaxAdManager.instance.ShowInterstitialAd(adLocation);
+        //AppLovinMaxAdManager.instance.ShowInterstitialAd(adLocation);
         
-    }
+    }*/
 
     public void RemoveAds()
     {

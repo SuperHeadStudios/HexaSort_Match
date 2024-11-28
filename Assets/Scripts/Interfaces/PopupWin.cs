@@ -307,21 +307,21 @@ public class PopupWin : BasePopup
 
     public IEnumerator WatchAds()
     {
-        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
-        {
             AudioManager.instance.clickSound.Play();
-
-            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
-
             nextBtn.interactable = false;
             x2ClaimBtn.interactable = false;
             yield return new WaitForSeconds(1f);
             StartCoroutine(SpawnCoins(2));
+        /*if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
+
         }
         else
         {
             AppLovinMaxAdManager.instance.SpwanNotiText(x2ClaimBtn.transform);
-        }
+        }*/
 
     }
 

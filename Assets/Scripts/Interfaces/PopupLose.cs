@@ -138,16 +138,16 @@ public class PopupLose : BasePopup
 
     public void WatchAds()
     {
+            AudioManager.instance.clickSound.Play();
+        /*    StartCoroutine(Retrive());
         if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
         {
-            AudioManager.instance.clickSound.Play();
             AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Lose);
-            StartCoroutine(Retrive());
         }
         else
         {
             AppLovinMaxAdManager.instance.SpwanNotiText(adBtn.transform);
-        }
+        }*/
     }
 
 

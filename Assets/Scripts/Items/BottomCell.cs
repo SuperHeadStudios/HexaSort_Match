@@ -83,7 +83,7 @@ public class BottomCell : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.T))
         {
-            AppLovinMaxAdManager.instance.SpwanNotiText(GameManager.instance.uiManager.gameView.spawnTextTarget);
+            //AppLovinMaxAdManager.instance.SpwanNotiText(GameManager.instance.uiManager.gameView.spawnTextTarget);
         }
 
         UpdateLeafPosition();
@@ -510,19 +510,19 @@ public class BottomCell : MonoBehaviour
 
     public void WatchAds()
     {
-        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
-        {
             AudioManager.instance.clickSound.Play();
-            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Adblocker);
             AudioManager.instance.rewardDone.Play();
             adBlockerParticle.Play();
             isAd = false;
             meshRenderer.material = cellMaterial;
             AdObj.SetActive(false);
+        /*if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        {
+            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.Adblocker);
         }
         else
         {
             AppLovinMaxAdManager.instance.SpwanNotiText(GameManager.instance.uiManager.gameView.spawnTextTarget);
-        }
+        }*/
     }
 }
