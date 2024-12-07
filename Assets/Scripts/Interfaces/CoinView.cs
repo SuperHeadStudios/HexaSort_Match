@@ -33,6 +33,9 @@ public class CoinView : BaseView
     [SerializeField] private Button addLiveBtn;
     [SerializeField] private GameObject showFullText;
 
+
+    [SerializeField] private GameObject HomeBar;
+
     public bool isGameSettings = false;
     public override void InitView()
     {
@@ -82,6 +85,7 @@ public class CoinView : BaseView
     {
         if (Input.GetKeyDown(KeyCode.C))
             OnButtonConsumePressed();
+        ShowHomeBar();
     }
 
     public void MoreCoin()
@@ -222,6 +226,18 @@ public class CoinView : BaseView
         else
         {
             GameManager.instance.uiManager.homeView.ShowSettingPopup();
+        }
+    }
+
+    public void ShowHomeBar()
+    {
+        if (isGameSettings)
+        {
+            HomeBar.SetActive(true);
+        }
+        else
+        {
+            HomeBar.SetActive(false);
         }
     }
 

@@ -144,7 +144,7 @@ public class GameView : BaseView
 
     private IEnumerator ShowSettingItems()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             transforms[i].DOLocalMoveX(-50, 0.1f);
             yield return new WaitForSeconds(0.1f);
@@ -161,7 +161,7 @@ public class GameView : BaseView
 
     private IEnumerator HideSettingItems()
     {
-        for (int i = 4; i > 0; i--)
+        for (int i = 2; i > 0; i--)
         {
             transforms[i].DOLocalMoveX(120, 0.1f);
             yield return new WaitForSeconds(0.1f);

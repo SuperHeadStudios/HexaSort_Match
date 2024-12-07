@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71985ec0910d51f37f5a8a9abb48ed03, type: 3}
   m_Name: map_2
   m_EditorClassIdentifier: 
-  isBlockers: 0
   cameraZoom: 10.5
   boardPos_Z: 0
   cellPos_Z: -8
@@ -24,7 +23,7 @@ MonoBehaviour:
   TutorialSteps: 2
   Goals:
   - Type: 1
-    Target: 200
+    Target: 75
   CellsForTutorial:
   - {x: -1, y: 0}
   - {x: -1, y: 1}

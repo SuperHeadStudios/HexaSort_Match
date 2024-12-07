@@ -1,8 +1,5 @@
 using DG.Tweening;
 using GameSystem;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -52,6 +49,8 @@ public class SettingBar : MonoBehaviour
 
     [SerializeField] private HomeView homeView;
     [SerializeField] private GameObject lifeBar;
+
+    [SerializeField] private GameObject HomeBar;
 
     private void Start()
     {
