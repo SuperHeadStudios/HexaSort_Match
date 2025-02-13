@@ -12,4 +12,20 @@
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
         </activity>
     </application>
+
+
+	<!-- Explicitly remove Phone permissions -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+	<uses-permission android:name="android.permission.CALL_PHONE" tools:node="remove" />
+	<uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" tools:node="remove" />
+	<uses-permission android:name="android.permission.READ_CALL_LOG" tools:node="remove" />
+	<uses-permission android:name="android.permission.WRITE_CALL_LOG" tools:node="remove" />
+	<uses-permission android:name="android.permission.ADD_VOICEMAIL" tools:node="remove" />
+	<uses-permission android:name="android.permission.USE_SIP" tools:node="remove" />
+	<uses-permission android:name="android.permission.BIND_CALL_REDIRECTION_SERVICE" tools:node="remove" />
+	<!-- You can also remove the other permissions as discussed before -->
+	<uses-permission android:name="android.permission.READ_CONTACTS" tools:node="remove" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
+	
 </manifest>

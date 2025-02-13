@@ -5,36 +5,6 @@ public class AdsControl : MonoBehaviour
 
     private static AdsControl instance;
 
-    //for Admob
-    #region ADMOB_KEY
-    public string Android_AppID, IOS_AppID;
-
-    public string Android_Banner_Key, IOS_Banner_Key;
-
-    public string Android_Interestital_Key, IOS_Interestital_Key;
-
-    public string Android_RW_Key, IOS_RW_Key;
-
-    #endregion
-
-    #region UNITY_ADS_KEY
-    public string androidUnityGameId;
-    public string iOSUnityGameId;
-    public string androidUnityAdUnitId;
-    public string iOSUnityAdUnitId;
-
-    [HideInInspector]
-    public string adUnityUnitId;
-
-    public string androidUnityRWAdUnitId;
-    public string iOSUnityRWAdUnitId;
-
-    [HideInInspector]
-    public string adUnityRWUnitId = null; // This will remain null for unsupported platforms
-
-    public bool testMode;
-    private string unityGameId;
-    #endregion
 
     public enum ADS_TYPE
     {
@@ -68,9 +38,7 @@ public class AdsControl : MonoBehaviour
     {
         if (IsRemoveAds())
             return;
-
-        AppLovinMaxAdManager.instance.ShowInterstitialAd(adLocation);
-        
+        AdmobManager.instance.ShowInterstitialAd();
     }
 
     public void RemoveAds()

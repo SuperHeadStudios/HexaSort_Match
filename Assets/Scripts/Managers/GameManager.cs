@@ -354,12 +354,12 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        AppLovinMaxAdManager.instance.HideBannerAd();
+        AdmobManager.instance.HideBannerAd();
         AdsControl.Instance.ShowInterstital(AdLocation.Win);
 
-        if (levelIndex >= 3)
+        if (levelIndex >= 1)
         {
-            AppLovinMaxAdManager.instance.HideBannerAd();
+            AdmobManager.instance.HideBannerAd();
             AdsControl.Instance.ShowInterstital(AdLocation.Win);
         }
         uiManager.popupWin.ShowView();
@@ -384,9 +384,9 @@ public class GameManager : MonoBehaviour
         FirebaseManager.instance.LogLoseEvent(levelIndex);
         yield return new WaitForSeconds(1.0f);
 
-        if (levelIndex >= 3)
+        if (levelIndex >= 1)
         {
-            AppLovinMaxAdManager.instance.HideBannerAd();
+            AdmobManager.instance.HideBannerAd();
             AdsControl.Instance.ShowInterstital(AdLocation.Win);
         }
 

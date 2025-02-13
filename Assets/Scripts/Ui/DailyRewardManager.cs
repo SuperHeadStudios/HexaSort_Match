@@ -248,17 +248,11 @@ public class DailyRewardManager : MonoBehaviour
 
         }
 
-
-        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        AdmobManager.instance.ShowRewardedAd(() =>
         {
-            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.dailyReward);
             StartCoroutine(MakeReward());
             canvasGroup.blocksRaycasts = false;
-        }
-        else
-        {
-            AppLovinMaxAdManager.instance.SpwanNotiText(adBtn.transform);
-        }
+        });
     }
 
     private IEnumerator MakeReward()

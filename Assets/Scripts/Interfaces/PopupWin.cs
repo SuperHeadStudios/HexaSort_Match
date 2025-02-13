@@ -297,7 +297,7 @@ public class PopupWin : BasePopup
 
     public void ClaimX2()
     {
-        StartCoroutine(WatchAds());
+        WatchAds();
     }
 
     #endregion
@@ -305,24 +305,21 @@ public class PopupWin : BasePopup
     #region Show Ads
 
 
-    public IEnumerator WatchAds()
+    public void WatchAds()
     {
-        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+        AudioManager.instance.clickSound.Play();
+        AdmobManager.instance.ShowRewardedAd(() =>
         {
-            AudioManager.instance.clickSound.Play();
+            StartCoroutine(Reward());
+        });
+    }
 
-            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.WinReward);
-
-            nextBtn.interactable = false;
-            x2ClaimBtn.interactable = false;
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(SpawnCoins(2));
-        }
-        else
-        {
-            AppLovinMaxAdManager.instance.SpwanNotiText(x2ClaimBtn.transform);
-        }
-
+    private IEnumerator Reward()
+    {
+        nextBtn.interactable = false;
+        x2ClaimBtn.interactable = false;
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(SpawnCoins(2));
     }
 
     #endregion

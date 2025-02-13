@@ -144,7 +144,7 @@ public class FirebaseManager : MonoBehaviour
             );
             Debug.Log($"Ad impression tracked: Type - {adType}, Location - {adLocation}, Network - {adNetwork}, Count - {adCount}");
 
-            TrackTotalAds(adType, adNetwork, ecpm, revenue);
+            //TrackTotalAds(adType, adNetwork, ecpm, revenue);
             LevelAdTrack(levelNum.ToString(), adType, revenue);
 
         }
@@ -154,48 +154,21 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
-    public void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo impressionData)
-    {
-        double revenue = impressionData.Revenue;
-        var impressionParameters = new[] {
-        new Parameter("ad_platform", "AppLovin"),
-        new Parameter("ad_source", impressionData.NetworkName),
-        new Parameter("ad_unit_name", impressionData.AdUnitIdentifier),
-        new Parameter("ad_format", impressionData.AdFormat),
-        new Parameter("value", revenue),
-        new Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
-        };
-        FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
-    }
-
-
-    public void TrackTotalAds(AdType adType,string adNetwork, double ecpm, double revenue)
+    public void TrackTotalAds(AdType adType)
     {
         switch (adType)
         {
             case AdType.Banner:
-                FirebaseAnalytics.LogEvent("Banner_Ads",
-                new Parameter("ad_network", adNetwork),
-                new Parameter("ad_cpm", ecpm),
-                new Parameter("ad_revnue", revenue));
+                FirebaseAnalytics.LogEvent("Banner_Ads");
                 break;
             case AdType.Interstitial:
-                FirebaseAnalytics.LogEvent("Interstitial_Ads",
-                new Parameter("ad_network", adNetwork),
-                new Parameter("ad_cpm", ecpm),
-                new Parameter("ad_revnue", revenue));
+                FirebaseAnalytics.LogEvent("Interstitial_Ads");
                 break;
             case AdType.Reward:
-                FirebaseAnalytics.LogEvent("Reward_Ads",
-                new Parameter("ad_network", adNetwork),
-                new Parameter("ad_cpm", ecpm),
-                new Parameter("ad_revnue", revenue));
+                FirebaseAnalytics.LogEvent("Reward_Ads");
                 break;
             case AdType.AppOpen:
-                FirebaseAnalytics.LogEvent("AppOpen_Ads",
-                new Parameter("ad_network", adNetwork),
-                new Parameter("ad_cpm", ecpm),
-                new Parameter("ad_revnue", revenue));
+                FirebaseAnalytics.LogEvent("AppOpen_Ads");
                 break;
         }
     }

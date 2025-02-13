@@ -110,20 +110,15 @@ public class Pointer : MonoBehaviour
     }
 
     public void WatchAdsSpin()
-    {        
-        if (AppLovinMaxAdManager.instance.IsRewardedAdReady())
+    {
+        AudioManager.instance.clickSound.Play();
+        AdmobManager.instance.ShowRewardedAd(() =>
         {
             ResetRewardDisplay();
             GetComponent<Collider>().enabled = false;
-            AudioManager.instance.clickSound.Play();
-            AppLovinMaxAdManager.instance.ShowRewardedAd(AdLocation.LuckyWheel);
             spinAvail = true;
             StartCoroutine(AdsSpin());
-        }
-        else
-        {
-            AppLovinMaxAdManager.instance.SpwanNotiText(adsBtn.transform);
-        }
+        });
     }
 
 

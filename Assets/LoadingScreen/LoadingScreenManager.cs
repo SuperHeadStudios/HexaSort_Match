@@ -61,39 +61,35 @@ public class LoadingScreenManager : MonoBehaviour
             float progress = Mathf.Clamp01(elapsedTime / loadingDuration);
 
             progressBar.value = progress;
-            loadingText.text = "Loading..." + (progress * 100f).ToString("F0") + "%";
+            loadingText.text = "" + (progress * 100f).ToString("F0") + "%";
             yield return null;
         }
         progressBar.value = 1f;
-        loadingText.text = "Loading... 100%";
-
-       /* if (isSeconPlay)
+        loadingText.text = "100%";
+        if (isSeconPlay)
         {
             Debug.Log(" Should be true isSecondPlay " + isSeconPlay);
             StartCoroutine(ShowAppOpenWithDelay());
-            ///AdPanel.SetActive(true);
+            AdPanel.SetActive(true);
 
-          *//*  while (!AppOpenAdController.instance.isLoadHome)
+            while (!AppOpenAdController.instance.isLoadHome)
             {
                 yield return null;
             }
-            operation.allowSceneActivation = AppOpenAdController.instance.isLoadHome;*//*
+            operation.allowSceneActivation = AppOpenAdController.instance.isLoadHome;
         }
         else
         {
             PlayerPrefsHelper.SetBool("isSeconPlay", true);
             Debug.Log("Should be false isSecondPlay" + isSeconPlay);
             operation.allowSceneActivation = true;
-        }*/
-        PlayerPrefsHelper.SetBool("isSeconPlay", true);
-        Debug.Log("Should be false isSecondPlay" + isSeconPlay);
-        operation.allowSceneActivation = true;
+        }
     }
 
     private IEnumerator ShowAppOpenWithDelay()
     {
         AdPanel.SetActive(false);
         yield return new WaitForSeconds(0.1f);
-       // AppOpenAdController.instance.ShowAppOpenAd();
+        AppOpenAdController.instance.ShowAppOpenAd();
     }
 }
