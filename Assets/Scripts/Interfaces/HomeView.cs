@@ -117,7 +117,7 @@ public class HomeView : BaseView
 
 
     public void ShowPiggyBank()
-    {
+    {   
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.piggyBankPopup.InitView();
         GameManager.instance.uiManager.piggyBankPopup.ShowView();
@@ -132,6 +132,9 @@ public class HomeView : BaseView
 
     public void ShowDaily()
     {
+        Debug.Log("Working");
+        AdmobManager.instance.DestroyBannerAd();
+        CustomBannerAdManager.instance.RequestBottomBanner();
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
@@ -157,6 +160,7 @@ public class HomeView : BaseView
             dailyReward.alpha = 0;
             dailyReward.blocksRaycasts = false;
             dailyReward.interactable = false;
+            AdmobManager.instance.ShowBannerAd();
         });
     }
 

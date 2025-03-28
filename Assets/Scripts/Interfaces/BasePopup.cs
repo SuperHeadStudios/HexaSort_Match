@@ -60,6 +60,7 @@ public abstract class BasePopup : MonoBehaviour
                 canvasGroup.blocksRaycasts = false;
                 isShow = false;
                 GameManager.instance.uiManager.coinView.ShowView();
+                CustomBannerAdManager.instance.DestroyBottomBanner();
             });
 
         });

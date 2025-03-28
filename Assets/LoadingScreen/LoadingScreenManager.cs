@@ -66,8 +66,18 @@ public class LoadingScreenManager : MonoBehaviour
         }
         progressBar.value = 1f;
         loadingText.text = "100%";
-        if (isSeconPlay)
+
+        StartCoroutine(ShowAppOpenWithDelay());
+        AdPanel.SetActive(true);
+
+        while (!AppOpenAdController.instance.isLoadHome)
         {
+            yield return null;
+        }
+        operation.allowSceneActivation = AppOpenAdController.instance.isLoadHome;
+
+        if (isSeconPlay)
+        {/*
             Debug.Log(" Should be true isSecondPlay " + isSeconPlay);
             StartCoroutine(ShowAppOpenWithDelay());
             AdPanel.SetActive(true);
@@ -76,7 +86,7 @@ public class LoadingScreenManager : MonoBehaviour
             {
                 yield return null;
             }
-            operation.allowSceneActivation = AppOpenAdController.instance.isLoadHome;
+            operation.allowSceneActivation = AppOpenAdController.instance.isLoadHome;*/
         }
         else
         {

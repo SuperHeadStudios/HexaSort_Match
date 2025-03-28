@@ -12,7 +12,8 @@ public class AdmobManager : MonoBehaviour
 
     [Header("In Testing Mode")]
     public bool isTestMode;
-    public bool isAdInspector = false;
+    public bool isAdInspector = false; 
+    public bool isNoAds = false;
 
     [Header("Android Ads Id's")]
     [SerializeField] private string bannerAndroidAdId;
@@ -113,12 +114,11 @@ public class AdmobManager : MonoBehaviour
 
     #endregion
 
-
     #region BannerAd
 
     public void LoadBannerAd()
     {
-        Debug.Log(bannerView + "banner");
+        if (isNoAds) return;
 
         if (bannerView == null)
         {
@@ -131,7 +131,6 @@ public class AdmobManager : MonoBehaviour
             Debug.Log("Banner ad already loaded");
         }
 
-        Debug.Log("Loading banner ad.");
     }
 
     private void RequestBanner()
@@ -144,7 +143,7 @@ public class AdmobManager : MonoBehaviour
         }
         else
         {
-            //adUnitId = "ca-app-pub-3940256099942544/6300978111";
+            //adUnitIdNativeAd = "ca-app-pub-3940256099942544/6300978111";
             adUnitId = bannerAndroidAdId;
         }
 #elif UNITY_IPHONE
@@ -160,14 +159,11 @@ public class AdmobManager : MonoBehaviour
         adUnitId = "unused";
 #endif
 
-        Debug.Log("Creating banner view");
-
         // If we already have a banner, destroy the old one.
         if (bannerView != null)
         {
             DestroyBannerAd();
         }
-
 
         AdSize adaptiveSize =
                AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
@@ -190,19 +186,26 @@ public class AdmobManager : MonoBehaviour
 
     public void ShowBannerAd()
     {
+        if (bannerView == null)
+        {
+            Debug.Log("Null Bnnner");
+        }
+        if (isNoAds) return;
         if (bannerView != null)
             bannerView.Show();
         FirebaseManager.instance.TrackTotalAds(AdType.Banner);
-
-        Debug.Log("Bannerso");
     }
 
     public void HideBannerAd()
     {
+        if(bannerView == null)
+        {
+            Debug.Log("Null Bnnner");
+        }
+
         if (bannerView != null)
             bannerView.Hide();
     }
-
     #region Banner callback handlers
 
     private void OnBannerAdLoaded()
@@ -230,7 +233,6 @@ public class AdmobManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region InterstitialAds
 
@@ -336,7 +338,6 @@ public class AdmobManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region RewardInterstitial
 
@@ -465,7 +466,6 @@ public class AdmobManager : MonoBehaviour
 
 
     #endregion
-
 
     #region RewardAd
 

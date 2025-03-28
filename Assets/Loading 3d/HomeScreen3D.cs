@@ -25,6 +25,7 @@ public class HomeScreen3D : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(ShowBannerAd());
         StartCoroutine(StartLoopAnimation());
     }
 
@@ -42,6 +43,19 @@ public class HomeScreen3D : MonoBehaviour
             //Camera.transform.parent = cameraPosition;
             Camera.transform.position = cameraPosition.position;
             Camera.transform.rotation = cameraPosition.rotation;
+        }
+    }
+
+    private IEnumerator ShowBannerAd()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (CustomBannerAdManager.instance != null)
+        {
+            if (isLoading)
+            {
+                AdmobManager.instance.HideBannerAd();
+                CustomBannerAdManager.instance.ShowTopBanner();
+            }
         }
     }
 
@@ -63,9 +77,7 @@ public class HomeScreen3D : MonoBehaviour
             }
 
             StartCoroutine(JumpHexaStack(mainFilledTiles[firstStackMoveCount]));
-
             yield return new WaitForSeconds(1.5f);
-
         }
     }
 
