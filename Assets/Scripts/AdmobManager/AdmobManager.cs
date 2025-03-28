@@ -186,25 +186,32 @@ public class AdmobManager : MonoBehaviour
 
     public void ShowBannerAd()
     {
-        if (bannerView == null)
-        {
-            Debug.Log("Null Bnnner");
-        }
+
         if (isNoAds) return;
+
+        // Destroy the previous banner if it exists
         if (bannerView != null)
-            bannerView.Show();
+        {
+            DestroyBannerAd();
+        }
+
+        // Request a new banner and show it
+        RequestBanner();
+        bannerView?.Show();
+
         FirebaseManager.instance.TrackTotalAds(AdType.Banner);
     }
 
     public void HideBannerAd()
     {
-        if(bannerView == null)
+        if (bannerView == null)
         {
-            Debug.Log("Null Bnnner");
+            Debug.Log("BannerView is null! Cannot hide a non-existent banner.");
+            return; // Prevent further execution
         }
 
-        if (bannerView != null)
-            bannerView.Hide();
+        bannerView.Hide();
+        Debug.Log("Banner hidden successfully.");
     }
     #region Banner callback handlers
 

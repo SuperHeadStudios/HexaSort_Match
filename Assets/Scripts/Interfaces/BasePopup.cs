@@ -27,16 +27,22 @@ public abstract class BasePopup : MonoBehaviour
 
     public virtual void ShowView()
     {
+        CustomBannerAdManager.instance.ShowBottomBanner();
         //GameManager.instance.uiManager.coinView.HideView();
         lastState = GameManager.instance.currentGameState;
         GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        isShow = true;
-        rootTrans.localScale = Vector3.one * 0.55f;
+        canvasGroup.DOFade(1, 0.25f).OnComplete(() =>
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            isShow = true; 
+            rootTrans.gameObject.SetActive(true);
+            rootTrans.localScale = Vector3.one * 0.45f;
 
-        rootTrans.DOScale(Vector3.one * 0.95f, 0.25f).SetEase(Ease.OutBounce).OnComplete(() => {
+            rootTrans.DOScale(Vector3.one * 0.9f, 0.35f).SetEase(Ease.OutQuart).OnComplete(() =>
+            {
+
+            });
 
         });
     }
@@ -50,19 +56,18 @@ public abstract class BasePopup : MonoBehaviour
     {
         GameManager.instance.currentGameState = lastState;
         AudioManager.instance.clickSound.Play();
-        rootTrans.DOScale(Vector3.one * 1.15f, 0.05f).SetEase(Ease.OutQuart).OnComplete(() => {
-
-
-            rootTrans.DOScale(Vector3.one * 0.85f, 0.15f).SetEase(Ease.Linear).OnComplete(() => {
-
-                canvasGroup.alpha = 0.0f;
+        rootTrans.DOScale(Vector3.one * 1f, 0.25f).SetEase(Ease.InQuart).OnComplete(() => 
+        {
+            canvasGroup.DOFade(0, 0.2f).OnComplete(() =>
+            {
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
                 isShow = false;
                 GameManager.instance.uiManager.coinView.ShowView();
-                CustomBannerAdManager.instance.DestroyBottomBanner();
+                CustomBannerAdManager.instance.HideBottomBanner();
+                rootTrans.localScale = Vector3.one * 0.9f;
+                rootTrans.gameObject.SetActive(false);
             });
-
         });
     }
 }

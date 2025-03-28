@@ -9,8 +9,6 @@ public class TermsAndConditionsPopup : MonoBehaviour
     [SerializeField] private Button agreeButton; 
     [SerializeField] private Button termsBtn;
 
-    [SerializeField] private LoadingScreenManager loadingScreenManager;
-
     [Header("Game Settings")]
     [SerializeField] private Sprite gameIconSprite;
     private const string TermsAcceptedKey = "TermsAccepted";
@@ -23,7 +21,6 @@ public class TermsAndConditionsPopup : MonoBehaviour
         }
         else
         {
-            loadingScreenManager.gameObject.SetActive(false);
             agreeButton.onClick.AddListener(OnAgreeClicked);
             termsBtn.onClick.AddListener(OpenTermsCodition);
             termsPopup.SetActive(true);
@@ -44,7 +41,6 @@ public class TermsAndConditionsPopup : MonoBehaviour
 
     private void StartGame()
     {
-        loadingScreenManager.gameObject.SetActive(true);
         termsPopup.SetActive(false);
 
         gameObject.SetActive(false);

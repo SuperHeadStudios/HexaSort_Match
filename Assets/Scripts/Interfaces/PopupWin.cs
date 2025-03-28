@@ -115,6 +115,8 @@ public class PopupWin : BasePopup
         isShow = true;
         ResetAnimation();      
         PopUpAnimation();
+
+        CustomBannerAdManager.instance.ShowBottomBanner();
     }   
 
 
@@ -284,6 +286,7 @@ public class PopupWin : BasePopup
         StartCoroutine(SpawnCoins(1));
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
+        CustomBannerAdManager.instance.HideBottomBanner();
     }
 
 
@@ -297,6 +300,7 @@ public class PopupWin : BasePopup
 
     public void ClaimX2()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         WatchAds();
     }
 

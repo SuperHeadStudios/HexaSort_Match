@@ -1,8 +1,5 @@
 using DG.Tweening;
 using GameSystem;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -88,15 +85,18 @@ public class SettingBar : MonoBehaviour
 
     public void AreYouSureHome()
     {
+        CustomBannerAdManager.instance.ShowBottomBanner();
         setBtn.SetActive(false);
         areYouSureHome.alpha = 1;
         areYouSureHome.blocksRaycasts = true;
         areYouSureHome.interactable = true;
-        areYouSurePopupHome.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
+        areYouSurePopupHome.DOScale(Vector3.one * 0.9f, 0.5f).SetEase(Ease.OutBounce);
+
     }
 
     public void HideSureHome()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         areYouSurePopupHome.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             setBtn.SetActive(true);
@@ -108,15 +108,17 @@ public class SettingBar : MonoBehaviour
 
     public void AreYouSureRestart()
     {
+        CustomBannerAdManager.instance.ShowBottomBanner();
         setBtn.SetActive(false);
         areYouSureRestart.alpha = 1;
         areYouSureRestart.blocksRaycasts = true;
         areYouSureRestart.interactable = true;
-        areYouSurePopupRestart.DOScale(Vector3.one * 0.8f, 0.5f).SetEase(Ease.OutBounce);
+        areYouSurePopupRestart.DOScale(Vector3.one * 0.9f, 0.5f).SetEase(Ease.OutBounce);
     }
 
     public void HideSureRestart()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         areYouSurePopupRestart.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             setBtn.SetActive(true);
@@ -129,6 +131,7 @@ public class SettingBar : MonoBehaviour
 
     public void LifeLoseButton()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         AdsControl.Instance.directPlay = false;
         GameManager.instance.livesManager.ConsumeLife();
         GameManager.instance.BackToHome();
@@ -137,6 +140,7 @@ public class SettingBar : MonoBehaviour
     
     public void LifeLoseButtonRestart()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         AdsControl.Instance.directPlay = true;
         GameManager.instance.livesManager.ConsumeLife();
         //GameManager.instance.BackToHome();

@@ -31,6 +31,13 @@ public class SettingPopup : MonoBehaviour
     [SerializeField] private bool isSoundToggle;
     [SerializeField] private bool isVibrationToggle;
 
+    private void Start()
+    {
+        closeBtn.onClick.AddListener(CloseSettingsPopup);
+        moreAppsBtn.onClick.AddListener(MoreAppsBtnPressed);
+        supportBtn.onClick.AddListener(SupportBtnPressed);
+
+    }
 
     private void OnEnable()
     {
@@ -38,10 +45,7 @@ public class SettingPopup : MonoBehaviour
         isSoundToggle = PlayerPrefsManager.GetSoundState();
         isVibrationToggle = PlayerPrefsManager.GetVibrateState();
 
-        closeBtn.onClick.AddListener(CloseSettingsPopup);
-        moreAppsBtn.onClick.AddListener(MoreAppsBtnPressed);
-        supportBtn.onClick.AddListener(SupportBtnPressed);
-
+       
 
         popup.localScale = Vector3.zero;
         popup.DOScale(Vector3.one * 0.85f, 1f).SetEase(Ease.OutBounce);
@@ -85,6 +89,8 @@ public class SettingPopup : MonoBehaviour
 
     private void CloseSettingsPopup()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
+        AdmobManager.instance.ShowBannerAd();
         popup.DOScale(Vector3.zero, .5f).SetEase(Ease.InBack).OnComplete(() =>
         {
             gameObject.SetActive(false);

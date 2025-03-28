@@ -215,15 +215,18 @@ public class CoinView : BaseView
 
     public void OnSettingBtnPRessed()
     {
-        if(isGameSettings)
+        if (isGameSettings)
         {
             GameManager.instance.uiManager.gameView.ShowSetting();
         }
         else
         {
+            CustomBannerAdManager.instance.ShowBottomBanner();
             GameManager.instance.uiManager.homeView.ShowSettingPopup();
         }
+        AudioManager.instance.clickSound.Play();
     }
+        
 
 
     public void OnButtonConsumePressed()

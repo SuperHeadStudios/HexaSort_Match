@@ -8,7 +8,7 @@ public class CustomBannerAdManager : MonoBehaviour
 
     public bool isNoAds;
 
-    private string androidAdUnitId = "ca-app-pub-3940256099942544/6300978111"; // Test ID
+    private string androidAdUnitId = "ca-app-pub-6312582432828070/7459018732"; // Test ID
     private string iosAdUnitId = "ca-app-pub-3940256099942544/2934735716"; // Test ID
 
     private BannerView topBannerView;
@@ -55,17 +55,17 @@ public class CustomBannerAdManager : MonoBehaviour
 
     #region Top Banner Ad Methods
 
-    public void RequestTopBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Top)
+    public void ShowTopBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Top)
     {
         if (!string.IsNullOrEmpty(adUnitId))
         {
-            ShowTopBanner();
+            AdmobManager.instance.HideBannerAd();
+            ShowingTopBanner();
         }
         else
         {
             Debug.LogWarning("AdMob ad unit ID is not set for this platform.");
         }
-
 
         if (topBannerView != null)
         {
@@ -76,9 +76,10 @@ public class CustomBannerAdManager : MonoBehaviour
         topBannerView = new BannerView(adUnitId, customAdSize, position);
         AdRequest request = new AdRequest();
         topBannerView.LoadAd(request);
+
     }
 
-    public void ShowTopBanner()
+    public void ShowingTopBanner()
     {
         if (isNoAds) return;
         if (topBannerView != null)
@@ -107,13 +108,12 @@ public class CustomBannerAdManager : MonoBehaviour
 
     #region Bottom Banner Ad Methods
 
-    public void RequestBottomBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Bottom)
+    public void ShowBottomBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Bottom)
     {
         if (!string.IsNullOrEmpty(adUnitId))
         {
             AdmobManager.instance.HideBannerAd();
-            AdmobManager.instance.DestroyBannerAd();
-            ShowBottomBanner();
+            ShowingBottomBanner();
         }
         else
         {
@@ -129,9 +129,10 @@ public class CustomBannerAdManager : MonoBehaviour
         bottomBannerView = new BannerView(adUnitId, customAdSize, position);
         AdRequest request = new AdRequest();
         bottomBannerView.LoadAd(request);
+
     }
 
-    public void ShowBottomBanner()
+    private void ShowingBottomBanner()
     {
         if(isNoAds) return;
         if (bottomBannerView != null)

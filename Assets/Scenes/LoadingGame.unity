@@ -5184,6 +5184,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   cameraPosition: {fileID: 0}
   isLoading: 1
+  isGameLoading: 1
 --- !u!1001 &7642704230947999947
 PrefabInstance:
   m_ObjectHideFlags: 0

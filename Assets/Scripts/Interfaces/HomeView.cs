@@ -1,6 +1,5 @@
 using DG.Tweening;
-using JetBrains.Annotations;
-using System.Dynamic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +48,7 @@ public class HomeView : BaseView
 
     public override void Start()
     {
-
+        dailyRewardPopup.gameObject.SetActive(false);
     }
 
     public override void Update()
@@ -80,6 +79,7 @@ public class HomeView : BaseView
             cameraT.position = gamePlayerPosition.position;
             cameraT.rotation = gamePlayerPosition.rotation;
             homeScreen_D.SetActive(false);
+            StartCoroutine(ShowTerms());
         }
         else
         {
@@ -90,6 +90,13 @@ public class HomeView : BaseView
 
         }
         coinView.UpdateCoinTxt();
+    }
+
+    public IEnumerator ShowTerms()
+    {
+        yield return new WaitForSeconds(15f);
+
+        FirebaseManager.instance.ShowTermsPopup();
     }
 
     //.OnComplete(() =>
@@ -132,9 +139,7 @@ public class HomeView : BaseView
 
     public void ShowDaily()
     {
-        Debug.Log("Working");
-        AdmobManager.instance.DestroyBannerAd();
-        CustomBannerAdManager.instance.RequestBottomBanner();
+       // CustomBannerAdManager.instance.RequestBottomBanner();
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
@@ -144,23 +149,33 @@ public class HomeView : BaseView
     public void ShowDailyReward()
     {
         AudioManager.instance.clickSound.Play();
-        dailyReward.alpha = 1;
-        dailyReward.blocksRaycasts = true;
-        dailyReward.interactable = true;
-        dailyRewardPopup.localScale = Vector3.one * 0.55f;
-        dailyRewardPopup.DOScale(Vector3.one* 0.95f, 0.25f).SetEase(Ease.OutBounce);
+
+        dailyReward.DOFade(1, 0.3f).OnComplete(() =>
+        {
+            CustomBannerAdManager.instance.ShowBottomBanner();
+            dailyReward.blocksRaycasts = true;
+            dailyReward.interactable = true;
+            dailyRewardPopup.gameObject.SetActive(true);
+            dailyRewardPopup.localScale = Vector3.one * 0.45f;
+            dailyRewardPopup.DOScale(Vector3.one * 0.9f, 0.35f).SetEase(Ease.OutQuart);
+        });
     }
 
 
     public void CloseDailyReward()
     {
+        CustomBannerAdManager.instance.HideBottomBanner();
         AudioManager.instance.clickSound.Play();
-        dailyRewardPopup.DOScale(Vector3.one * 1.15f, 0.05f).SetEase(Ease.OutQuart).OnComplete(() =>
+
+        dailyRewardPopup.DOScale(Vector3.one, 0.25f).SetEase(Ease.InQuad).OnComplete(() =>
         {
-            dailyReward.alpha = 0;
-            dailyReward.blocksRaycasts = false;
-            dailyReward.interactable = false;
-            AdmobManager.instance.ShowBannerAd();
+            dailyReward.DOFade(0, 0.3f).OnComplete(() =>
+            {
+                dailyReward.blocksRaycasts = false;
+                dailyReward.interactable = false;
+                AdmobManager.instance.ShowBannerAd();
+                dailyRewardPopup.gameObject.SetActive(false);
+            });
         });
     }
 

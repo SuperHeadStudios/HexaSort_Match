@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UIElements;
 
 public class HomeScreen3D : MonoBehaviour
 {
@@ -22,18 +20,31 @@ public class HomeScreen3D : MonoBehaviour
     [SerializeField] private Transform cameraPosition;
 
     [SerializeField] private bool isLoading = false;
+    [SerializeField] private bool isGameLoading = false;
 
     private void Start()
     {
-        StartCoroutine(ShowBannerAd());
+      
         StartCoroutine(StartLoopAnimation());
     }
 
     private void OnEnable()
     {
+        if (isGameLoading)
+        {
+            StartCoroutine(ShowBannerAd());
+        }
         if (isLoading) return;
         Camera.transform.position = cameraPosition.position;
         Camera.transform.rotation = cameraPosition.rotation;
+    }
+
+    private void OnDisable()
+    {
+        if (isGameLoading)
+        {
+           CustomBannerAdManager.instance.HideTopBanner();
+        }
     }
 
     private void Update()
@@ -51,11 +62,7 @@ public class HomeScreen3D : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (CustomBannerAdManager.instance != null)
         {
-            if (isLoading)
-            {
-                AdmobManager.instance.HideBannerAd();
-                CustomBannerAdManager.instance.ShowTopBanner();
-            }
+            CustomBannerAdManager.instance.ShowTopBanner();
         }
     }
 

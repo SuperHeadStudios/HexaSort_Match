@@ -16,6 +16,8 @@ public class FirebaseManager : MonoBehaviour
     private float levelStartTime;
     private float levelEndTime;
 
+    [SerializeField] private LoadingScreenManager loadingScreenManager;
+    [SerializeField] private GameObject termsPopop;
 
     enum LevelTrack
     {
@@ -40,6 +42,23 @@ public class FirebaseManager : MonoBehaviour
         }
 
 
+    }
+
+    private void Start()
+    {
+        loadingScreenManager.gameObject.SetActive(true);
+    }
+
+    public void ShowTermsPopup()
+    {
+        if (PlayerPrefs.GetInt("TermsAccepted", 0) == 0)
+        {
+            termsPopop.gameObject.SetActive(true);
+        }
+        else
+        {
+            termsPopop.gameObject.SetActive(false);
+        }
     }
 
     private void InitializeFirebase()
