@@ -24,7 +24,6 @@ public class HomeScreen3D : MonoBehaviour
 
     private void Start()
     {
-      
         StartCoroutine(StartLoopAnimation());
     }
 
@@ -59,7 +58,7 @@ public class HomeScreen3D : MonoBehaviour
 
     private IEnumerator ShowBannerAd()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         if (CustomBannerAdManager.instance != null)
         {
             CustomBannerAdManager.instance.ShowTopBanner();
@@ -161,11 +160,7 @@ public class HomeScreen3D : MonoBehaviour
         if (obj == null) yield break;
 
         obj.rotation = targetRotation;
-        //yield return new WaitForSeconds(0.1f);
-      /*  if (obj != null)
-        {
-            obj.rotation = Quaternion.Euler(targetRotation.x, oldRotation.y, targetRotation.z);
-        }*/
+      
     }
 
     private FlowerStack ChooseRandomTile(FlowerStack currentFlowerStack)

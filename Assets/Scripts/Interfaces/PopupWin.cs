@@ -116,7 +116,7 @@ public class PopupWin : BasePopup
         ResetAnimation();      
         PopUpAnimation();
 
-        CustomBannerAdManager.instance.ShowBottomBanner();
+       
     }   
 
 
@@ -132,6 +132,7 @@ public class PopupWin : BasePopup
                isShow = false;
 
                SceneManager.LoadScene(2);
+               //SceneLoader.LoadSceneWithLoading(2);
            });
     }
 
@@ -165,6 +166,8 @@ public class PopupWin : BasePopup
                 leftLeaf.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBounce);
                 
                 StartCoroutine(UpdateTextInPopupElements());
+
+                CustomBannerAdManager.instance.ShowBottomBanner();
             });
         });
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using GoogleMobileAds.Api;
 using System.Security.Cryptography;
+using System;
 
 public class CustomBannerAdManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class CustomBannerAdManager : MonoBehaviour
     private void Start()
     {
         LoadBanner();
+        ReqeustTopBanner();
+        RequestBottomBanner();
     }
 
 
@@ -55,18 +58,8 @@ public class CustomBannerAdManager : MonoBehaviour
 
     #region Top Banner Ad Methods
 
-    public void ShowTopBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Top)
+    public void ReqeustTopBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Top)
     {
-        if (!string.IsNullOrEmpty(adUnitId))
-        {
-            AdmobManager.instance.HideBannerAd();
-            ShowingTopBanner();
-        }
-        else
-        {
-            Debug.LogWarning("AdMob ad unit ID is not set for this platform.");
-        }
-
         if (topBannerView != null)
         {
             topBannerView.Destroy();
@@ -76,10 +69,10 @@ public class CustomBannerAdManager : MonoBehaviour
         topBannerView = new BannerView(adUnitId, customAdSize, position);
         AdRequest request = new AdRequest();
         topBannerView.LoadAd(request);
-
+        topBannerView.Hide();
     }
 
-    public void ShowingTopBanner()
+    public void ShowTopBanner()
     {
         if (isNoAds) return;
         if (topBannerView != null)
@@ -108,18 +101,8 @@ public class CustomBannerAdManager : MonoBehaviour
 
     #region Bottom Banner Ad Methods
 
-    public void ShowBottomBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Bottom)
+    public void RequestBottomBanner(int width = 300, int height = 250, AdPosition position = AdPosition.Bottom)
     {
-        if (!string.IsNullOrEmpty(adUnitId))
-        {
-            AdmobManager.instance.HideBannerAd();
-            ShowingBottomBanner();
-        }
-        else
-        {
-            Debug.LogWarning("AdMob ad unit ID is not set for this platform.");
-        }
-
         if (bottomBannerView != null)
         {
             bottomBannerView.Destroy();
@@ -129,14 +112,15 @@ public class CustomBannerAdManager : MonoBehaviour
         bottomBannerView = new BannerView(adUnitId, customAdSize, position);
         AdRequest request = new AdRequest();
         bottomBannerView.LoadAd(request);
-
+        bottomBannerView.Hide();
     }
 
-    private void ShowingBottomBanner()
+    public void ShowBottomBanner()
     {
         if(isNoAds) return;
         if (bottomBannerView != null)
         {
+            AdmobManager.instance.HideBannerAd();
             bottomBannerView.Show();
         }
     }
@@ -146,6 +130,7 @@ public class CustomBannerAdManager : MonoBehaviour
         if (bottomBannerView != null)
         {
             bottomBannerView.Hide();
+            AdmobManager.instance.ShowBannerAd();
         }
     }
 
@@ -156,16 +141,7 @@ public class CustomBannerAdManager : MonoBehaviour
             bottomBannerView.Destroy();
         }
     }
-
     #endregion
 
-    #region Debugging
 
-    private void OnDestroy()
-    {
-        DestroyTopBanner();
-        DestroyBottomBanner();
-    }
-
-    #endregion
 }

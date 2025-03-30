@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GameSystem;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -37,6 +38,11 @@ public class HomeView : BaseView
 
     public override void InitView()
     {
+        if (AdsControl.Instance.directPlay)
+        {
+            canvasGroup.alpha = 0;
+        }
+
         //currentLevelTxt.text = "Level " + GameManager.instance.levelIndex.ToString();
         //spinProgressBar.fillAmount = (float)(GameManager.instance.currentLuckyWheel) / 5.0f;
         //spinProgressTxt.text = GameManager.instance.currentLuckyWheel.ToString() + "/5";
@@ -139,7 +145,7 @@ public class HomeView : BaseView
 
     public void ShowDaily()
     {
-       // CustomBannerAdManager.instance.RequestBottomBanner();
+       // CustomBannerAdManager.instance.ShowBottomBanner();
         AudioManager.instance.clickSound.Play();
         GameManager.instance.uiManager.dailyPopup.InitView();
         GameManager.instance.uiManager.dailyPopup.ShowView();
@@ -173,7 +179,6 @@ public class HomeView : BaseView
             {
                 dailyReward.blocksRaycasts = false;
                 dailyReward.interactable = false;
-                AdmobManager.instance.ShowBannerAd();
                 dailyRewardPopup.gameObject.SetActive(false);
             });
         });

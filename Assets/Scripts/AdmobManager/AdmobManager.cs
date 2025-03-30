@@ -186,19 +186,19 @@ public class AdmobManager : MonoBehaviour
 
     public void ShowBannerAd()
     {
-
         if (isNoAds) return;
 
         // Destroy the previous banner if it exists
         if (bannerView != null)
         {
-            DestroyBannerAd();
+            bannerView.Show();
         }
-
-        // Request a new banner and show it
-        RequestBanner();
-        bannerView?.Show();
-
+        else
+        {
+            // Request a new banner and show it
+            RequestBanner();
+            bannerView?.Show();
+        }
         FirebaseManager.instance.TrackTotalAds(AdType.Banner);
     }
 
@@ -253,7 +253,7 @@ public class AdmobManager : MonoBehaviour
         }
         else
         {
-            //adUnitId = "ca-app-pub-3940256099942544/1033173712";
+            //adUnitIdNativeAd = "ca-app-pub-3940256099942544/1033173712";
             adUnitId = interstitialAndroidAdId;
         }
 #elif UNITY_IPHONE
@@ -314,12 +314,16 @@ public class AdmobManager : MonoBehaviour
                 interstitial = ad;
                 RegisterInterstitialHandler(interstitial);
             });
+
     }
 
     public void ShowInterstitialAd()
     {
-        if (interstitial != null && interstitial.CanShowAd())
+        if (isNoAds) return;
+
+        if (interstitial != null)
         {
+            HideBannerAd();
             Debug.Log("Showing interstitial ad.");
             interstitial.Show();
             FirebaseManager.instance.TrackTotalAds(AdType.Interstitial);
