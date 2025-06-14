@@ -42,7 +42,7 @@ public class HomeScreen3D : MonoBehaviour
     {
         if (isGameLoading)
         {
-           CustomBannerAdManager.instance.HideTopBanner();
+           //CustomBannerAdManager.instance.HideTopBanner();
         }
     }
 
@@ -59,10 +59,10 @@ public class HomeScreen3D : MonoBehaviour
     private IEnumerator ShowBannerAd()
     {
         yield return new WaitForSeconds(0.05f);
-        if (CustomBannerAdManager.instance != null)
+       /* if (CustomBannerAdManager.instance != null)
         {
             CustomBannerAdManager.instance.ShowTopBanner();
-        }
+        }*/
     }
 
     private IEnumerator StartLoopAnimation()
