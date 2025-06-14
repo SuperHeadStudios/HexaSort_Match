@@ -149,19 +149,18 @@ public class FirebaseManager : MonoBehaviour
 
     #region Track_Ad_Impressions
 
-    public void TrackAdImpression(AdType adType, AdLocation adLocation, string adNetwork, int adCount, double ecpm, double revenue, int levelNum)
+    public void TrackAdImpression(AdType adType, string adNetwork, int adCount, double ecpm, double revenue, int levelNum)
     {
         if (app != null)
         {
             FirebaseAnalytics.LogEvent("ad_impression_custom",
                 new Parameter("ad_type", adType.ToString()),
-                new Parameter("ad_location", adLocation.ToString()),
                 new Parameter("ad_network", adNetwork),
                 new Parameter("ad_count", adCount),
                 new Parameter("ad_cpm", ecpm),
                 new Parameter("ad_revnue", revenue)
             );
-            Debug.Log($"Ad impression tracked: Type - {adType}, Location - {adLocation}, Network - {adNetwork}, Count - {adCount}");
+            Debug.Log($"Ad impression tracked: Type - {adType}, Network - {adNetwork}, Count - {adCount}");
 
             //TrackTotalAds(adType, adNetwork, ecpm, revenue);
             LevelAdTrack(levelNum.ToString(), adType, revenue);
