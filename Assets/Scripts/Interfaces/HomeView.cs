@@ -158,7 +158,7 @@ public class HomeView : BaseView
 
         dailyReward.DOFade(1, 0.3f).OnComplete(() =>
         {
-            CustomBannerAdManager.instance.ShowBottomBanner();
+            AppLovinMaxAdManager.instance.HideBottomMrecAd();
             dailyReward.blocksRaycasts = true;
             dailyReward.interactable = true;
             dailyRewardPopup.gameObject.SetActive(true);
@@ -170,7 +170,7 @@ public class HomeView : BaseView
 
     public void CloseDailyReward()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         AudioManager.instance.clickSound.Play();
 
         dailyRewardPopup.DOScale(Vector3.one, 0.25f).SetEase(Ease.InQuad).OnComplete(() =>

@@ -112,7 +112,7 @@ public class Pointer : MonoBehaviour
     public void WatchAdsSpin()
     {
         AudioManager.instance.clickSound.Play();
-        AdmobManager.instance.ShowRewardedAd(() =>
+        AppLovinMaxAdManager.instance.ShowRewardedAd(() =>
         {
             ResetRewardDisplay();
             GetComponent<Collider>().enabled = false;

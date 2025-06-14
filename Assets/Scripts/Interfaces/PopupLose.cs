@@ -45,7 +45,7 @@ public class PopupLose : BasePopup
     {
         losePopup.localScale = Vector3.zero;
         canvasGroup.alpha = 1;
-        losePopup.DOScale(Vector3.one, 1f).SetEase(Ease.OutQuart).OnComplete(()=> CustomBannerAdManager.instance.ShowBottomBanner());
+        losePopup.DOScale(Vector3.one, 1f).SetEase(Ease.OutQuart).OnComplete(()=> AppLovinMaxAdManager.instance.ShowBottomMrecAd());
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         isShow = true;
@@ -61,7 +61,7 @@ public class PopupLose : BasePopup
     }
     public void HideSure()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         areYouSurePopup.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             areYouSure.alpha = 0;
@@ -82,13 +82,13 @@ public class PopupLose : BasePopup
             areYouSure.blocksRaycasts = true;
             areYouSure.interactable = true;
             areYouSurePopup.DOScale(Vector3.one * 0.95f, 0.5f).SetEase(Ease.OutQuart);
-            CustomBannerAdManager.instance.ShowBottomBanner();
+            AppLovinMaxAdManager.instance.ShowBottomMrecAd();
         });
     }
 
     public void LifeLoseButton()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         GameManager.instance.livesManager.ConsumeLife();
       /*  GameManager.instance.BackToHome();
         homeView.PlayGame();*/
@@ -114,7 +114,7 @@ public class PopupLose : BasePopup
 
     private IEnumerator Retrive()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         HideView();
         GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
 
@@ -126,7 +126,7 @@ public class PopupLose : BasePopup
 
     public void RetriveByCoin()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         AudioManager.instance.clickSound.Play();
         if (GameManager.instance.coinValue >= 200)
         {
@@ -143,7 +143,7 @@ public class PopupLose : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AdmobManager.instance.ShowRewardedAd(() =>
+        AppLovinMaxAdManager.instance.ShowRewardedAd(() =>
         {
             StartCoroutine(Retrive());
         });

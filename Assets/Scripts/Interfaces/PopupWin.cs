@@ -167,7 +167,7 @@ public class PopupWin : BasePopup
                 
                 StartCoroutine(UpdateTextInPopupElements());
 
-                CustomBannerAdManager.instance.ShowBottomBanner();
+                AppLovinMaxAdManager.instance.ShowBottomMrecAd();
             });
         });
     }
@@ -289,7 +289,7 @@ public class PopupWin : BasePopup
         StartCoroutine(SpawnCoins(1));
         nextBtn.interactable = false;
         x2ClaimBtn.interactable = false;
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
     }
 
 
@@ -303,7 +303,7 @@ public class PopupWin : BasePopup
 
     public void ClaimX2()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         WatchAds();
     }
 
@@ -315,7 +315,7 @@ public class PopupWin : BasePopup
     public void WatchAds()
     {
         AudioManager.instance.clickSound.Play();
-        AdmobManager.instance.ShowRewardedAd(() =>
+        AppLovinMaxAdManager.instance.ShowRewardedAd(() =>
         {
             StartCoroutine(Reward());
         });

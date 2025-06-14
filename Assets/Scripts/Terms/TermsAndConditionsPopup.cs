@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class TermsAndConditionsPopup : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private GameObject termsPopup; 
-    [SerializeField] private Button agreeButton; 
+    [SerializeField] private GameObject termsPopup;
+    [SerializeField] private Button agreeButton;
     [SerializeField] private Button termsBtn;
+
+    // [SerializeField] private LoadingScreenManager loadingScreenManager;
 
     [Header("Game Settings")]
     [SerializeField] private Sprite gameIconSprite;
@@ -21,12 +23,17 @@ public class TermsAndConditionsPopup : MonoBehaviour
         }
         else
         {
+            //loadingScreenManager.gameObject.SetActive(false);
             agreeButton.onClick.AddListener(OnAgreeClicked);
             termsBtn.onClick.AddListener(OpenTermsCodition);
             termsPopup.SetActive(true);
         }
     }
 
+    public bool TermAcceptetd()
+    {
+        return PlayerPrefs.GetInt(TermsAcceptedKey, 0) == 1;
+    }
 
     private void OnAgreeClicked()
     {
@@ -41,6 +48,7 @@ public class TermsAndConditionsPopup : MonoBehaviour
 
     private void StartGame()
     {
+        //loadingScreenManager.gameObject.SetActive(true);
         termsPopup.SetActive(false);
 
         gameObject.SetActive(false);

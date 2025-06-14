@@ -85,7 +85,7 @@ public class SettingBar : MonoBehaviour
 
     public void AreYouSureHome()
     {
-        CustomBannerAdManager.instance.ShowBottomBanner();
+        AppLovinMaxAdManager.instance.ShowBottomMrecAd();
         setBtn.SetActive(false);
         areYouSureHome.alpha = 1;
         areYouSureHome.blocksRaycasts = true;
@@ -96,7 +96,7 @@ public class SettingBar : MonoBehaviour
 
     public void HideSureHome()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         areYouSurePopupHome.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             setBtn.SetActive(true);
@@ -108,7 +108,7 @@ public class SettingBar : MonoBehaviour
 
     public void AreYouSureRestart()
     {
-        CustomBannerAdManager.instance.ShowBottomBanner();
+        AppLovinMaxAdManager.instance.ShowBottomMrecAd();
         setBtn.SetActive(false);
         areYouSureRestart.alpha = 1;
         areYouSureRestart.blocksRaycasts = true;
@@ -118,7 +118,7 @@ public class SettingBar : MonoBehaviour
 
     public void HideSureRestart()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         areYouSurePopupRestart.DOScale(Vector3.zero, 0.8f).SetEase(Ease.InBack).OnComplete(() =>
         {
             setBtn.SetActive(true);
@@ -131,7 +131,7 @@ public class SettingBar : MonoBehaviour
 
     public void LifeLoseButton()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         AdsControl.Instance.directPlay = false;
         GameManager.instance.livesManager.ConsumeLife();
         GameManager.instance.BackToHome();
@@ -140,7 +140,7 @@ public class SettingBar : MonoBehaviour
     
     public void LifeLoseButtonRestart()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         AdsControl.Instance.directPlay = true;
         GameManager.instance.livesManager.ConsumeLife();
         //GameManager.instance.BackToHome();

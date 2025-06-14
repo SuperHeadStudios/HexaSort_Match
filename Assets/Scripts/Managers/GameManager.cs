@@ -354,12 +354,12 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        AdmobManager.instance.HideBannerAd();
+        AppLovinMaxAdManager.instance.HideBannerAd();
         AdsControl.Instance.ShowInterstital(AdLocation.Win);
 
         if (levelIndex >= 1)
         {
-            AdmobManager.instance.HideBannerAd();
+            AppLovinMaxAdManager.instance.HideBannerAd();
             AdsControl.Instance.ShowInterstital(AdLocation.Win);
         }
         uiManager.popupWin.ShowView();
@@ -386,7 +386,7 @@ public class GameManager : MonoBehaviour
 
         if (levelIndex >= 1)
         {
-            AdmobManager.instance.HideBannerAd();
+            AppLovinMaxAdManager.instance.HideBannerAd();
             AdsControl.Instance.ShowInterstital(AdLocation.Win);
         }
 

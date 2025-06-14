@@ -27,7 +27,7 @@ public abstract class BasePopup : MonoBehaviour
 
     public virtual void ShowView()
     {
-        CustomBannerAdManager.instance.ShowBottomBanner();
+        AppLovinMaxAdManager.instance.ShowBottomMrecAd();
         //GameManager.instance.uiManager.coinView.HideView();
         lastState = GameManager.instance.currentGameState;
         GameManager.instance.currentGameState = GameManager.GAME_STATE.SHOW_POPUP;
@@ -64,7 +64,7 @@ public abstract class BasePopup : MonoBehaviour
                 canvasGroup.blocksRaycasts = false;
                 isShow = false;
                 GameManager.instance.uiManager.coinView.ShowView();
-                CustomBannerAdManager.instance.HideBottomBanner();
+                AppLovinMaxAdManager.instance.HideBottomMrecAd();
                 rootTrans.localScale = Vector3.one * 0.9f;
                 rootTrans.gameObject.SetActive(false);
             });

@@ -89,7 +89,7 @@ public class SettingPopup : MonoBehaviour
 
     private void CloseSettingsPopup()
     {
-        CustomBannerAdManager.instance.HideBottomBanner();
+        AppLovinMaxAdManager.instance.HideBottomMrecAd();
         popup.DOScale(Vector3.zero, .5f).SetEase(Ease.InBack).OnComplete(() =>
         {
             gameObject.SetActive(false);

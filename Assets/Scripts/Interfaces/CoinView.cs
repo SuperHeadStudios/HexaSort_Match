@@ -221,7 +221,7 @@ public class CoinView : BaseView
         }
         else
         {
-            CustomBannerAdManager.instance.ShowBottomBanner();
+            AppLovinMaxAdManager.instance.ShowBottomMrecAd();
             GameManager.instance.uiManager.homeView.ShowSettingPopup();
         }
         AudioManager.instance.clickSound.Play();

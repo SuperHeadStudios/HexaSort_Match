@@ -38,7 +38,7 @@ public class AdsControl : MonoBehaviour
     {
         if (IsRemoveAds())
             return;
-        AdmobManager.instance.ShowInterstitialAd();
+        AppLovinMaxAdManager.instance.ShowInterstitialAd();
     }
 
     public void RemoveAds()

@@ -248,7 +248,7 @@ public class DailyRewardManager : MonoBehaviour
 
         }
 
-        AdmobManager.instance.ShowRewardedAd(() =>
+        AppLovinMaxAdManager.instance.ShowRewardedAd(() =>
         {
             StartCoroutine(MakeReward());
             canvasGroup.blocksRaycasts = false;

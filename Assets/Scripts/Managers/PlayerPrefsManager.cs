@@ -56,6 +56,10 @@ namespace GameSystem
         static string WHEELSPINGRPOGRESS = "WHEELPRGRESS";
 
         static string WHEELINDEXCOUNT = "WHEELINDEXKEY";
+        static string BUYNOADSPACK = "BUYNOADSPACK";
+
+
+        static string ISFIRSTPLAY = "ISFIRSTPLAYKEY";
 
         #region Level Value
 
@@ -110,6 +114,20 @@ namespace GameSystem
 
         public static void SaveSpinCount(int spincount)
         { PlayerPrefs.SetInt(SPINCOUNT, spincount); }
+
+        #endregion
+
+        #region First Play
+
+        public static bool GetIsFirstPlay()
+        {
+            return GetBool(ISFIRSTPLAY, true);
+        }
+
+        public static void SetIsFirstPlay(bool isFirst)
+        {
+            SaveBool(ISFIRSTPLAY, isFirst);
+        }
 
         #endregion
 
@@ -304,7 +322,21 @@ namespace GameSystem
 
         #endregion
 
-        
+        #region No Ads Purchase
+
+        // No Ads Purchase
+        public static bool Get_Noads_Done()
+        {
+            return GetBool(BUYNOADSPACK, false);
+        }
+
+        public static void Set_NoAds_Buy_Done(bool bought)
+        {
+            SaveBool(BUYNOADSPACK, bought);
+        }
+
+        #endregion
+
         #region Blocker Unlock
 
         public static bool GetWoodUnlocked()
@@ -359,6 +391,8 @@ namespace GameSystem
 
         #endregion
 
+        #region Spine
+
         public static float GetSpineProgCount()
         { return PlayerPrefs.GetFloat(WHEELSPINGRPOGRESS, 0); }
 
@@ -381,6 +415,8 @@ namespace GameSystem
         {
             SaveBool(WHEELSPINAVAILABLE, spineAavailable);
         }
+
+        #endregion
 
         // Game Level Counter Area
         public static int GetIntrsAdCount()
