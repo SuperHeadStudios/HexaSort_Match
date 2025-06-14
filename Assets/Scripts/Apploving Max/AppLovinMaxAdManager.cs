@@ -12,8 +12,8 @@ public class AppLovinMaxAdManager : MonoBehaviour
     #region Serialized Fields
 
     [Header("Ad Unit IDs")]
-    [SerializeField] private string interstitialAdUnitId = "YOUR_INTERSTITIAL_AD_UNIT_ID";
     [SerializeField] private string bannerAdUnitId = "YOUR_BANNER_AD_UNIT_ID";
+    [SerializeField] private string interstitialAdUnitId = "YOUR_INTERSTITIAL_AD_UNIT_ID";
     [SerializeField] private string rewardedAdUnitId = "YOUR_REWARDED_AD_UNIT_ID";
     [SerializeField] private string mrecAdBottmUnitId = "YOUR_MREC_AD_UNIT_ID";
     [SerializeField] private string mrecAdTopUnitId = "YOUR_MREC_AD_UNIT_ID";
@@ -183,7 +183,6 @@ public class AppLovinMaxAdManager : MonoBehaviour
             return;
         }
 
-
         // Attach callback
         MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialLoadedEvent;
         MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialLoadFailedEvent;
@@ -206,6 +205,7 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
         MaxSdk.LoadInterstitial(interstitialAdUnitId);
     }
+
 
     private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
@@ -250,6 +250,23 @@ public class AppLovinMaxAdManager : MonoBehaviour
         }
     }
 
+    private IEnumerator LoadIntersDelay()
+    {
+        if (NoAds || PlayerPrefsManager.Get_Noads_Done())
+        {
+            yield break;
+        }
+
+        while (!MaxSdk.IsInterstitialReady(interstitialAdUnitId))
+        {
+            LoadInterstitial();
+            Debug.Log("Loading Interstitial Ad...");
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        StartCoroutine(ShowInterstitialAdWithLoadingCoroutine());
+    }
+
     private Action interCompletAction;
 
     public void ShowInterstitialAdWithDelay(Action interAction)
@@ -271,7 +288,7 @@ public class AppLovinMaxAdManager : MonoBehaviour
 
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId) && canShowInterstitial)
         {
-            StartCoroutine(ShowInterstitialAdWithDelayCoroutine());
+            StartCoroutine(ShowInterstitialAdWithLoadingCoroutine());
         }
         else
         {
@@ -286,50 +303,39 @@ public class AppLovinMaxAdManager : MonoBehaviour
     }
 
 
-    public void ShowInterstitialAd()
+    public void ShowInterstitialAd(Action interAction)
     {
-
+        interCompletAction = interAction;
         if (NoAds || PlayerPrefsManager.Get_Noads_Done())
         {
+            if (interCompletAction != null)
+            {
+                interCompletAction.Invoke();
+                interCompletAction = null;
+            }
             return;
         }
 
         if (MaxSdk.IsInterstitialReady(interstitialAdUnitId))
         {
-            /*if (RemoteConfigManager.instance.level_start_int <= PlayerPrefsManager.GetLevel())
-            {
-            }*/
-            StartCoroutine(ShowInterstitialAdWithDelayCoroutine());
+            StartCoroutine(ShowInterstitialAdWithLoadingCoroutine());
         }
         else
         {
+            if (interCompletAction != null)
+            {
+                // If interCompletAction is not null, invoke it immediately
+                interCompletAction.Invoke();
+                interCompletAction = null;
+            }
             Debug.Log("Interstitial Ad is not ready.");
             StartCoroutine(LoadIntersDelay());
         }
     }
 
-    private IEnumerator LoadIntersDelay()
-    {
-        if (NoAds || PlayerPrefsManager.Get_Noads_Done())
-        {
-            yield break;
-        }
+  
 
-        while (!MaxSdk.IsInterstitialReady(interstitialAdUnitId))
-        {
-            LoadInterstitial();
-            Debug.Log("Loading Interstitial Ad...");
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        /*if (RemoteConfigManager.instance.level_start_int <= PlayerPrefsManager.Get_LevelNumber())
-        {
-        }
-*/
-        StartCoroutine(ShowInterstitialAdWithDelayCoroutine());
-    }
-
-    public IEnumerator ShowInterstitialAdWithDelayCoroutine()
+    public IEnumerator ShowInterstitialAdWithLoadingCoroutine()
     {
         if (NoAds || PlayerPrefsManager.Get_Noads_Done())
         {

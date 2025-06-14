@@ -1,3 +1,6 @@
+using GameSystem;
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class AdsControl : MonoBehaviour
@@ -32,37 +35,90 @@ public class AdsControl : MonoBehaviour
 
     public bool directPlay = false;
 
+    private void Start()
+    {
+        StartTimeThirtySeconds();
+    }
 
-
-    public void ShowInterstital(AdLocation adLocation)
+    public void ShowInterstital(Action action)
     {
         if (IsRemoveAds())
             return;
-        AppLovinMaxAdManager.instance.ShowInterstitialAd();
+        AppLovinMaxAdManager.instance.ShowInterstitialAd(action);
     }
 
     public void RemoveAds()
     {
-
-        PlayerPrefs.SetInt("removeAds", 1);
+        PlayerPrefsManager.Set_NoAds_Buy_Done(true);
         //if banner is active and user bought remove ads the banner will automatically hide
-    
+
     }
 
     public bool IsRemoveAds()
     {
-        if (!PlayerPrefs.HasKey("removeAds"))
-        {
-            return false;
+        return PlayerPrefsManager.Get_Noads_Done();
+    }
+
+
+    #region Ads WithTime 60 Sec
+
+    private bool isSixtySecAdReady = false;
+
+    public void StartTimeSixtySeconds()
+    {
+        if (GameManager.instance.levelIndex < 2) return;
+
+        if(GameManager.instance.currentGameState == GameManager.GAME_STATE.PLAYING)
+        {   
+            StartCoroutine(SixtySecondTimers());
         }
         else
         {
-            if (PlayerPrefs.GetInt("removeAds") == 1)
-            {
-                return true;
-            }
+            isSixtySecAdReady = false;
+            StopCoroutine(SixtySecondTimers());
         }
-        return false;
     }
-}
 
+    private IEnumerator SixtySecondTimers()
+    {
+        yield return new WaitForSeconds(60f);
+        isSixtySecAdReady = true;
+        AppLovinMaxAdManager.instance.ShowInterstitialAd(() =>
+        {
+            isSixtySecAdReady = false;
+        });
+    }
+
+    #endregion
+
+    #region Ads WithTime 30 Sec
+
+    private bool isThirtySecAdReady = false;
+
+    public void StartTimeThirtySeconds()
+    {
+        StartCoroutine(ThirtySecondTimers());
+    }
+
+    private IEnumerator ThirtySecondTimers()
+    {
+        yield return new WaitForSeconds(30);
+        isSixtySecAdReady = true;
+    }
+
+
+    public void ShowThirtySecIntAd(Action action)
+    {
+        if (isThirtySecAdReady)
+        {
+            AppLovinMaxAdManager.instance.ShowInterstitialAd(action);
+            isSixtySecAdReady = false; // Reset the ad ready state after showing the ad
+        }
+        else
+        {
+            Debug.Log("30 Sec Ad not ready");
+            action?.Invoke(); // Invoke the action even if the ad is not ready
+        }
+    }
+    #endregion
+}

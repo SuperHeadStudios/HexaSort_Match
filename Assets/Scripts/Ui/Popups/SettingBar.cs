@@ -132,21 +132,27 @@ public class SettingBar : MonoBehaviour
     public void LifeLoseButton()
     {
         AppLovinMaxAdManager.instance.HideBottomMrecAd();
-        AdsControl.Instance.directPlay = false;
-        GameManager.instance.livesManager.ConsumeLife();
-        GameManager.instance.BackToHome();
-        SceneManager.LoadScene(2);
+        AdsControl.Instance.ShowInterstital(() =>
+        {
+            AdsControl.Instance.directPlay = false;
+            GameManager.instance.livesManager.ConsumeLife();
+            GameManager.instance.BackToHome();
+            SceneManager.LoadScene(2);
+        });
     }
     
     public void LifeLoseButtonRestart()
     {
-        AppLovinMaxAdManager.instance.HideBottomMrecAd();
-        AdsControl.Instance.directPlay = true;
-        GameManager.instance.livesManager.ConsumeLife();
-        //GameManager.instance.BackToHome();
-        //GameManager.instance.ReplayNow();
-        HideSureRestart();
-        SceneManager.LoadScene(2);
+        AdsControl.Instance.ShowInterstital(() =>
+        {
+            AppLovinMaxAdManager.instance.HideBottomMrecAd();
+            AdsControl.Instance.directPlay = true;
+            GameManager.instance.livesManager.ConsumeLife();
+            //GameManager.instance.BackToHome();
+            //GameManager.instance.ReplayNow();
+            HideSureRestart();
+            SceneManager.LoadScene(2);
+        });
     }
 
 

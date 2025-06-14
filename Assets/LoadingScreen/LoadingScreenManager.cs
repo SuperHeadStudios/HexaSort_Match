@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using GameSystem;
+using Unity.VisualScripting;
 
 public class LoadingScreenManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class LoadingScreenManager : MonoBehaviour
     [SerializeField] private GameObject AdPanel;
     [SerializeField] private GameObject TermsObj;
     [SerializeField] private TermsAndConditionsPopup TermsAndConditionsPopup;
+
+    [SerializeField] private bool isGameLoading = false;
 
     public AsyncOperation operation;
     public bool isInitialized = false;
@@ -41,75 +44,53 @@ public class LoadingScreenManager : MonoBehaviour
             progressBar.value = progress;
             loadingText.text = (progress * 100f).ToString("F0") + "%";
 
-            if (progress >= 0.25f && !TermsAndConditionsPopup.TermAcceptetd())
+            if (!isGameLoading)
             {
-                TermsObj.SetActive(true);
-                yield return new WaitUntil(() => TermsAndConditionsPopup.TermAcceptetd());
-            }
-
-            if (!AppLovingAppOpenAdManager.instance.NoAds)
-            {
-                if (progress >= 0.8f && !AppLovingAppOpenAdManager.instance.IsAppOpenAdReady() && !PlayerPrefsManager.GetIsFirstPlay())
+                if (progress >= 0.25f && !TermsAndConditionsPopup.TermAcceptetd())
                 {
-                    while (!AppLovingAppOpenAdManager.instance.IsAppOpenAdReady())
+                    TermsObj.SetActive(true);
+                    yield return new WaitUntil(() => TermsAndConditionsPopup.TermAcceptetd());
+                }
+
+                if (!AppLovingAppOpenAdManager.instance.NoAds)
+                {
+                    if (progress >= 0.8f && !AppLovingAppOpenAdManager.instance.IsAppOpenAdReady() && !PlayerPrefsManager.GetIsFirstPlay())
                     {
-                        AppLovingAppOpenAdManager.instance.LoadAppOpenAd();
-                        yield return new WaitForSeconds(0.5f); // avoid hammering the load method
+                        while (!AppLovingAppOpenAdManager.instance.IsAppOpenAdReady())
+                        {
+                            AppLovingAppOpenAdManager.instance.LoadAppOpenAd();
+                            yield return new WaitForSeconds(0.5f); // avoid hammering the load method
+                        }
                     }
                 }
             }
-
             yield return null;
         }
 
-        progressBar.value = 1f;
-        loadingText.text = "100%";
-
-
-        if (PlayerPrefsManager.GetIsFirstPlay())
+        if (!isGameLoading)
         {
-            AppLovingAppOpenAdManager.instance.isInitialized = true;
-            PlayerPrefsManager.SetIsFirstPlay(false);
-        }
-        else
-        {
-            StartCoroutine(ShowAppOpenWithDelay());
-            /*float elapsedTime = 0f;
 
-            while (elapsedTime < loadingDuration)
+            progressBar.value = 1f;
+            loadingText.text = "100%";
+
+
+            if (PlayerPrefsManager.GetIsFirstPlay())
             {
-                elapsedTime += Time.deltaTime;
+                AppLovingAppOpenAdManager.instance.isInitialized = true;
+                PlayerPrefsManager.SetIsFirstPlay(false);
+            }
+            else
+            {
+                StartCoroutine(ShowAppOpenWithDelay());
 
-                float progress = Mathf.Clamp01(elapsedTime / loadingDuration) * 0.8f; // Max at 80%
-
-                progressBar.value = progress;
-                loadingText.text = (progress * 100f).ToString("F0") + "%";
-                yield return null;
             }
 
-            elapsedTime = 0f;
-            while (!isInitialized)
+            AdPanel.SetActive(true);
+
+            while (!AppLovingAppOpenAdManager.instance.isInitialized && !AppLovingAppOpenAdManager.instance.NoAds)
             {
                 yield return null;
             }
-
-            elapsedTime = 0;
-            while (elapsedTime < 1)
-            {
-                elapsedTime += Time.deltaTime;
-                float progress = 0.8f + (Mathf.Clamp01(elapsedTime / 1f) * 0.2f); // 80% to 100%
-
-                progressBar.value = progress;
-                loadingText.text = (progress * 100f).ToString("F0") + "%";
-                yield return null;
-            }*/
-        }
-
-        AdPanel.SetActive(true);
-
-        while (!AppLovingAppOpenAdManager.instance.isInitialized && !AppLovingAppOpenAdManager.instance.NoAds)
-        {
-            yield return null;
         }
         operation.allowSceneActivation = AppLovingAppOpenAdManager.instance.isInitialized;
     }

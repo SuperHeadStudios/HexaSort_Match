@@ -85,7 +85,8 @@ public class HomeView : BaseView
             cameraT.position = gamePlayerPosition.position;
             cameraT.rotation = gamePlayerPosition.rotation;
             homeScreen_D.SetActive(false);
-            StartCoroutine(ShowTerms());
+            //StartCoroutine(ShowTerms());
+
         }
         else
         {
@@ -102,7 +103,7 @@ public class HomeView : BaseView
     {
         yield return new WaitForSeconds(15f);
 
-        FirebaseManager.instance.ShowTermsPopup();
+        //FirebaseManager.instance.ShowTermsPopup();
     }
 
     //.OnComplete(() =>
@@ -171,15 +172,19 @@ public class HomeView : BaseView
     public void CloseDailyReward()
     {
         AppLovinMaxAdManager.instance.HideBottomMrecAd();
-        AudioManager.instance.clickSound.Play();
 
-        dailyRewardPopup.DOScale(Vector3.one, 0.25f).SetEase(Ease.InQuad).OnComplete(() =>
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
         {
-            dailyReward.DOFade(0, 0.3f).OnComplete(() =>
+            AudioManager.instance.clickSound.Play();
+
+            dailyRewardPopup.DOScale(Vector3.one, 0.25f).SetEase(Ease.InQuad).OnComplete(() =>
             {
-                dailyReward.blocksRaycasts = false;
-                dailyReward.interactable = false;
-                dailyRewardPopup.gameObject.SetActive(false);
+                dailyReward.DOFade(0, 0.3f).OnComplete(() =>
+                {
+                    dailyReward.blocksRaycasts = false;
+                    dailyReward.interactable = false;
+                    dailyRewardPopup.gameObject.SetActive(false);
+                });
             });
         });
     }

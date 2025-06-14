@@ -356,6 +356,7 @@ MonoBehaviour:
   AdPanel: {fileID: 2018538203}
   TermsObj: {fileID: 1669941274}
   TermsAndConditionsPopup: {fileID: 1664995040}
+  isGameLoading: 0
   isInitialized: 0
   isLoadHome: 0
 --- !u!1 &353162818
@@ -2607,7 +2608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

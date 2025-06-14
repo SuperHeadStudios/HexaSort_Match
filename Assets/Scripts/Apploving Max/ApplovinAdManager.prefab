@@ -197,16 +197,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8cabc3586c5884bb138aed056f070c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interstitialAdUnitId: c26f5d52fec8bf63
-  bannerAdUnitId: 2fcc875cc1ecf966
-  rewardedAdUnitId: 719c5b1dc593af7c
-  mrecAdUnitId: 19869965fafa62fe
-  mrecCustomAdUnitId: 19869965fafa62fe
+  bannerAdUnitId: f4c34ebf26440ccd
+  interstitialAdUnitId: fd2bee317038029a
+  rewardedAdUnitId: 4a9bc200cae54354
+  mrecAdBottmUnitId: 3f08fbca69e5f499
+  mrecAdTopUnitId: 3f08fbca69e5f499
+  mrecCustomAdUnitId: 3f08fbca69e5f499
   textNotiObj: {fileID: 2966892525882305603, guid: 336a531c7bbb87443be51acd7a8363d3, type: 3}
   AdLoadPanel: {fileID: 1896090974534302061}
   Round: {fileID: 5098720072683297107}
   isIntrsClosed: 0
-  NoAds: 1
+  NoAds: 0
 --- !u!1 &5098720072683297107
 GameObject:
   m_ObjectHideFlags: 0

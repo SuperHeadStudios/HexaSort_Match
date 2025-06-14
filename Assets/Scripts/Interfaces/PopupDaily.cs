@@ -26,12 +26,12 @@ public class PopupDaily : BasePopup
 
     public override void Start()
     {
-       
+
     }
 
     public override void Update()
     {
-        
+
     }
 
     public override void InitView()
@@ -53,5 +53,13 @@ public class PopupDaily : BasePopup
                 dailyViewArr[i].CheckCurrentReward(); // Show claimed state or relevant logic
             }
         }*/
+    }
+
+    public void Backbtn()
+    {
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
+        {
+            HideView();
+        });
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using GameSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -289,6 +290,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayGame()
     {
+        AdsControl.Instance.StartTimeSixtySeconds();
         InitGame();
     }
 
@@ -355,27 +357,23 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         AppLovinMaxAdManager.instance.HideBannerAd();
-        AdsControl.Instance.ShowInterstital(AdLocation.Win);
-
-        if (levelIndex >= 1)
+        AdsControl.Instance.ShowInterstital(() =>
         {
-            AppLovinMaxAdManager.instance.HideBannerAd();
-            AdsControl.Instance.ShowInterstital(AdLocation.Win);
-        }
-        uiManager.popupWin.ShowView();
+            uiManager.popupWin.ShowView();
 
-        if (!isTestMode)
-        {
-            levelIndex++;
+            if (!isTestMode)
+            {
+                levelIndex++;
 
-            if (currentLuckyWheel < 5)
-                currentLuckyWheel++;
+                if (currentLuckyWheel < 5)
+                    currentLuckyWheel++;
 
-            PlayerPrefs.SetInt("CurrentLuckyWheel", currentLuckyWheel);
-            PlayerPrefs.SetInt("CurrentLevel", levelIndex);
-        }
-        uiManager.questPopup.IncreaseProgressQuest(0, 1);
-        uiManager.questPopup.IncreaseProgressQuest(4, 1);
+                PlayerPrefs.SetInt("CurrentLuckyWheel", currentLuckyWheel);
+                PlayerPrefs.SetInt("CurrentLevel", levelIndex);
+            }
+            uiManager.questPopup.IncreaseProgressQuest(0, 1);
+            uiManager.questPopup.IncreaseProgressQuest(4, 1);
+        });
     }
 
 
@@ -383,15 +381,12 @@ public class GameManager : MonoBehaviour
     {
         FirebaseManager.instance.LogLoseEvent(levelIndex);
         yield return new WaitForSeconds(1.0f);
-
-        if (levelIndex >= 1)
+        AppLovinMaxAdManager.instance.HideBannerAd();
+        AdsControl.Instance.ShowInterstital(() =>
         {
-            AppLovinMaxAdManager.instance.HideBannerAd();
-            AdsControl.Instance.ShowInterstital(AdLocation.Win);
-        }
-
-        uiManager.popupLose.InitView();
-        uiManager.popupLose.ShowView();
+            uiManager.popupLose.InitView();
+            uiManager.popupLose.ShowView();
+        });
     }
 
     public void Replay()

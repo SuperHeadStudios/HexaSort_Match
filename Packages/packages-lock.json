@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "com.applovin.mediation.adapters.bigoads.android": {
+      "version": "5030002.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.bigoads.ios": {
+      "version": "4080000.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
+    "com.applovin.mediation.adapters.tencentgdt.ios": {
+      "version": "4152101.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unity.packages.applovin.com"
+    },
     "com.applovin.mediation.ads": {
       "version": "8.3.1",
       "depth": 0,
