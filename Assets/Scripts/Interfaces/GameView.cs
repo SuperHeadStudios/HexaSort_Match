@@ -384,7 +384,7 @@ public class GameView : BaseView
     {
         if (GameManager.instance.hammerBoosterValue > 0 )
         {
-            ShowHammerBoosterView();
+            FirebaseManager.instance.IncreaseHammerUseCount();
         }
         else
         {
@@ -404,6 +404,7 @@ public class GameView : BaseView
     {
         currentState = BOOSTER_STATE.HAMMER;
         HideView();
+        ShowHammerBoosterView();
         GameManager.instance.uiManager.coinView.HideView();
         hammerGuidePanel.DOScaleY(1f, 0.1f);
     }
@@ -442,6 +443,8 @@ public class GameView : BaseView
         HideView();
         GameManager.instance.uiManager.coinView.HideView();
         moveGuidePanel.DOScaleY(1f, 0.1f);
+
+        FirebaseManager.instance.IncreaseDragUseCount();
     }
 
     public void SubHammerValue()
@@ -482,6 +485,7 @@ public class GameView : BaseView
             GameManager.instance.cellHolder.ShuffleHolder();
             SubShuffleValue();
             UpdateBoosterView();
+            FirebaseManager.instance.IncreaseSwitchUseCount();
         }
         else
         {

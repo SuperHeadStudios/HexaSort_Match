@@ -12,9 +12,9 @@ public class FirebaseManager : MonoBehaviour
 
     private int hintCount = 0;
     private int retryCount = 0;
-
+/*
     private float levelStartTime;
-    private float levelEndTime;
+    private float levelEndTime;*/
 
     [SerializeField] private LoadingScreenManager loadingScreenManager;
     [SerializeField] private GameObject termsPopop;
@@ -127,6 +127,31 @@ public class FirebaseManager : MonoBehaviour
         }
     }
 
+    public void LogGameplayWin(int levelNum)
+    {
+        string levelId = (levelNum).ToString();
+        float playTime = GetLevelPlayTime();
+        float winRate = GetWinRate(levelNum);
+        int hammerBoosterCount = hammerUseCount;
+        int dragBoosterCount = dragUseCount;
+        int switchBoosterCount = swtichUseCount;
+
+        FirebaseAnalytics.LogEvent($"gameplay_win_level_{levelId}", new Parameter[]
+        {
+            new Parameter("level_id", levelId),
+            new Parameter("play_time_sec", playTime),
+            new Parameter("first_win_rate", winRate),
+            new Parameter("hammer_used_count", hammerBoosterCount),
+            new Parameter("drag_used_count", dragBoosterCount),
+            new Parameter("switch_used_count", switchBoosterCount)
+        });
+        
+
+        Debug.Log($"Firebase Event: gameplay_win_level_{levelId} | play_time_sec: {playTime} | first_win_rate: {winRate} " +
+            $"| hammer_used_count: {hammerBoosterCount} | drag_used_count: {dragBoosterCount} | switch_wand_used_count: {switchBoosterCount} ");
+    }
+
+
     public void LogLoseEvent(int levelName)
     {
         if (app != null)
@@ -143,6 +168,10 @@ public class FirebaseManager : MonoBehaviour
         {
             Debug.LogWarning("Firebase is not initialized. Event not logged.");
         }
+
+        ResetUseHammerCount();
+        ResetUseDragCount();
+        ResetUseSwitchCount();
     }
 
     #endregion
@@ -219,8 +248,6 @@ public class FirebaseManager : MonoBehaviour
 
     #endregion
 
-
-
     #region Track_Retry
 
     public void FirebaseTrackOnPlayerRetry(int currentLevel)
@@ -264,7 +291,7 @@ public class FirebaseManager : MonoBehaviour
     #endregion
 
     #region Track_Level_Win_Time
-
+/*
     public void FirbaseTrackStartLevelTime()
     {
         levelStartTime = Time.time;
@@ -282,7 +309,7 @@ public class FirebaseManager : MonoBehaviour
            new Parameter("Level_", levelName),
            new Parameter("time_taken", timeTaken)
        );
-    }
+    }*/
 
     #endregion
 
@@ -341,6 +368,96 @@ public class FirebaseManager : MonoBehaviour
 
     #endregion
 
+
+
+    #region Level PlayTime
+
+    private float levelStartTime;
+
+    /// Call this at the start of the level
+    public void StartLevelTimer()
+    {
+        levelStartTime = Time.time;
+    }
+
+    /// Call this at the end of the level
+    public float GetLevelPlayTime()
+    {
+        return Time.time - levelStartTime;
+    }
+
+
+    #endregion
+
+    #region Win Rat
+
+    private string GetWinCountKey(int levelNum) => $"level_{levelNum}_wins";
+    private string GetAttemptCountKey(int levelNum) => $"level_{levelNum}_attempts";
+
+    public void RecordLevelAttempt(int levelNum)
+    {
+        int currentLevel = levelNum + 1;
+
+        string key = GetAttemptCountKey(currentLevel);
+        int attempts = PlayerPrefs.GetInt(key, 0) + 1;
+        PlayerPrefs.SetInt(key, attempts);
+    }
+
+    public void RecordLevelWin(int levelNum)
+    {
+        int currentLevel = levelNum + 1;
+        string key = GetWinCountKey(currentLevel);
+        int wins = PlayerPrefs.GetInt(key, 0) + 1;
+        PlayerPrefs.SetInt(key, wins);
+    }
+
+    public float GetWinRate(int levelNum)
+    {
+        int currentLevel = levelNum + 1;
+        int wins = PlayerPrefs.GetInt(GetWinCountKey(currentLevel), 0);
+        int attempts = PlayerPrefs.GetInt(GetAttemptCountKey(currentLevel), 0);
+        return attempts > 0 ? (float)wins / attempts : 0f;
+    }
+
+    #endregion
+
+    #region BosstersCount
+
+    private int hammerUseCount = 0;
+    private int dragUseCount = 0;
+    private int swtichUseCount = 0;
+
+    public void IncreaseHammerUseCount()
+    {
+        hammerUseCount++;
+    }
+
+    public void ResetUseHammerCount()
+    {
+        hammerUseCount = 0;
+    }
+
+    public void IncreaseDragUseCount()
+    {
+        dragUseCount++;
+    }
+
+    public void ResetUseDragCount()
+    {
+        dragUseCount = 0;
+    }
+
+    public void IncreaseSwitchUseCount()
+    {
+        swtichUseCount++;
+    }
+
+    public void ResetUseSwitchCount()
+    {
+        swtichUseCount = 0;
+    }
+
+    #endregion
 }
 
 

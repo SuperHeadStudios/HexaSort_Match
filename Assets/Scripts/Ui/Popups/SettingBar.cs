@@ -132,7 +132,7 @@ public class SettingBar : MonoBehaviour
     public void LifeLoseButton()
     {
         AppLovinMaxAdManager.instance.HideBottomMrecAd();
-        AdsControl.Instance.ShowInterstital(() =>
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
         {
             AdsControl.Instance.directPlay = false;
             GameManager.instance.livesManager.ConsumeLife();
@@ -143,7 +143,7 @@ public class SettingBar : MonoBehaviour
     
     public void LifeLoseButtonRestart()
     {
-        AdsControl.Instance.ShowInterstital(() =>
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
         {
             AppLovinMaxAdManager.instance.HideBottomMrecAd();
             AdsControl.Instance.directPlay = true;

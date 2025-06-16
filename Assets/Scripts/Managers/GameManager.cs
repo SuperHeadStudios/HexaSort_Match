@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public int prefilledColorIndex;
 
-     public bool isProgressFinished = false;
+    public bool isProgressFinished = false;
 
     public enum GAME_STATE
     {
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
 
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
             uiManager.gameView.honeyGoalText.text = boardGenerator.currentHoneyGoalNumber.ToString();
         }
 
-        if(boardGenerator.currentHoneyGoalNumber <= 0)
+        if (boardGenerator.currentHoneyGoalNumber <= 0)
         {
             honeyTick.SetActive(true);
             honeyGoal.SetActive(false);
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseGrassCount()
     {
         Debug.Log("callingGrass");
-        boardGenerator.currentGrassGoalNumber --;
+        boardGenerator.currentGrassGoalNumber--;
         if (boardGenerator.currentGrassGoalNumber > 0)
         {
             uiManager.gameView.grassGoalText.text = boardGenerator.currentGrassGoalNumber.ToString();
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
     public void ResetBlockerValue()
     {
         boardGenerator.currentWoodGoalNumber = 0;
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("FirstGame") == 0)
         {
             levelIndex = 1;
-           // coinValue = 50;
+            // coinValue = 50;
             hammerBoosterValue = 1;
             moveBoosterValue = 1;
             shuffleBoosterValue = 1;
@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            coinValue = PlayerPrefs.GetInt("Coin" , 50);
+            coinValue = PlayerPrefs.GetInt("Coin", 50);
             levelIndex = PlayerPrefs.GetInt("CurrentLevel", 1);
             hammerBoosterValue = PlayerPrefs.GetInt("Hammer");
             moveBoosterValue = PlayerPrefs.GetInt("Move");
@@ -290,7 +290,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayGame()
     {
-        AdsControl.Instance.StartTimeSixtySeconds();
         InitGame();
     }
 
@@ -346,7 +345,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowGameWinIE()
     {
-        FirebaseManager.instance.LogWinEvent(levelIndex);
+
+        FirebaseManager.instance.RecordLevelWin(levelIndex);
+        //FirebaseManager.instance.LogWinEvent(levelIndex);
+        FirebaseManager.instance.LogGameplayWin(levelIndex);
 
         yield return new WaitForSeconds(.02f);
         AudioManager.instance.confettiBlast.Play();
@@ -357,7 +359,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         AppLovinMaxAdManager.instance.HideBannerAd();
-        AdsControl.Instance.ShowInterstital(() =>
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
         {
             uiManager.popupWin.ShowView();
 
@@ -382,7 +384,7 @@ public class GameManager : MonoBehaviour
         FirebaseManager.instance.LogLoseEvent(levelIndex);
         yield return new WaitForSeconds(1.0f);
         AppLovinMaxAdManager.instance.HideBannerAd();
-        AdsControl.Instance.ShowInterstital(() =>
+        AdsControl.Instance.ShowThirtySecIntAd(() =>
         {
             uiManager.popupLose.InitView();
             uiManager.popupLose.ShowView();
@@ -465,4 +467,5 @@ public class GameManager : MonoBehaviour
         shuffleBoosterValue += moreValue;
         PlayerPrefs.SetInt("Shuffle", shuffleBoosterValue);
     }
+
 }

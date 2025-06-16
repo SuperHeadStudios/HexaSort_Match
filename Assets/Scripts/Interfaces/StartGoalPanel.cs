@@ -105,6 +105,10 @@ public class StartGoalPanel : BasePopup
         rootTrans.DOLocalMoveY(rootTrans.position.y + 1400, 0.6f).SetDelay(0.8f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
             GameManager.instance.currentGameState = GameManager.GAME_STATE.PLAYING;
+            AdsControl.Instance.StartTimeSixtySeconds();
+            FirebaseManager.instance.RecordLevelAttempt(GameManager.instance.levelIndex);
+            FirebaseManager.instance.StartLevelTimer();
+
             canvasGroup.alpha = 0.0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;

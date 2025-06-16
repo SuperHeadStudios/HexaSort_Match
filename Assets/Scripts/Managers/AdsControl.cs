@@ -44,7 +44,7 @@ public class AdsControl : MonoBehaviour
     {
         if (IsRemoveAds())
             return;
-        AppLovinMaxAdManager.instance.ShowInterstitialAd(action);
+        //AppLovinMaxAdManager.instance.ShowInterstitialAd(action);
     }
 
     public void RemoveAds()
@@ -59,34 +59,53 @@ public class AdsControl : MonoBehaviour
         return PlayerPrefsManager.Get_Noads_Done();
     }
 
-
     #region Ads WithTime 60 Sec
 
     private bool isSixtySecAdReady = false;
+    private Coroutine thirtySecondTimerCoroutine;
+
+    private Coroutine sixtySecondTimerCoroutine;
 
     public void StartTimeSixtySeconds()
     {
         if (GameManager.instance.levelIndex < 2) return;
 
-        if(GameManager.instance.currentGameState == GameManager.GAME_STATE.PLAYING)
-        {   
-            StartCoroutine(SixtySecondTimers());
-        }
-        else
+        if (sixtySecondTimerCoroutine != null)
         {
-            isSixtySecAdReady = false;
-            StopCoroutine(SixtySecondTimers());
+            StopCoroutine(sixtySecondTimerCoroutine);
+            sixtySecondTimerCoroutine = null;
         }
+
+        sixtySecondTimerCoroutine = StartCoroutine(SixtySecondTimers());
     }
 
     private IEnumerator SixtySecondTimers()
     {
         yield return new WaitForSeconds(60f);
         isSixtySecAdReady = true;
-        AppLovinMaxAdManager.instance.ShowInterstitialAd(() =>
+
+        if (GameManager.instance.currentGameState == GameManager.GAME_STATE.PLAYING)
+        {
+            AppLovinMaxAdManager.instance.ShowInterstitialAd(() =>
+            {
+                isSixtySecAdReady = false;
+
+                // Restart the 60s ad loop properly
+                StartTimeSixtySeconds();
+
+                // Stop & restart 30s ad timer
+                if (thirtySecondTimerCoroutine != null)
+                {
+                    StopCoroutine(thirtySecondTimerCoroutine);
+                }
+                isThirtySecAdReady = false;
+                thirtySecondTimerCoroutine = StartCoroutine(ThirtySecondTimers());
+            });
+        }
+        else
         {
             isSixtySecAdReady = false;
-        });
+        }
     }
 
     #endregion
@@ -97,28 +116,38 @@ public class AdsControl : MonoBehaviour
 
     public void StartTimeThirtySeconds()
     {
-        StartCoroutine(ThirtySecondTimers());
+        if (thirtySecondTimerCoroutine != null)
+        {
+            StopCoroutine(thirtySecondTimerCoroutine);
+        }
+
+        isThirtySecAdReady = false;
+        thirtySecondTimerCoroutine = StartCoroutine(ThirtySecondTimers());
     }
 
     private IEnumerator ThirtySecondTimers()
     {
         yield return new WaitForSeconds(30);
-        isSixtySecAdReady = true;
+        isThirtySecAdReady = true;
     }
-
 
     public void ShowThirtySecIntAd(Action action)
     {
         if (isThirtySecAdReady)
         {
             AppLovinMaxAdManager.instance.ShowInterstitialAd(action);
-            isSixtySecAdReady = false; // Reset the ad ready state after showing the ad
+            isThirtySecAdReady = false;
         }
         else
         {
             Debug.Log("30 Sec Ad not ready");
-            action?.Invoke(); // Invoke the action even if the ad is not ready
+            action?.Invoke();
         }
+
+        StartTimeThirtySeconds(); // restart for next opportunity
     }
+
     #endregion
+
+
 }
