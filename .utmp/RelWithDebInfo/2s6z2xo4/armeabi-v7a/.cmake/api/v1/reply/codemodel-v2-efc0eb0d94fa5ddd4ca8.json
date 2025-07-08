@@ -66,7 +66,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "swappywrapper::@7e25bd1f32ce224db4e9",
-					"jsonFile" : "target-swappywrapper-RelWithDebInfo-2e4a0309f9b2de5cdfff.json",
+					"jsonFile" : "target-swappywrapper-RelWithDebInfo-7c20880e4c613214b0b7.json",
 					"name" : "swappywrapper",
 					"projectIndex" : 1
 				}
@@ -76,7 +76,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Remote Games/HexaSort_Match/.utmp/RelWithDebInfo/2s6z2xo4/arm64-v8a",
+		"build" : "D:/Remote Games/HexaSort_Match/.utmp/RelWithDebInfo/2s6z2xo4/armeabi-v7a",
 		"source" : "D:/Remote Games/HexaSort_Match/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp"
 	},
 	"version" : 

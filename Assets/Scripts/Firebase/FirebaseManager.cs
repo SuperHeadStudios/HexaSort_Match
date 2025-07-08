@@ -90,12 +90,12 @@ public class FirebaseManager : MonoBehaviour
         if (app != null)
         {
             string level = "Level_" + LevelTrack.Start_.ToString() + levelName;
-
+/*
             string level_ = "Level_" + levelName;
-
+*//*
             FirebaseAnalytics.LogEvent(level_,
-              new Parameter(LevelTrack.Start_.ToString(), levelName));
-
+              new Parameter(LevelTrack.Start_.ToString(), levelName));*//*
+*/
             FirebaseAnalytics.LogEvent(level);
 
             Debug.Log("Logged start event for level: " + LevelTrack.Start_ + levelName);
@@ -108,7 +108,7 @@ public class FirebaseManager : MonoBehaviour
 
     public void LogWinEvent(int levelName)
     {
-        if (app != null)
+       /* if (app != null)
         {
             string level = "Level_" + LevelTrack.Win_.ToString() + levelName;
 
@@ -124,7 +124,7 @@ public class FirebaseManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Firebase is not initialized. Event not logged.");
-        }
+        }*/
     }
 
     public void LogGameplayWin(int levelNum)
@@ -156,11 +156,12 @@ public class FirebaseManager : MonoBehaviour
     {
         if (app != null)
         {
-            string level = "Level_" + LevelTrack.Win_.ToString() + levelName;
+            string level = "Level_" + LevelTrack.Lose_.ToString() + levelName;
 
-            string level_ = "Level_" + levelName;
+           /* string level_ = "Level_" + levelName;
             FirebaseAnalytics.LogEvent(level_,
-            new Parameter(LevelTrack.Lose_.ToString(), levelName));
+            new Parameter(LevelTrack.Lose_.ToString(), levelName));*/
+
             FirebaseAnalytics.LogEvent(level);
             Debug.Log("Logged Lose event for level: " + LevelTrack.Lose_ + levelName);
         }
@@ -367,8 +368,6 @@ public class FirebaseManager : MonoBehaviour
     }
 
     #endregion
-
-
 
     #region Level PlayTime
 

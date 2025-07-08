@@ -77,7 +77,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
 
         MaxSdkCallbacks.OnSdkInitializedEvent += sdkConfiguration =>
         {
-            MaxSdkCallbacks.AppOpen.OnAdHiddenEvent += OnAppOpenDismissedEvent;
+            MaxSdkCallbacks.AppOpen.OnAdHiddenEvent += OnAdRevenuePaidEventToFirebase;
 
             MaxSdkCallbacks.AppOpen.OnAdLoadedEvent += (adUnitId, adInfo) =>
             {
@@ -93,7 +93,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
         };
 
         MaxSdk.InitializeSdk();
-        MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaidEventToFirebase;
     }
 
     #endregion
@@ -110,7 +110,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent -= OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent -= OnAdRevenuePaidEventToFirebase;
     }
 
     #endregion
@@ -164,7 +164,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
     #endregion
 
     #region Tracking Ads
-
+/*
     private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         Debug.Log("Calling OnAdRevenuePaidEvent...");
@@ -178,7 +178,7 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
         string networkPlacement = adInfo.NetworkPlacement;
 
         Debug.Log("AdUnitId: " + adUnitId);
-
+*//*
         if (adUnitId == appOpenAdUnitId)
         {
             Debug.Log("Tracking App Open Ad Impression.");
@@ -194,8 +194,27 @@ public class AppLovingAppOpenAdManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Unrecognized Ad Unit ID: " + adUnitId);
-        }
+        }*//*
+
+        OnAdRevenuePaidEventToFirebase(adUnitId, adInfo);
     }
+*/
+
+
+    private void OnAdRevenuePaidEventToFirebase(string adUnitId, MaxSdkBase.AdInfo impressionData)
+    {
+        double revenue = impressionData.Revenue;
+        var impressionParameters = new[] {
+            new Firebase.Analytics.Parameter("ad_platform", "AppLovin"),
+            new Firebase.Analytics.Parameter("ad_source", impressionData.NetworkName),
+            new Firebase.Analytics.Parameter("ad_unit_name", impressionData.AdUnitIdentifier),
+            new Firebase.Analytics.Parameter("ad_format", impressionData.AdFormat),
+            new Firebase.Analytics.Parameter("value", revenue),
+            new Firebase.Analytics.Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
+        };
+        Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+    }
+
 
     #endregion
 }
